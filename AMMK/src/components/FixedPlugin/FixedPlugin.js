@@ -23,6 +23,7 @@ class FixedPlugin extends Component {
     this.state = {
       classes: "dropdown show-dropdown"
     };
+    this.bgcolor = "info";
   }
   handleClick = () => {
     if (this.state.classes === "dropdown show-dropdown") {

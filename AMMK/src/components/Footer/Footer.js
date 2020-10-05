@@ -60,7 +60,7 @@ class Footer extends React.Component {
             </NavItem>
           </Nav>
           <div className="copyright">
-            Link a recursos y documentación de Creative Tim -> <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a>
+            Link a recursos y documentación de Creative Tim -> <a href="https://demos.creative-tim.com/black-dashboard-react/?_ga=2.193242788.866508290.1601843490-753996812.1601843490#/documentation/tutorial" target="_blank">Creative Tim</a>
           </div>
         </Container>
       </footer>

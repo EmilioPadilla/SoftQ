@@ -72,6 +72,14 @@ var routes = [
     layout: "/admin"
   },
   {
+    path: "/tables",
+    name: "Prueba",
+    rtlName: "قائمة الجدول",
+    icon: "tim-icons icon-single-02",
+    component: TableList,
+    layout: "/admin"
+  },
+  {
     path: "/typography",
     name: "Finanzas",
     rtlName: "طباعة",
