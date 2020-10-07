@@ -17,6 +17,8 @@
 */
 import Dashboard from "views/Dashboard.js";
 import Notifications from "views/Notifications.js";
+import RE2 from "views/RE2";
+import RE3 from "views/RE3";
 import Rtl from "views/Rtl.js";
 import TableList from "views/TableList.js";
 import Typography from "views/Typography.js";
@@ -31,6 +33,7 @@ var routes = [
     component: Dashboard,
     layout: "/admin"
   },
+  
   // {
   //   path: "/icons",
   //   name: "Icons",
@@ -95,6 +98,24 @@ var routes = [
     component: Typography,
     layout: "/admin"
   },
+  {
+    path: "/RE2",
+    name: "Registro Empleado parte 2",
+    rtlName: "طباعة",
+    icon: "tim-icons icon-single-02",
+    component: RE2,
+    layout: "/admin"
+  },
+  {
+    path: "/RE3",
+    name: "Registro Empleado parte 3",
+    rtlName: "طباعة",
+    icon: "tim-icons icon-single-02",
+    component: RE3,
+    layout: "/admin"
+  },
+  
+  
   // SE BORRARÁ UNA VEZ QUE TODOS ENTIENDAN EL CONCEPTO DE RTL SUPPORT
   {
     path: "/rtl-support",
