@@ -20,6 +20,8 @@ import Notifications from "views/Notifications.js";
 import RE2 from "views/RE2";
 import RE3 from "views/RE3";
 import Rtl from "views/Rtl.js";
+import PrincipalDonantes from "views/PrincipalDonantes.js";
+
 import TableList from "views/TableList.js";
 import Typography from "views/Typography.js";
 import UserProfile from "views/UserProfile.js";
@@ -67,21 +69,14 @@ var routes = [
     layout: "/admin"
   },
   {
-    path: "/tables",
+    path: "/donantes",
     name: "Donantes",
     rtlName: "قائمة الجدول",
     icon: "tim-icons icon-single-02",
-    component: TableList,
+    component: PrincipalDonantes,
     layout: "/admin"
   },
-  {
-    path: "/tables",
-    name: "Prueba",
-    rtlName: "قائمة الجدول",
-    icon: "tim-icons icon-single-02",
-    component: TableList,
-    layout: "/admin"
-  },
+  
   {
     path: "/typography",
     name: "Finanzas",
