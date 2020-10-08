@@ -2,13 +2,10 @@ import React, { Component } from "react";
 import { Dropdown, Table } from "reactstrap";
 import {
   FormGroup,
-  Form,
   Input,
   Row,
   Col,
-  Progress,
   Label,
-  CustomInput,
 } from "reactstrap";
 
 class PrincipalDonantes extends Component {
