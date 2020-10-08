@@ -7,6 +7,7 @@ import {
   Col,
   Label,
 } from "reactstrap";
+import ModalRegistrarDonacion from "./ModalRegistrarDonacion"
 
 class PrincipalDonantes extends Component {
   render() {
@@ -25,6 +26,7 @@ class PrincipalDonantes extends Component {
                   </Input>
                 </FormGroup>
               </Col>
+              <ModalRegistrarDonacion/>
 
               <Col className="pl-md-1" md="6">
                 <FormGroup>

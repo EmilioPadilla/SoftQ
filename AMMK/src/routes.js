@@ -25,6 +25,7 @@ import Facturacion from "views/Facturacion";
 import TableList from "views/TableList.js";
 import Typography from "views/Typography.js";
 import UserProfile from "views/UserProfile.js";
+import PrincipalDonantes from "views/PrincipalDonantes";
 
 var routes = [
   {
@@ -73,7 +74,7 @@ var routes = [
     name: "Donantes",
     rtlName: "قائمة الجدول",
     icon: "tim-icons icon-single-02",
-    component: Facturacion,
+    component: PrincipalDonantes,
     layout: "/admin"
   },
   

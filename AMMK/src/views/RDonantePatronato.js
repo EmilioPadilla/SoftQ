@@ -15,7 +15,6 @@ class RDonantesPatronato extends Component {
           
            <h3 align="center">(Particular/Patronato)</h3>
         
-          <ProgressBar now={30} />
                   <br/>
           <div class="container"></div>
           <Form>
