@@ -19,7 +19,6 @@ import React from "react";
 
 // reactstrap components
 import {
-  Button,
   Card,
   CardHeader,
   CardBody,
@@ -131,10 +130,10 @@ class UserProfile extends React.Component {
                   </Form>
                 </CardBody>
                 <CardFooter>
-                  <Col className="pl-11" md="4">
-                    <Button className="btn-fill" color="info" type="submit" id="ContRE2">
-                      Siguiente
-                    </Button>
+                  <Col  md="12" align="right">
+                  <a href="/admin/RE2">
+                    <button className="btn btn-outline-primary" onClick={() => { this.handleClick() }}>Siguiente</button>
+                  </a>
                   </Col>
                 </CardFooter>
               </Card>

@@ -1,8 +1,8 @@
 import React from "react";
 
+
 // reactstrap components
 import {
-  Button,
   Card,
   CardHeader,
   CardBody,
@@ -16,8 +16,11 @@ import {
   Label,
   CustomInput
 } from "reactstrap";
+ 
 
 class RE2 extends React.Component {
+  
+
   render() {
     return (
       <>
@@ -132,16 +135,24 @@ class RE2 extends React.Component {
                   </Form>
                 </CardBody>
                 <CardFooter>
-                  <Col className="pl-11" md="4">
-                    <Button className="btn-fill" color="info" type="submit">
-                      Siguiente
-                    </Button>
+                  <Row>
+                  <Col  md="6">
+                  <a href="/admin/user-profile">
+                    <button className="btn btn-outline-primary" onClick={() => { this.handleClick() }}>Regresar</button>
+                  </a>  
                   </Col>
+                  <Col md="6" align="right">
+                  <a href="/admin/RE3">
+                    <button className="btn btn-outline-primary" onClick={() => { this.handleClick() }}>Siguiente</button>
+                  </a>  
+                  </Col>
+                  </Row>
                 </CardFooter>
               </Card>
             </Col>
           </Row>
           
+
         </div>
       </>
     );
