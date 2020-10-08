@@ -3,6 +3,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Col";
 import ProgressBar from "react-bootstrap/ProgressBar";
+import Col from "react-bootstrap/Col";
 
 
 class RDonantesPatronato extends Component {
@@ -11,7 +12,9 @@ class RDonantesPatronato extends Component {
       <div className="content">
         <div class="container-fluid">
           <h1 className="title">Registrar Donante</h1>
-          <br/>
+          
+           <h3 align="center">(Particular/Patronato)</h3>
+        
           <ProgressBar now={30} />
                   <br/>
           <div class="container"></div>
@@ -56,10 +59,13 @@ class RDonantesPatronato extends Component {
                 <Form.Control type="text" placeholder="234 3344" />
               </Form.Group>
             </Form.Row>
-            <Button variant="primary" type="submit">
-              Submit
-            </Button>
+             
           </Form>
+          <Col align="right">
+            <a href="/admin/Facturacion">
+                    <Button className="btn btn-outline-primary" onClick={() => { this.handleClick() }}>Siguiente</Button>
+                  </a>
+                  </Col> 
         </div>
       </div>
     );

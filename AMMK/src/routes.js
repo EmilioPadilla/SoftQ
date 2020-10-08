@@ -20,7 +20,7 @@ import Notifications from "views/Notifications.js";
 import RE2 from "views/RE2";
 import RE3 from "views/RE3";
 import Rtl from "views/Rtl.js";
-import RDonantePatronato from "views/RDonantePatronato";
+import RDonanteGobierno from "views/RDonanteGobierno";
 
 import TableList from "views/TableList.js";
 import Typography from "views/Typography.js";
@@ -73,7 +73,7 @@ var routes = [
     name: "Donantes",
     rtlName: "قائمة الجدول",
     icon: "tim-icons icon-single-02",
-    component: RDonantePatronato,
+    component: RDonanteGobierno,
     layout: "/admin"
   },
   
