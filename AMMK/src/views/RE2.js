@@ -1,6 +1,7 @@
 import React from "react";
 
 
+
 // reactstrap components
 import {
   Card,
@@ -25,6 +26,7 @@ class RE2 extends React.Component {
     return (
       <>
         <div className="content">
+          
           <Row>
             <Col md="12">
               <Card>
@@ -151,7 +153,6 @@ class RE2 extends React.Component {
               </Card>
             </Col>
           </Row>
-          
 
         </div>
       </>
