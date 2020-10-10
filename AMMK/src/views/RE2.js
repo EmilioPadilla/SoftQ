@@ -19,7 +19,7 @@ import {
   CustomInput
 } from "reactstrap";
 
-import CuentaEmpleados from "components/Cuentas/CuentaEmpleado" 
+
 
 class RE2 extends React.Component {
   
@@ -155,9 +155,6 @@ class RE2 extends React.Component {
               </Card>
             </Col>
           </Row>
-          <CuentaEmpleados>
-
-          </CuentaEmpleados>
         </div>
       </>
     );
