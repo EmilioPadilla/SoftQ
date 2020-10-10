@@ -40,7 +40,7 @@ export class LoginForm extends React.Component{
                                         <label>Contraseña</label>
                                         <Input
                                             placeholder=""
-                                            type="text"
+                                            type="password"
                                         />    
                                     </FormGroup>
                                 </div>
