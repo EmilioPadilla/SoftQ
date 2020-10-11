@@ -18,6 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/test', function () {
-    return ['name'=>"si funciono"];
-});
+Route::get('/', 'PostController@get');
+Route::get('/', 'PostController@delete');
+Route::get('/', 'PostController@put');
+Route::get('/', 'PostController@post');
