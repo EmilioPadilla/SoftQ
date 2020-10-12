@@ -16,10 +16,10 @@ import {
   Label,
   CustomInput
 } from "reactstrap";
- 
+
 
 class RE2 extends React.Component {
-  
+
 
   render() {
     return (
@@ -60,8 +60,8 @@ class RE2 extends React.Component {
                           <label>
                             #Int
                           </label>
-                          <Input 
-                            placeholder="" 
+                          <Input
+                            placeholder=""
                             type="text"
                           />
                         </FormGroup>
@@ -71,8 +71,8 @@ class RE2 extends React.Component {
                           <label>
                             C.P
                           </label>
-                          <Input 
-                            placeholder="" 
+                          <Input
+                            placeholder=""
                             type="text"
                           />
                         </FormGroup>
@@ -139,19 +139,19 @@ class RE2 extends React.Component {
                   <Col  md="6">
                   <a href="/admin/user-profile">
                     <button className="btn btn-outline-primary" onClick={() => { this.handleClick() }}>Regresar</button>
-                  </a>  
+                  </a>
                   </Col>
                   <Col md="6" align="right">
                   <a href="/admin/RE3">
                     <button className="btn btn-outline-primary" onClick={() => { this.handleClick() }}>Siguiente</button>
-                  </a>  
+                  </a>
                   </Col>
                   </Row>
                 </CardFooter>
               </Card>
             </Col>
           </Row>
-          
+
 
         </div>
       </>

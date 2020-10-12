@@ -17,9 +17,9 @@
 */
 import Dashboard from "views/Dashboard.js";
 import Notifications from "views/Notifications.js";
-import RE2 from "views/RE2";
-import RE3 from "views/RE3";
 import Rtl from "views/Rtl.js";
+import RE2 from "views/RE3.js";
+
 import TableList from "views/TableList.js";
 import Typography from "views/Typography.js";
 import UserProfile from "views/UserProfile.js";
@@ -33,23 +33,6 @@ var routes = [
     component: Dashboard,
     layout: "/admin"
   },
-  
-  // {
-  //   path: "/icons",
-  //   name: "Icons",
-  //   rtlName: "الرموز",
-  //   icon: "tim-icons icon-atom",
-  //   component: Icons,
-  //   layout: "/admin"
-  // },
-  // {
-  //   path: "/map",
-  //   name: "Map",
-  //   rtlName: "خرائط",
-  //   icon: "tim-icons icon-pin",
-  //   component: Map,
-  //   layout: "/admin"
-  // },
   {
     path: "/notifications",
     name: "Beneficiarias",
@@ -62,7 +45,7 @@ var routes = [
     path: "/user-profile",
     name: "Empleados",
     rtlName: "ملف تعريفي للمستخدم",
-    icon: "tim-icons icon-single-02",
+    icon: "tim-icons icon-badge",
     component: UserProfile,
     layout: "/admin"
   },
@@ -98,24 +81,7 @@ var routes = [
     component: Typography,
     layout: "/admin"
   },
-  {
-    path: "/RE2",
-    name: "Registro Empleado parte 2",
-    rtlName: "طباعة",
-    icon: "tim-icons icon-single-02",
-    component: RE2,
-    layout: "/admin"
-  },
-  {
-    path: "/RE3",
-    name: "Registro Empleado parte 3",
-    rtlName: "طباعة",
-    icon: "tim-icons icon-single-02",
-    component: RE3,
-    layout: "/admin"
-  },
-  
-  
+
   // SE BORRARÁ UNA VEZ QUE TODOS ENTIENDAN EL CONCEPTO DE RTL SUPPORT
   {
     path: "/rtl-support",
@@ -124,6 +90,11 @@ var routes = [
     icon: "tim-icons icon-world",
     component: Rtl,
     layout: "/rtl"
+  },
+  {
+    path: "/RE2",
+    component: RE2,
+    layout: "/admin"
   }
 ];
 export default routes;

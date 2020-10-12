@@ -17,6 +17,8 @@
 */
 import React from "react";
 
+import { Link } from "react-router-dom";
+
 // reactstrap components
 import {
   Card,
@@ -33,113 +35,118 @@ import {
   Label
 } from "reactstrap";
 
-
-
+//
+// <Switch>
+//   <Route exact path='/RE2' component={RE2}> </Route>
+//   <Route exact path='/RE3' component={RE3}> </Route>
+// </Switch>
 
 class UserProfile extends React.Component {
   render() {
     return (
       <>
         <div className="content">
-          <Row>
-            <Col md="12">
-              <Card>
-                <CardHeader>
-                  <Progress value="33.33" />
-                  <br/>
-                  <h5 className="title">Registrar Empleado</h5>
-                </CardHeader>
-                <CardBody>
-                  <Form>
-                    <Row>
-                      <Col className="pl-md-1" md="7">
-                        <FormGroup>
-                          <label>Nombre Completo</label>
-                          <Input
-                            defaultValue=""
-                            placeholder="Juan Perez Díaz"
-                            type="text"
-                          />
-                        </FormGroup>
-                      </Col>
-                      <Col className="pl-md-1" md="6">
-                        <FormGroup>
-                          <label>
-                            Fecha de nacimiento
-                          </label>
-                          <Input type="date" />
-                        </FormGroup>
-                      </Col>
-                      <Col className="pl-md-1" md="6">
-                        <FormGroup>
-                        <Label for="ActNac">Acta de nacimiento</Label>
-                        <CustomInput type="file" name="customFile" id="ActNac" label="Selecciona un archivo"/>
-                        </FormGroup>
-                      </Col>
-                      <Col className="pl-md-1" md="6">
-                        <FormGroup>
-                          <label>RFC</label>
-                          <Input
-                            placeholder="Username"
-                            type="text"
-                          />
-                        </FormGroup>
-                      </Col>
-                      <Col className="pl-md-1" md="6">
-                        <FormGroup>
-                        <Label for="DocRFC">Carga de RFC</Label>
-                        <CustomInput type="file" name="customFile" id="DocRFC" label="Selecciona un archivo"/>
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col className="pl-md-1" md="6">
-                        <FormGroup>
-                          <label>CURP</label>
-                          <Input
-                            placeholder="Company"
-                            type="text"
-                          />
-                        </FormGroup>
-                      </Col>
-                      <Col className="pl-md-1" md="6">
-                        <FormGroup>
-                        <Label for="DocCurp">Carga de Curp</Label>
-                        <CustomInput type="file" name="customFile" id="DocCurp" label="Selecciona un archivo"/>
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col className="pl-md-1" md="6">
-                        <FormGroup>
-                          <label>Num Seguridad Social</label>
-                          <Input
-                            defaultValue="Mike"
-                            placeholder="City"
-                            type="text"
-                          />
-                        </FormGroup>
-                      </Col>
-                      <Col className="pl-md-1" md="6">
-                        <FormGroup>
-                        <Label for="DocIne">Carga de INE</Label>
-                        <CustomInput type="file" name="customFile" id="DocIne" label="Selecciona un archivo"/>
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                  </Form>
-                </CardBody>
-                <CardFooter>
-                  <Col  md="12" align="right">
-                  <a href="/admin/RE2">
-                    <button className="btn btn-outline-primary" onClick={() => { this.handleClick() }}>Siguiente</button>
-                  </a>
-                  </Col>
-                </CardFooter>
-              </Card>
-            </Col>
-          </Row>
+              <Col>
+                <Card>
+                  <CardHeader>
+                    <Progress value="33.33" />
+                    <br/>
+                    <h5 className="title">Registrar Empleado</h5>
+                  </CardHeader>
+                  <CardBody>
+                    <Form>
+                      <Row>
+                        <Col className="pl-md-1" md="6">
+                          <FormGroup>
+                            <label>Nombre Completo</label>
+                            <Input
+                              defaultValue=""
+                              placeholder="Juan Perez Díaz"
+                              type="text"
+                            />
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col className="pl-md-1" md="6">
+                          <FormGroup>
+                            <label>
+                              Fecha de nacimiento
+                            </label>
+                            <Input type="date" />
+                          </FormGroup>
+                        </Col>
+                        <Col className="pl-md-1" md="6">
+                          <FormGroup>
+                            <label>RFC</label>
+                            <Input
+                              placeholder="PAMP951122QQ3"
+                              type="text"
+                            />
+                          </FormGroup>
+                        </Col>
+                        <Col className="pl-md-1" md="6">
+                          <FormGroup>
+                            <label>CURP</label>
+                            <Input
+                              placeholder="PAMP951122HGTDMM05"
+                              type="text"
+                            />
+                          </FormGroup>
+                        </Col>
+                        <Col className="pl-md-1" md="6">
+                          <FormGroup>
+                            <label>Número de Seguro Social</label>
+                            <Input
+                              defaultValue="Mike"
+                              placeholder="City"
+                              type="text"
+                            />
+                          </FormGroup>
+                        </Col>
+                      </Row>
+
+                      <Row>
+                        <Col className="pl-md-1" md="6">
+                          <FormGroup>
+                          <Label for="DocRFC">Carga de RFC</Label>
+                          <CustomInput type="file" name="customFile" id="DocRFC" label="Selecciona un archivo"/>
+                          </FormGroup>
+                        </Col>
+                        <Col className="pl-md-1" md="6">
+                          <FormGroup>
+                          <Label for="DocCurp">Carga de Curp</Label>
+                          <CustomInput type="file" name="customFile" id="DocCurp" label="Selecciona un archivo"/>
+                          </FormGroup>
+                        </Col>
+                        <Col className="pl-md-1" md="6">
+                          <FormGroup>
+                          <Label for="DocIne">Carga de INE</Label>
+                          <CustomInput type="file" name="customFile" id="DocIne" label="Selecciona un archivo"/>
+                          </FormGroup>
+                        </Col>
+                        <Col className="pl-md-1" md="6">
+                          <FormGroup>
+                          <Label for="ActNac">Acta de nacimiento</Label>
+                          <CustomInput type="file" name="customFile" id="ActNac" label="Selecciona un archivo"/>
+                          </FormGroup>
+                        </Col>
+
+                      </Row>
+                    </Form>
+                  </CardBody>
+                  <CardFooter>
+                    <Col  md="12" align="right">
+                      <Link to='/RE2'>
+                        <button className="btn btn-outline-primary">Siguiente</button>
+                      </Link>
+                    </Col>
+                  </CardFooter>
+                </Card>
+              </Col>
+
         </div>
+
       </>
     );
   }
