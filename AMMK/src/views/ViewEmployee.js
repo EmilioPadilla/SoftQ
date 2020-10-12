@@ -12,7 +12,8 @@ import AccountPlusIcon from 'mdi-react/AccountPlusIcon';
 import AccountSearchIcon from 'mdi-react/AccountSearchIcon';
 import DeleteIcon from 'mdi-react/DeleteIcon';
 
-import ViewEmployeeTable from "components/Employees/ViewEmployeeTable.js"
+
+import ViewEmployeeTable from "components/Employees/ViewEmployeeTable.js";
 
 // reactstrap components
 import {
@@ -87,7 +88,11 @@ class ViewEmployee extends React.Component {
          </Col>
         </Row>
         <ViewEmployeeTable/>
+        <div>
+
         </div>
+        </div>
+
     </>
     );
   }

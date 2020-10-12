@@ -9,6 +9,7 @@ import React from "react";
 
 import AccountSearchIcon from 'mdi-react/AccountSearchIcon';
 import DeleteIcon from 'mdi-react/DeleteIcon';
+import ModalExitEmployee from "components/Employees/ModalExitEmployee.js";
 
 // reactstrap components
 import {
@@ -38,7 +39,7 @@ import {
                         <th>Nombre</th>
                         <th>RFC</th>
                         <th>Puesto</th>
-                        <th className="text-center">Acciones</th>
+                        <th>Acciones</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -46,10 +47,15 @@ import {
                         <td>Dakota Rice</td>
                         <td>Niger</td>
                         <td>Enfermero</td>
-                        <td className="text-center">
+                        <td >
+                          <Row>
+                            <Col md="3">
                             <button type="button" class="btn btn-info btn-sm"><AccountSearchIcon/></button>
-                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                          <button type="button" class="btn btn-danger btn-sm"><DeleteIcon/></button>
+                          </Col>
+                          <Col md="3">
+                            <ModalExitEmployee buttonLabel={<DeleteIcon/>}/>
+                          </Col>
+                        </Row>
                         </td>
                       </tr>
                       <tr>
@@ -57,8 +63,14 @@ import {
                         <td>Curaçao</td>
                         <td>Chofer</td>
                         <td className="text-center">
-                          <button type="button" class="btn btn-info btn-sm"><AccountSearchIcon/></button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                          <button type="button" class="btn btn-danger btn-sm"><DeleteIcon/></button>
+                          <Row>
+                            <Col md="3">
+                            <button type="button" class="btn btn-info btn-sm"><AccountSearchIcon/></button>
+                          </Col>
+                          <Col md="3">
+                            <ModalExitEmployee buttonLabel={<DeleteIcon/>}/>
+                          </Col>
+                        </Row>
                         </td>
                       </tr>
                       <tr>
@@ -66,8 +78,14 @@ import {
                         <td>Netherlands</td>
                         <td>Administrador</td>
                         <td className="text-center">
-                          <button type="button" class="btn btn-info btn-sm"><AccountSearchIcon/></button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                          <button type="button" class="btn btn-danger btn-sm"><DeleteIcon/></button>
+                          <Row>
+                            <Col md="3">
+                            <button type="button" class="btn btn-info btn-sm"><AccountSearchIcon/></button>
+                          </Col>
+                          <Col md="3">
+                            <ModalExitEmployee buttonLabel={<DeleteIcon/>}/>
+                          </Col>
+                        </Row>
                         </td>
                       </tr>
                       <tr>
@@ -75,8 +93,14 @@ import {
                         <td>Korea, South</td>
                         <td>Cocinero</td>
                         <td className="text-center">
-                          <button type="button" class="btn btn-info btn-sm"><AccountSearchIcon/></button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                          <button type="button" class="btn btn-danger btn-sm"><DeleteIcon/></button>
+                          <Row>
+                            <Col md="3">
+                            <button type="button" class="btn btn-info btn-sm"><AccountSearchIcon/></button>
+                          </Col>
+                          <Col md="3">
+                            <ModalExitEmployee buttonLabel={<DeleteIcon/>}/>
+                          </Col>
+                        </Row>
                         </td>
                       </tr>
                       <tr>
@@ -84,8 +108,14 @@ import {
                         <td>Malawi</td>
                         <td>Cuidadora</td>
                         <td className="text-center">
-                          <button type="button" class="btn btn-info btn-sm"><AccountSearchIcon/></button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                          <button type="button" class="btn btn-danger btn-sm"><DeleteIcon/></button>
+                          <Row>
+                            <Col md="3">
+                            <button type="button" class="btn btn-info btn-sm"><AccountSearchIcon/></button>
+                          </Col>
+                          <Col md="3">
+                            <ModalExitEmployee buttonLabel={<DeleteIcon/>}/>
+                          </Col>
+                        </Row>
                         </td>
                       </tr>
                       <tr>
@@ -93,8 +123,14 @@ import {
                         <td>Chile</td>
                         <td>Enfermera</td>
                         <td className="text-center">
-                          <button type="button" class="btn btn-info btn-sm"><AccountSearchIcon/></button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                          <button type="button" class="btn btn-danger btn-sm"><DeleteIcon/></button>
+                          <Row>
+                            <Col md="3">
+                            <button type="button" class="btn btn-info btn-sm"><AccountSearchIcon/></button>
+                          </Col>
+                          <Col md="3">
+                            <ModalExitEmployee buttonLabel={<DeleteIcon/>}/>
+                          </Col>
+                        </Row>
                         </td>
                       </tr>
                       <tr>
@@ -102,8 +138,14 @@ import {
                         <td>Portugal</td>
                         <td>Enfermera</td>
                         <td className="text-center">
-                          <button type="button" class="btn btn-info btn-sm"><AccountSearchIcon/></button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                          <button type="button" class="btn btn-danger btn-sm"><DeleteIcon/></button>
+                          <Row>
+                            <Col md="3">
+                            <button type="button" class="btn btn-info btn-sm"><AccountSearchIcon/></button>
+                          </Col>
+                          <Col md="3">
+                            <ModalExitEmployee buttonLabel={<DeleteIcon/>}/>
+                          </Col>
+                        </Row>
                         </td>
                       </tr>
                     </tbody>
