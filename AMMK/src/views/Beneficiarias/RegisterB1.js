@@ -74,7 +74,7 @@ export default class RegisterB1 extends Component {
                         </FormGroup>
                         </Col>
                         </Row>
-                        
+
                         <FormGroup>
                             <FontAwesomeIcon icon={['fas', 'file-upload']} />
                             <Label for="exampleInputEmail1">&nbsp;Carga de INE:</Label>
