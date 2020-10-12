@@ -18,12 +18,12 @@
 import Dashboard from "views/Dashboard.js";
 import Notifications from "views/Notifications.js";
 import Rtl from "views/Rtl.js";
-import RE2 from "views/RE3.js";
 import RE3 from "views/RE3.js";
+import RE2 from "views/RE2.js";
 
 import TableList from "views/TableList.js";
 import Typography from "views/Typography.js";
-import UserProfile from "views/UserProfile.js";
+import UserProfile from "views/RE.js";
 import EmployeeCalendar from "views/EmployeeCalendar.js";
 
 var routes = [
@@ -92,7 +92,7 @@ var routes = [
   },
   {
     path: "/RE2",
-    name: "Registro Empleado parte 2",
+    name: "Empleados",
     rtlName: "طباعة",
     icon: "tim-icons icon-single-02",
     component: RE2,
@@ -101,7 +101,7 @@ var routes = [
   },
   {
     path: "/RE3",
-    name: "Registro Empleado parte 3",
+    name: "Empleados",
     rtlName: "طباعة",
     icon: "tim-icons icon-single-02",
     component: RE3,
@@ -117,6 +117,16 @@ var routes = [
     layout: "/admin",
     showInSidebar: false
   },
+  {
+    path: "/employee-calendar",
+    name: "Calendario Empleado",
+    rtlName: "طباعة",
+    icon: "tim-icons icon-single-02",
+    component: EmployeeCalendar,
+    layout: "/admin",
+    showInSidebar: false
+  },
+
 
 
   // SE BORRARÁ UNA VEZ QUE TODOS ENTIENDAN EL CONCEPTO DE RTL SUPPORT
@@ -126,12 +136,8 @@ var routes = [
     rtlName: "ار تي ال",
     icon: "tim-icons icon-world",
     component: Rtl,
-    layout: "/rtl"
-  },
-  {
-    path: "/RE2",
-    component: RE2,
-    layout: "/admin"
+    layout: "/rtl",
+    showInSidebar: true
   }
 ];
 export default routes;
