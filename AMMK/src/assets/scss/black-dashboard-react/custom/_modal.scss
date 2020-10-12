@@ -2,10 +2,18 @@
 // Design element Dialogs
 // --------------------------------------------------
 .modal-content {
-  border: 0;
+  border: 5;
+  color: $info;
 
   // Modal header
   // Top section of the modal w/ title and dismiss
+
+  .input {
+    color: $black;
+  }
+  .input::placeholder {
+    color: $red;
+  }
 
   .modal-header {
     border-bottom: none;
@@ -19,13 +27,16 @@
         margin: -1rem -1rem -1rem auto;
     }
     .title{
-        color: $black;
+        color: $info;
         margin-top: 5px;
         margin-bottom: 0;
+        font-size: 40px;
     }
 
     .modal-title{
-      color: $black;
+      color: $info;
+      font-size: 30px;
+
     }
 
     i.tim-icons {
@@ -41,6 +52,7 @@
 
     p{
       color: $black;
+
     }
   }
   // Footer (for actions)

@@ -139,7 +139,7 @@ class RegisterEmployee2 extends React.Component {
               </Card>
               <Row>
               <Col  md="6">
-              <a href="/admin/user-profile">
+              <a href="/admin/register-employee">
                 <button className="btn btn-info" onClick={() => { this.handleClick() }}>Regresar</button>
               </a>
               </Col>

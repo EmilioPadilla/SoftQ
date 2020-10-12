@@ -36,6 +36,9 @@ class Tables extends React.Component {
           <Row>
             <Col md="12">
               <Card>
+                <CardHeader>
+                  <CardTitle tag="h4">Simple Table</CardTitle>
+                </CardHeader>
                 <CardBody>
                   <Table className="tablesorter" responsive>
                     <thead className="text-primary">

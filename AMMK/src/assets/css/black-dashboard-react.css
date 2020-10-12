@@ -8787,7 +8787,12 @@ img {
   box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3); }
 
 .modal-content {
-  border: 0; }
+  border: 5;
+  color: #3374A4; }
+  .modal-content .input {
+    color: #222a42; }
+  .modal-content .input::placeholder {
+    color: #f5365c; }
   .modal-content .modal-header {
     border-bottom: none; }
     .modal-content .modal-header button {
@@ -8798,11 +8803,13 @@ img {
       padding: 1rem;
       margin: -1rem -1rem -1rem auto; }
     .modal-content .modal-header .title {
-      color: #222a42;
+      color: #3374A4;
       margin-top: 5px;
-      margin-bottom: 0; }
+      margin-bottom: 0;
+      font-size: 40px; }
     .modal-content .modal-header .modal-title {
-      color: #222a42; }
+      color: #3374A4;
+      font-size: 30px; }
     .modal-content .modal-header i.tim-icons {
       font-size: 16px; }
   .modal-content .modal-body {
