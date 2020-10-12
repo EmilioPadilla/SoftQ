@@ -19,10 +19,12 @@ import Dashboard from "views/Dashboard.js";
 import Notifications from "views/Notifications.js";
 import Rtl from "views/Rtl.js";
 import RE2 from "views/RE3.js";
+import RE3 from "views/RE3.js";
 
 import TableList from "views/TableList.js";
 import Typography from "views/Typography.js";
 import UserProfile from "views/UserProfile.js";
+import EmployeeCalendar from "views/EmployeeCalendar.js";
 
 var routes = [
   {
@@ -31,7 +33,8 @@ var routes = [
     rtlName: "لوحة القيادة",
     icon: "tim-icons icon-chart-pie-36",
     component: Dashboard,
-    layout: "/admin"
+    layout: "/admin",
+    showInSidebar: true
   },
   {
     path: "/notifications",
@@ -39,7 +42,8 @@ var routes = [
     rtlName: "إخطارات",
     icon: "tim-icons icon-single-02",
     component: Notifications,
-    layout: "/admin"
+    layout: "/admin",
+    showInSidebar: true
   },
   {
     path: "/user-profile",
@@ -47,7 +51,8 @@ var routes = [
     rtlName: "ملف تعريفي للمستخدم",
     icon: "tim-icons icon-badge",
     component: UserProfile,
-    layout: "/admin"
+    layout: "/admin",
+    showInSidebar: true
   },
   {
     path: "/tables",
@@ -55,7 +60,8 @@ var routes = [
     rtlName: "قائمة الجدول",
     icon: "tim-icons icon-single-02",
     component: TableList,
-    layout: "/admin"
+    layout: "/admin",
+    showInSidebar: true
   },
   {
     path: "/tables",
@@ -63,7 +69,8 @@ var routes = [
     rtlName: "قائمة الجدول",
     icon: "tim-icons icon-single-02",
     component: TableList,
-    layout: "/admin"
+    layout: "/admin",
+    showInSidebar: true
   },
   {
     path: "/typography",
@@ -71,7 +78,8 @@ var routes = [
     rtlName: "طباعة",
     icon: "tim-icons icon-single-02",
     component: Typography,
-    layout: "/admin"
+    layout: "/admin",
+    showInSidebar: true
   },
   {
     path: "/typography",
@@ -79,8 +87,37 @@ var routes = [
     rtlName: "طباعة",
     icon: "tim-icons icon-single-02",
     component: Typography,
-    layout: "/admin"
+    layout: "/admin",
+    showInSidebar: true
   },
+  {
+    path: "/RE2",
+    name: "Registro Empleado parte 2",
+    rtlName: "طباعة",
+    icon: "tim-icons icon-single-02",
+    component: RE2,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+    path: "/RE3",
+    name: "Registro Empleado parte 3",
+    rtlName: "طباعة",
+    icon: "tim-icons icon-single-02",
+    component: RE3,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+    path: "/employee-calendar",
+    name: "Calendario Empleado",
+    rtlName: "طباعة",
+    icon: "tim-icons icon-single-02",
+    component: EmployeeCalendar,
+    layout: "/admin",
+    showInSidebar: false
+  },
+
 
   // SE BORRARÁ UNA VEZ QUE TODOS ENTIENDAN EL CONCEPTO DE RTL SUPPORT
   {
