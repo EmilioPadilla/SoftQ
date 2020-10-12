@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
 // reactstrap components
-import { Card, CardHeader, CardBody, Form, FormGroup, Label, Input, CustomInput, Progress, Col, Alert} from "reactstrap";
+import { Card, CardHeader, CardBody, Form, FormGroup, Label, Input, CustomInput, Progress, Col, Alert, Row} from "reactstrap";
 
 //Importing Icon library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -36,12 +36,16 @@ export default class RegisterB1 extends Component {
                             <Input type="text" class="form-control" id="apodo" placeholder="Mary"></Input>
                         </FormGroup>
 
+                        <Row>
+                        <Col md="6">
                         <FormGroup>
                             <FontAwesomeIcon icon={['fas', 'calendar-alt']} />
                             <Label for="fechaNacimiento">&nbsp;Fecha de nacimiento:</Label>
-                            <input type="date" class="form-control" id="fechaNacimiento" placeholder=""></input>
+                            <Input type="date"></Input>
                         </FormGroup>
+                        </Col>
 
+                        <Col md="6">
                         <FormGroup>
                             <FontAwesomeIcon icon={['fas', 'file-upload']} />
                             <Label for="exampleInputEmail1">&nbsp;Carga de acta de nacimiento:</Label>
@@ -49,12 +53,18 @@ export default class RegisterB1 extends Component {
                             </CustomInput>
                             <span class="badge badge-light">* Recuerda subir un archivo .pdf, .doc/x, .xls/x or .ppt/x</span>
                         </FormGroup>
-        
+                        </Col>
+                        </Row>
+
+                        <Row>
+                        <Col md="6">
                         <FormGroup>
                             <Label for="exampleInputEmail1">CURP:</Label>
                             <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="XEXX010101HNEXXXA4"></input>
                         </FormGroup>
+                        </Col>
 
+                        <Col md="6">
                         <FormGroup>
                             <FontAwesomeIcon icon={['fas', 'file-upload']} />
                             <Label for="exampleInputEmail1">&nbsp;Carga de CURP:</Label>
@@ -62,7 +72,9 @@ export default class RegisterB1 extends Component {
                             </CustomInput>
                             <span class="badge badge-light">* Recuerda subir un archivo .pdf, .doc/x, .xls/x or .ppt/x</span>
                         </FormGroup>
-
+                        </Col>
+                        </Row>
+                        
                         <FormGroup>
                             <FontAwesomeIcon icon={['fas', 'file-upload']} />
                             <Label for="exampleInputEmail1">&nbsp;Carga de INE:</Label>
@@ -74,7 +86,7 @@ export default class RegisterB1 extends Component {
                     </CardBody>
                 </Card>
                 <Col  md="12" align="right">
-                  <Link to='/admin/RegisterB2'>
+                  <Link to='/admin/Beneficiarias/RegisterB2'>
                   <button type="submit" class="btn btn-primary">Siguiente&nbsp;<FontAwesomeIcon icon={['fas', 'arrow-circle-right']} /></button>
                   </Link>
                 </Col>
