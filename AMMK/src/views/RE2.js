@@ -34,7 +34,7 @@ class RE2 extends React.Component {
                 <CardHeader>
                   <Progress value="66.6" />
                   <br/>
-                  <h5 className="title">Registrar Empleado</h5>
+                  <h3 className="title">Registrar Empleado</h3>
                 </CardHeader>
                 <CardBody>
                   <Form>
@@ -137,21 +137,19 @@ class RE2 extends React.Component {
                     </Row>
                   </Form>
                 </CardBody>
-                <CardFooter>
-                  <Row>
-                  <Col  md="6">
-                  <a href="/admin/user-profile">
-                    <button className="btn btn-outline-primary" onClick={() => { this.handleClick() }}>Regresar</button>
-                  </a>
-                  </Col>
-                  <Col md="6" align="right">
-                  <a href="/admin/RE3">
-                    <button className="btn btn-outline-primary" onClick={() => { this.handleClick() }}>Siguiente</button>
-                  </a>
-                  </Col>
-                  </Row>
-                </CardFooter>
               </Card>
+              <Row>
+              <Col  md="6">
+              <a href="/admin/user-profile">
+                <button className="btn btn-outline-primary" onClick={() => { this.handleClick() }}>Regresar</button>
+              </a>
+              </Col>
+              <Col md="6" align="right">
+              <a href="/admin/RE3">
+                <button className="btn btn-outline-primary" onClick={() => { this.handleClick() }}>Siguiente</button>
+              </a>
+              </Col>
+              </Row>
             </Col>
           </Row>
 

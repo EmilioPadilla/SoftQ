@@ -17,6 +17,8 @@ import {
   CustomInput
 } from "reactstrap";
 
+import EmployeeCalendarTable from "components/EmployeeCalendarTable.js"
+
 class RE3 extends React.Component {
   render() {
     return (
@@ -28,12 +30,13 @@ class RE3 extends React.Component {
                 <CardHeader>
                   <Progress value="100" />
                   <br/>
-                  <h5 className="title">Registrar Empleado</h5>
+                  <h3 className="title">Registrar Empleado</h3>
                 </CardHeader>
                 <CardBody>
                   <Form>
                     <Row>
                     <Col className="pl-md-1" md="6">
+                      <Col>
                         <FormGroup>
                           <label>
                             Fecha de ingreso
@@ -41,17 +44,30 @@ class RE3 extends React.Component {
                           <Input type="date" />
                         </FormGroup>
                       </Col>
-                      <Col className="pl-md-1" md="6">
-                        <FormGroup>
-                        <Label for="sedeSelect">Sede</Label>
-                            <Input type="select" name="select" id="sedeSelect">
-                            <option selected="1">-----</option>
-                            <option >María Kolbe</option>
-                            <option>Granja Bretania</option>
-                            </Input>
-                        </FormGroup>
                       </Col>
                       <Col className="pl-md-1" md="6">
+                        <Label for="sedeCheckbox">Sede</Label>
+                        <Row>
+                          <Col>
+                        <FormGroup check inline>
+                          <Label check>
+                            <Input id="MK" defaultValue="" name="sedeRadio" type="radio" />
+                          </Label>
+                        María Kolbe
+                        </FormGroup>
+                      </Col>
+                      <Col>
+                        <FormGroup check inline>
+                          <Label check>
+                             <Input id="GB" defaultValue="" name="sedeRadio" type="radio" />
+                          </Label>
+                          Granja Bretania
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                      </Col>
+                      <Col className="pl-md-1" md="6">
+                        <Col>
                         <FormGroup>
                         <Label for="puestoSelect">Puesto</Label>
                             <Input type="select" name="select" id="puestoSelect">
@@ -67,71 +83,89 @@ class RE3 extends React.Component {
                             </Input>
                         </FormGroup>
                       </Col>
+                      </Col>
+                      <Col className="pl-md-1" md="6">
+                        <Label for="sedeCheckbox">Salario</Label>
+                        <Row>
+                          <Col>
+                        <FormGroup check inline>
+                          <Label check>
+                            <Input id="MK" defaultValue="" name="salarioRadio" type="radio" />
+                          </Label>
+                        Fijo
+                        </FormGroup>
+                      </Col>
+                      <Col>
+                        <FormGroup check inline>
+                          <Label check>
+                             <Input id="GB" defaultValue="" name="salarioRadio" type="radio" />
+                          </Label>
+                          Variable
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                       </Col>
                     </Row>
                     <Row>
-                     <Col className="pl-md-1" md="6">
-                        <FormGroup>
-                        <Label for="salarioSelect">Salario</Label>
-                            <Input type="select" name="select" id="salarioSelect">
-                            <option selected="1">-----</option>
-                            <option >Fijo</option>
-                            <option>variable</option>
-                            </Input>
-                        </FormGroup>
+                      <Col  md="6">
+                        <Col className="pl-md-1">
+                          <FormGroup>
+                            <label>Monto</label>
+                            <Input
+                              placeholder="1500"
+                              type="text"
+                            />
+                          </FormGroup>
+                        </Col>
                       </Col>
+                        <Col>
+                          <FormGroup>
+                            <label>Turnos por quincena</label>
+                            <Input
+                              placeholder="" type="number"
+                            />
+                          </FormGroup>
+                        </Col>
                     </Row>
                     <Row>
-                      <Col className="pl-md-1" md="6">
-                        <FormGroup>
-                          <label>Monto</label>
-                          <Input
-                            placeholder="1500"
-                            type="text"
-                          />
-                        </FormGroup>
+                      <Col  md="6">
+                        <Col className="pl-md-1">
+                          <FormGroup>
+                            <label>Escolaridad</label>
+                            <Input
+                              placeholder="Bachillerato" type="text"
+                            />
+                          </FormGroup>
+                        </Col>
                       </Col>
-                      <Col className="pl-md-1" md="6">
-                        <FormGroup>
-                          <label>Turnos por quincena</label>
-                          <Input
-                            placeholder="" type="number"
-                          />
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col className="pl-md-1" md="6">
-                        <FormGroup>
-                          <label>Escolaridad</label>
-                          <Input
-                            placeholder="Bachillerato" type="text"
-                          />
-                        </FormGroup>
-                      </Col>
-                      <Col className="pl-md-1" md="6">
-                        <FormGroup>
-                        <Label for="Contrato">Copia de Contrato</Label>
-                        <CustomInput type="file" name="customFile" id="Contraro" label="Selecciona un archivo"/>
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                  </Form>
-                </CardBody>
-                <CardFooter>
-                  <Row>
-                    <Col  md="6">
-                    <a href="/admin/RE2">
-                      <button className="btn btn-outline-primary" onClick={() => { this.handleClick() }}>Regresar</button>
-                    </a>  
-                    </Col>
-                    <Col md="6" align="right">
-                    <a href="/admin/RE3">
-                      <button  className="btn btn-outline-primary" onClick={() => { this.handleClick() }}>Terminar</button>
-                    </a>  
+                        <Col md="6">
+                          <FormGroup>
+                          <Label for="Contrato">Copia de Contrato</Label>
+                          <CustomInput type="file" name="customFile" id="Contraro" label="Selecciona un archivo"/>
+                          </FormGroup>
+                        </Col>
+                    <Col>
+                      <h4 class="text-center">Calendario de empleado</h4>
+                      <EmployeeCalendarTable/>
                     </Col>
                   </Row>
-                </CardFooter>
+
+
+                  </Form>
+                </CardBody>
               </Card>
+              <Row>
+                <Col  md="6">
+                <a href="/admin/RE2">
+                  <button className="btn btn-outline-primary" onClick={() => { this.handleClick() }}>Regresar</button>
+                </a>
+                </Col>
+                <Col md="6" align="right">
+                <a href="/admin/RE3">
+                  <button  className="btn btn-outline-primary" onClick={() => { this.handleClick() }}>Terminar</button>
+                </a>
+                </Col>
+              </Row>
             </Col>
           </Row>
         </div>

@@ -46,12 +46,11 @@ class UserProfile extends React.Component {
     return (
       <>
         <div className="content">
-              <Col>
                 <Card>
                   <CardHeader>
                     <Progress value="33.33" />
                     <br/>
-                    <h5 className="title">Registrar Empleado</h5>
+                    <h3 className="title">Registrar Empleado</h3>
                   </CardHeader>
                   <CardBody>
                     <Form>
@@ -135,15 +134,12 @@ class UserProfile extends React.Component {
                       </Row>
                     </Form>
                   </CardBody>
-                  <CardFooter>
-                    <Col  md="12" align="right">
-                      <Link to='/admin/RE2'>
-                        <button className="btn btn-outline-primary">Siguiente</button>
-                      </Link>
-                    </Col>
-                  </CardFooter>
                 </Card>
-              </Col>
+                <Col  md="12" align="right">
+                  <Link to='/admin/RE2'>
+                    <button className="btn btn-outline-primary">Siguiente</button>
+                  </Link>
+                </Col>
 
         </div>
 

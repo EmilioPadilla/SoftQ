@@ -110,24 +110,13 @@ var routes = [
   },
   {
     path: "/employee-calendar",
-    name: "Calendario Empleado",
+    name: "Empleados",
     rtlName: "طباعة",
     icon: "tim-icons icon-single-02",
     component: EmployeeCalendar,
     layout: "/admin",
     showInSidebar: false
   },
-  {
-    path: "/employee-calendar",
-    name: "Calendario Empleado",
-    rtlName: "طباعة",
-    icon: "tim-icons icon-single-02",
-    component: EmployeeCalendar,
-    layout: "/admin",
-    showInSidebar: false
-  },
-
-
 
   // SE BORRARÁ UNA VEZ QUE TODOS ENTIENDAN EL CONCEPTO DE RTL SUPPORT
   {
