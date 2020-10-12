@@ -26,6 +26,8 @@ import Typography from "views/Typography.js";
 import UserProfile from "views/RE.js";
 import EmployeeCalendar from "views/EmployeeCalendar.js";
 
+import RegisterB1 from "views/Beneficiarias/RegisterB1.js";
+
 var routes = [
   {
     path: "/dashboard",
@@ -37,11 +39,11 @@ var routes = [
     showInSidebar: true
   },
   {
-    path: "/notifications",
+    path: "/Beneficiarias/RegisterB1",
     name: "Beneficiarias",
-    rtlName: "إخطارات",
+    rtlName: "ملف تعريفي للمستخدم",
     icon: "tim-icons icon-single-02",
-    component: Notifications,
+    component: RegisterB1,
     layout: "/admin",
     showInSidebar: true
   },
