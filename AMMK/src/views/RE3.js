@@ -16,7 +16,7 @@ import {
   CustomInput
 } from "reactstrap";
 
-import EmployeeCalendarTable from "components/EmployeeCalendarTable.js"
+import EmployeeCalendarTable from "components/Employees/EmployeeCalendarTable.js"
 
 class RegisterEmployee3 extends React.Component {
   render() {

@@ -11,7 +11,7 @@ import {
     Col
   } from "reactstrap";
 
-import EmployeeCalendarTable from "components/EmployeeCalendarTable.js"
+import EmployeeCalendarTable from "components/Employees/EmployeeCalendarTable.js"
 
 class EmployeeCalendar extends React.Component {
 
@@ -33,7 +33,7 @@ class EmployeeCalendar extends React.Component {
                             <Col md="12" align="right">
                             <a href="">
                             <button  className="btn btn-outline-primary">Guardar</button>
-                            </a>  
+                            </a>
                             </Col>
                         </Row>
                     </CardFooter>
