@@ -26,6 +26,11 @@ import RegisterEmployee3 from "views/RE3.js";
 import ViewEmployee from "views/ViewEmployee.js";
 import EmployeeCalendar from "views/EmployeeCalendar.js";
 
+import RegisterB1 from "views/Beneficiarias/RegisterB1.js";
+import RegisterB2 from "views/Beneficiarias/RegisterB2.js";
+import RegisterB3 from "views/Beneficiarias/RegisterB3.js";
+import RegisterTreatment from "views/Beneficiarias/RegisterTreatment.js";
+
 var routes = [
   {
     path: "/dashboard",
@@ -37,13 +42,34 @@ var routes = [
     showInSidebar: true
   },
   {
-    path: "/notifications",
+    path: "/Beneficiarias/RegisterB1",
     name: "Beneficiarias",
-    rtlName: "إخطارات",
+    rtlName: "ملف تعريفي للمستخدم",
     icon: "tim-icons icon-single-02",
-    component: Notifications,
+    component: RegisterB1,
     layout: "/admin",
     showInSidebar: true
+  },
+  {
+    path: "/Beneficiarias/RegisterB2",
+    name: "Beneficiarias",
+    rtlName: "طباعة",
+    icon: "tim-icons icon-single-02",
+    component: RegisterB2,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+    path: "/Beneficiarias/RegisterB3",
+    name: "Beneficiarias",
+    rtlName: "طباعة",
+    icon: "tim-icons icon-single-02",
+    component: RegisterB3,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+    path: "/user-profile",
   },
   {
     path: "/view-employee",
