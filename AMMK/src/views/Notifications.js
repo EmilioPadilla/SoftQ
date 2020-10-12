@@ -103,7 +103,7 @@ class Notifications extends React.Component {
                   </UncontrolledAlert>
                   <UncontrolledAlert className="alert-with-icon" color="info">
                     <span
-                      className="tim-icons icon-bell-55"
+                      className="tim-icons person_add"
                       data-notify="icon"
                     />
                     <span data-notify="message">

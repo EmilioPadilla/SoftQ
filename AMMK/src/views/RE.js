@@ -1,18 +1,7 @@
 /*!
 
-=========================================================
-* Black Dashboard React v1.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/black-dashboard-react
-* Copyright 2020 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/black-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+@Author: Emilio Padilla Miranda
+@Date: Sunday, October 11, 2020
 
 */
 import React from "react";
@@ -24,7 +13,6 @@ import {
   Card,
   CardHeader,
   CardBody,
-  CardFooter,
   FormGroup,
   Form,
   Input,
@@ -35,13 +23,7 @@ import {
   Label
 } from "reactstrap";
 
-//
-// <Switch>
-//   <Route exact path='/RE2' component={RE2}> </Route>
-//   <Route exact path='/RE3' component={RE3}> </Route>
-// </Switch>
-
-class UserProfile extends React.Component {
+class RegisterEmployee extends React.Component {
   render() {
     return (
       <>
@@ -97,8 +79,7 @@ class UserProfile extends React.Component {
                           <FormGroup>
                             <label>Número de Seguro Social</label>
                             <Input
-                              defaultValue="Mike"
-                              placeholder="City"
+                              placeholder="???"
                               type="text"
                             />
                           </FormGroup>
@@ -137,7 +118,7 @@ class UserProfile extends React.Component {
                 </Card>
                 <Col  md="12" align="right">
                   <Link to='/admin/RE2'>
-                    <button className="btn btn-outline-primary">Siguiente</button>
+                    <button className="btn btn-info">Siguiente</button>
                   </Link>
                 </Col>
 
@@ -148,4 +129,4 @@ class UserProfile extends React.Component {
   }
 }
 
-export default UserProfile;
+export default RegisterEmployee;

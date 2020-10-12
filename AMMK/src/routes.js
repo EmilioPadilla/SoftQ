@@ -18,12 +18,12 @@
 import Dashboard from "views/Dashboard.js";
 import Notifications from "views/Notifications.js";
 import Rtl from "views/Rtl.js";
-import RE3 from "views/RE3.js";
-import RE2 from "views/RE2.js";
-
 import TableList from "views/TableList.js";
 import Typography from "views/Typography.js";
-import UserProfile from "views/RE.js";
+import RegisterEmployee from "views/RE.js";
+import RegisterEmployee2 from "views/RE2.js";
+import RegisterEmployee3 from "views/RE3.js";
+import ViewEmployee from "views/ViewEmployee.js";
 import EmployeeCalendar from "views/EmployeeCalendar.js";
 
 var routes = [
@@ -46,13 +46,22 @@ var routes = [
     showInSidebar: true
   },
   {
-    path: "/user-profile",
+    path: "/view-employee",
+    name: "Empleados",
+    rtlName: "طباعة",
+    icon: "tim-icons icon-badge",
+    component: ViewEmployee,
+    layout: "/admin",
+    showInSidebar: true
+  },
+  {
+    path: "/register-employee",
     name: "Empleados",
     rtlName: "ملف تعريفي للمستخدم",
     icon: "tim-icons icon-badge",
-    component: UserProfile,
+    component: RegisterEmployee,
     layout: "/admin",
-    showInSidebar: true
+    showInSidebar: false
   },
   {
     path: "/tables",
@@ -95,7 +104,7 @@ var routes = [
     name: "Empleados",
     rtlName: "طباعة",
     icon: "tim-icons icon-single-02",
-    component: RE2,
+    component: RegisterEmployee2,
     layout: "/admin",
     showInSidebar: false
   },
@@ -104,7 +113,7 @@ var routes = [
     name: "Empleados",
     rtlName: "طباعة",
     icon: "tim-icons icon-single-02",
-    component: RE3,
+    component: RegisterEmployee3,
     layout: "/admin",
     showInSidebar: false
   },
@@ -117,6 +126,7 @@ var routes = [
     layout: "/admin",
     showInSidebar: false
   },
+
 
   // SE BORRARÁ UNA VEZ QUE TODOS ENTIENDAN EL CONCEPTO DE RTL SUPPORT
   {

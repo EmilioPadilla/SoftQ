@@ -8,7 +8,6 @@ import {
   Card,
   CardHeader,
   CardBody,
-  CardFooter,
   FormGroup,
   Form,
   Input,
@@ -20,7 +19,7 @@ import {
 } from "reactstrap";
 
 
-class RE2 extends React.Component {
+class RegisterEmployee2 extends React.Component {
 
 
   render() {
@@ -141,12 +140,12 @@ class RE2 extends React.Component {
               <Row>
               <Col  md="6">
               <a href="/admin/user-profile">
-                <button className="btn btn-outline-primary" onClick={() => { this.handleClick() }}>Regresar</button>
+                <button className="btn btn-info" onClick={() => { this.handleClick() }}>Regresar</button>
               </a>
               </Col>
               <Col md="6" align="right">
               <a href="/admin/RE3">
-                <button className="btn btn-outline-primary" onClick={() => { this.handleClick() }}>Siguiente</button>
+                <button className="btn btn-info" onClick={() => { this.handleClick() }}>Siguiente</button>
               </a>
               </Col>
               </Row>
@@ -160,4 +159,4 @@ class RE2 extends React.Component {
   }
 }
 
-export default RE2;
+export default RegisterEmployee2;

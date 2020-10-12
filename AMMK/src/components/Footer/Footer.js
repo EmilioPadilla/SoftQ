@@ -56,7 +56,7 @@ class Footer extends React.Component {
         <Container fluid>
           <Nav>
             <NavItem>
-              SOFTQ {new Date().getFullYear()} {" "} <i className="tim-icons icon-heart-2" /> Bienvenidos
+              Desarrollado por SOFTQ {new Date().getFullYear()} {" "} <i className="tim-icons icon-heart-2" /> Bienvenidos
             </NavItem>
           </Nav>
           <div className="copyright">
