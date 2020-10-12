@@ -50,7 +50,7 @@ const ModalExample = (props) => {
         </ModalBody>
 
         <ModalFooter>
-          <Button color="info" visibility="none" onClick={toggle}>Salir</Button>{' '}
+          <Button color="info" visibility="none" onClick={toggle}>salir</Button>{' '}
           <Button color="danger" onClick={toggle}>Egresar</Button>
         </ModalFooter>
       </Modal>
