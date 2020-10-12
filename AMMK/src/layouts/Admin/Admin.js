@@ -113,7 +113,7 @@ class Admin extends React.Component {
         <div className="wrapper">
           <Sidebar
             {...this.props}
-            routes={routes}
+            routes={routes.filter(route => route.showInSidebar === true)}
             bgColor={this.state.backgroundColor}
             logo={{
               // outterLink: "#",
