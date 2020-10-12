@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
 // reactstrap components
-import { Card, CardHeader, CardBody, Form, Row, Progress, Alert, Col} from 'reactstrap';
+import { Card, CardHeader, CardBody, Form, Row, Progress, Alert, Col, FormGroup, Label, Input, CustomInput} from 'reactstrap';
 
 //Importing Icon library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -25,7 +25,47 @@ export default class RegisterB2 extends Component {
                     </CardHeader>
                     <CardBody>
                         <Form>
+                            <Row>
+                                <Col md="6">
+                                    <FormGroup>
+                                    <FontAwesomeIcon icon={['fas', 'calendar-alt']} />
+                                    <Label for="exampleInputEmail1">&nbsp;Fecha de ingreso:</Label>
+                                    <Input type="date"></Input>
+                                    </FormGroup>
+                                </Col>
+                                <Col md="6">
+                                    <FormGroup>
+                                    <FontAwesomeIcon icon={['fas', 'file-upload']} />
+                                    <Label for="exampleInputEmail1">&nbsp;Carga de hoja de ingreso:</Label>
+                                    <CustomInput type="file" label="Seleccionar archivo...">
+                                    </CustomInput>
+                                    <span class="badge badge-light">* Recuerda subir un archivo .pdf, .doc/x, .xls/x or .ppt/x</span>
+                                    </FormGroup>
+                                </Col>
+                            </Row>
 
+                            <FormGroup>
+                                <FontAwesomeIcon icon={['fas', 'notes-medical']} />
+                                <Label for="exampleInputEmail1">&nbsp;Diagnóstico médico:</Label>
+                                <Input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Parálisis cerebral"></Input>
+                            </FormGroup>
+
+                            <FormGroup>
+                                <Label for="exampleInputEmail1">Edad mental:</Label>
+                                <Input type="number" min="1" max="100"></Input>
+                            </FormGroup>
+
+                            <FormGroup>
+                                <Label for="exampleInputEmail1">Canalizador:</Label>
+                                <Input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Estefanía Ortíz"></Input>
+                            </FormGroup>
+
+                            <FormGroup>
+                                <Label>Vínculos familiares:</Label>
+                                <div class="input-group">
+                                    <Input type="textarea" class="form-control" aria-label="With textarea"></Input>
+                                </div>
+                            </FormGroup>
                         </Form>
                     </CardBody>
                 </Card>
