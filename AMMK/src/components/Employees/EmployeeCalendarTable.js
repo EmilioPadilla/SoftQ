@@ -65,7 +65,7 @@ class EmployeeCalendarTable extends React.Component {
                             <FormGroup check className="d-inline">
                                 <Label check>
                                 <Input defaultValue="" type="checkbox"
-                                    onChange={this.handleChange} 
+                                    onChange={this.handleChange}
                                     id={dia+"-"+turno}/>
                                 <span className="form-check-sign">
                                     <span className="check" />
@@ -73,9 +73,9 @@ class EmployeeCalendarTable extends React.Component {
                                 </Label>
                             </FormGroup>
                             Turno {turno}
-                        </div> 
+                        </div>
                     </td>,
-                    
+
                 ]
             )
         });

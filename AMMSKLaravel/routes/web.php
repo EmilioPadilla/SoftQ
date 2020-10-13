@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 use Illuminate\Database\Connection;
 
-Route::get('/', function () {
+Route::get('/test-db', function () {
 
     // Test database connection
     try {
