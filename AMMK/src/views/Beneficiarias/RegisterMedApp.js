@@ -1,5 +1,12 @@
-import React, { Component } from 'react'
-import { Form, FormGroup, Input } from 'reactstrap'
+import React, { Component } from 'react';
+import { Form, FormGroup, Input, Alert, Label, CustomInput, Row, Col, InputGroupText, InputGroupAddon, InputGroup} from 'reactstrap';
+
+//Importing Icon library
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+
+library.add(fas)
 
 export default class RegisterMedApp extends Component {
     render() {
@@ -31,7 +38,7 @@ export default class RegisterMedApp extends Component {
                             <FormGroup>
                                 <FontAwesomeIcon icon={['fas', 'hospital']} />
                                 <Label for="exampleInputEmail1">Hospital:</Label>
-                                <input type="text" class="form-control" id="hospital" aria-describedby="emailHelp" placeholder="Star Medica"></input>
+                                <Input type="text" class="form-control" id="hospital" aria-describedby="emailHelp" placeholder="Star Medica"></Input>
                             </FormGroup>
                         </Col>
                         <Col md="6">
@@ -51,7 +58,7 @@ export default class RegisterMedApp extends Component {
                     <FormGroup>
                         <FontAwesomeIcon icon={['fas', 'stethoscope']} />
                         <Label for="exampleInputEmail1">Especialidad:</Label>
-                        <Input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Cardiología"></input>
+                        <Input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Cardiología"></Input>
                     </FormGroup>
 
                     <FormGroup>

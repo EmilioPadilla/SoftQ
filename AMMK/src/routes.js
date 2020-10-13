@@ -30,6 +30,10 @@ import RegisterB1 from "views/Beneficiarias/RegisterB1.js";
 import RegisterB2 from "views/Beneficiarias/RegisterB2.js";
 import RegisterB3 from "views/Beneficiarias/RegisterB3.js";
 import RegisterTreatment from "views/Beneficiarias/RegisterTreatment.js";
+import GeneralViewAdmin from "views/Beneficiarias/GeneralViewAdmin.js";
+import SpecificView from "views/Beneficiarias/SpecificView.js";
+import MedicalRecordView from "views/Beneficiarias/MedicalRecordView";
+import RegisterMedApp from "views/Beneficiarias/RegisterMedApp";
 
 var routes = [
   {
@@ -41,6 +45,52 @@ var routes = [
     layout: "/admin",
     showInSidebar: true
   },
+  /*  START BENEFICIARIAS */
+  {
+    path: "/Beneficiarias/GeneralViewAdmin",
+    name: "Beneficiarias",
+    rtlName: "ملف تعريفي للمستخدم",
+    icon: "tim-icons icon-single-02",
+    component: GeneralViewAdmin,
+    layout: "/admin",
+    showInSidebar: true
+  },
+  {
+    path: "/Beneficiarias/SpecificView",
+    name: "Beneficiarias",
+    rtlName: "ملف تعريفي للمستخدم",
+    icon: "tim-icons icon-single-02",
+    component: SpecificView,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+    path: "/Beneficiarias/MedicalRecordView",
+    name: "Beneficiarias",
+    rtlName: "طباعة",
+    icon: "tim-icons icon-single-02",
+    component: MedicalRecordView,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+    path: "/Beneficiarias/RegisterTreatment",
+    name: "Beneficiarias",
+    rtlName: "طباعة",
+    icon: "tim-icons icon-single-02",
+    component: RegisterTreatment,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+    path: "/Beneficiarias/RegisterMedApp",
+    name: "Beneficiarias",
+    rtlName: "طباعة",
+    icon: "tim-icons icon-single-02",
+    component: RegisterMedApp,
+    layout: "/admin",
+    showInSidebar: false
+  },
   {
     path: "/Beneficiarias/RegisterB1",
     name: "Beneficiarias",
@@ -48,7 +98,7 @@ var routes = [
     icon: "tim-icons icon-single-02",
     component: RegisterB1,
     layout: "/admin",
-    showInSidebar: true
+    showInSidebar: false
   },
   {
     path: "/Beneficiarias/RegisterB2",
@@ -68,6 +118,7 @@ var routes = [
     layout: "/admin",
     showInSidebar: false
   },
+  /* END BENEFICIARIAS */
   {
     path: "/user-profile",
   },
