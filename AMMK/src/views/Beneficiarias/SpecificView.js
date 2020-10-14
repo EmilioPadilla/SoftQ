@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
 // reactstrap components
-import { Row, Table, Col, Alert, Button, Badge } from 'reactstrap';
+import { DropdownItem, Row, Table, Col, Alert, Button, Badge } from 'reactstrap';
+import SimpleTooltip from "../General/SimpleTooltip";
 
 //Importing Icon library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -14,48 +15,43 @@ library.add(fas)
 export default class SpecificView extends Component {
     render() {
         return (
-            <div class="content">
-                <h3>DETALLE BENEFICIARIA</h3>
-                <Alert color="primary">
-                    <h4>BENEFICIARIA ACTIVA</h4>
-                </Alert>
-                <Alert color="primary">
-                    <h4>BENEFICIARIA INACTIVA</h4>
-                </Alert>
+            <div className="content">
+                <h3 className="title">DETALLE BENEFICIARIA</h3>
+                <Alert color="light">BENEFICIARIA ACTIVA</Alert>
+                <Alert color="light">BENEFICIARIA INACTIVA</Alert>
                 
                 <Row>
                     <Col md="4">
                         <img src="archivosBeneficiarias/<?php echo obtenerImagen($idBeneficiaria.'_imagenIngreso_')?>" width="250" class="img-fluid" alt="Imagen de Ingreso" id="fotoBenef" onerror="this.onerror=null; this.src='avatar.jpg';"></img>
                     </Col>
                     <Col md="8">
-                        <h2>Maria Sandoval Arrieta</h2>
-                        <div class="dropdown-divider"></div>
-                        <Badge>DATOS PERSONALES</Badge>
-                        <Button  className="btn btn-primary float-right" size="sm" id="editar" data-toggle="tooltip" data-placement="top" title="Modificar"><i class="fas fa-pencil-alt"></i></Button>
+                        <h1 className="title">Maria Sandoval Arrieta</h1>
+                        <DropdownItem divider />
+                        <Badge color="primary">DATOS PERSONALES</Badge>
+                        <Button  className="float-right" size="sm" id="editar"><FontAwesomeIcon icon={['fas', 'pencil-alt']} /></Button>
+                        <SimpleTooltip placement="top" target="editar" >Editar</SimpleTooltip>
                         <Row>
                             <Col md="6">
-                                <p class="font-weight-bold">Fecha de nacimiento:</p>
+                                <p className="font-weight-bold">Fecha de nacimiento:</p>
                             </Col>
                             <Col md="6">
-                                <p class="font-weight-bold">Edad:</p>
+                                <p className="font-weight-bold">Edad:</p>
                             </Col>
                         </Row>
 
                         <Row>
                             <Col md="6">
-                                <p class="font-weight-bold">CURP:</p>
+                                <p className="font-weight-bold">CURP:</p>
                             </Col>
                             <Col md="6">
-                                <p class="font-weight-bold">Edad mental:</p>
+                                <p className="font-weight-bold">Edad mental:</p>
                             </Col>
                         </Row>
 
-                        <Row class="text-center">
+                        <Row className="text-center">
                             <Col md="12">
-                                <Link to='/admin/Beneficiarias/RegisterB1'>
-                                <Button className="btn btn-primary" id="historialMedico" type="button"  data-toggle="tooltip" data-placement="top" title="Ver historia médica">
-                                <FontAwesomeIcon icon={['fas', 'notes-medical']} /> HISTORIAL MÉDICO
-                                </Button>
+                                <Link to='/admin/Beneficiarias/MedicalRecordView'>
+                                <Button id="historialMedico"><FontAwesomeIcon icon={['fas', 'notes-medical']} />&nbsp;HISTORIAL MÉDICO</Button>
                                 </Link>
                             </Col>
                         </Row>
@@ -64,24 +60,26 @@ export default class SpecificView extends Component {
                 <br></br>
                 <Row>
                     <Col md="6">
-                        <Badge>DATOS DE INGRESO</Badge>
+                        <Badge color="primary">DATOS DE INGRESO</Badge>
                     </Col>
                     <Col md="6">
-                        <Button className="btn btn-primary float-right" size="sm" id="editar" data-toggle="tooltip" data-placement="top" title="Modificar"><i class="fas fa-pencil-alt"></i></Button>
+                        <Button  className="float-right" size="sm" id="editar"><FontAwesomeIcon icon={['fas', 'pencil-alt']} /></Button>
+                        <SimpleTooltip placement="top" target="editar" >Editar</SimpleTooltip>
                     </Col>
                 </Row>
                 <br></br>
                 <Row>
                     <Col md="6">
-                        <Badge>ARCHIVOS DE REGISTRO</Badge>
+                        <Badge color="primary">ARCHIVOS DE REGISTRO</Badge>
                     </Col>
                     <Col md="6">
-                        <Button className="btn btn-primary float-right" size="sm" id="editar" data-toggle="tooltip" data-placement="top" title="Modificar"><i class="fas fa-pencil-alt"></i></Button>
+                        <Button  className="float-right" size="sm" id="editar"><FontAwesomeIcon icon={['fas', 'pencil-alt']} /></Button>
+                        <SimpleTooltip placement="top" target="editar" >Editar</SimpleTooltip>
                     </Col>
                 </Row>
                 
-                <Table class="table table-hover">
-                    <thead class="thead-light">
+                <Table hover>
+                    <thead>
                         <tr>
                             <th>Nombre de archivo</th>
                             <th>Descripción</th>
@@ -94,9 +92,14 @@ export default class SpecificView extends Component {
                             <td></td>
                             <td></td>
                             <td>
-                                <Button className="btn btn-primary float-right" size="sm" data-toggle="tooltip" data-placement="top" title="Ver"><FontAwesomeIcon icon={['fas', 'eye']} /></Button>
-                                <Button className="btn btn-primary float-right" size="sm" data-toggle="tooltip" data-placement="top" title= "Descargar"><FontAwesomeIcon icon={['fas', 'download']} /></Button>
-                                <Button className="btn btn-primary float-right" size="sm" data-toggle="tooltip" data-placement="top" title="Eliminar"><FontAwesomeIcon icon={['fas', 'trash-alt']} /></Button>
+                                <Button color="info" size="sm" id="verArchivo"><FontAwesomeIcon icon={['fas', 'eye']} /></Button>
+                                <SimpleTooltip placement="top" target="verArchivo" >Ver archivo</SimpleTooltip>
+
+                                <Button color="primary" size="sm" id="descargar"><FontAwesomeIcon icon={['fas', 'download']} /></Button>
+                                <SimpleTooltip placement="top" target="descargar" >Descargar</SimpleTooltip>
+
+                                <Button color="danger" size="sm" id="eliminar"><FontAwesomeIcon icon={['fas', 'trash-alt']} /></Button>
+                                <SimpleTooltip placement="top" target="eliminar" >Eliminar</SimpleTooltip>
                             </td>
                         </tr>
                 </Table>

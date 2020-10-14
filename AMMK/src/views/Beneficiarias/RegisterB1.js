@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
 // reactstrap components
-import { Card, CardHeader, CardBody, Form, FormGroup, Label, Input, CustomInput, Progress, Col, Alert, Row} from "reactstrap";
+import { Button,Card, CardHeader, CardBody, Form, FormGroup, Label, Input, CustomInput, Progress, Col, Alert, Row, Badge} from "reactstrap";
 
 //Importing Icon library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -19,21 +19,21 @@ export default class RegisterB1 extends Component {
                 <Card>
                     <CardHeader>
                         <h3 className="title">Datos personales</h3>
-                        <Progress striped color="info" value="33.33"></Progress>
+                        <Progress striped color="primary" value="33.33"></Progress>
                         <br></br>
-                        <Alert color="light">Los campos marcados con un asterisco (*) son obligatorios.</Alert>
+                        <Alert color="primary">Los campos marcados con un asterisco (*) son obligatorios.</Alert>
                     </CardHeader>
                     <CardBody>
                     <Form>
                         <FormGroup>
                             <FontAwesomeIcon icon={['fas', 'user']} />
-                            <Label for="exampleInputEmail1">&nbsp;Nombre completo:</Label>
-                            <Input type="text" className="form-control" id="nombreCompleto" placeholder="Maria Sandoval Arrieta"></Input>
+                            <Label for="nombreCompleto">&nbsp;Nombre completo:</Label>
+                            <Input id="nombreCompleto" placeholder="Maria Sandoval Arrieta"></Input>
                         </FormGroup>
 
                         <FormGroup>
                             <Label for="apodo">Apodo:</Label>
-                            <Input type="text" class="form-control" id="apodo" placeholder="Mary"></Input>
+                            <Input id="apodo" placeholder="Mary"></Input>
                         </FormGroup>
 
                         <Row>
@@ -41,17 +41,17 @@ export default class RegisterB1 extends Component {
                         <FormGroup>
                             <FontAwesomeIcon icon={['fas', 'calendar-alt']} />
                             <Label for="fechaNacimiento">&nbsp;Fecha de nacimiento:</Label>
-                            <Input type="date"></Input>
+                            <Input type="date" id="fechaNacimiento"></Input>
                         </FormGroup>
                         </Col>
 
                         <Col md="6">
                         <FormGroup>
                             <FontAwesomeIcon icon={['fas', 'file-upload']} />
-                            <Label for="exampleInputEmail1">&nbsp;Carga de acta de nacimiento:</Label>
-                            <CustomInput type="file" label="Seleccionar archivo...">
+                            <Label for="actaNacimiento">&nbsp;Carga de acta de nacimiento:</Label>
+                            <CustomInput id="actaNacimiento" type="file" label="Seleccionar archivo...">
                             </CustomInput>
-                            <span class="badge badge-light">* Recuerda subir un archivo .pdf, .doc/x, .xls/x or .ppt/x</span>
+                            <Badge color="light">* Recuerda subir un archivo .pdf, .doc/x, .xls/x or .ppt/x</Badge>
                         </FormGroup>
                         </Col>
                         </Row>
@@ -59,35 +59,35 @@ export default class RegisterB1 extends Component {
                         <Row>
                         <Col md="6">
                         <FormGroup>
-                            <Label for="exampleInputEmail1">CURP:</Label>
-                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="XEXX010101HNEXXXA4"></input>
+                            <Label for="curp">CURP:</Label>
+                            <Input id="curp" placeholder="XEXX010101HNEXXXA4"></Input>
                         </FormGroup>
                         </Col>
 
                         <Col md="6">
                         <FormGroup>
                             <FontAwesomeIcon icon={['fas', 'file-upload']} />
-                            <Label for="exampleInputEmail1">&nbsp;Carga de CURP:</Label>
-                            <CustomInput type="file" label="Seleccionar archivo...">
+                            <Label for="cargaCurp">&nbsp;Carga de CURP:</Label>
+                            <CustomInput id="cargaCurp" type="file" label="Seleccionar archivo...">
                             </CustomInput>
-                            <span class="badge badge-light">* Recuerda subir un archivo .pdf, .doc/x, .xls/x or .ppt/x</span>
+                            <Badge color="light">* Recuerda subir un archivo .pdf, .doc/x, .xls/x or .ppt/x</Badge>
                         </FormGroup>
                         </Col>
                         </Row>
                         
                         <FormGroup>
                             <FontAwesomeIcon icon={['fas', 'file-upload']} />
-                            <Label for="exampleInputEmail1">&nbsp;Carga de INE:</Label>
-                            <CustomInput type="file" label="Seleccionar archivo...">
+                            <Label for="cargaIne">&nbsp;Carga de INE:</Label>
+                            <CustomInput id="cargaIne" type="file" label="Seleccionar archivo...">
                             </CustomInput>
-                            <span class="badge badge-light">* Recuerda subir un archivo .pdf, .doc/x, .xls/x or .ppt/x</span>
+                            <Badge color="cargaIne">* Recuerda subir un archivo .pdf, .doc/x, .xls/x or .ppt/x</Badge>
                         </FormGroup>
                         </Form>
                     </CardBody>
                 </Card>
                 <Col  md="12" align="right">
                   <Link to='/admin/Beneficiarias/RegisterB2'>
-                  <button type="submit" class="btn btn-primary">Siguiente&nbsp;<FontAwesomeIcon icon={['fas', 'arrow-circle-right']} /></button>
+                  <Button>Siguiente&nbsp;<FontAwesomeIcon icon={['fas', 'arrow-circle-right']} /></Button>
                   </Link>
                 </Col>
             </div>

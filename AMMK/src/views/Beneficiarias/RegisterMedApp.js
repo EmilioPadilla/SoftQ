@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, FormGroup, Input, Alert, Label, CustomInput, Row, Col, InputGroupText, InputGroupAddon, InputGroup} from 'reactstrap';
+import { Button, Badge, Card, CardBody, Form, FormGroup, Input, Alert, Label, CustomInput, Row, Col, InputGroupText, InputGroupAddon, InputGroup} from 'reactstrap';
 
 //Importing Icon library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -12,76 +12,84 @@ export default class RegisterMedApp extends Component {
     render() {
         return (
             <div className="content">
-                <h1>REGISTRAR CONSULTA MÉDICA</h1>
-                <Alert color="primary">Los campos marcados con un asterisco (*) son obligatorios.</Alert>
-                <Form>
-                    <FormGroup>
-                        <FontAwesomeIcon icon={['fas', 'calendar-alt']} />
-                        <Label for="exampleInputEmail1">Fecha de consulta médica:</Label>
-                        <Input type="date" class="form-control" id="fechaConsulta" aria-describedby="emailHelp" placeholder=""></Input>
-                    </FormGroup>
-                    
-                    <FormGroup>
-                        <FontAwesomeIcon icon={['fas', 'diagnoses']} />
-                        <Label for="exampleInputEmail1">Diagnóstico:</Label>
-                        <Input type="text" class="form-control" id="diagnostico" aria-describedby="emailHelp"   placeholder="Amigdalitis"></Input>
-                    </FormGroup>
-
-                    <FormGroup>
-                        <FontAwesomeIcon icon={['fas', 'map-marker-alt']} />
-                        <Label for="exampleInputEmail1">Dirección:</Label>
-                        <Input type="text" class="form-control" id="hospital" aria-describedby="emailHelp" placeholder="Calle Ignacio Allende 203, Querétero, Querétaro" size="120"></Input>
-                    </FormGroup>
-
-                    <Row>
-                        <Col md="6">
+                <h1 className="title">REGISTRAR CONSULTA MÉDICA</h1>
+                <Card>
+                    <CardBody>
+                        <Alert color="primary">Los campos marcados con un asterisco (*) son obligatorios.</Alert>
+                        <Form>
                             <FormGroup>
-                                <FontAwesomeIcon icon={['fas', 'hospital']} />
-                                <Label for="exampleInputEmail1">Hospital:</Label>
-                                <Input type="text" class="form-control" id="hospital" aria-describedby="emailHelp" placeholder="Star Medica"></Input>
+                                <FontAwesomeIcon icon={['fas', 'calendar-alt']} />
+                                <Label for="fechaConsulta">&nbsp;Fecha de consulta médica:</Label>
+                                <Input type="date" id="fechaConsulta"></Input>
                             </FormGroup>
-                        </Col>
-                        <Col md="6">
+                            
                             <FormGroup>
-                                <FontAwesomeIcon icon={['fas', 'person-booth']} />
-                                <Label>Consultorio:</Label>
-                                <InputGroup>
-                                    <InputGroupAddon addonType="prepend">
-                                    <InputGroupText><FontAwesomeIcon icon={['fas', 'hashtag']} /></InputGroupText>
-                                    </InputGroupAddon>
-                                    <Input type="text" class="form-control" placeholder="238" aria-label="busquedaNombre" aria-describedby="magGlass"></Input>
-                                </InputGroup>
+                                <FontAwesomeIcon icon={['fas', 'diagnoses']} />
+                                <Label for="diagnostico">&nbsp;Diagnóstico:</Label>
+                                <Input id="diagnostico" placeholder="Amigdalitis" maxLength=""></Input>
                             </FormGroup>
-                        </Col>
-                    </Row>
 
-                    <FormGroup>
-                        <FontAwesomeIcon icon={['fas', 'stethoscope']} />
-                        <Label for="exampleInputEmail1">Especialidad:</Label>
-                        <Input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Cardiología"></Input>
-                    </FormGroup>
+                            <FormGroup>
+                                <FontAwesomeIcon icon={['fas', 'map-marker-alt']} />
+                                <Label for="direccion">&nbsp;Dirección:</Label>
+                                <Input id="direccion" placeholder="Calle Ignacio Allende 203, Querétero, Querétaro" maxLength="120"></Input>
+                            </FormGroup>
 
-                    <FormGroup>
-                        <FontAwesomeIcon icon={['fas', 'comment']} />
-                        <Label>Comentarios:</Label>
-                        <Input type="textarea"></Input>
-                    </FormGroup>
+                            <Row>
+                                <Col md="6">
+                                    <FormGroup>
+                                        <FontAwesomeIcon icon={['fas', 'hospital']} />
+                                        <Label for="hospital">&nbsp;Hospital:</Label>
+                                        <Input id="hospital" placeholder="Star Medica" maxLength=""></Input>
+                                    </FormGroup>
+                                </Col>
+                                <Col md="6">
+                                    <FormGroup>
+                                        <FontAwesomeIcon icon={['fas', 'person-booth']} />
+                                        <Label>&nbsp;Consultorio:</Label>
+                                        <InputGroup>
+                                            <InputGroupAddon addonType="prepend">
+                                            <InputGroupText><FontAwesomeIcon icon={['fas', 'hashtag']} /></InputGroupText>
+                                            </InputGroupAddon>
+                                            <Input placeholder="238" maxLength=""></Input>
+                                        </InputGroup>
+                                    </FormGroup>
+                                </Col>
+                            </Row>
 
-                    <FormGroup>
-                    <FontAwesomeIcon icon={['fas', 'file-prescription']} />
-                    <Label for="exampleInputEmail1">Carga de receta médica:</Label>
-                        <CustomInput type="file" label="Seleccionar archivo...">
-                        </CustomInput>
-                        <span class="badge badge-light">* Recuerda subir un archivo .pdf, .doc/x, .xls/x or .ppt/x</span>
-                    </FormGroup>
+                            <FormGroup>
+                                <FormGroup>
+                                    <FontAwesomeIcon icon={['fas', 'stethoscope']} />
+                                    <Label for="especialidad">&nbsp;Especialidad:</Label>
+                                    <CustomInput type="select" id="especialidad" name="especialidad">
+                                    <option value="">Seleccionar especialidad...</option>
+                                    <option>Value 1</option>
+                                    <option>Value 2</option>
+                                    </CustomInput>
+                                </FormGroup>
+                            </FormGroup>
 
-                    <Row>
+                            <FormGroup>
+                                <FontAwesomeIcon icon={['fas', 'comment']} />
+                                <Label for="comentarios">&nbsp;Comentarios:</Label>
+                                <Input type="textarea" id="comentarios"></Input>
+                            </FormGroup>
+
+                            <FormGroup>
+                            <FontAwesomeIcon icon={['fas', 'file-prescription']} />
+                            <Label for="cargaReceta">Carga de receta médica:</Label>
+                                <CustomInput id="cargaReceta" type="file" label="Seleccionar archivo...">
+                                </CustomInput>
+                                <Badge color="light">* Recuerda subir un archivo .pdf, .doc/x, .xls/x or .ppt/x</Badge>
+                            </FormGroup>
+                            </Form> 
+                        </CardBody>
+                    </Card>
+                    <Row className="text-center">
                         <Col md="12">
-                            <button type="submit" class="btn btn-primary">Registrar</button>
+                            <Button>Registrar</Button>
                         </Col>
                     </Row>
-
-                </Form> 
             </div>
         )
     }

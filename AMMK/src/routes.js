@@ -16,7 +16,7 @@
 
 */
 import Dashboard from "views/Dashboard.js";
-import Notifications from "views/Notifications.js";
+//import Notifications from "views/Notifications.js";
 import Rtl from "views/Rtl.js";
 import TableList from "views/TableList.js";
 import Typography from "views/Typography.js";
@@ -32,8 +32,10 @@ import RegisterB3 from "views/Beneficiarias/RegisterB3.js";
 import RegisterTreatment from "views/Beneficiarias/RegisterTreatment.js";
 import GeneralViewAdmin from "views/Beneficiarias/GeneralViewAdmin.js";
 import SpecificView from "views/Beneficiarias/SpecificView.js";
+/*import GeneralViewNurse from "views/Beneficiarias/GeneralViewNurse.js";*/
 import MedicalRecordView from "views/Beneficiarias/MedicalRecordView";
 import RegisterMedApp from "views/Beneficiarias/RegisterMedApp";
+import TakeOutB from "views/Beneficiarias/TakeOutB";
 
 var routes = [
   {
@@ -55,12 +57,30 @@ var routes = [
     layout: "/admin",
     showInSidebar: true
   },
+  /*{
+    path: "/Beneficiarias/GeneralViewNurse",
+    name: "Beneficiarias",
+    rtlName: "ملف تعريفي للمستخدم",
+    icon: "tim-icons icon-single-02",
+    component: GeneralViewNurse,
+    layout: "/admin",
+    showInSidebar: true
+  },*/
   {
     path: "/Beneficiarias/SpecificView",
     name: "Beneficiarias",
     rtlName: "ملف تعريفي للمستخدم",
     icon: "tim-icons icon-single-02",
     component: SpecificView,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+    path: "/Beneficiarias/TakeOutB",
+    name: "Beneficiarias",
+    rtlName: "ملف تعريفي للمستخدم",
+    icon: "tim-icons icon-single-02",
+    component: TakeOutB,
     layout: "/admin",
     showInSidebar: false
   },
