@@ -18,6 +18,8 @@
 import Dashboard from "views/Dashboard.js";
 import Notifications from "views/Notifications.js";
 import Rtl from "views/Rtl.js";
+import Facturacion from "views/Facturacion";
+
 import TableList from "views/TableList.js";
 import Typography from "views/Typography.js";
 import RegisterEmployee from "views/RE.js";
@@ -90,7 +92,7 @@ var routes = [
     showInSidebar: false
   },
   {
-    path: "/tables",
+    path: "/donantes",
     name: "Donantes",
     rtlName: "قائمة الجدول",
     icon: "tim-icons icon-single-02",
@@ -107,6 +109,7 @@ var routes = [
     layout: "/admin",
     showInSidebar: true
   },
+  
   {
     path: "/typography",
     name: "Finanzas",
