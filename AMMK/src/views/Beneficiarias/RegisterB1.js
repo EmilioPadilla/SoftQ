@@ -80,7 +80,7 @@ export default class RegisterB1 extends Component {
                             <Label for="cargaIne">&nbsp;Carga de INE:</Label>
                             <CustomInput id="cargaIne" type="file" label="Seleccionar archivo...">
                             </CustomInput>
-                            <Badge color="cargaIne">* Recuerda subir un archivo .pdf, .doc/x, .xls/x or .ppt/x</Badge>
+                            <Badge id="cargaIne" color="light">* Recuerda subir un archivo .pdf, .doc/x, .xls/x or .ppt/x</Badge>
                         </FormGroup>
                         </Form>
                     </CardBody>

@@ -26,6 +26,7 @@ import RegisterEmployee3 from "views/RE3.js";
 import ViewEmployee from "views/ViewEmployee.js";
 import EmployeeCalendar from "views/EmployeeCalendar.js";
 
+//BENEFICIARIAS
 import RegisterB1 from "views/Beneficiarias/RegisterB1.js";
 import RegisterB2 from "views/Beneficiarias/RegisterB2.js";
 import RegisterB3 from "views/Beneficiarias/RegisterB3.js";
@@ -35,8 +36,13 @@ import SpecificView from "views/Beneficiarias/SpecificView.js";
 /*import GeneralViewNurse from "views/Beneficiarias/GeneralViewNurse.js";*/
 import MedicalRecordView from "views/Beneficiarias/MedicalRecordView";
 import RegisterMedApp from "views/Beneficiarias/RegisterMedApp";
+import ModifyMedApp from "views/Beneficiarias/ModifyMedApp";
+//modals
 import TakeOutB from "views/Beneficiarias/TakeOutB";
 import ReenterB from "views/Beneficiarias/ReenterB";
+import ModifyTreatment from "views/Beneficiarias/ModifyTreatment";
+import ViewMedApp from "views/Beneficiarias/ViewMedApp";
+//FIN BENEFICIARIAS
 
 
 var routes = [
@@ -84,7 +90,7 @@ var routes = [
     icon: "tim-icons icon-single-02",
     component: TakeOutB,
     layout: "/admin",
-    showInSidebar: true
+    showInSidebar: false
   },
   {
     path: "/Beneficiarias/ReenterB",
@@ -93,7 +99,25 @@ var routes = [
     icon: "tim-icons icon-single-02",
     component: ReenterB,
     layout: "/admin",
-    showInSidebar: true
+    showInSidebar: false
+  },
+  {
+    path: "/Beneficiarias/ModifyTreatment",
+    name: "Beneficiarias",
+    rtlName: "ملف تعريفي للمستخدم",
+    icon: "tim-icons icon-single-02",
+    component: ModifyTreatment,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+    path: "/Beneficiarias/ViewMedApp",
+    name: "Beneficiarias",
+    rtlName: "ملف تعريفي للمستخدم",
+    icon: "tim-icons icon-single-02",
+    component: ViewMedApp,
+    layout: "/admin",
+    showInSidebar: false
   },
   {
     path: "/Beneficiarias/MedicalRecordView",
@@ -121,6 +145,15 @@ var routes = [
     component: RegisterMedApp,
     layout: "/admin",
     showInSidebar: false
+  },
+  {
+    path: "/Beneficiarias/ModifyMedApp",
+    name: "Beneficiarias",
+    rtlName: "طباعة",
+    icon: "tim-icons icon-single-02",
+    component: ModifyMedApp,
+    layout: "/admin",
+    showInSidebar: true
   },
   {
     path: "/Beneficiarias/RegisterB1",

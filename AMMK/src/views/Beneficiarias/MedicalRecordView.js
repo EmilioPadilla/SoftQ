@@ -48,8 +48,10 @@ export default class MedicalRecordView extends Component {
                                             <td></td>
                                             <td></td>
                                             <td>
+                                                <Link to="/admin/Beneficiarias/ModifyTreatment">
                                                 <Button size="sm" id="editar" color=""><FontAwesomeIcon icon={['fas', 'pencil-alt']} /></Button>
                                                 <SimpleTooltip placement="top" target="editar" >Editar</SimpleTooltip>
+                                                </Link>
 
                                                 <Button size="sm" id="eliminar" color="danger"><FontAwesomeIcon icon={['fas', 'trash-alt']} /></Button>
                                                 <SimpleTooltip placement="top" target="eliminar" >Eliminar</SimpleTooltip>
@@ -94,14 +96,21 @@ export default class MedicalRecordView extends Component {
                                             <td></td>
                                             <td></td>
                                             <td>
+                                                <Link to='/admin/Beneficiarias/ViewMedApp'>
                                                 <Button size="sm" id="verDetalle" color="info"><FontAwesomeIcon icon={['fas', 'eye']} /></Button>
                                                 <SimpleTooltip placement="top" target="verDetalle" >Ver detalle</SimpleTooltip>
+                                                </Link>
 
+                                                <Link to='/admin/Beneficiarias/ModifyMedApp'>
                                                 <Button size="sm" id="editar" color=""><FontAwesomeIcon icon={['fas', 'pencil-alt']} /></Button>                      
                                                 <SimpleTooltip placement="top" target="editar" >Editar</SimpleTooltip>
+                                                </Link>
 
+                                                <Link>
                                                 <Button size="sm" id="eliminar" color="danger"><FontAwesomeIcon icon={['fas', 'trash-alt']} /></Button>
                                                 <SimpleTooltip placement="top" target="eliminar">Eliminar</SimpleTooltip>
+                                                </Link>
+
                                             </td>
                                         </tr>
                                 </Table>
