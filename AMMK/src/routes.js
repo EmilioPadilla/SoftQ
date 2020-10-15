@@ -36,6 +36,8 @@ import SpecificView from "views/Beneficiarias/SpecificView.js";
 import MedicalRecordView from "views/Beneficiarias/MedicalRecordView";
 import RegisterMedApp from "views/Beneficiarias/RegisterMedApp";
 import TakeOutB from "views/Beneficiarias/TakeOutB";
+import ReenterB from "views/Beneficiarias/ReenterB";
+
 
 var routes = [
   {
@@ -82,7 +84,16 @@ var routes = [
     icon: "tim-icons icon-single-02",
     component: TakeOutB,
     layout: "/admin",
-    showInSidebar: false
+    showInSidebar: true
+  },
+  {
+    path: "/Beneficiarias/ReenterB",
+    name: "Beneficiarias",
+    rtlName: "ملف تعريفي للمستخدم",
+    icon: "tim-icons icon-single-02",
+    component: ReenterB,
+    layout: "/admin",
+    showInSidebar: true
   },
   {
     path: "/Beneficiarias/MedicalRecordView",

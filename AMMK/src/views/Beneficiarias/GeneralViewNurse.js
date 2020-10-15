@@ -21,12 +21,12 @@ export default class GeneralViewNurse extends Component {
                 <Row>
                     <Col md="8">
                         <FormGroup>
-                            <Label>Búsqueda por nombre:</Label>
+                            <Label for="busquedaNombre">Búsqueda por nombre:</Label>
                             <InputGroup>
                                 <InputGroupAddon addonType="prepend">
                                 <InputGroupText><FontAwesomeIcon icon={['fas', 'search']} /></InputGroupText>
                                 </InputGroupAddon>
-                                <Input type="text" class="form-control" placeholder="Maria Sandoval Arrieta" aria-label="busquedaNombre" aria-describedby="magGlass"></Input>
+                                <Input placeholder="Maria Sandoval Arrieta"  id="busquedaNombre"></Input>
                             </InputGroup>
                         </FormGroup>
                     </Col>

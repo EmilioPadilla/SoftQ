@@ -10,7 +10,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 
 library.add(fas)
 
-const ReenterB = (props) => {
+const ModifyTreatment = (props) => {
   const {
     className
   } = props;
@@ -23,25 +23,25 @@ const ReenterB = (props) => {
     <div className="content">
       <Button color="danger" onClick={toggle}>modal</Button>
       <Modal isOpen={modal} toggle={toggle} className={className}>
-        <ModalHeader toggle={toggle}>REINGRESAR</ModalHeader>
+        <ModalHeader toggle={toggle}>MODIFICAR TRATAMIENTO</ModalHeader>
         <ModalBody>
                 <Row>
                     <Col md="12">
                         <FormGroup>
                             <FontAwesomeIcon icon={["fas", "calendar-alt"]} />
-                            <Label for="fechaR">&nbsp;Fecha de reingreso:</Label>
-                            <Input type="date" id="fechaR"></Input>
+                            <Label for="fechaInicio">&nbsp;Fecha de inicio:</Label>
+                            <Input type="date" id="fechaInicio"></Input>
                         </FormGroup>
                         <FormGroup>
-                            <FontAwesomeIcon icon={["fas", "comment"]} />
-                            <Label for="motivo">&nbsp;Motivo de reingreso</Label>
-                            <Input type="textarea" name="motivo" id="motivo" />
+                            <FontAwesomeIcon icon={["fas", "calendar-alt"]} />
+                            <Label for="exampleInputEmail1">&nbsp;Fecha de finalización:</Label>
+                            <Input type="date" id="fechaFin"></Input>
                         </FormGroup>
                     </Col>
                 </Row>
                 <Row className="text-center">
                     <Col md="12">
-                        <Button color="success" onClick={toggle}>Reingresar</Button>
+                        <Button color="primary" onClick={toggle}>Modificar</Button>
                     </Col>
                 </Row>
         </ModalBody>
@@ -50,4 +50,4 @@ const ReenterB = (props) => {
   );
 }
 
-export default ReenterB;
+export default ModifyTreatment;
