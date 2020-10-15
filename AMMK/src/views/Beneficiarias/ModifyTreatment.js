@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 // reactstrap components
 import {Button, Modal, ModalBody, ModalHeader, FormGroup, Input, Label, Row, Col} from 'reactstrap';
+import SimpleTooltip from "../General/SimpleTooltip";
 
 //Importing Icon library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -21,9 +22,12 @@ const ModifyTreatment = (props) => {
 
   return (
     <div className="content">
-      <Button color="danger" onClick={toggle}>modal</Button>
+      <Button onClick={toggle} size="sm" id="editar" color=""><FontAwesomeIcon icon={['fas', 'pencil-alt']} /></Button>
+      <SimpleTooltip placement="top" target="editar" >Editar</SimpleTooltip>
       <Modal isOpen={modal} toggle={toggle} className={className}>
-        <ModalHeader toggle={toggle}>MODIFICAR TRATAMIENTO</ModalHeader>
+        <ModalHeader toggle={toggle}>
+        <h3 className="title">MODIFICAR TRATAMIENTO</h3>
+        </ModalHeader>
         <ModalBody>
                 <Row>
                     <Col md="12">

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 // reactstrap components
 import {Alert,  Badge, Button, Modal, ModalBody, ModalHeader, FormGroup, Input, Label, Row, Col, CustomInput} from 'reactstrap';
+import SimpleTooltip from "../General/SimpleTooltip";
 
 //Importing Icon library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -21,11 +22,15 @@ const TakeOutB = (props) => {
 
   return (
     <div className="content">
-      <Button color="danger" onClick={toggle}>modal</Button>
+      <Button onClick={toggle} color="danger" size="sm" id="egresar"><FontAwesomeIcon icon={['fas', 'trash-alt']} /></Button>
+      <SimpleTooltip placement="top" target="egresar" >Egresar</SimpleTooltip>
+
       <Modal isOpen={modal} toggle={toggle} className={className}>
-        <ModalHeader toggle={toggle}>EGRESAR</ModalHeader>
+        <ModalHeader toggle={toggle}>
+        <h3 className="title">EGRESAR</h3>
+        <Badge color="primary">Los campos marcados con un asterisco (*) son obligatorios.</Badge>
+        </ModalHeader>
         <ModalBody>
-            <Alert color="primary">Los campos marcados con un asterisco (*) son obligatorios.</Alert>
             <FormGroup>
                 <FontAwesomeIcon icon={['fas', 'calendar-alt']} />
                 <Label>&nbsp;Fecha de egreso:</Label>

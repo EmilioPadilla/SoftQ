@@ -61,17 +61,17 @@ export default class GeneralViewNurse extends Component {
                                     <td>Parálisis cerebral</td>
                                     <td>Granja Betanía</td>
                                     <td>
-                                        <Link to='/admin/Beneficiarias/SpecificView'>
+                                        <Link to='/admin/Beneficiarias/RegisterTreatment'>
                                         <Button color="primary" size="sm" id="registrarTratamiento"><FontAwesomeIcon icon={['fas', 'plus']} /></Button>
                                         <SimpleTooltip placement="top" target="registrarTratamiento">Registrar tratamiento</SimpleTooltip>
                                         </Link>
 
-                                        <Link to='/admin/Beneficiarias/TakeOutB'>
-                                        <Button color="danger" size="sm" id="verHistorial"><FontAwesomeIcon icon={['fas', 'notes-medical']} /></Button>
+                                        <Link to='/admin/Beneficiarias/MedicalRecordView'>
+                                        <Button color="warning" size="sm" id="verHistorial"><FontAwesomeIcon icon={['fas', 'notes-medical']} /></Button>
                                         <SimpleTooltip placement="top" target="verHistorial" >Ver historial médico</SimpleTooltip>
                                         </Link>
 
-                                        <Link to='/admin/ReenterB'>
+                                        <Link to='/admin/Beneficiarias/SpecificView'>
                                         <Button color="info" size="sm" id="verDetalle"><FontAwesomeIcon icon={['fas', 'eye']} /></Button>
                                         <SimpleTooltip placement="top" target="verDetalle">Ver detalle</SimpleTooltip>
                                         </Link>

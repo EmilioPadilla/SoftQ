@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
 // reactstrap components
-import {Card, CardBody, Row, Col, Table, Button} from 'reactstrap';
+import {Card, CardBody, Row, Col, Table, Button, FormGroup} from 'reactstrap';
 import SimpleTooltip from "../General/SimpleTooltip";
+import ModifyTreatment from "../Beneficiarias/ModifyTreatment";
+import ViewMedApp from "../Beneficiarias/ViewMedApp";
 
 //Importing Icon library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -19,10 +21,12 @@ export default class MedicalRecordView extends Component {
             <div className="content">
                 <h1 className="title">HISTORIAL MÉDICO</h1>
                 <Row>
-                    <Col md="12">
-                        <h3 className="title text-center">TRATAMIENTOS</h3>
+                    <Col md="3">
+                        <h3 className="title" align="left">TRATAMIENTOS</h3>
+                    </Col>
+                    <Col md="9">
                         <Link to='/admin/Beneficiarias/RegisterTreatment'>
-                        <Button className="float-right" size="sm" id="registrarTratamiento"><FontAwesomeIcon icon={['fas', 'plus']}/></Button>
+                        <Button className="float-left" size="sm" id="registrarTratamiento"><FontAwesomeIcon icon={['fas', 'plus']}/></Button>
                         <SimpleTooltip placement="right" target="registrarTratamiento" >Registrar tratamiento</SimpleTooltip>
                         </Link>
                     </Col>
@@ -48,13 +52,12 @@ export default class MedicalRecordView extends Component {
                                             <td></td>
                                             <td></td>
                                             <td>
-                                                <Link to="/admin/Beneficiarias/ModifyTreatment">
-                                                <Button size="sm" id="editar" color=""><FontAwesomeIcon icon={['fas', 'pencil-alt']} /></Button>
-                                                <SimpleTooltip placement="top" target="editar" >Editar</SimpleTooltip>
-                                                </Link>
+                                                <Row>
+                                                        <ModifyTreatment/>
 
-                                                <Button size="sm" id="eliminar" color="danger"><FontAwesomeIcon icon={['fas', 'trash-alt']} /></Button>
-                                                <SimpleTooltip placement="top" target="eliminar" >Eliminar</SimpleTooltip>
+                                                        <Button size="sm" id="eliminar" color="danger"><FontAwesomeIcon icon={['fas', 'trash-alt']} /></Button>
+                                                        <SimpleTooltip placement="top" target="eliminar" >Eliminar</SimpleTooltip>
+                                                </Row>
                                             </td>
                                         </tr>
                                 </Table>
@@ -64,11 +67,13 @@ export default class MedicalRecordView extends Component {
                 </Card>
 
                 <Row>
-                    <Col md="12" className="text-center">
-                        <h3 className="title">CONSULTAS MÉDICAS</h3>
+                    <Col md="3">
+                    <h3 className="title">CONSULTAS MÉDICAS</h3>
+                    </Col>
+                    <Col md="9">
                         <Link to='/admin/Beneficiarias/RegisterMedApp'>
-                        <Button size="sm" id="registrarConsulta" className="float-right"><FontAwesomeIcon icon={['fas', 'plus']} /></Button>
-                        <SimpleTooltip placement="right" target="registrarConsulta" >Registrar consulta</SimpleTooltip>
+                        <Button size="sm" id="registrarConsulta" className="float-left"><FontAwesomeIcon icon={['fas', 'plus']} /></Button>
+                        <SimpleTooltip placement="right" target="registrarConsulta" >&nbsp;&nbsp;&nbsp;&nbsp;Registrar consulta</SimpleTooltip>
                         </Link>
                     </Col>
                 </Row>
@@ -96,10 +101,8 @@ export default class MedicalRecordView extends Component {
                                             <td></td>
                                             <td></td>
                                             <td>
-                                                <Link to='/admin/Beneficiarias/ViewMedApp'>
-                                                <Button size="sm" id="verDetalle" color="info"><FontAwesomeIcon icon={['fas', 'eye']} /></Button>
-                                                <SimpleTooltip placement="top" target="verDetalle" >Ver detalle</SimpleTooltip>
-                                                </Link>
+                                                <Row>
+                                                <ViewMedApp/>
 
                                                 <Link to='/admin/Beneficiarias/ModifyMedApp'>
                                                 <Button size="sm" id="editar" color=""><FontAwesomeIcon icon={['fas', 'pencil-alt']} /></Button>                      
@@ -110,7 +113,7 @@ export default class MedicalRecordView extends Component {
                                                 <Button size="sm" id="eliminar" color="danger"><FontAwesomeIcon icon={['fas', 'trash-alt']} /></Button>
                                                 <SimpleTooltip placement="top" target="eliminar">Eliminar</SimpleTooltip>
                                                 </Link>
-
+                                                </Row>
                                             </td>
                                         </tr>
                                 </Table>

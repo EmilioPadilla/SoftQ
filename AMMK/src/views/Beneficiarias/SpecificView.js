@@ -51,7 +51,7 @@ export default class SpecificView extends Component {
                         <Row className="text-center">
                             <Col md="12">
                                 <Link to='/admin/Beneficiarias/MedicalRecordView'>
-                                <Button id="historialMedico"><FontAwesomeIcon icon={['fas', 'notes-medical']} />&nbsp;HISTORIAL MÉDICO</Button>
+                                <Button id="historialMedico" color="warning" className=""><FontAwesomeIcon icon={['fas', 'notes-medical']} />&nbsp;HISTORIAL MÉDICO</Button>
                                 </Link>
                             </Col>
                         </Row>

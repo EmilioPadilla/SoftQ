@@ -33,7 +33,7 @@ import RegisterB3 from "views/Beneficiarias/RegisterB3.js";
 import RegisterTreatment from "views/Beneficiarias/RegisterTreatment.js";
 import GeneralViewAdmin from "views/Beneficiarias/GeneralViewAdmin.js";
 import SpecificView from "views/Beneficiarias/SpecificView.js";
-/*import GeneralViewNurse from "views/Beneficiarias/GeneralViewNurse.js";*/
+//import GeneralViewNurse from "views/Beneficiarias/GeneralViewNurse.js";
 import MedicalRecordView from "views/Beneficiarias/MedicalRecordView";
 import RegisterMedApp from "views/Beneficiarias/RegisterMedApp";
 import ModifyMedApp from "views/Beneficiarias/ModifyMedApp";
@@ -153,7 +153,7 @@ var routes = [
     icon: "tim-icons icon-single-02",
     component: ModifyMedApp,
     layout: "/admin",
-    showInSidebar: true
+    showInSidebar: false
   },
   {
     path: "/Beneficiarias/RegisterB1",

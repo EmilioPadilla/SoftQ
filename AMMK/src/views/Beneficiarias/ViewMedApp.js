@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 // reactstrap components
 import {Alert, Card, CardBody, Form, InputGroupAddon, Button, Modal, ModalBody, ModalHeader, ModalFooter, FormGroup, Input, Label, Row, Col, InputGroup, InputGroupText, CustomInput, Badge} from 'reactstrap';
+import SimpleTooltip from "../General/SimpleTooltip";
 
 //Importing Icon library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -21,11 +22,16 @@ const ViewMedApp = (props) => {
 
   return (
     <div className="content">
-      <Button color="danger" onClick={toggle}>modal</Button>
+    
+    <Button onClick={toggle} size="sm" id="verDetalle" color="info"><FontAwesomeIcon icon={['fas', 'eye']} /></Button>
+    <SimpleTooltip placement="top" target="verDetalle" >Ver detalle</SimpleTooltip>
+
       <Modal isOpen={modal} toggle={toggle} className={className}>
-        <ModalHeader toggle={toggle}>VER TRATAMIENTO</ModalHeader>
+        <ModalHeader toggle={toggle}>
+        <h3 className="title">CONSULTA MÉDICA</h3>
+        </ModalHeader>
         <ModalBody>
-                <Form>
+                        <Form>
                             <FormGroup>
                                 <FontAwesomeIcon icon={['fas', 'calendar-alt']} />
                                 <Label for="fechaConsulta">&nbsp;Fecha de consulta médica:</Label>
