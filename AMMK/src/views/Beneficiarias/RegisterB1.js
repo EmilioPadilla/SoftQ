@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import { AvForm, AvField } from 'availity-reactstrap-validation';
 
 // reactstrap components
 import { Button,Card, CardHeader, CardBody, Form, FormGroup, Label, Input, CustomInput, Progress, Col, Alert, Row, Badge} from "reactstrap";
@@ -16,6 +17,7 @@ export default class RegisterB1 extends Component {
         return (
             <div className="content">
                 <h2 className="title">Registrar Beneficiaria</h2>
+                <Form>
                 <Card>
                     <CardHeader>
                         <h3 className="title">Datos personales</h3>
@@ -24,7 +26,6 @@ export default class RegisterB1 extends Component {
                         <Alert color="primary">Los campos marcados con un asterisco (*) son obligatorios.</Alert>
                     </CardHeader>
                     <CardBody>
-                    <Form>
                         <FormGroup>
                             <FontAwesomeIcon icon={['fas', 'user']} />
                             <Label for="nombreCompleto">&nbsp;Nombre completo:</Label>
@@ -82,7 +83,6 @@ export default class RegisterB1 extends Component {
                             </CustomInput>
                             <Badge id="cargaIne" color="light">* Recuerda subir un archivo .pdf, .doc/x, .xls/x or .ppt/x</Badge>
                         </FormGroup>
-                        </Form>
                     </CardBody>
                 </Card>
                 <Col  md="12" align="right">
@@ -90,6 +90,7 @@ export default class RegisterB1 extends Component {
                   <Button>Siguiente&nbsp;<FontAwesomeIcon icon={['fas', 'arrow-circle-right']} /></Button>
                   </Link>
                 </Col>
+                </Form>
             </div>
         );
     }
