@@ -7,7 +7,7 @@
     }
 
     &.alert-success{
-      background-color: darken($success, 10%);
+      background-color: $success;
     }
 
     i.fa,

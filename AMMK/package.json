@@ -9,7 +9,11 @@
     "@fortawesome/react-fontawesome": "^0.1.11",
     "@material-ui/core": "^4.11.0",
     "@types/react": "16.9.23",
+<<<<<<< HEAD
     "bootstrap": "^4.5.2",
+=======
+    "availity-reactstrap-validation": "^2.6.1",
+>>>>>>> Angie/view-beneficiaries
     "chart.js": "2.9.3",
     "classnames": "2.2.6",
     "history": "4.10.1",
