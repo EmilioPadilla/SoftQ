@@ -4,7 +4,7 @@ import {FormGroup, Form, Input, Button} from "reactstrap"
 export class CuentasEmpleados extends React.Component{
     render(){
         return(
-            <div>
+            <div class="content">
                 <div class="container">
                     <div class="row">
                         <div class="col-12" >

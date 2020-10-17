@@ -18,7 +18,7 @@
 import Dashboard from "views/Dashboard.js";
 //import Notifications from "views/Notifications.js";
 import Rtl from "views/Rtl.js";
-import Facturacion from "views/Facturacion";
+//import Facturacion from "views/Facturacion";
 
 import TableList from "views/TableList.js";
 import Typography from "views/Typography.js";
@@ -27,6 +27,11 @@ import RegisterEmployee2 from "views/RE2.js";
 import RegisterEmployee3 from "views/RE3.js";
 import ViewEmployee from "views/ViewEmployee.js";
 import EmployeeCalendar from "views/EmployeeCalendar.js";
+
+//Cuentas
+import ViewAccountEmp from "views/Cuentas/ViewAccountEmployee";
+import ModifyPersonalAc from "views/Cuentas/ModifyPersonalAccount";
+import ModifyAccountEmp from "views/Cuentas/ModifyAccountEmployee";
 
 //BENEFICIARIAS
 import RegisterB1 from "views/Beneficiarias/RegisterB1.js";
@@ -56,6 +61,34 @@ var routes = [
     component: Dashboard,
     layout: "/admin",
     showInSidebar: true
+  },
+  //Star Cuentas
+  {
+    path: "/Cuentas/CuentaEmpleado",
+    name: "Beneficiarias",
+    rtlName: "ملف تعريفي للمستخدم",
+    icon: "tim-icons icon-single-02",
+    component: ViewAccountEmp,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+    path: "/Cuentas/CuentaPersonal",
+    name: "Beneficiarias",
+    rtlName: "ملف تعريفي للمستخدم",
+    icon: "tim-icons icon-single-02",
+    component: ModifyPersonalAc,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+    path: "/Cuentas/ModCuentaEmp",
+    name: "Beneficiarias",
+    rtlName: "ملف تعريفي للمستخدم",
+    icon: "tim-icons icon-single-02",
+    component: ModifyAccountEmp,
+    layout: "/admin",
+    showInSidebar: false
   },
   /*  START BENEFICIARIAS */
   {
