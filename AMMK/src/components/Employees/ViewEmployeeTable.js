@@ -50,7 +50,7 @@ import {
                         <td >
                           <Row>
                             <Col md="3">
-                            <button type="button" class="btn btn-info btn-sm">&nbsp;<AccountSearchIcon/></button>
+                            <button type="button" class="btn btn-info btn-sm"><AccountSearchIcon/></button>
                           </Col>
                           <Col md="3">
                             <ModalExitEmployee buttonLabel={<DeleteIcon/>}/>

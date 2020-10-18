@@ -61,11 +61,11 @@ var routes = [
   },
   {
     path: "/General/GeneralIndex",
-    name: "Beneficiarias",
+    name: "panel de administrador",
     rtlName: "ملف تعريفي للمستخدم",
     icon: "tim-icons icon-single-02",
     component: GeneralIndex,
-    layout: "/admin",
+    layout: "/general",
     showInSidebar: false
   },
   /*  START BENEFICIARIAS */
@@ -196,9 +196,7 @@ var routes = [
     showInSidebar: false
   },
   /* END BENEFICIARIAS */
-  {
-    path: "/user-profile",
-  },
+  /*  START EMPLOYEES */
   {
     path: "/view-employee",
     name: "Empleados",
@@ -217,6 +215,34 @@ var routes = [
     layout: "/admin",
     showInSidebar: false
   },
+  {
+    path: "/RE2",
+    name: "Empleados",
+    rtlName: "طباعة",
+    icon: "tim-icons icon-single-02",
+    component: RegisterEmployee2,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+    path: "/RE3",
+    name: "Empleados",
+    rtlName: "طباعة",
+    icon: "tim-icons icon-single-02",
+    component: RegisterEmployee3,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+    path: "/employee-calendar",
+    name: "Empleados",
+    rtlName: "طباعة",
+    icon: "tim-icons icon-single-02",
+    component: EmployeeCalendar,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  /*  END EMPLOYEES */
   {
     path: "/donantes",
     name: "Donantes",
@@ -254,33 +280,7 @@ var routes = [
     layout: "/admin",
     showInSidebar: true
   },
-  {
-    path: "/RE2",
-    name: "Empleados",
-    rtlName: "طباعة",
-    icon: "tim-icons icon-single-02",
-    component: RegisterEmployee2,
-    layout: "/admin",
-    showInSidebar: false
-  },
-  {
-    path: "/RE3",
-    name: "Empleados",
-    rtlName: "طباعة",
-    icon: "tim-icons icon-single-02",
-    component: RegisterEmployee3,
-    layout: "/admin",
-    showInSidebar: false
-  },
-  {
-    path: "/employee-calendar",
-    name: "Empleados",
-    rtlName: "طباعة",
-    icon: "tim-icons icon-single-02",
-    component: EmployeeCalendar,
-    layout: "/admin",
-    showInSidebar: false
-  },
+
 
 
   // SE BORRARÁ UNA VEZ QUE TODOS ENTIENDAN EL CONCEPTO DE RTL SUPPORT
