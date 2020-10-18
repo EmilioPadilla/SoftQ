@@ -18,7 +18,7 @@
 import Dashboard from "views/Dashboard.js";
 //import Notifications from "views/Notifications.js";
 import Rtl from "views/Rtl.js";
-import Facturacion from "views/Facturacion";
+// import Facturacion from "views/Facturacion";
 
 import TableList from "views/TableList.js";
 import Typography from "views/Typography.js";
@@ -224,7 +224,7 @@ var routes = [
     layout: "/admin",
     showInSidebar: true
   },
-  
+
   {
     path: "/typography",
     name: "Finanzas",
