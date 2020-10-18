@@ -20,13 +20,15 @@ import Dashboard from "views/Dashboard.js";
 import Rtl from "views/Rtl.js";
 // import Facturacion from "views/Facturacion";
 
+import GeneralIndex from "views/General/GeneralIndex.js";
+
 import TableList from "views/TableList.js";
 import Typography from "views/Typography.js";
-import RegisterEmployee from "views/RE.js";
-import RegisterEmployee2 from "views/RE2.js";
-import RegisterEmployee3 from "views/RE3.js";
-import ViewEmployee from "views/ViewEmployee.js";
-import EmployeeCalendar from "views/EmployeeCalendar.js";
+import RegisterEmployee from "views/Employees/RE.js";
+import RegisterEmployee2 from "views/Employees/RE2.js";
+import RegisterEmployee3 from "views/Employees/RE3.js";
+import ViewEmployee from "views/Employees/ViewEmployee.js";
+import EmployeeCalendar from "views/Employees/EmployeeCalendar.js";
 
 //BENEFICIARIAS
 import RegisterB1 from "views/Beneficiarias/RegisterB1.js";
@@ -56,6 +58,15 @@ var routes = [
     component: Dashboard,
     layout: "/admin",
     showInSidebar: true
+  },
+  {
+    path: "/General/GeneralIndex",
+    name: "Beneficiarias",
+    rtlName: "ملف تعريفي للمستخدم",
+    icon: "tim-icons icon-single-02",
+    component: GeneralIndex,
+    layout: "/admin",
+    showInSidebar: false
   },
   /*  START BENEFICIARIAS */
   {

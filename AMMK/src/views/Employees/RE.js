@@ -118,7 +118,7 @@ class RegisterEmployee extends React.Component {
                 </Card>
                 <Col  md="12" align="right">
                   <Link to='/admin/RE2'>
-                    <button className="btn btn-info">Siguiente</button>
+                    <button className="btn btn-primary">Siguiente</button>
                   </Link>
                 </Col>
 

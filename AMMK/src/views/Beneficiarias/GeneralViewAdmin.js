@@ -6,6 +6,7 @@ import { Row, Table, Col, Button, FormGroup, Input, Label, InputGroup, InputGrou
 import SimpleTooltip from "../General/SimpleTooltip";
 import TakeOutB from "../Beneficiarias/TakeOutB";
 import ReenterB from "../Beneficiarias/ReenterB";
+import AccountSearchIcon from 'mdi-react/AccountSearchIcon';
 
 //Importing Icon library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -30,7 +31,7 @@ export default class GeneralViewAdmin extends Component {
                             </Input>
                         </FormGroup>
                     </Col>
-                    
+
                     <Col md="6">
                         <Link to='/admin/Beneficiarias/RegisterB1'>
                         <Button className="btn btn-primary float-right"><FontAwesomeIcon icon={['fas', 'user-plus']} /> Registrar beneficiaria</Button>

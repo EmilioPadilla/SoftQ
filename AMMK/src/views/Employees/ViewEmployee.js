@@ -17,6 +17,7 @@ import ViewEmployeeTable from "components/Employees/ViewEmployeeTable.js";
 
 // reactstrap components
 import {
+  Button,
   Card,
   CardTitle,
   CardHeader,
@@ -42,25 +43,25 @@ class ViewEmployee extends React.Component {
             Empleados
           </h2>
           <Row>
-          <Col>
-            <FormGroup>
-            <Label for="statusSelect">Estatus</Label>
-                <Input type="select" name="select" id="statusSelect">
-                <option selected="1">Estatus...</option>
-                <option >Activos</option>
-                <option>Inactivos</option>
-                </Input>
-            </FormGroup>
-          </Col>
-          <Col className="text-right">
-            <br/>
-            <Link to='/admin/register-employee'>
-            <button className="btn btn-info btn-block">
-              <AccountPlusIcon/>
-              Registrar nuevo empleado
-            </button>
-          </Link>
-          </Col>
+            <Col>
+              <FormGroup>
+              <Label for="statusSelect">Estatus</Label>
+                  <Input type="select" name="select" id="statusSelect">
+                  <option selected="1">Estatus...</option>
+                  <option >Activos</option>
+                  <option>Inactivos</option>
+                  </Input>
+              </FormGroup>
+            </Col>
+            <Col className="text-right">
+              <br/>
+              <Link to='/admin/register-employee'>
+              <Button className="btn btn-primary ">
+                <AccountPlusIcon/> &nbsp;
+                Registrar nuevo empleado
+              </Button>
+            </Link>
+            </Col>
         </Row>
         <Row>
           <Col>
