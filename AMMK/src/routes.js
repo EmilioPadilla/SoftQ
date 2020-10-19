@@ -18,13 +18,9 @@
 import Dashboard from "views/Dashboard.js";
 //import Notifications from "views/Notifications.js";
 import Rtl from "views/Rtl.js";
-<<<<<<< HEAD
-//import Facturacion from "views/Facturacion";
-=======
 // import Facturacion from "views/Facturacion";
 
 import GeneralIndex from "views/General/GeneralIndex.js";
->>>>>>> b3726d5e6ac796b0f89accbf544790e7ce9a7bbc
 
 import TableList from "views/TableList.js";
 import Typography from "views/Typography.js";
