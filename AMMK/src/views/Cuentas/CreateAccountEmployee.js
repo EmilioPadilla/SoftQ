@@ -1,9 +1,63 @@
 import React from "react";
-import {FormGroup, Form, Input, Button} from "reactstrap"
+import {FormGroup, Form, Input, Button} from "react-bootstrap"
+import axios from 'axios';
+import Swal from 'sweetalert2';
 
-
-export class CuentasEmpleados extends React.Component{
+class CreateAccEmp extends React.Component{
+    constructor(props) {
+        super(props)
     
+        // Setting up functions
+        this.onSubmit = this.onSubmit.bind(this);
+    
+        // Setting up state
+        this.state = {
+          user: '',
+          pass: '',
+          idEmp: '',
+        }
+    }
+    
+
+
+    onSubmit(e) {
+        e.preventDefault()
+        var x = document.getElementById("passwd").value;
+        var y = document.getElementById("username").value;
+        var z = document.getElementById("selectEmpleado").value; 
+        var w = document.getElementById("confPasswd").value;
+        var iguales = x.localeCompare(w);
+ 
+        if(iguales==0){
+        var num = 1;
+         const cuenta = {
+          user: y,
+          pass: x,
+          idEmp: z,
+        };
+        axios.post('http://localhost:8000/api/account/', cuenta)
+          .then(resp => {console.log(resp.data)});
+        // console.log(`Expense successfully created!`);
+        // console.log(`Name: ${this.state.name}`);
+        // console.log(`Amount: ${this.state.amount}`);
+        // console.log(`Description: ${this.state.description}`);
+        Swal.fire(
+        '¡Listo!',
+        'Datos guardados',
+        'success'
+        )
+        this.setState({name: ''})
+        }else{
+            Swal.fire(
+                'ERROR!',
+                'Las contraseñas no coinciden',
+                'error'
+            )
+        }
+  }
+
+
+
     render(){
         return(
             <div class="content">
@@ -49,7 +103,19 @@ export class CuentasEmpleados extends React.Component{
                                     <div class="col-4">
                                         <FormGroup>
                                             <label>Confirmar contraseña:</label>
-                                            <Form.Control type="password"  />
+                                            <Form.Control type="password"  id="confPasswd"/>
+                                        </FormGroup>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-4" >
+                                        <FormGroup>
+                                            <label>Seleccione un Rol:</label>
+                                            <Form.Control as="select" id="selectRol">
+                                                <option value="1">General</option>
+                                                <option value="2">Enfermero</option>
+                                                <option value="3">Administrador</option>
+                                            </Form.Control>   
                                         </FormGroup>
                                     </div>
                                 </div>
@@ -71,4 +137,5 @@ export class CuentasEmpleados extends React.Component{
     }
 }
 
-export default CuentasEmpleados;
+
+export default CreateAccEmp;
