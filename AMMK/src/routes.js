@@ -16,23 +16,44 @@
 
 */
 import Dashboard from "views/Dashboard.js";
-import Notifications from "views/Notifications.js";
+//import Notifications from "views/Notifications.js";
 import Rtl from "views/Rtl.js";
+// import Facturacion from "views/Facturacion";
+
+import GeneralIndex from "views/General/GeneralIndex.js";
+
 
 import TableList from "views/TableList.js";
 import Typography from "views/Typography.js";
-import RegisterEmployee from "views/RE.js";
-import RegisterEmployee2 from "views/RE2.js";
-import RegisterEmployee3 from "views/RE3.js";
-import ViewEmployee from "views/ViewEmployee.js";
-import EmployeeCalendar from "views/EmployeeCalendar.js";
+import RegisterEmployee from "views/Employees/RE.js";
+import RegisterEmployee2 from "views/Employees/RE2.js";
+import RegisterEmployee3 from "views/Employees/RE3.js";
+import ViewEmployee from "views/Employees/ViewEmployee.js";
+import SearchEmployee from "views/Employees/SearchEmployee.js";
+import EmployeeCalendar from "views/Employees/EmployeeCalendar.js";
 
+//BENEFICIARIAS
 import RegisterB1 from "views/Beneficiarias/RegisterB1.js";
 import RegisterB2 from "views/Beneficiarias/RegisterB2.js";
 import RegisterB3 from "views/Beneficiarias/RegisterB3.js";
 import RegisterTreatment from "views/Beneficiarias/RegisterTreatment.js";
+
 import PrincipalDonantes from "views/Donors/PrincipalDonantes";
 import GeneralDonantes from "views/Donors/GeneralDonantes";
+
+
+import GeneralViewAdmin from "views/Beneficiarias/GeneralViewAdmin.js";
+import SpecificView from "views/Beneficiarias/SpecificView.js";
+//import GeneralViewNurse from "views/Beneficiarias/GeneralViewNurse.js";
+import MedicalRecordView from "views/Beneficiarias/MedicalRecordView";
+import RegisterMedApp from "views/Beneficiarias/RegisterMedApp";
+import ModifyMedApp from "views/Beneficiarias/ModifyMedApp";
+//modals
+import TakeOutB from "views/Beneficiarias/TakeOutB";
+import ReenterB from "views/Beneficiarias/ReenterB";
+import ModifyTreatment from "views/Beneficiarias/ModifyTreatment";
+import ViewMedApp from "views/Beneficiarias/ViewMedApp";
+//FIN BENEFICIARIAS
 
 
 
@@ -47,13 +68,122 @@ var routes = [
     showInSidebar: true
   },
   {
+    path: "/GeneralIndex",
+    name: "panel de administrador",
+    rtlName: "ملف تعريفي للمستخدم",
+    icon: "tim-icons icon-single-02",
+    component: GeneralIndex,
+    layout: "/general",
+    showInSidebar: false
+  },
+  /*  START BENEFICIARIAS */
+  {
+    path: "/Beneficiarias/GeneralViewAdmin",
+    name: "Beneficiarias",
+    rtlName: "ملف تعريفي للمستخدم",
+    icon: "tim-icons icon-single-02",
+    component: GeneralViewAdmin,
+    layout: "/admin",
+    showInSidebar: true
+  },
+  /*{
+    path: "/Beneficiarias/GeneralViewNurse",
+    name: "Beneficiarias",
+    rtlName: "ملف تعريفي للمستخدم",
+    icon: "tim-icons icon-single-02",
+    component: GeneralViewNurse,
+    layout: "/admin",
+    showInSidebar: true
+  },*/
+  {
+    path: "/Beneficiarias/SpecificView",
+    name: "Beneficiarias",
+    rtlName: "ملف تعريفي للمستخدم",
+    icon: "tim-icons icon-single-02",
+    component: SpecificView,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+    path: "/Beneficiarias/TakeOutB",
+    name: "Beneficiarias",
+    rtlName: "ملف تعريفي للمستخدم",
+    icon: "tim-icons icon-single-02",
+    component: TakeOutB,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+    path: "/Beneficiarias/ReenterB",
+    name: "Beneficiarias",
+    rtlName: "ملف تعريفي للمستخدم",
+    icon: "tim-icons icon-single-02",
+    component: ReenterB,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+    path: "/Beneficiarias/ModifyTreatment",
+    name: "Beneficiarias",
+    rtlName: "ملف تعريفي للمستخدم",
+    icon: "tim-icons icon-single-02",
+    component: ModifyTreatment,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+    path: "/Beneficiarias/ViewMedApp",
+    name: "Beneficiarias",
+    rtlName: "ملف تعريفي للمستخدم",
+    icon: "tim-icons icon-single-02",
+    component: ViewMedApp,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+    path: "/Beneficiarias/MedicalRecordView",
+    name: "Beneficiarias",
+    rtlName: "طباعة",
+    icon: "tim-icons icon-single-02",
+    component: MedicalRecordView,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+    path: "/Beneficiarias/RegisterTreatment",
+    name: "Beneficiarias",
+    rtlName: "طباعة",
+    icon: "tim-icons icon-single-02",
+    component: RegisterTreatment,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+    path: "/Beneficiarias/RegisterMedApp",
+    name: "Beneficiarias",
+    rtlName: "طباعة",
+    icon: "tim-icons icon-single-02",
+    component: RegisterMedApp,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+    path: "/Beneficiarias/ModifyMedApp",
+    name: "Beneficiarias",
+    rtlName: "طباعة",
+    icon: "tim-icons icon-single-02",
+    component: ModifyMedApp,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
     path: "/Beneficiarias/RegisterB1",
     name: "Beneficiarias",
     rtlName: "ملف تعريفي للمستخدم",
     icon: "tim-icons icon-single-02",
     component: RegisterB1,
     layout: "/admin",
-    showInSidebar: true
+    showInSidebar: false
   },
   {
     path: "/Beneficiarias/RegisterB2",
@@ -73,15 +203,14 @@ var routes = [
     layout: "/admin",
     showInSidebar: false
   },
+  /* END BENEFICIARIAS */
+  /*  START EMPLOYEES */
   {
-    path: "/user-profile",
-  },
-  {
-    path: "/view-employee",
+    path: "/search-employee",
     name: "Empleados",
     rtlName: "طباعة",
     icon: "tim-icons icon-badge",
-    component: ViewEmployee,
+    component: SearchEmployee,
     layout: "/admin",
     showInSidebar: true
   },
@@ -94,35 +223,7 @@ var routes = [
     layout: "/admin",
     showInSidebar: false
   },
- 
-  {
-    path: "/tables",
-    name: "Prueba",
-    rtlName: "قائمة الجدول",
-    icon: "tim-icons icon-single-02",
-    component: TableList,
-    layout: "/admin",
-    showInSidebar: true
-  },
-  
-  {
-    path: "/typography",
-    name: "Finanzas",
-    rtlName: "طباعة",
-    icon: "tim-icons icon-single-02",
-    component: Typography,
-    layout: "/admin",
-    showInSidebar: true
-  },
-  {
-    path: "/typography",
-    name: "Reportes",
-    rtlName: "طباعة",
-    icon: "tim-icons icon-single-02",
-    component: Typography,
-    layout: "/admin",
-    showInSidebar: true
-  },
+
   {
     path: "/RE2",
     name: "Empleados",
@@ -142,6 +243,15 @@ var routes = [
     showInSidebar: false
   },
   {
+    path: "/view-employee",
+    name: "Empleados",
+    rtlName: "طباعة",
+    icon: "tim-icons icon-single-02",
+    component: ViewEmployee,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
     path: "/employee-calendar",
     name: "Empleados",
     rtlName: "طباعة",
@@ -150,6 +260,46 @@ var routes = [
     layout: "/admin",
     showInSidebar: false
   },
+  /*  END EMPLOYEES */
+  {
+    path: "/donantes",
+    name: "Donantes",
+    rtlName: "قائمة الجدول",
+    icon: "tim-icons icon-single-02",
+    component: TableList,
+    layout: "/admin",
+    showInSidebar: true
+  },
+
+  {
+    path: "/tables",
+    name: "Prueba",
+    rtlName: "قائمة الجدول",
+    icon: "tim-icons icon-single-02",
+    component: TableList,
+    layout: "/admin",
+    showInSidebar: true
+  },
+
+  {
+    path: "/typography",
+    name: "Finanzas",
+    rtlName: "طباعة",
+    icon: "tim-icons icon-single-02",
+    component: Typography,
+    layout: "/admin",
+    showInSidebar: true
+  },
+  {
+    path: "/typography",
+    name: "Reportes",
+    rtlName: "طباعة",
+    icon: "tim-icons icon-single-02",
+    component: Typography,
+    layout: "/admin",
+    showInSidebar: true
+  },
+
 
   //-------DONANTES-----//
   {

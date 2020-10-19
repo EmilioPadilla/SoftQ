@@ -96,21 +96,21 @@ $colors: map-merge((
 $default-color-opacity:      rgba(182, 182, 182, .6) !default;
 $orange-color:               #f96332 !default;
 
-$default:       #3374A4 !default;
+$default:       #0474ac !default;
 $primary:       #0474ac !default;
-$secondary:     #f4f5f7 !default;
+$secondary:     #0896dd !default;
 $success:       #61BD75 !default;
-$info:          #0474ac !default;
+$info:          #777777 !default;
 $warning:       #F6C665 !default;
 $danger:        #E13D5E !default;
 $black:         #222a42 !default;
 
 
 // gradient
-$default-states:       #263148 !default;
+$default-states:       #0474ac!default;
 $primary-states:       #0474ac !default;
 $success-states:       #52B768 !default;
-$info-states:          #0474ac !default;
+$info-states:          #777777 !default;
 $warning-states:       #F4B942 !default;
 $danger-states:        #DE2B4F !default;
 $black-states:         #1d253b !default;
@@ -496,7 +496,7 @@ $table-dark-bg:               $gray-900 !default;
 $table-dark-accent-bg:        rgba($white, .05);
 $table-dark-hover-bg:         rgba($white, .075);
 $table-dark-border-color:     lighten($gray-900, 7.5%);
-$table-dark-color:            $body-bg !default;
+$table-dark-color:            $white !default;
 
 
 // Buttons + Forms

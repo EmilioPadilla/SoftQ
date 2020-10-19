@@ -21,7 +21,7 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import PerfectScrollbar from "perfect-scrollbar";
 
 // core components
-import AdminNavbar from "components/Navbars/AdminNavbar.js";
+import GeneralNavbar from "components/Navbars/AdminNavbar.js";
 import Footer from "components/Footer/Footer.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
 import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
@@ -36,7 +36,7 @@ class Admin extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      backgroundColor: "blue",
+      backgroundColor: "primary",
       sidebarOpened:
         document.documentElement.className.indexOf("nav-open") !== -1
     };
@@ -116,7 +116,7 @@ class Admin extends React.Component {
             routes={routes.filter(route => route.showInSidebar === true)}
             bgColor={this.state.backgroundColor}
             logo={{
-              // outterLink: "#",
+              innerLink: "/general/GeneralIndex",
               text: "AMMK",
               imgSrc: logo
             }}
@@ -127,7 +127,7 @@ class Admin extends React.Component {
             ref="mainPanel"
             data={this.state.backgroundColor}
           >
-            <AdminNavbar
+            <GeneralNavbar
               {...this.props}
               brandText={this.getBrandText(this.props.location.pathname)}
               toggleSidebar={this.toggleSidebar}
@@ -135,7 +135,7 @@ class Admin extends React.Component {
             />
             <Switch>
               {this.getRoutes(routes)}
-              <Redirect from="*" to="/admin/dashboard"/>
+              <Redirect from="*" to="/admin/General/GeneralIndex"/>
             </Switch>
             {// we don't want the Footer to be rendered on map page
             this.props.location.pathname.indexOf("maps") !== -1 ? null : (

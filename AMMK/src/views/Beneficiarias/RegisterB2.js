@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
 // reactstrap components
-import { Card, CardHeader, CardBody, Form, Row, Progress, Alert, Col, FormGroup, Label, Input, CustomInput} from 'reactstrap';
+import { Badge, Button, Card, CardHeader, CardBody, Form, Row, Progress, Alert, Col, FormGroup, Label, Input, CustomInput} from 'reactstrap';
 
 //Importing Icon library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -19,9 +19,9 @@ export default class RegisterB2 extends Component {
                 <Card>
                     <CardHeader>
                         <h3 className="title">Datos de ingreso</h3>
-                        <Progress striped color="info" value="66.66"></Progress>
+                        <Progress striped color="primary" value="66.66"></Progress>
                         <br></br>
-                        <Alert color="light">Los campos marcados con un asterisco (*) son obligatorios.</Alert>
+                        <Alert color="primary">Los campos marcados con un asterisco (*) son obligatorios.</Alert>
                     </CardHeader>
                     <CardBody>
                         <Form>
@@ -29,42 +29,40 @@ export default class RegisterB2 extends Component {
                                 <Col md="6">
                                     <FormGroup>
                                     <FontAwesomeIcon icon={['fas', 'calendar-alt']} />
-                                    <Label for="exampleInputEmail1">&nbsp;Fecha de ingreso:</Label>
-                                    <Input type="date"></Input>
+                                    <Label for="fechaIngreso">&nbsp;Fecha de ingreso:</Label>
+                                    <Input type="date" id="fechaIngreso"></Input>
                                     </FormGroup>
                                 </Col>
                                 <Col md="6">
                                     <FormGroup>
                                     <FontAwesomeIcon icon={['fas', 'file-upload']} />
-                                    <Label for="exampleInputEmail1">&nbsp;Carga de hoja de ingreso:</Label>
-                                    <CustomInput type="file" label="Seleccionar archivo...">
+                                    <Label for="cargaIngreso">&nbsp;Carga de hoja de ingreso:</Label>
+                                    <CustomInput id="cargaIngreso" type="file" label="Seleccionar archivo...">
                                     </CustomInput>
-                                    <span class="badge badge-light">* Recuerda subir un archivo .pdf, .doc/x, .xls/x or .ppt/x</span>
+                                    <Badge color="light">* Recuerda subir un archivo .pdf, .doc/x, .xls/x or .ppt/x</Badge>
                                     </FormGroup>
                                 </Col>
                             </Row>
 
                             <FormGroup>
                                 <FontAwesomeIcon icon={['fas', 'notes-medical']} />
-                                <Label for="exampleInputEmail1">&nbsp;Diagnóstico médico:</Label>
-                                <Input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Parálisis cerebral"></Input>
+                                <Label for="dxMedico">&nbsp;Diagnóstico médico:</Label>
+                                <Input maxlength="125" id="dxMedico" placeholder="Parálisis cerebral"></Input>
                             </FormGroup>
 
                             <FormGroup>
-                                <Label for="exampleInputEmail1">Edad mental:</Label>
-                                <Input type="number" min="1" max="100"></Input>
+                                <Label for="edadMental">Edad mental:</Label>
+                                <Input id="edadMental" type="number" min="1" max="100"></Input>
                             </FormGroup>
 
                             <FormGroup>
-                                <Label for="exampleInputEmail1">Canalizador:</Label>
-                                <Input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Estefanía Ortíz"></Input>
+                                <Label for="canalizador">Canalizador:</Label>
+                                <Input maxlength="100" id="canalizador" placeholder="Estefanía Ortíz"></Input>
                             </FormGroup>
 
                             <FormGroup>
-                                <Label>Vínculos familiares:</Label>
-                                <div class="input-group">
-                                    <Input type="textarea" class="form-control" aria-label="With textarea"></Input>
-                                </div>
+                                <Label for="vinculosFam">Vínculos familiares:</Label>
+                                <Input id="vinculosFam" type="textarea"></Input>
                             </FormGroup>
                         </Form>
                     </CardBody>
@@ -72,12 +70,12 @@ export default class RegisterB2 extends Component {
                 <Row>
                     <Col  md="6" align="left">
                     <Link to='/admin/Beneficiarias/RegisterB1'>
-                    <button type="submit" class="btn btn-primary">Anterior <i class="fas fa-arrow-circle-left"></i></button>
+                    <Button><FontAwesomeIcon icon={['fas', 'arrow-circle-left']}/>&nbsp;Anterior</Button>
                     </Link>
                     </Col>
                     <Col  md="6" align="right">
                     <Link to='/admin/Beneficiarias/RegisterB3'>
-                    <button type="submit" class="btn btn-primary">Siguiente <i class="fas fa-arrow-circle-right"></i></button>
+                    <Button>Siguiente&nbsp;<FontAwesomeIcon icon={['fas', 'arrow-circle-right']}/></Button>
                     </Link>
                     </Col>
                 </Row>

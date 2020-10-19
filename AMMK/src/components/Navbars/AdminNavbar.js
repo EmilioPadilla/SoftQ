@@ -181,7 +181,7 @@ class AdminNavbar extends React.Component {
                 <UncontrolledDropdown nav>
                   <DropdownToggle
                     caret
-                    color="default"
+                    // color="default"
                     data-toggle="dropdown"
                     nav
                     onClick={e => e.preventDefault()}
