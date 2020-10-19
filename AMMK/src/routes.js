@@ -29,7 +29,7 @@ import ViewEmployee from "views/ViewEmployee.js";
 import EmployeeCalendar from "views/EmployeeCalendar.js";
 
 //Cuentas
-import ViewAccountEmp from "views/Cuentas/ViewAccountEmployee";
+import MainAccount from "views/Cuentas/MainAccounts";
 import ModifyPersonalAc from "views/Cuentas/ModifyPersonalAccount";
 import ModifyAccountEmp from "views/Cuentas/ModifyAccountEmployee";
 
@@ -64,17 +64,18 @@ var routes = [
   },
   //Star Cuentas
   {
-    path: "/Cuentas/CuentaEmpleado",
-    name: "Beneficiarias",
+    path: "/Cuentas/principal",
+    name: "Principal Cuentas",
     rtlName: "ملف تعريفي للمستخدم",
     icon: "tim-icons icon-single-02",
-    component: ViewAccountEmp,
+    component: MainAccount,
     layout: "/admin",
-    showInSidebar: false
+    showInSidebar: true
   },
+
   {
     path: "/Cuentas/CuentaPersonal",
-    name: "Beneficiarias",
+    name: "Cuenta Personal",
     rtlName: "ملف تعريفي للمستخدم",
     icon: "tim-icons icon-single-02",
     component: ModifyPersonalAc,
@@ -83,7 +84,7 @@ var routes = [
   },
   {
     path: "/Cuentas/ModCuentaEmp",
-    name: "Beneficiarias",
+    name: "Modificar Cuenta Empleado",
     rtlName: "ملف تعريفي للمستخدم",
     icon: "tim-icons icon-single-02",
     component: ModifyAccountEmp,
