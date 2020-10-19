@@ -22,6 +22,7 @@ import Rtl from "views/Rtl.js";
 
 import GeneralIndex from "views/General/GeneralIndex.js";
 
+
 import TableList from "views/TableList.js";
 import Typography from "views/Typography.js";
 import RegisterEmployee from "views/Employees/RE.js";
@@ -36,6 +37,11 @@ import RegisterB1 from "views/Beneficiarias/RegisterB1.js";
 import RegisterB2 from "views/Beneficiarias/RegisterB2.js";
 import RegisterB3 from "views/Beneficiarias/RegisterB3.js";
 import RegisterTreatment from "views/Beneficiarias/RegisterTreatment.js";
+
+import PrincipalDonantes from "views/Donors/PrincipalDonantes";
+import GeneralDonantes from "views/Donors/GeneralDonantes";
+
+
 import GeneralViewAdmin from "views/Beneficiarias/GeneralViewAdmin.js";
 import SpecificView from "views/Beneficiarias/SpecificView.js";
 //import GeneralViewNurse from "views/Beneficiarias/GeneralViewNurse.js";
@@ -48,6 +54,7 @@ import ReenterB from "views/Beneficiarias/ReenterB";
 import ModifyTreatment from "views/Beneficiarias/ModifyTreatment";
 import ViewMedApp from "views/Beneficiarias/ViewMedApp";
 //FIN BENEFICIARIAS
+
 
 
 var routes = [
@@ -216,6 +223,7 @@ var routes = [
     layout: "/admin",
     showInSidebar: false
   },
+
   {
     path: "/RE2",
     name: "Empleados",
@@ -262,6 +270,7 @@ var routes = [
     layout: "/admin",
     showInSidebar: true
   },
+
   {
     path: "/tables",
     name: "Prueba",
@@ -289,6 +298,27 @@ var routes = [
     component: Typography,
     layout: "/admin",
     showInSidebar: true
+  },
+
+
+  //-------DONANTES-----//
+  {
+    path: "/donantes",
+    name: "Donantes",
+    rtlName: "طباعة",
+    icon: "tim-icons icon-single-02",
+    component: GeneralDonantes,
+    layout: "/admin",
+    showInSidebar:true
+  },
+  {
+    path: "/DonanTipo",
+    name: "Donantes",
+    rtlName: "طباعة",
+    icon: "tim-icons icon-single-02",
+    component: GeneralDonantes,
+    layout: "/admin",
+    showInSidebar:true
   },
 
 
