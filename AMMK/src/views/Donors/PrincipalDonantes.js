@@ -2,15 +2,20 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
 // reactstrap components
-import { Row, Table, Col, Button, FormGroup, Input, Label, InputGroup, InputGroupAddon, InputGroupText} from 'reactstrap';
+import { Row, Table, Col, Button, FormGroup, Input, Label, InputGroup, InputGroupAddon, InputGroupText, Modal} from 'reactstrap';
 import SimpleTooltip from "../General/SimpleTooltip";
-import TakeOutB from "../Beneficiarias/TakeOutB";
-import ReenterB from "../Beneficiarias/ReenterB";
+import TakeOutD from "../Donors/TakeOutD";
+import ReenterD from "../Donors/ReenterD";
 
 //Importing Icon library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
+import ModalRegistrarDonacion from './ModalRegistrarDonacion';
+
+
+import TakeOutB from "../Donors/TakeOutD";
+
 
 library.add(fas)
 
@@ -18,7 +23,7 @@ export default class GeneralViewAdmin extends Component {
     render() {
         return (
             <div className="content">
-                <h1 className="title">BENEFICIARIAS</h1>
+                <h1 className="title">DONANTES</h1>
                 <Row>
                     <Col md="6">
                         <FormGroup>
@@ -30,10 +35,9 @@ export default class GeneralViewAdmin extends Component {
                             </Input>
                         </FormGroup>
                     </Col>
-
-                    <Col md="6">
-                        <Link to='/admin/Beneficiarias/RegisterB1'>
-                        <Button className="btn btn-primary float-right"><FontAwesomeIcon icon={['fas', 'user-plus']} /> Registrar beneficiaria</Button>
+                    <Col>
+                        <Link to='/admin/GeneralRegistroD'>
+                        <Button className="btn btn-primary float-right"><FontAwesomeIcon icon={['fas', 'user-plus']} /> Registrar Donante</Button>
                         </Link>
                     </Col>
                 </Row>
@@ -50,17 +54,21 @@ export default class GeneralViewAdmin extends Component {
                                 </InputGroupAddon>
                                 <Input />
                             </InputGroup>
-                            <Input type="text" class="form-control" placeholder="Maria Sandoval Arrieta" aria-label="busquedaNombre" aria-describedby="magGlass"></Input>
                         </FormGroup>
                     </Col>
 
                     <Col md="4">
                         <FormGroup>
-                            <Label>Filtrar por sede:</Label>
+                            <Label>Filtrar por Tipo:</Label>
                             <Input type="select">
-                            <option>Sede...</option>
-                            <option >Asoc. MMK</option>
-                            <option>Granja Betanía</option>
+                            <option>Tipo de Donante...</option>
+                            <option>Particular</option>
+                            <option >Patronato</option>
+                            <option>Gobierno</option>
+                            <option>Empresa</option>
+                            <option>Fundación</option>
+
+
                             </Input>
                         </FormGroup>
                     </Col>
@@ -70,32 +78,32 @@ export default class GeneralViewAdmin extends Component {
                     <thead>
                         <tr>
                             <th>Nombre</th>
-                            <th>Edad</th>
-                            <th>Diagnóstico Médico</th>
-                            <th>Sede</th>
+                            <th>Tipo</th>
+                            <th>Recurrencia</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                         <tr>
                             <td>Maria Sandoval Arrieta</td>
-                            <td>25</td>
-                            <td>Parálisis cerebral</td>
-                            <td>Granja Betanía</td>
+                            <td>Particular</td>
+                            <td>Mensual</td>
                             <td>
-                            <Row>
-                                  <Col md="2">
-                                <Link to='/admin/Beneficiarias/SpecificView'>
+                                <Row>
+                                <ModalRegistrarDonacion/>
+                                <Col md="2">
+                                <Link to='/admin/VistaDonante'>
                                 <Button color="info" size="sm" id="verDetalle"><FontAwesomeIcon icon={['fas', 'eye']} /></Button>
                                 <SimpleTooltip placement="top" target="verDetalle">Ver detalle</SimpleTooltip>
                                 </Link>
                                 </Col>
                                 <Col md="2">
 
-                                <TakeOutB/>
+                                <TakeOutD/>
                                   </Col>
-                                  <Col md="2"> <ReenterB/></Col>
+                                  <Col md="2"> <ReenterD/></Col>
                                 
-                                </Row>          </td>
+                                </Row>
+                            </td>
                         </tr>
                 </Table>
             </div>

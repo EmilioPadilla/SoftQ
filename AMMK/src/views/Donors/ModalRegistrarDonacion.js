@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Row, Modal, Form, Dropdown,Button, Col } from "react-bootstrap";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import SimpleTooltip from "../General/SimpleTooltip";
 
 class ModalRegistrarDonacion extends Component {
   constructor() {
@@ -15,15 +17,15 @@ class ModalRegistrarDonacion extends Component {
 
   render() {
     return (
+      
       <React.StrictMode>
-        <button
-          className="btn btn-outline-primary"
-          onClick={() => {
+        <Col>
+     <Button  size="sm" id="registrarDonacion" className="btn btn-primary float-right" onClick={() => {
             this.handleModal();
-          }}
-        >
-          Iniciar Sesión
-        </button>
+          }}><FontAwesomeIcon icon={['fas', 'plus']} /></Button>
+      <SimpleTooltip placement="top" target="registrarDonacion" >Registrar Donación</SimpleTooltip>
+
+</Col>
         <Modal show={this.state.show} onHide={() => this.handleModal()} top>
           <Modal.Header closeButton>
             <Modal.Title>Registrar Donación:</Modal.Title>
@@ -85,7 +87,6 @@ class ModalRegistrarDonacion extends Component {
               </Form.Group>
               </Form.Row>
               
-              <Col align="center">
               <Button
                 className="btn btn-outline-primary"
                 onClick={() => {
@@ -94,7 +95,6 @@ class ModalRegistrarDonacion extends Component {
               >
                 Registrar
               </Button>
-          </Col>
           </Form>
             </div>
           </Modal.Body>
@@ -107,3 +107,4 @@ class ModalRegistrarDonacion extends Component {
 }
 
 export default ModalRegistrarDonacion;
+

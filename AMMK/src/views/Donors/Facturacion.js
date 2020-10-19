@@ -5,6 +5,9 @@ import Row from "react-bootstrap/Col";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 
 class Facturacion extends Component {
   render() {
@@ -97,16 +100,18 @@ class Facturacion extends Component {
             </Form.Row>
             <Form.Row></Form.Row>
           </Form>
-          <Col align="center">
-              <Button
-                className="btn btn-outline-primary"
-                onClick={() => {
-                  this.handleClick();
-                }}
-              >
-                Registrar
-              </Button>
-          </Col>
+          <Form.Row>
+                    <Col  md="6" align="left">
+                    <Link to='/admin/RegistroDonante2'>
+                    <Button><FontAwesomeIcon icon={['fas', 'arrow-circle-left']}/>&nbsp;Anterior</Button>
+                    </Link>
+                    </Col>
+                    <Col  md="6" align="right">
+                    <Link>
+                    <Button>Registrar</Button>
+                    </Link>
+                    </Col>
+                </Form.Row>
         </div>
       </div>
     );
