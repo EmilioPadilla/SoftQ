@@ -16,7 +16,6 @@ export class ModificaPersonal extends React.Component{
                                             <label>Nombre de usuario:</label>
                                             <Input
                                                 defaultValue="JuanEmp1"
-                                                disabled
                                                 type="text"
                                             
                                             /> 
@@ -52,8 +51,8 @@ export class ModificaPersonal extends React.Component{
                                 <br/>
                                 <div class="row justify-content-center">
                                     <div class="col-4" align="center">
-                                        <Button className="btn-fill" color="info" type="submit">
-                                            Guardar
+                                        <Button className="btn-fill" color="primary" type="submit">
+                                            Guardar Cambios
                                         </Button>
                                     </div>
                                 </div>
