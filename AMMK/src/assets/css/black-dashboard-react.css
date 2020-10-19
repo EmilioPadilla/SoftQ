@@ -1240,7 +1240,7 @@ pre {
     background-color: rgba(25, 31, 49, 0.075); }
 
 .table .thead-dark th {
-  color: #1e1e2f;
+  color: #ffffff;
   background-color: #212529;
   border-color: #32383e; }
 
@@ -1250,7 +1250,7 @@ pre {
   border-color: #e3e3e3; }
 
 .table-dark {
-  color: #1e1e2f;
+  color: #ffffff;
   background-color: #212529; }
   .table-dark th,
   .table-dark td,
@@ -4397,7 +4397,7 @@ button.close {
   .bs-popover-top .arrow::before, .bs-popover-auto[x-placement^="top"] .arrow::before {
     bottom: 0;
     border-top-color: transparent; }
-
+  
   .bs-popover-top .arrow::after,
   .bs-popover-auto[x-placement^="top"] .arrow::after {
     bottom: 1px;
@@ -4417,7 +4417,7 @@ button.close {
   .bs-popover-right .arrow::before, .bs-popover-auto[x-placement^="right"] .arrow::before {
     left: 0;
     border-right-color: transparent; }
-
+  
   .bs-popover-right .arrow::after,
   .bs-popover-auto[x-placement^="right"] .arrow::after {
     left: 1px;
@@ -4434,7 +4434,7 @@ button.close {
   .bs-popover-bottom .arrow::before, .bs-popover-auto[x-placement^="bottom"] .arrow::before {
     top: 0;
     border-bottom-color: transparent; }
-
+  
   .bs-popover-bottom .arrow::after,
   .bs-popover-auto[x-placement^="bottom"] .arrow::after {
     top: 1px;
@@ -4463,7 +4463,7 @@ button.close {
   .bs-popover-left .arrow::before, .bs-popover-auto[x-placement^="left"] .arrow::before {
     right: 0;
     border-left-color: transparent; }
-
+  
   .bs-popover-left .arrow::after,
   .bs-popover-auto[x-placement^="left"] .arrow::after {
     right: 1px;
@@ -8788,7 +8788,7 @@ img {
 
 .modal-content {
   border: 5;
-  color: #3374A4; }
+  color: #777777; }
   .modal-content .input {
     color: #222a42; }
   .modal-content .input::placeholder {
@@ -8803,18 +8803,22 @@ img {
       padding: 1rem;
       margin: -1rem -1rem -1rem auto; }
     .modal-content .modal-header .title {
-      color: #3374A4;
+      color: #777777;
       margin-top: 5px;
       margin-bottom: 0;
       font-size: 40px; }
     .modal-content .modal-header .modal-title {
-      color: #3374A4;
+      color: #777777;
       font-size: 30px; }
     .modal-content .modal-header i.tim-icons {
       font-size: 16px; }
   .modal-content .modal-body {
     line-height: 1.9; }
     .modal-content .modal-body p {
+      color: #222a42; }
+    .modal-content .modal-body h3 {
+      color: #222a42; }
+    .modal-content .modal-body input {
       color: #222a42; }
   .modal-content .modal-footer {
     border-top: 0;
@@ -9493,14 +9497,14 @@ img {
 
 .modal.modal-black .modal-content {
   background: linear-gradient(to bottom, #222a42 0%, #1d253b 100%);
-  color: rgba(255, 255, 255, 0.8); }
+  color: rgba(34, 42, 66, 0.8); }
   .modal.modal-black .modal-content .modal-header .modal-title, .modal.modal-black .modal-content .modal-header .title {
     color: rgba(255, 255, 255, 0.9); }
   .modal.modal-black .modal-content .modal-body p {
-    color: rgba(255, 255, 255, 0.8); }
+    color: rgba(34, 42, 66, 0.8); }
 
 .modal.modal-black h1, .modal.modal-black h2, .modal.modal-black h3, .modal.modal-black h4, .modal.modal-black h5, .modal.modal-black h6, .modal.modal-black p {
-  color: #ffffff; }
+  color: #222a42; }
 
 .modal-search .modal-dialog {
   margin: 20px auto;

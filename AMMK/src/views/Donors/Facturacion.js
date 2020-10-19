@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
+
 class Facturacion extends Component {
   render() {
     return (
@@ -112,6 +113,16 @@ class Facturacion extends Component {
                     </Link>
                     </Col>
                 </Form.Row>
+          <Col align="center">
+              <Button
+                className="btn btn-outline-primary"
+                onClick={() => {
+                  this.handleClick();
+                }}
+              >
+                Registrar
+              </Button>
+          </Col>
         </div>
       </div>
     );

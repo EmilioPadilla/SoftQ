@@ -1,25 +1,26 @@
 import React from "react";
 import {FormGroup, Form, Input, Button} from "reactstrap"
 
+
 export class CuentasEmpleados extends React.Component{
+    
     render(){
         return(
-            <div>
+            <div class="content">
                 <div class="container">
                     <div class="row">
                         <div class="col-12" >
                             <h2 align="center">Registrar Cuenta</h2>
-                            <Form>
+                            <Form onSubmit={this.onSubmit}>
                                 <div class="row justify-content-center">
-                                    <div class="col-4">
+                                    <div class="col-4" >
                                         <FormGroup>
-                                            <label>Empleado:</label>
-                                            <Input type="select" name="select" id="">
-                                                <option selected="1">Selecciona el Empleado</option>
-                                                <option >Juan Díaz</option>
-                                                <option>Eric Torres</option>
-                                                <option>Emilio Aguilera</option>
-                                            </Input>
+                                            <label>Seleccione un Empleado:</label>
+                                            <Form.Control as="select" id="selectEmpleado">
+                                                <option value="1">Iván Díaz</option>
+                                                <option value="2">Eric Torres</option>
+                                                <option value="3">Emilio Aguilera</option>
+                                            </Form.Control>   
                                         </FormGroup>
                                     </div>
                                 </div>
@@ -27,11 +28,10 @@ export class CuentasEmpleados extends React.Component{
                                     <div class="col-4" >
                                         <FormGroup>
                                             <label>Nombre de usuario:</label>
-                                            <Input
-                                                placeholder="juanP1"
-                                                type="text"
+                                            <Form.Control type="text" placeholder="juanP1" 
+                                            id="username"
+                                            />
                                             
-                                            /> 
                                         </FormGroup>
                                     </div>
                                 </div>
@@ -39,10 +39,8 @@ export class CuentasEmpleados extends React.Component{
                                     <div class="col-4">
                                         <FormGroup>
                                             <label>Contraseña:</label>
-                                            <Input
-                                                placeholder=""
-                                                type="password"
-                                            
+                                            <Form.Control type="password"  
+                                                id="passwd"
                                             /> 
                                         </FormGroup>
                                     </div>
@@ -51,24 +49,7 @@ export class CuentasEmpleados extends React.Component{
                                     <div class="col-4">
                                         <FormGroup>
                                             <label>Confirmar contraseña:</label>
-                                            <Input
-                                                placeholder=""
-                                                type="password"
-                                            
-                                            /> 
-                                        </FormGroup>
-                                    </div>
-                                </div>
-                                <div class="row justify-content-center">
-                                    <div class="col-4">
-                                        <FormGroup>
-                                            <label>Rol:</label>
-                                            <Input type="select" name="select" id="">
-                                                <option selected="1">Selecciona el rol</option>
-                                                <option >General</option>
-                                                <option>Enfermero/a</option>
-                                                <option>Administrativo/a</option>
-                                            </Input>
+                                            <Form.Control type="password"  />
                                         </FormGroup>
                                     </div>
                                 </div>

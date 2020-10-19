@@ -22,19 +22,32 @@ import Rtl from "views/Rtl.js";
 
 import GeneralIndex from "views/General/GeneralIndex.js";
 
+
 import TableList from "views/TableList.js";
 import Typography from "views/Typography.js";
 import RegisterEmployee from "views/Employees/RE.js";
 //import RegisterEmployee2 from "views/Employees/RE2.js";
 import RegisterEmployee3 from "views/Employees/RE3.js";
 import ViewEmployee from "views/Employees/ViewEmployee.js";
+import SearchEmployee from "views/Employees/SearchEmployee.js";
 import EmployeeCalendar from "views/Employees/EmployeeCalendar.js";
+
+//Cuentas
+import MainAccount from "views/Cuentas/MainAccounts";
+import ModifyPersonalAc from "views/Cuentas/ModifyPersonalAccount";
+import ModifyAccountEmp from "views/Cuentas/ModifyAccountEmployee";
+import CreateAccEmp from "views/Cuentas/CreateAccountEmployee";
 
 //BENEFICIARIAS
 import RegisterB1 from "views/Beneficiarias/RegisterB1.js";
 import RegisterB2 from "views/Beneficiarias/RegisterB2.js";
 import RegisterB3 from "views/Beneficiarias/RegisterB3.js";
 import RegisterTreatment from "views/Beneficiarias/RegisterTreatment.js";
+
+import PrincipalDonantes from "views/Donors/PrincipalDonantes";
+import GeneralDonantes from "views/Donors/GeneralDonantes";
+
+
 import GeneralViewAdmin from "views/Beneficiarias/GeneralViewAdmin.js";
 import SpecificView from "views/Beneficiarias/SpecificView.js";
 //import GeneralViewNurse from "views/Beneficiarias/GeneralViewNurse.js";
@@ -57,6 +70,7 @@ import GeneralRegistroD from "./views/Donors/GeneralRegistroD"
 import VIstaDonante from "views/Donors/VIstaDonante.js";
 
 
+
 var routes = [
   {
     path: "/dashboard",
@@ -67,8 +81,47 @@ var routes = [
     layout: "/admin",
     showInSidebar: false
   },
+  //Start Cuentas
   {
-    path: "/General/GeneralIndex",
+    path: "/Cuentas/principal",
+    name: "Cuentas",
+    rtlName: "ملف تعريفي للمستخدم",
+    icon: "tim-icons icon-single-02",
+    component: MainAccount,
+    layout: "/admin",
+    showInSidebar: true
+  },
+
+  {
+    path: "/Cuentas/CuentaPersonal",
+    name: "Cuenta Personal",
+    rtlName: "ملف تعريفي للمستخدم",
+    icon: "tim-icons icon-single-02",
+    component: ModifyPersonalAc,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+    path: "/Cuentas/CrearCuentaEmp",
+    name: "Crear cuenta empleado",
+    rtlName: "ملف تعريفي للمستخدم",
+    icon: "tim-icons icon-single-02",
+    component: CreateAccEmp,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+    path: "/Cuentas/ModCuentaEmp",
+    name: "Modificar Cuenta Empleado",
+    rtlName: "ملف تعريفي للمستخدم",
+    icon: "tim-icons icon-single-02",
+    component: ModifyAccountEmp,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  //End Cuentas
+  {
+    path: "/GeneralIndex",
     name: "panel de administrador",
     rtlName: "ملف تعريفي للمستخدم",
     icon: "tim-icons icon-single-02",
@@ -206,11 +259,11 @@ var routes = [
   /* END BENEFICIARIAS */
   /*  START EMPLOYEES */
   {
-    path: "/view-employee",
+    path: "/search-employee",
     name: "Empleados",
     rtlName: "طباعة",
     icon: "tim-icons icon-badge",
-    component: ViewEmployee,
+    component: SearchEmployee,
     layout: "/admin",
     showInSidebar: true
   },
@@ -223,7 +276,7 @@ var routes = [
     layout: "/admin",
     showInSidebar: false
   },
-  {
+  /*{
     path: "/RE2",
     name: "Empleados",
     rtlName: "طباعة",
@@ -231,13 +284,22 @@ var routes = [
     //component: RegisterEmployee2,
     layout: "/admin",
     showInSidebar: false
-  },
+  },*/
   {
     path: "/RE3",
     name: "Empleados",
     rtlName: "طباعة",
     icon: "tim-icons icon-single-02",
     component: RegisterEmployee3,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+    path: "/view-employee",
+    name: "Empleados",
+    rtlName: "طباعة",
+    icon: "tim-icons icon-single-02",
+    component: ViewEmployee,
     layout: "/admin",
     showInSidebar: false
   },
@@ -262,6 +324,7 @@ var routes = [
     layout: "/admin",
     showInSidebar: true
   },
+
   {
     path: "/RegistroDonante1",
     name: "Donantes",
@@ -328,6 +391,27 @@ var routes = [
     component: Typography,
     layout: "/admin",
     showInSidebar: true
+  },
+
+
+  //-------DONANTES-----//
+  {
+    path: "/donantes",
+    name: "Donantes",
+    rtlName: "طباعة",
+    icon: "tim-icons icon-single-02",
+    component: GeneralDonantes,
+    layout: "/admin",
+    showInSidebar:true
+  },
+  {
+    path: "/DonanTipo",
+    name: "Donantes",
+    rtlName: "طباعة",
+    icon: "tim-icons icon-single-02",
+    component: GeneralDonantes,
+    layout: "/admin",
+    showInSidebar:true
   },
 
 

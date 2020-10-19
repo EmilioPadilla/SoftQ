@@ -110,3 +110,7 @@ export default class GeneralViewAdmin extends Component {
         )
     }
 }
+
+
+
+export default PrincipalDonantes;

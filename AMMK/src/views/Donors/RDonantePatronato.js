@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import React, { Component } from "react";import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -64,6 +64,8 @@ class RDonantesPatronato extends Component {
   }
 
 
+
+
   render() {
     return (
       <div className="content">
@@ -76,12 +78,16 @@ class RDonantesPatronato extends Component {
                   <br/>
           <div class="container"></div>
           <Form onSubmit={this.onSubmit}>
+        
+                  <br/>
+          <div class="container"></div>
+          <Form>
             <Form.Row>
               <Form.Group as={Row} controlId="namePatronato">
                 <Form.Label>Nombre Completo:</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder="Maria Sandoval Arrieto" 
+          placeholder="Maria Sandoval Arrieto"
                 />
               </Form.Group>
             </Form.Row>
@@ -90,13 +96,15 @@ class RDonantesPatronato extends Component {
               <Form.Group as={Row} controlId="birthdayPatronato">
                 <Form.Label>Fecha de Cumpleaños:</Form.Label>
                 <Form.Control type="date" placeholder=" / / "  />
+
               </Form.Group>
             </Form.Row>
 
             <Form.Row>
               <Form.Group as={Row} controlId="RFCPatronato">
                 <Form.Label>RFC:</Form.Label>
-                <Form.Control type="text" placeholder="VECJ880326 XXX"  />
+
+                <Form.Control type="text" placeholder="VECJ880326 XXX" />
               </Form.Group>
             </Form.Row>
             <Form.Row>
@@ -134,6 +142,9 @@ class RDonantesPatronato extends Component {
                 </Form.Row>
           </Form>
           
+             
+          </Form>
+       
         </div>
       </div>
     );

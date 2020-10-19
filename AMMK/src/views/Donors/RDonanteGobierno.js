@@ -67,6 +67,11 @@ class RDonanteGobierno extends Component {
 
   }
 
+
+
+
+
+
   render() {
     return (
       <div className="content">
@@ -81,6 +86,7 @@ class RDonanteGobierno extends Component {
           <Form>
             <Form.Row>
               <Form.Group as={Row} controlId="rs2">
+
                 <Form.Label>Nombre de la empresa/asociación/fundación:</Form.Label>
                 <Form.Control
                   type="text"
@@ -91,6 +97,7 @@ class RDonanteGobierno extends Component {
 
             <Form.Row>
               <Form.Group as={Row} controlId="nombre2">
+
                 <Form.Label>Nombre del contacto de empresa/asociación/fundación:</Form.Label>
                 <Form.Control
                   type="text"
@@ -163,6 +170,7 @@ class RDonanteGobierno extends Component {
                     </Link>
                     </Col>
                 </Form.Row> 
+          
         </div>
       </div>
     );
