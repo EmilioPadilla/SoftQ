@@ -18,5 +18,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//Rutas Accounts
+
+Route::resource('donantes', 'App\Http\Controllers\DonantesController');
+
+
 Route::resource('account', 'App\Http\Controllers\AccountController');

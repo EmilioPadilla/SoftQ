@@ -61,6 +61,14 @@ import ModifyTreatment from "views/Beneficiarias/ModifyTreatment";
 import ViewMedApp from "views/Beneficiarias/ViewMedApp";
 //FIN BENEFICIARIAS
 
+//DONANTES
+import PrincipalDonantes from "./views/Donors/PrincipalDonantes.js"
+import RDonantePatronato from "./views/Donors/RDonantePatronato"
+import Facturacion from "./views/Donors/Facturacion"
+import RDonanteGobierno from "./views/Donors/RDonanteGobierno"
+import GeneralRegistroD from "./views/Donors/GeneralRegistroD"
+import VIstaDonante from "views/Donors/VIstaDonante.js";
+
 
 
 var routes = [
@@ -71,7 +79,7 @@ var routes = [
     icon: "tim-icons icon-chart-pie-36",
     component: Dashboard,
     layout: "/admin",
-    showInSidebar: true
+    showInSidebar: false
   },
   //Start Cuentas
   {
@@ -273,7 +281,7 @@ var routes = [
     name: "Empleados",
     rtlName: "طباعة",
     icon: "tim-icons icon-single-02",
-    component: RegisterEmployee2,
+    //component: RegisterEmployee2,
     layout: "/admin",
     showInSidebar: false
   },*/
@@ -305,31 +313,72 @@ var routes = [
     showInSidebar: false
   },
   /*  END EMPLOYEES */
+
+  /*DONANTES*/
   {
     path: "/donantes",
     name: "Donantes",
     rtlName: "قائمة الجدول",
-    icon: "tim-icons icon-single-02",
-    component: TableList,
+    icon: "tim-icons icon-heart-2",
+    component: PrincipalDonantes,
     layout: "/admin",
     showInSidebar: true
   },
 
   {
-    path: "/tables",
-    name: "Prueba",
+    path: "/RegistroDonante1",
+    name: "Donantes",
     rtlName: "قائمة الجدول",
-    icon: "tim-icons icon-single-02",
-    component: TableList,
+    icon: "tim-icons icon-heart-2",
+    component: RDonantePatronato,
     layout: "/admin",
-    showInSidebar: true
+    showInSidebar: false
+  },
+  {
+    path: "/RegistroDonante2",
+    name: "Donantes",
+    rtlName: "قائمة الجدول",
+    icon: "tim-icons icon-heart-2",
+    component: RDonanteGobierno,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+    path: "/Facturacion",
+    name: "Donantes",
+    rtlName: "قائمة الجدول",
+    icon: "tim-icons icon-heart-2",
+    component: Facturacion,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  
+  {
+    path: "/GeneralRegistroD",
+    name: "Donantes",
+    rtlName: "قائمة الجدول",
+    icon: "tim-icons icon-heart-2",
+    component: GeneralRegistroD,
+    layout: "/admin",
+    showInSidebar: false
   },
 
+  {
+    path: "/VistaDonante",
+    name: "Donantes",
+    rtlName: "قائمة الجدول",
+    icon: "tim-icons icon-heart-2",
+    component: VIstaDonante,
+    layout: "/admin",
+    showInSidebar: false
+  },
+
+      /*END DONANTES*/
   {
     path: "/typography",
     name: "Finanzas",
     rtlName: "طباعة",
-    icon: "tim-icons icon-single-02",
+    icon: "tim-icons icon-money-coins",
     component: Typography,
     layout: "/admin",
     showInSidebar: true
@@ -338,7 +387,7 @@ var routes = [
     path: "/typography",
     name: "Reportes",
     rtlName: "طباعة",
-    icon: "tim-icons icon-single-02",
+    icon: "tim-icons icon-chart-bar-32",
     component: Typography,
     layout: "/admin",
     showInSidebar: true
@@ -375,7 +424,7 @@ var routes = [
     icon: "tim-icons icon-world",
     component: Rtl,
     layout: "/rtl",
-    showInSidebar: true
+    showInSidebar: false
   }
 ];
 export default routes;

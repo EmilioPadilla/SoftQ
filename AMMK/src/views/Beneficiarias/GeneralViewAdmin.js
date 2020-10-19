@@ -82,17 +82,20 @@ export default class GeneralViewAdmin extends Component {
                             <td>Parálisis cerebral</td>
                             <td>Granja Betanía</td>
                             <td>
-                                <Row>
+                            <Row>
+                                  <Col md="2">
                                 <Link to='/admin/Beneficiarias/SpecificView'>
                                 <Button color="info" size="sm" id="verDetalle"><FontAwesomeIcon icon={['fas', 'eye']} /></Button>
                                 <SimpleTooltip placement="top" target="verDetalle">Ver detalle</SimpleTooltip>
                                 </Link>
+                                </Col>
+                                <Col md="2">
 
                                 <TakeOutB/>
-
-                                <ReenterB/>
-                                </Row>
-                            </td>
+                                  </Col>
+                                  <Col md="2"> <ReenterB/></Col>
+                                
+                                </Row>          </td>
                         </tr>
                 </Table>
             </div>

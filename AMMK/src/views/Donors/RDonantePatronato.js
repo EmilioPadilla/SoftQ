@@ -1,12 +1,71 @@
-import React, { Component } from "react";
+import React, { Component } from "react";import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Col";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import Col from "react-bootstrap/Col";
+import axios from 'axios';
+import zIndex from "@material-ui/core/styles/zIndex";
+//import Swal from 'sweetalert2';
 
 
 class RDonantesPatronato extends Component {
+
+  constructor(props){
+    super(props)
+
+
+ 
+
+  this.onSubmit= this.onSubmit.bind(this);
+  
+ 
+}
+
+ 
+
+
+  onSubmit(e){
+
+    e.preventDefault()
+//agarrrar los valores
+    var x = document.getElementById("namePatronato").value;
+    var y = document.getElementById("birthdayPatronato").value;
+    var z = document.getElementById("RFCPatronato").value;
+    var c = document.getElementById("emailPatronato").value;
+    var t = document.getElementById("telefonoPatronato").value;
+    var cel = document.getElementById("celularPatronato").value;
+
+
+
+    const donantePatronato = {
+      nombreCompleto1: x,
+      fechaCumpleaños1: y,
+      RFC1: z,
+      correo1: c,
+      telefono1: t,
+      celular1: cel,
+
+
+    
+    };
+
+    axios.post('http://localhost:8000/api/donantes/', donantePatronato).then(res => {console.log(res.data)});
+    //Swal.fire(
+    //  'Good job!',
+    //  'Pokemon Added Successfully',
+    //  'success'
+   // )
+   this.setState({nombreCompleto1: ''})
+
+  }
+
+
+
+
   render() {
     return (
       <div className="content">
@@ -14,6 +73,11 @@ class RDonantesPatronato extends Component {
           <h1 className="title">Registrar Donante</h1>
           
            <h3 align="center">(Particular/Patronato)</h3>
+           <ProgressBar now={50} />
+
+                  <br/>
+          <div class="container"></div>
+          <Form onSubmit={this.onSubmit}>
         
                   <br/>
           <div class="container"></div>
@@ -23,7 +87,7 @@ class RDonantesPatronato extends Component {
                 <Form.Label>Nombre Completo:</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder="Maria Sandoval Arrieto"
+          placeholder="Maria Sandoval Arrieto"
                 />
               </Form.Group>
             </Form.Row>
@@ -31,13 +95,15 @@ class RDonantesPatronato extends Component {
             <Form.Row>
               <Form.Group as={Row} controlId="birthdayPatronato">
                 <Form.Label>Fecha de Cumpleaños:</Form.Label>
-                <Form.Control type="date" placeholder=" / / " />
+                <Form.Control type="date" placeholder=" / / "  />
+
               </Form.Group>
             </Form.Row>
 
             <Form.Row>
               <Form.Group as={Row} controlId="RFCPatronato">
                 <Form.Label>RFC:</Form.Label>
+
                 <Form.Control type="text" placeholder="VECJ880326 XXX" />
               </Form.Group>
             </Form.Row>
@@ -60,13 +126,25 @@ class RDonantesPatronato extends Component {
               </Form.Group>
               
             </Form.Row>
+            <Form.Row>
+                    <Col  md="6" align="left">
+                    <Link to='/admin/GeneralRegistroD'>
+                    <Button><FontAwesomeIcon icon={['fas', 'arrow-circle-left']}/>&nbsp;Anterior</Button>
+                    </Link>
+                    </Col>
+                    <Col  md="6" align="right">
+                    <Button type="submit" >BD&nbsp;<FontAwesomeIcon icon={['fas', 'arrow-circle-right']}/></Button>
+
+                    <Link to='/admin/RegistroDonante2'>
+                    <Button >Siguiente&nbsp;<FontAwesomeIcon icon={['fas', 'arrow-circle-right']}/></Button>
+                    </Link>
+                    </Col>
+                </Form.Row>
+          </Form>
+          
              
           </Form>
-          <Col align="right">
-            <a href="/admin/Facturacion">
-                    <Button className="btn btn-outline-primary" onClick={() => { this.handleClick() }}>Siguiente</Button>
-                  </a>
-                  </Col> 
+       
         </div>
       </div>
     );
