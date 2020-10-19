@@ -84,7 +84,7 @@ class GeneralIndex extends React.Component {
               <h1>Empleados</h1>
               <div className="chart-area" style={{'font-size': '170px'}} onClick={(e) => {
                           e.preventDefault();
-                          window.location.href='/admin/view-employee';
+                          window.location.href='/admin/search-employee';
                         }}>
                 <FontAwesomeIcon icon={['fas', 'id-card']} color="#3388a7"/>
               </div>

@@ -72,7 +72,7 @@ class EmployeeCalendarTable extends React.Component {
                                 </span>
                                 </Label>
                             </FormGroup>
-                            Turno {turno}
+                              {turno}
                         </div>
                     </td>,
 

@@ -116,7 +116,7 @@ class Admin extends React.Component {
             routes={routes.filter(route => route.showInSidebar === true)}
             bgColor={this.state.backgroundColor}
             logo={{
-              // outterLink: "#",
+              innerLink: "/general/GeneralIndex",
               text: "AMMK",
               imgSrc: logo
             }}

@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Col, Row, Input, FormGroup, CustomInput, Label } from 'reactstrap';
+import SimpleTooltip from "../../views/General/SimpleTooltip";
 
 const ModalExample = (props) => {
   const {
@@ -15,8 +16,8 @@ const ModalExample = (props) => {
 
   return (
     <div>
-      <Button color="danger" className="inline" size="sm" inline onClick={toggle}>{buttonLabel}</Button>
-
+      <Button id="egresar" color="danger" className="inline" size="sm" inline onClick={toggle}>{buttonLabel}</Button>
+      <SimpleTooltip placement="top" target="egresar">Egresar</SimpleTooltip>
       <Modal isOpen={modal} toggle={toggle} className={className} color="primary">
         <ModalHeader toggle={toggle}>Egresar empleado</ModalHeader>
         {/* <h3 color="primary">Egresar empleado</h3> */}
