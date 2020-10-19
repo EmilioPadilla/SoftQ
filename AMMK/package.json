@@ -26,11 +26,7 @@
     "react-dom": "16.13.0",
     "react-google-maps": "9.4.5",
     "react-notification-alert": "0.0.12",
-<<<<<<< HEAD
     "react-router-dom": "^5.1.2",
-=======
-    "react-router-dom": "5.1.2",
->>>>>>> Mariana/ComponentesDonantes
     "react-scripts": "^3.4.3",
     "reactstrap": "8.4.1"
   },

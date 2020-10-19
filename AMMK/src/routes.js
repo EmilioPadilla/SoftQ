@@ -18,7 +18,6 @@
 import Dashboard from "views/Dashboard.js";
 import Notifications from "views/Notifications.js";
 import Rtl from "views/Rtl.js";
-import Facturacion from "views/Facturacion";
 
 import TableList from "views/TableList.js";
 import Typography from "views/Typography.js";
@@ -32,6 +31,10 @@ import RegisterB1 from "views/Beneficiarias/RegisterB1.js";
 import RegisterB2 from "views/Beneficiarias/RegisterB2.js";
 import RegisterB3 from "views/Beneficiarias/RegisterB3.js";
 import RegisterTreatment from "views/Beneficiarias/RegisterTreatment.js";
+import PrincipalDonantes from "views/Donors/PrincipalDonantes";
+import GeneralDonantes from "views/Donors/GeneralDonantes";
+
+
 
 var routes = [
   {
@@ -91,15 +94,7 @@ var routes = [
     layout: "/admin",
     showInSidebar: false
   },
-  {
-    path: "/donantes",
-    name: "Donantes",
-    rtlName: "قائمة الجدول",
-    icon: "tim-icons icon-single-02",
-    component: TableList,
-    layout: "/admin",
-    showInSidebar: true
-  },
+ 
   {
     path: "/tables",
     name: "Prueba",
@@ -155,6 +150,27 @@ var routes = [
     layout: "/admin",
     showInSidebar: false
   },
+
+  //-------DONANTES-----//
+  {
+    path: "/donantes",
+    name: "Donantes",
+    rtlName: "طباعة",
+    icon: "tim-icons icon-single-02",
+    component: GeneralDonantes,
+    layout: "/admin",
+    showInSidebar:true
+  },
+  {
+    path: "/DonanTipo",
+    name: "Donantes",
+    rtlName: "طباعة",
+    icon: "tim-icons icon-single-02",
+    component: GeneralDonantes,
+    layout: "/admin",
+    showInSidebar:true
+  },
+
 
 
   // SE BORRARÁ UNA VEZ QUE TODOS ENTIENDAN EL CONCEPTO DE RTL SUPPORT
