@@ -10,6 +10,12 @@ import React from "react";
 import AccountSearchIcon from 'mdi-react/AccountSearchIcon';
 import DeleteIcon from 'mdi-react/DeleteIcon';
 import ModalExitEmployee from "components/Employees/ModalExitEmployee.js";
+import SimpleTooltip from "../../views/General/SimpleTooltip";
+
+//Importing Icon library
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
 
 // reactstrap components
 import {
@@ -50,10 +56,16 @@ import {
                         <td >
                           <Row>
                             <Col md="3">
-                            <button type="button" class="btn btn-info btn-sm"><AccountSearchIcon/></button>
+                              <a href="/admin/view-employee">
+                                <button id="verDetalle" type="button" class="btn btn-info btn-sm">
+                                  <FontAwesomeIcon icon={['fas', 'eye']} />
+                                </button>
+                                <SimpleTooltip placement="top" target="verDetalle">Ver detalle</SimpleTooltip>
+                              </a>
+
                           </Col>
                           <Col md="3">
-                            <ModalExitEmployee buttonLabel={<DeleteIcon/>}/>
+                            <ModalExitEmployee buttonLabel={<FontAwesomeIcon icon={['fas', 'trash-alt']} />}/>
                           </Col>
                         </Row>
                         </td>
@@ -65,10 +77,13 @@ import {
                         <td className="text-center">
                           <Row>
                             <Col md="3">
-                            <button type="button" class="btn btn-info btn-sm"><AccountSearchIcon/></button>
+                            <button id="verDetalle" type="button" class="btn btn-info btn-sm">
+                              <FontAwesomeIcon icon={['fas', 'eye']} />
+                            </button>
+                            <SimpleTooltip placement="top" target="verDetalle">Ver detalle</SimpleTooltip>
                           </Col>
                           <Col md="3">
-                            <ModalExitEmployee buttonLabel={<DeleteIcon/>}/>
+                            <ModalExitEmployee buttonLabel={<FontAwesomeIcon icon={['fas', 'trash-alt']} />}/>
                           </Col>
                         </Row>
                         </td>
@@ -80,10 +95,13 @@ import {
                         <td className="text-center">
                           <Row>
                             <Col md="3">
-                            <button type="button" class="btn btn-info btn-sm"><AccountSearchIcon/></button>
+                              <button id="verDetalle" type="button" class="btn btn-info btn-sm">
+                                <FontAwesomeIcon icon={['fas', 'eye']} />
+                              </button>
+                              <SimpleTooltip placement="top" target="verDetalle">Ver detalle</SimpleTooltip>
                           </Col>
                           <Col md="3">
-                            <ModalExitEmployee buttonLabel={<DeleteIcon/>}/>
+                            <ModalExitEmployee buttonLabel={<FontAwesomeIcon icon={['fas', 'trash-alt']} />}/>
                           </Col>
                         </Row>
                         </td>
@@ -95,10 +113,13 @@ import {
                         <td className="text-center">
                           <Row>
                             <Col md="3">
-                            <button type="button" class="btn btn-info btn-sm"><AccountSearchIcon/></button>
+                              <button id="verDetalle" type="button" class="btn btn-info btn-sm">
+                                <FontAwesomeIcon icon={['fas', 'eye']} />
+                              </button>
+                              <SimpleTooltip placement="top" target="verDetalle">Ver detalle</SimpleTooltip>
                           </Col>
                           <Col md="3">
-                            <ModalExitEmployee buttonLabel={<DeleteIcon/>}/>
+                            <ModalExitEmployee buttonLabel={<FontAwesomeIcon icon={['fas', 'trash-alt']} />}/>
                           </Col>
                         </Row>
                         </td>
@@ -110,40 +131,13 @@ import {
                         <td className="text-center">
                           <Row>
                             <Col md="3">
-                            <button type="button" class="btn btn-info btn-sm"><AccountSearchIcon/></button>
+                              <button id="verDetalle" type="button" class="btn btn-info btn-sm">
+                                <FontAwesomeIcon icon={['fas', 'eye']} />
+                              </button>
+                              <SimpleTooltip placement="top" target="verDetalle">Ver detalle</SimpleTooltip>
                           </Col>
                           <Col md="3">
-                            <ModalExitEmployee buttonLabel={<DeleteIcon/>}/>
-                          </Col>
-                        </Row>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Mason Porter</td>
-                        <td>Chile</td>
-                        <td>Enfermera</td>
-                        <td className="text-center">
-                          <Row>
-                            <Col md="3">
-                            <button type="button" class="btn btn-info btn-sm"><AccountSearchIcon/></button>
-                          </Col>
-                          <Col md="3">
-                            <ModalExitEmployee buttonLabel={<DeleteIcon/>}/>
-                          </Col>
-                        </Row>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Jon Porter</td>
-                        <td>Portugal</td>
-                        <td>Enfermera</td>
-                        <td className="text-center">
-                          <Row>
-                            <Col md="3">
-                            <button type="button" class="btn btn-info btn-sm"><AccountSearchIcon/></button>
-                          </Col>
-                          <Col md="3">
-                            <ModalExitEmployee buttonLabel={<DeleteIcon/>}/>
+                            <ModalExitEmployee buttonLabel={<FontAwesomeIcon icon={['fas', 'trash-alt']} />}/>
                           </Col>
                         </Row>
                         </td>

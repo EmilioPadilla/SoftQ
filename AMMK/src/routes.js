@@ -28,6 +28,7 @@ import RegisterEmployee from "views/Employees/RE.js";
 import RegisterEmployee2 from "views/Employees/RE2.js";
 import RegisterEmployee3 from "views/Employees/RE3.js";
 import ViewEmployee from "views/Employees/ViewEmployee.js";
+import SearchEmployee from "views/Employees/SearchEmployee.js";
 import EmployeeCalendar from "views/Employees/EmployeeCalendar.js";
 
 //BENEFICIARIAS
@@ -198,11 +199,11 @@ var routes = [
   /* END BENEFICIARIAS */
   /*  START EMPLOYEES */
   {
-    path: "/view-employee",
+    path: "/search-employee",
     name: "Empleados",
     rtlName: "طباعة",
     icon: "tim-icons icon-badge",
-    component: ViewEmployee,
+    component: SearchEmployee,
     layout: "/admin",
     showInSidebar: true
   },
@@ -230,6 +231,15 @@ var routes = [
     rtlName: "طباعة",
     icon: "tim-icons icon-single-02",
     component: RegisterEmployee3,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+    path: "/view-employee",
+    name: "Empleados",
+    rtlName: "طباعة",
+    icon: "tim-icons icon-single-02",
+    component: ViewEmployee,
     layout: "/admin",
     showInSidebar: false
   },
