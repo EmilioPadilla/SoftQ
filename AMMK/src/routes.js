@@ -61,7 +61,7 @@ var routes = [
     showInSidebar: true
   },
   {
-    path: "/General/GeneralIndex",
+    path: "/GeneralIndex",
     name: "panel de administrador",
     rtlName: "ملف تعريفي للمستخدم",
     icon: "tim-icons icon-single-02",
