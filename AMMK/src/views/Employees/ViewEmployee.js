@@ -12,6 +12,11 @@ import AccountPlusIcon from 'mdi-react/AccountPlusIcon';
 import AccountSearchIcon from 'mdi-react/AccountSearchIcon';
 import DeleteIcon from 'mdi-react/DeleteIcon';
 
+//Importing Icon library
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+
 
 import ViewEmployeeTable from "components/Employees/ViewEmployeeTable.js";
 
@@ -30,7 +35,10 @@ import {
   Progress,
   CustomInput,
   Label,
-  Table
+  Table,
+  InputGroup,
+  InputGroupText,
+  InputGroupAddon
 } from "reactstrap";
 
 
@@ -67,12 +75,14 @@ class ViewEmployee extends React.Component {
           <Col>
             <FormGroup>
              <Label for="exampleSearch">Search</Label>
-             <Input
-               type="search"
-               name="search"
-               id="exampleSearch"
-               placeholder="search placeholder"
-             />
+             <InputGroup>
+                 <InputGroupAddon addonType="prepend">
+                   <InputGroupText>
+                     <FontAwesomeIcon icon={['fas', 'search']} />
+                   </InputGroupText>
+                 </InputGroupAddon>
+                 <Input placeholder="Juan Artal Gonzalez"/>
+             </InputGroup>
            </FormGroup>
          </Col>
          <Col>
