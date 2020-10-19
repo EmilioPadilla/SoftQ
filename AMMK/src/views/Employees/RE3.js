@@ -156,12 +156,12 @@ class RegisterEmployee3 extends React.Component {
               <Row>
                 <Col  md="6">
                 <a href="/admin/RE2">
-                  <button className="btn btn-info" onClick={() => { this.handleClick() }}>Regresar</button>
+                  <button className="btn btn-primary" onClick={() => { this.handleClick() }}>Regresar</button>
                 </a>
                 </Col>
                 <Col md="6" align="right">
                 <a href="/admin/RE3">
-                  <button  className="btn btn-info" onClick={() => { this.handleClick() }}>Terminar</button>
+                  <button  className="btn btn-primary" onClick={() => { this.handleClick() }}>Terminar</button>
                 </a>
                 </Col>
               </Row>

@@ -30,7 +30,7 @@ export default class GeneralViewAdmin extends Component {
                             </Input>
                         </FormGroup>
                     </Col>
-                    
+
                     <Col md="6">
                         <Link to='/admin/Beneficiarias/RegisterB1'>
                         <Button className="btn btn-primary float-right"><FontAwesomeIcon icon={['fas', 'user-plus']} /> Registrar beneficiaria</Button>

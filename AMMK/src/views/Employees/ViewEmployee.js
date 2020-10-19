@@ -12,11 +12,17 @@ import AccountPlusIcon from 'mdi-react/AccountPlusIcon';
 import AccountSearchIcon from 'mdi-react/AccountSearchIcon';
 import DeleteIcon from 'mdi-react/DeleteIcon';
 
+//Importing Icon library
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+
 
 import ViewEmployeeTable from "components/Employees/ViewEmployeeTable.js";
 
 // reactstrap components
 import {
+  Button,
   Card,
   CardTitle,
   CardHeader,
@@ -29,7 +35,10 @@ import {
   Progress,
   CustomInput,
   Label,
-  Table
+  Table,
+  InputGroup,
+  InputGroupText,
+  InputGroupAddon
 } from "reactstrap";
 
 
@@ -42,36 +51,38 @@ class ViewEmployee extends React.Component {
             Empleados
           </h2>
           <Row>
-          <Col>
-            <FormGroup>
-            <Label for="statusSelect">Estatus</Label>
-                <Input type="select" name="select" id="statusSelect">
-                <option selected="1">Estatus...</option>
-                <option >Activos</option>
-                <option>Inactivos</option>
-                </Input>
-            </FormGroup>
-          </Col>
-          <Col className="text-right">
-            <br/>
-            <Link to='/admin/register-employee'>
-            <button className="btn btn-info btn-block">
-              <AccountPlusIcon/>
-              Registrar nuevo empleado
-            </button>
-          </Link>
-          </Col>
+            <Col>
+              <FormGroup>
+              <Label for="statusSelect">Estatus</Label>
+                  <Input type="select" name="select" id="statusSelect">
+                  <option selected="1">Estatus...</option>
+                  <option >Activos</option>
+                  <option>Inactivos</option>
+                  </Input>
+              </FormGroup>
+            </Col>
+            <Col className="text-right">
+              <br/>
+              <Link to='/admin/register-employee'>
+              <Button className="btn btn-primary ">
+                <AccountPlusIcon/> &nbsp;
+                Registrar nuevo empleado
+              </Button>
+            </Link>
+            </Col>
         </Row>
         <Row>
           <Col>
             <FormGroup>
              <Label for="exampleSearch">Search</Label>
-             <Input
-               type="search"
-               name="search"
-               id="exampleSearch"
-               placeholder="search placeholder"
-             />
+             <InputGroup>
+                 <InputGroupAddon addonType="prepend">
+                   <InputGroupText>
+                     <FontAwesomeIcon icon={['fas', 'search']} />
+                   </InputGroupText>
+                 </InputGroupAddon>
+                 <Input placeholder="Juan Artal Gonzalez"/>
+             </InputGroup>
            </FormGroup>
          </Col>
          <Col>

@@ -18,15 +18,21 @@
 import Dashboard from "views/Dashboard.js";
 //import Notifications from "views/Notifications.js";
 import Rtl from "views/Rtl.js";
+<<<<<<< HEAD
 //import Facturacion from "views/Facturacion";
+=======
+// import Facturacion from "views/Facturacion";
+
+import GeneralIndex from "views/General/GeneralIndex.js";
+>>>>>>> b3726d5e6ac796b0f89accbf544790e7ce9a7bbc
 
 import TableList from "views/TableList.js";
 import Typography from "views/Typography.js";
-import RegisterEmployee from "views/RE.js";
-import RegisterEmployee2 from "views/RE2.js";
-import RegisterEmployee3 from "views/RE3.js";
-import ViewEmployee from "views/ViewEmployee.js";
-import EmployeeCalendar from "views/EmployeeCalendar.js";
+import RegisterEmployee from "views/Employees/RE.js";
+import RegisterEmployee2 from "views/Employees/RE2.js";
+import RegisterEmployee3 from "views/Employees/RE3.js";
+import ViewEmployee from "views/Employees/ViewEmployee.js";
+import EmployeeCalendar from "views/Employees/EmployeeCalendar.js";
 
 //Cuentas
 import MainAccount from "views/Cuentas/MainAccounts";
@@ -62,7 +68,7 @@ var routes = [
     layout: "/admin",
     showInSidebar: true
   },
-  //Star Cuentas
+  //Start Cuentas
   {
     path: "/Cuentas/principal",
     name: "Principal Cuentas",
@@ -89,6 +95,16 @@ var routes = [
     icon: "tim-icons icon-single-02",
     component: ModifyAccountEmp,
     layout: "/admin",
+    showInSidebar: false
+  },
+  //End Cuentas
+  {
+    path: "/General/GeneralIndex",
+    name: "panel de administrador",
+    rtlName: "ملف تعريفي للمستخدم",
+    icon: "tim-icons icon-single-02",
+    component: GeneralIndex,
+    layout: "/general",
     showInSidebar: false
   },
   /*  START BENEFICIARIAS */
@@ -219,9 +235,7 @@ var routes = [
     showInSidebar: false
   },
   /* END BENEFICIARIAS */
-  {
-    path: "/user-profile",
-  },
+  /*  START EMPLOYEES */
   {
     path: "/view-employee",
     name: "Empleados",
@@ -239,43 +253,6 @@ var routes = [
     component: RegisterEmployee,
     layout: "/admin",
     showInSidebar: false
-  },
-  {
-    path: "/donantes",
-    name: "Donantes",
-    rtlName: "قائمة الجدول",
-    icon: "tim-icons icon-single-02",
-    component: TableList,
-    layout: "/admin",
-    showInSidebar: true
-  },
-  {
-    path: "/tables",
-    name: "Prueba",
-    rtlName: "قائمة الجدول",
-    icon: "tim-icons icon-single-02",
-    component: TableList,
-    layout: "/admin",
-    showInSidebar: true
-  },
-  
-  {
-    path: "/typography",
-    name: "Finanzas",
-    rtlName: "طباعة",
-    icon: "tim-icons icon-single-02",
-    component: Typography,
-    layout: "/admin",
-    showInSidebar: true
-  },
-  {
-    path: "/typography",
-    name: "Reportes",
-    rtlName: "طباعة",
-    icon: "tim-icons icon-single-02",
-    component: Typography,
-    layout: "/admin",
-    showInSidebar: true
   },
   {
     path: "/RE2",
@@ -304,6 +281,45 @@ var routes = [
     layout: "/admin",
     showInSidebar: false
   },
+  /*  END EMPLOYEES */
+  {
+    path: "/donantes",
+    name: "Donantes",
+    rtlName: "قائمة الجدول",
+    icon: "tim-icons icon-single-02",
+    component: TableList,
+    layout: "/admin",
+    showInSidebar: true
+  },
+  {
+    path: "/tables",
+    name: "Prueba",
+    rtlName: "قائمة الجدول",
+    icon: "tim-icons icon-single-02",
+    component: TableList,
+    layout: "/admin",
+    showInSidebar: true
+  },
+
+  {
+    path: "/typography",
+    name: "Finanzas",
+    rtlName: "طباعة",
+    icon: "tim-icons icon-single-02",
+    component: Typography,
+    layout: "/admin",
+    showInSidebar: true
+  },
+  {
+    path: "/typography",
+    name: "Reportes",
+    rtlName: "طباعة",
+    icon: "tim-icons icon-single-02",
+    component: Typography,
+    layout: "/admin",
+    showInSidebar: true
+  },
+
 
 
   // SE BORRARÁ UNA VEZ QUE TODOS ENTIENDAN EL CONCEPTO DE RTL SUPPORT

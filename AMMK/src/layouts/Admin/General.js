@@ -21,9 +21,7 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import PerfectScrollbar from "perfect-scrollbar";
 
 // core components
-import GeneralNavbar from "components/Navbars/AdminNavbar.js";
-import Footer from "components/Footer/Footer.js";
-import Sidebar from "components/Sidebar/Sidebar.js";
+import GeneralNavbar from "components/Navbars/GeneralNavbar.js";
 import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
 
 import routes from "routes.js";
@@ -32,13 +30,12 @@ import logo from "assets/img/logoCircular.png";
 
 var ps;
 
-class Admin extends React.Component {
+class General extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       backgroundColor: "primary",
-      sidebarOpened:
-        document.documentElement.className.indexOf("nav-open") !== -1
+
     };
   }
   componentDidMount() {
@@ -72,14 +69,9 @@ class Admin extends React.Component {
       this.refs.mainPanel.scrollTop = 0;
     }
   }
-  // this function opens and closes the sidebar on small devices
-  toggleSidebar = () => {
-    document.documentElement.classList.toggle("nav-open");
-    this.setState({ sidebarOpened: !this.state.sidebarOpened });
-  };
   getRoutes = routes => {
     return routes.map((prop, key) => {
-      if (prop.layout === "/admin") {
+      if (prop.layout === "/general") {
         return (
           <Route
             path={prop.layout + prop.path}
@@ -111,17 +103,6 @@ class Admin extends React.Component {
     return (
       <>
         <div className="wrapper">
-          <Sidebar
-            {...this.props}
-            routes={routes.filter(route => route.showInSidebar === true)}
-            bgColor={this.state.backgroundColor}
-            logo={{
-              // outterLink: "#",
-              text: "AMMK",
-              imgSrc: logo
-            }}
-            toggleSidebar={this.toggleSidebar}
-          />
           <div
             className="main-panel"
             ref="mainPanel"
@@ -135,12 +116,12 @@ class Admin extends React.Component {
             />
             <Switch>
               {this.getRoutes(routes)}
-              <Redirect from="*" to="/admin/General/GeneralIndex"/>
+              <Redirect from="*" to="/general/General/GeneralIndex"/>
             </Switch>
-            {// we don't want the Footer to be rendered on map page
+            {/* {// we don't want the Footer to be rendered on map page
             this.props.location.pathname.indexOf("maps") !== -1 ? null : (
-              <Footer fluid />
-            )}
+              <FooterGeneral />
+            )} */}
           </div>
         </div>
         <FixedPlugin
@@ -152,4 +133,4 @@ class Admin extends React.Component {
   }
 }
 
-export default Admin;
+export default General;
