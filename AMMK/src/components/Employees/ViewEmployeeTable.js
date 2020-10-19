@@ -17,6 +17,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 
+
 // reactstrap components
 import {
   Card,
@@ -26,6 +27,7 @@ import {
   CardFooter,
   Table,
   Row,
+  Button,
   Col
   } from "reactstrap";
 
@@ -34,118 +36,111 @@ import {
         return (
           <Row>
             <Col md="12">
-              <Card>
-                <CardHeader>
-                  <CardTitle tag="h4">Empleados Activos</CardTitle>
-                </CardHeader>
-                <CardBody>
-                  <Table className="tablesorter" responsive>
-                    <thead className="text-primary">
+              <Table hover >
+                  <thead>
                       <tr>
                         <th>Nombre</th>
                         <th>RFC</th>
                         <th>Puesto</th>
                         <th>Acciones</th>
                       </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>Dakota Rice</td>
-                        <td>Niger</td>
-                        <td>Enfermero</td>
-                        <td >
-                          <Row>
-                            <Col md="3">
-                              <a href="/admin/view-employee">
-                                <button id="verDetalle" type="button" class="btn btn-info btn-sm">
-                                  <FontAwesomeIcon icon={['fas', 'eye']} />
-                                </button>
-                                <SimpleTooltip placement="top" target="verDetalle">Ver detalle</SimpleTooltip>
-                              </a>
-
-                          </Col>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Dakota Rice</td>
+                      <td>Niger</td>
+                      <td>Enfermero</td>
+                      <td >
+                        <Row>
                           <Col md="3">
-                            <ModalExitEmployee buttonLabel={<FontAwesomeIcon icon={['fas', 'trash-alt']} />}/>
-                          </Col>
-                        </Row>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Minerva Hooper</td>
-                        <td>Curaçao</td>
-                        <td>Chofer</td>
-                        <td className="text-center">
-                          <Row>
-                            <Col md="3">
+                            <a href="/admin/view-employee">
+                              <button id="verDetalle" type="button" class="btn btn-info btn-sm">
+                                <FontAwesomeIcon icon={['fas', 'eye']} />
+                              </button>
+                              <SimpleTooltip placement="top" target="verDetalle">Ver detalle</SimpleTooltip>
+                            </a>
+
+                        </Col>
+                        <Col md="3">
+                          <ModalExitEmployee buttonLabel={<FontAwesomeIcon icon={['fas', 'trash-alt']} />}/>
+                        </Col>
+                      </Row>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Minerva Hooper</td>
+                      <td>Curaçao</td>
+                      <td>Chofer</td>
+                      <td className="text-center">
+                        <Row>
+                          <Col md="3">
+                          <button id="verDetalle" type="button" class="btn btn-info btn-sm">
+                            <FontAwesomeIcon icon={['fas', 'eye']} />
+                          </button>
+                          <SimpleTooltip placement="top" target="verDetalle">Ver detalle</SimpleTooltip>
+                        </Col>
+                        <Col md="3">
+                          <ModalExitEmployee buttonLabel={<FontAwesomeIcon icon={['fas', 'trash-alt']} />}/>
+                        </Col>
+                      </Row>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Sage Rodriguez</td>
+                      <td>Netherlands</td>
+                      <td>Administrador</td>
+                      <td className="text-center">
+                        <Row>
+                          <Col md="3">
                             <button id="verDetalle" type="button" class="btn btn-info btn-sm">
                               <FontAwesomeIcon icon={['fas', 'eye']} />
                             </button>
                             <SimpleTooltip placement="top" target="verDetalle">Ver detalle</SimpleTooltip>
-                          </Col>
+                        </Col>
+                        <Col md="3">
+                          <ModalExitEmployee buttonLabel={<FontAwesomeIcon icon={['fas', 'trash-alt']} />}/>
+                        </Col>
+                      </Row>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Philip Chaney</td>
+                      <td>Korea, South</td>
+                      <td>Cocinero</td>
+                      <td className="text-center">
+                        <Row>
                           <Col md="3">
-                            <ModalExitEmployee buttonLabel={<FontAwesomeIcon icon={['fas', 'trash-alt']} />}/>
-                          </Col>
-                        </Row>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Sage Rodriguez</td>
-                        <td>Netherlands</td>
-                        <td>Administrador</td>
-                        <td className="text-center">
-                          <Row>
-                            <Col md="3">
-                              <button id="verDetalle" type="button" class="btn btn-info btn-sm">
-                                <FontAwesomeIcon icon={['fas', 'eye']} />
-                              </button>
-                              <SimpleTooltip placement="top" target="verDetalle">Ver detalle</SimpleTooltip>
-                          </Col>
+                            <button id="verDetalle" type="button" class="btn btn-info btn-sm">
+                              <FontAwesomeIcon icon={['fas', 'eye']} />
+                            </button>
+                            <SimpleTooltip placement="top" target="verDetalle">Ver detalle</SimpleTooltip>
+                        </Col>
+                        <Col md="3">
+                          <ModalExitEmployee buttonLabel={<FontAwesomeIcon icon={['fas', 'trash-alt']} />}/>
+                        </Col>
+                      </Row>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Doris Greene</td>
+                      <td>Malawi</td>
+                      <td>Cuidadora</td>
+                      <td className="text-center">
+                        <Row>
                           <Col md="3">
-                            <ModalExitEmployee buttonLabel={<FontAwesomeIcon icon={['fas', 'trash-alt']} />}/>
-                          </Col>
-                        </Row>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Philip Chaney</td>
-                        <td>Korea, South</td>
-                        <td>Cocinero</td>
-                        <td className="text-center">
-                          <Row>
-                            <Col md="3">
-                              <button id="verDetalle" type="button" class="btn btn-info btn-sm">
-                                <FontAwesomeIcon icon={['fas', 'eye']} />
-                              </button>
-                              <SimpleTooltip placement="top" target="verDetalle">Ver detalle</SimpleTooltip>
-                          </Col>
-                          <Col md="3">
-                            <ModalExitEmployee buttonLabel={<FontAwesomeIcon icon={['fas', 'trash-alt']} />}/>
-                          </Col>
-                        </Row>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Doris Greene</td>
-                        <td>Malawi</td>
-                        <td>Cuidadora</td>
-                        <td className="text-center">
-                          <Row>
-                            <Col md="3">
-                              <button id="verDetalle" type="button" class="btn btn-info btn-sm">
-                                <FontAwesomeIcon icon={['fas', 'eye']} />
-                              </button>
-                              <SimpleTooltip placement="top" target="verDetalle">Ver detalle</SimpleTooltip>
-                          </Col>
-                          <Col md="3">
-                            <ModalExitEmployee buttonLabel={<FontAwesomeIcon icon={['fas', 'trash-alt']} />}/>
-                          </Col>
-                        </Row>
-                        </td>
-                      </tr>
+                            <button id="verDetalle" type="button" class="btn btn-info btn-sm">
+                              <FontAwesomeIcon icon={['fas', 'eye']} />
+                            </button>
+                            <SimpleTooltip placement="top" target="verDetalle">Ver detalle</SimpleTooltip>
+                        </Col>
+                        <Col md="3">
+                          <ModalExitEmployee buttonLabel={<FontAwesomeIcon icon={['fas', 'trash-alt']} />}/>
+                        </Col>
+                      </Row>
+                      </td>
+                    </tr>
                     </tbody>
-                  </Table>
-                </CardBody>
-              </Card>
+              </Table>
             </Col>
           </Row>
         );

@@ -74,7 +74,7 @@ class SearchEmployee extends React.Component {
         <Row>
           <Col>
             <FormGroup>
-             <Label for="exampleSearch">Search</Label>
+             <Label for="exampleSearch">Búsqueda por nombre</Label>
              <InputGroup>
                  <InputGroupAddon addonType="prepend">
                    <InputGroupText>
@@ -87,7 +87,7 @@ class SearchEmployee extends React.Component {
          </Col>
          <Col>
            <FormGroup>
-           <Label for="statusSelect">Puesto</Label>
+           <Label for="statusSelect">Búsqueda por puesto</Label>
                <Input type="select" name="select" id="statusSelect">
                <option selected="1">Puesto...</option>
                <option >Empleado General</option>
