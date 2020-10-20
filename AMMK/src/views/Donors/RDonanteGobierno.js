@@ -78,7 +78,7 @@ class RDonanteGobierno extends Component {
           <ProgressBar now={30} />
                   <br/>
           <div class="container"></div>
-          <Form>
+          <Form onSubmit={this.onSubmit}>
             <Form.Row>
               <Form.Group as={Row} controlId="rs2">
                 <Form.Label>Nombre de la empresa/asociación/fundación:</Form.Label>
@@ -148,7 +148,7 @@ class RDonanteGobierno extends Component {
       
   <br />
              
-          </Form>
+          
           <Form.Row>
                     <Col  md="6" align="left">
                     <Link to='/admin/RegistroDonante1'>
@@ -163,6 +163,7 @@ class RDonanteGobierno extends Component {
                     </Link>
                     </Col>
                 </Form.Row> 
+                </Form>
         </div>
       </div>
     );
