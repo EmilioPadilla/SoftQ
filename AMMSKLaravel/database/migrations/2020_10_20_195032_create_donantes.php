@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDonante extends Migration
+class CreateDonantes extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateDonante extends Migration
      */
     public function up()
     {
-        Schema::create('_donante', function (Blueprint $table) {
+        Schema::create('donantes', function (Blueprint $table) {
             $table->id()->from(1);
             $table->foreignId('idRecurrencia')->references("id")->on("_recurrencia")->onDelete("cascade")->onUpdate("cascade");
             $table->foreignId('idTipoDonante')->references("id")->on("tipo_de_donante")->onDelete("cascade")->onUpdate("cascade");
@@ -36,12 +36,6 @@ class CreateDonante extends Migration
             $table->string('codigoPostal2', 30)->nullable();
             $table->string('colonia2', 30)->nullable();
             //seeder de la ciudad
-            $table->string('NombreContacto2', 50);
-            $table->string('cargo2', 50);
-            $table->date('fechaCumpleaños2');    
-            $table->string('correo2', 50);
-            $table->string('telefono2', 50);
-            $table->string('celular2', 50);
 
             //facturacion 
             $table->string('RazonSocial', 50);
@@ -56,9 +50,6 @@ class CreateDonante extends Migration
             $table->string('estado', 50);  
             $table->string('pais', 50);  
             $table->string('correo', 50);
-
-
-
         });
     }
 
@@ -69,6 +60,6 @@ class CreateDonante extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('_donante');
+        Schema::dropIfExists('donantes');
     }
 }

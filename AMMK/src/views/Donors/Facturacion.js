@@ -78,7 +78,7 @@ onSubmit(e){
           <ProgressBar now={100} />
           <br />
           <div class="container"></div>
-          <Form>
+          <Form onSubmit={this.onSubmit}>
             <Form.Row>
               <Form.Group as={Row} controlId="razonSocialF">
                 <Form.Label>Razón Social:</Form.Label>
@@ -156,7 +156,6 @@ onSubmit(e){
               </Form.Group>
             </Form.Row>
             <Form.Row></Form.Row>
-          </Form>
           <Form.Row>
                     <Col  md="6" align="left">
                     <Link to='/admin/RegistroDonante2'>
@@ -164,11 +163,15 @@ onSubmit(e){
                     </Link>
                     </Col>
                     <Col  md="6" align="right">
+                    <Button type="submit" >BD&nbsp;<FontAwesomeIcon icon={['fas', 'arrow-circle-right']}/></Button>
+
                     <Link>
                     <Button>Registrar</Button>
                     </Link>
                     </Col>
                 </Form.Row>
+                </Form>
+
         </div>
       </div>
     );
