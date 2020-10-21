@@ -18,6 +18,7 @@ class CreateEmployeesTable extends Migration
             $table->foreignId('civil_status_id')->constrained('civil_status');
     			  $table->foreignId('scholarship_id')->constrained('scholarship');
             $table->foreignId('headquarter_id')->constrained('headquarters');
+            $table->string("nombreCompleto");
             $table->integer("salarioxhora");
             $table->date("fechaIngreso");
             $table->string("RFC", 20);

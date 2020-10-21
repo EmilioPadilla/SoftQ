@@ -44,7 +44,6 @@ import RegisterB2 from "views/Beneficiarias/RegisterB2.js";
 import RegisterB3 from "views/Beneficiarias/RegisterB3.js";
 import RegisterTreatment from "views/Beneficiarias/RegisterTreatment.js";
 
-import PrincipalDonantes from "views/Donors/PrincipalDonantes";
 import GeneralDonantes from "views/Donors/GeneralDonantes";
 
 
@@ -352,7 +351,7 @@ var routes = [
     layout: "/admin",
     showInSidebar: false
   },
-  
+
   {
     path: "/GeneralRegistroD",
     name: "Donantes",
