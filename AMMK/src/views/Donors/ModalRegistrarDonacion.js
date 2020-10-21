@@ -19,15 +19,6 @@ class ModalRegistrarDonacion extends Component {
     return (
       
       <React.StrictMode>
-        <Col>
-     <Button  size="sm" id="registrarDonacion" className="btn btn-primary float-right" onClick={() => {
-            this.handleModal();
-          }}><FontAwesomeIcon icon={['fas', 'plus']} /></Button>
-      <SimpleTooltip placement="top" target="registrarDonacion" >Registrar Donación</SimpleTooltip>
-
-</Col>
-
-      <React.StrictMode>
         <button
           className="btn btn-outline-primary"
           onClick={() => {

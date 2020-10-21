@@ -4,6 +4,24 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 
 class CreateAccEmp extends React.Component{
+
+    crearSelect(){
+        var sel='<option value="NA" disabled selected>Selecciona una opción</option>';
+        const num=1;
+        axios.get("http://localhost:8000/api/account/")
+          .then(function (resp){
+            console.log(resp.data);
+            //Ciclo for para obtener cada uno de los elementos
+            resp.data.forEach(element => {
+              sel = sel.concat('<option value="' + element.id + '"> ' + element.username + '</option> ');
+            });
+            //sel = sel.concat('</Form.Control> </FormGroup>');
+            //insertar el select en el html
+           document.getElementById("selectEmpleadoPrueba").innerHTML = sel;
+          } );
+      }
+
+
     constructor(props) {
         super(props)
     
@@ -59,6 +77,7 @@ class CreateAccEmp extends React.Component{
 
 
     render(){
+        this.crearSelect();
         return(
             <div class="content">
                 <div class="container">
@@ -76,6 +95,16 @@ class CreateAccEmp extends React.Component{
                                                 <option value="3">Emilio Aguilera</option>
                                             </Form.Control>   
                                         </FormGroup>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-4" >  
+                                    <FormGroup> 
+                                        <label>Seleccione un Empleado:</label> 
+                                            <Form.Control as="select" id="selectEmpleadoPrueba"> 
+                                            
+                                            </Form.Control> 
+                                    </FormGroup>
                                     </div>
                                 </div>
                                 <div class="row justify-content-center">
