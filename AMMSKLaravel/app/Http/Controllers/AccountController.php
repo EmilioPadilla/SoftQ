@@ -54,7 +54,7 @@ class AccountController extends Controller
      */
     public function show($id)
     {
-        return Account::where('username', $id)->get();
+        return Account::where('id', $id)->get();
     }
 
     /**
@@ -77,7 +77,16 @@ class AccountController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'username' => 'required',
+            'password' => 'required',
+        ]);
+
+        $account = Account::find($id);
+        $account->username = $request->username;
+        $account->password = $request->password;
+
+        $account->save();
     }
 
     /**
