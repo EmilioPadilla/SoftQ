@@ -52,8 +52,6 @@ class CreateDonante extends Migration
             $table->string('correo', 50)->nullable();;
 
 
-
-
         });
     }
 
