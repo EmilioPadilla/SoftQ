@@ -10,12 +10,10 @@ import { Link } from "react-router-dom";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-
 class RDonanteGobierno extends Component {
 
   constructor(props){
     super(props)
-
 
  
 
@@ -25,7 +23,6 @@ class RDonanteGobierno extends Component {
 }
 
  
-
 
   onSubmit(e){
 
@@ -41,7 +38,6 @@ class RDonanteGobierno extends Component {
     var co2 = document.getElementById("donanteCiudad").value;
 
 
-
     const donantePatronato = {
       RazonSocial2: rs,
       Nombre2: n2,
@@ -50,14 +46,11 @@ class RDonanteGobierno extends Component {
       noExterior2: noE2,
       codigoPostal2: cp2,
       colonia2: co2,
-
-
-
-
     
     };
 
-    axios.post('http://localhost:8000/api/donantes/', donantePatronato).then(res => {console.log(res.data)});
+    localStorage.setItem("step2", JSON.stringify(donantePatronato));
+    //axios.post('http://localhost:8000/api/donantes/', donantePatronato).then(res => {console.log(res.data)});
     //Swal.fire(
     //  'Good job!',
     //  'Pokemon Added Successfully',
@@ -66,11 +59,6 @@ class RDonanteGobierno extends Component {
    this.setState({nombreCompleto1: ''})
 
   }
-
-
-
-
-
 
   render() {
     return (
@@ -83,10 +71,9 @@ class RDonanteGobierno extends Component {
           <ProgressBar now={30} />
                   <br/>
           <div class="container"></div>
-          <Form>
+          <Form onSubmit={this.onSubmit}>
             <Form.Row>
               <Form.Group as={Row} controlId="rs2">
-
                 <Form.Label>Nombre de la empresa/asociación/fundación:</Form.Label>
                 <Form.Control
                   type="text"
@@ -97,7 +84,6 @@ class RDonanteGobierno extends Component {
 
             <Form.Row>
               <Form.Group as={Row} controlId="nombre2">
-
                 <Form.Label>Nombre del contacto de empresa/asociación/fundación:</Form.Label>
                 <Form.Control
                   type="text"
@@ -155,7 +141,7 @@ class RDonanteGobierno extends Component {
       
   <br />
              
-          </Form>
+          
           <Form.Row>
                     <Col  md="6" align="left">
                     <Link to='/admin/RegistroDonante1'>
@@ -170,7 +156,7 @@ class RDonanteGobierno extends Component {
                     </Link>
                     </Col>
                 </Form.Row> 
-          
+                </Form>
         </div>
       </div>
     );
@@ -178,3 +164,5 @@ class RDonanteGobierno extends Component {
 }
 
 export default RDonanteGobierno;
+
+

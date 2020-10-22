@@ -19,7 +19,7 @@ import TakeOutB from "../Donors/TakeOutD";
 
 library.add(fas)
 
-class PrincipalDonantes extends React.Component {
+export default class GeneralViewAdmin extends Component {
     render() {
         return (
             <div className="content">
@@ -101,7 +101,7 @@ class PrincipalDonantes extends React.Component {
                                 <TakeOutD/>
                                   </Col>
                                   <Col md="2"> <ReenterD/></Col>
-
+                                
                                 </Row>
                             </td>
                         </tr>
@@ -110,7 +110,3 @@ class PrincipalDonantes extends React.Component {
         )
     }
 }
-
-
-
-export default PrincipalDonantes;

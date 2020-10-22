@@ -44,7 +44,6 @@ import RegisterB2 from "views/Beneficiarias/RegisterB2.js";
 import RegisterB3 from "views/Beneficiarias/RegisterB3.js";
 import RegisterTreatment from "views/Beneficiarias/RegisterTreatment.js";
 
-import GeneralDonantes from "views/Donors/GeneralDonantes";
 
 
 import GeneralViewAdmin from "views/Beneficiarias/GeneralViewAdmin.js";
@@ -65,7 +64,7 @@ import PrincipalDonantes from "./views/Donors/PrincipalDonantes.js"
 import RDonantePatronato from "./views/Donors/RDonantePatronato"
 import Facturacion from "./views/Donors/Facturacion"
 import RDonanteGobierno from "./views/Donors/RDonanteGobierno"
-import GeneralRegistroD from "./views/Donors/GeneralRegistroD"
+import GeneralDonantes from "./views/Donors/GeneralDonantes"
 import VIstaDonante from "views/Donors/VIstaDonante.js";
 
 
@@ -357,7 +356,7 @@ var routes = [
     name: "Donantes",
     rtlName: "قائمة الجدول",
     icon: "tim-icons icon-heart-2",
-    component: GeneralRegistroD,
+    component: GeneralDonantes,
     layout: "/admin",
     showInSidebar: false
   },

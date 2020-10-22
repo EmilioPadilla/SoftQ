@@ -15,8 +15,7 @@ class TipoDonanteController extends Controller
      */
     public function index()
     {
-        $tiposDonantes = TipoDonante::all();
-        return response()->json($tiposDonantes);
+        return Tittle::all();
     }
 
     /**

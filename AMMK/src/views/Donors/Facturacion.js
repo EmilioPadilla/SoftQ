@@ -8,9 +8,66 @@ import Card from "react-bootstrap/Card";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-
+import axios from 'axios';
+import { convertCompilerOptionsFromJson, parseConfigFileTextToJson } from "typescript";
 
 class Facturacion extends Component {
+
+  constructor(props){
+    super(props)
+
+  this.onSubmit= this.onSubmit.bind(this);
+  
+ 
+}
+
+onSubmit(e){
+
+  e.preventDefault()
+//agarrrar los valores con el id del forms
+  var rsF = document.getElementById("razonSocialF").value;
+  var  rfcF= document.getElementById("RFCF").value;
+  var calleF = document.getElementById("calleFacturacion").value;
+  var noIF = document.getElementById("noIFacturacion").value;
+  var noEF = document.getElementById("noEFacturacion").value;
+  var cpF = document.getElementById("cpFacturacion").value;
+  var colF = document.getElementById("coloniaFacturacion").value;
+  var ciudadF = document.getElementById("ciudadFacturacion").value;
+  var muniF = document.getElementById("municipioFacturacion").value;
+  var estadoF = document.getElementById("estadoFacturacion").value;
+  var paisFact = document.getElementById("paisFacturacion").value;
+  var correoFact = document.getElementById("correoFacturacion").value;
+
+//nombre + F de facturacion
+  const donantePatronato = {
+    RazonSocial: rsF,
+    RFC: rfcF,
+    calle: calleF,
+    noInterior: noIF,
+    noExterior: noEF,
+    codigoPostal: cpF,
+    colonia: colF,
+    ciudad: ciudadF,
+    municipio: muniF,
+    estado: estadoF,
+    pais: paisFact,
+    correo: correoFact,
+
+  
+  };
+  var jsonArray1 = localStorage.getItem("patronato");
+ var jsonArray2=  localStorage.getItem("step2");
+const jsonArray= JSON.parse(jsonArray1.concat(jsonArray2));
+console.log(jsonArray);
+
+ // axios.post('http://localhost:8000/api/donantes/', jsonArray).then(res => {console.log(res.data)});
+  //Swal.fire(
+  //  'Good job!',
+  //  'Pokemon Added Successfully',
+  //  'success'
+ // )
+ this.setState({nombreCompleto1: ''})
+}
   render() {
     return (
       <div className="content">
@@ -22,14 +79,14 @@ class Facturacion extends Component {
           <ProgressBar now={100} />
           <br />
           <div class="container"></div>
-          <Form>
+          <Form onSubmit={this.onSubmit}>
             <Form.Row>
-              <Form.Group as={Row} controlId="razonSocial">
+              <Form.Group as={Row} controlId="razonSocialF">
                 <Form.Label>Razón Social:</Form.Label>
                 <Form.Control type="text" placeholder="Ejemplo S.A.S" />
               </Form.Group>
 
-              <Form.Group as={Row} controlId="RFCPatronato">
+              <Form.Group as={Row} controlId="RFCF">
                 <Form.Label>RFC:</Form.Label>
                 <Form.Control type="text" placeholder="VECJ880326 XXX" />
               </Form.Group>
@@ -47,44 +104,44 @@ class Facturacion extends Component {
                       <Form.Control />
                     </Form.Group>
 
-                    <Form.Group controlId="donanteFacturacion">
+                    <Form.Group controlId="noIFacturacion">
                       <Form.Label># Interior</Form.Label>
                       <Form.Control />
                     </Form.Group>
 
-                    <Form.Group controlId="donanteFacturacion">
+                    <Form.Group controlId="noEFacturacion">
                       <Form.Label># Exterior </Form.Label>
                       <Form.Control />
                     </Form.Group>
 
-                    <Form.Group controlId="donanteFacturacion">
+                    <Form.Group controlId="cpFacturacion">
                       <Form.Label>C.P. </Form.Label>
                       <Form.Control />
                     </Form.Group>
                   </Form.Row>
                   <Form.Row>
-                    <Form.Group as={Row} controlId="donantefacturacion">
+                    <Form.Group as={Row} controlId="coloniaFacturacion">
                       <Form.Label>Colonia</Form.Label>
                       <Form.Control />
                     </Form.Group>
 
-                    <Form.Group as={Row} controlId="donantefacturacion">
+                    <Form.Group as={Row} controlId="ciudadFacturacion">
                       <Form.Label>Ciudad:</Form.Label>
                       <Form.Control />
                     </Form.Group>
                   </Form.Row>
                   <Form.Row>
-                    <Form.Group as={Row} controlId="donantefacturacion">
+                    <Form.Group as={Row} controlId="municipioFacturacion">
                       <Form.Label>Municipio</Form.Label>
                       <Form.Control />
                     </Form.Group>
 
-                    <Form.Group as={Row} controlId="donantefacturacion">
+                    <Form.Group as={Row} controlId="estadoFacturacion">
                       <Form.Label>Estado:</Form.Label>
                       <Form.Control />
                     </Form.Group>
 
-                    <Form.Group as={Row} controlId="donantefacturacion">
+                    <Form.Group as={Row} controlId="paisFacturacion">
                       <Form.Label>País:</Form.Label>
                       <Form.Control />
                     </Form.Group>
@@ -94,13 +151,12 @@ class Facturacion extends Component {
             </Card>
 
             <Form.Row>
-              <Form.Group as={Row} controlId="emailPatronato">
+              <Form.Group as={Row} controlId="correoFacturacion">
                 <Form.Label>Correo:</Form.Label>
                 <Form.Control type="email" placeholder="ejemplo@ejemplo.com" />
               </Form.Group>
             </Form.Row>
             <Form.Row></Form.Row>
-          </Form>
           <Form.Row>
                     <Col  md="6" align="left">
                     <Link to='/admin/RegistroDonante2'>
@@ -108,21 +164,15 @@ class Facturacion extends Component {
                     </Link>
                     </Col>
                     <Col  md="6" align="right">
+                    <Button type="submit" >BD&nbsp;<FontAwesomeIcon icon={['fas', 'arrow-circle-right']}/></Button>
+
                     <Link>
                     <Button>Registrar</Button>
                     </Link>
                     </Col>
                 </Form.Row>
-          <Col align="center">
-              <Button
-                className="btn btn-outline-primary"
-                onClick={() => {
-                  this.handleClick();
-                }}
-              >
-                Registrar
-              </Button>
-          </Col>
+                </Form>
+
         </div>
       </div>
     );

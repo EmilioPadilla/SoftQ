@@ -19,12 +19,12 @@ class GeneralDonantes extends Component {
   crearSelect(){
     var sel='<option value="NA" disabled selected>Selecciona una opcion</option>';
     const num=1;
-    axios.get("http://localhost:8000/api/donantes/").then(function(resp){
+    axios.get("http://localhost:8000/api/Tipodonante/").then(function(resp){
       
     console.log(resp.data);
     resp.data.forEach(element =>{
-      sel = sel.concat('<option value="" + element.id + " " >' + element.nombre+'</option>');
-      console.log(element.nombreTipo);
+      sel = sel.concat('<option value="'+ element.id + ' " > '+ element.nombre+'</option>');
+      console.log(element.nombre);
     });
     document.getElementById("selectTipoDonante").innerHTML=sel; 
   });
@@ -50,8 +50,8 @@ class GeneralDonantes extends Component {
 
          </Form.Control>
        </FormGroup>
-          <Col align="right">
-            <a href="/admin/DonanTipo">
+       <Col align="right">
+            <a href="/admin/RegistroDonante1">
                     <Button className="btn btn-outline-primary" onClick={() => { this.handleClick() }}>Siguiente</Button>
                   </a>
                   </Col> 
