@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTipoDeDonacion extends Migration
+class CreateRecurrenciaDonante extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateTipoDeDonacion extends Migration
      */
     public function up()
     {
-        Schema::create('tipo_de_donacion', function (Blueprint $table) {
+        Schema::create('recurrencia_donante', function (Blueprint $table) {
             $table->id()->from(1);
-            $table->string('nombre', 10);
+            $table->string('nombre', 30);
         });
     }
 
@@ -26,6 +26,6 @@ class CreateTipoDeDonacion extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipo_de_donacion');
+        Schema::dropIfExists('recurrencia_donante');
     }
 }
