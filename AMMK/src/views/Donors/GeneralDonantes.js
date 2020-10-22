@@ -10,11 +10,26 @@ import Row from "react-bootstrap/Col";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
+import axios from "axios";
 
 
 
 class GeneralDonantes extends Component {
-    $selectedDonor=0;
+
+  crearSelect(){
+    var sel='<option value="NA" disabled selected>Selecciona una opcion</option>';
+    const num=1;
+    axios.get("http://localhost:8000/api/donantes/").then(function(resp){
+      
+    console.log(resp.data);
+    resp.data.forEach(element =>{
+      sel = sel.concat('<option value="" + element.id + " " >' + element.nombre+'</option>');
+      console.log(element.nombreTipo);
+    });
+    document.getElementById("selectTipoDonante").innerHTML=sel; 
+  });
+  }
+
   render() {
     return (
       <div className="content">
@@ -26,41 +41,15 @@ class GeneralDonantes extends Component {
           <ProgressBar now={10} />
                   <br/>
           <div class="container"></div>
-          <Form>
-            <Form.Row>
-                <Form.Group as={Row}>
-                  <Label for="tipoDonanteSelect">Tipo de Donante:</Label>
-                  <Input type="select" name="select" id="tipoDonante">
-                    <option selected="1">Selecciona el tipo de donante...</option>
-                    <option>Particular</option>
-                    <option>Empresa</option>
-                    <option>Gobierno</option>
-                    <option>Patronato</option>
-                    <option>Fundación</option>
-                  </Input>
-                  <Label for="tipoDonanteSelect">Frecuencia de Donativos:</Label>
-                  <Input type="select" name="select" id="tipoDonante">
-                    <option selected="1">Selecciona la frecuencia de donativos...</option>
-                    <option>Semanal</option>
-                    <option>Quincenal</option>
-                    <option>Mensual</option>
-                    <option>Semestral</option>
-                    <option>Otro</option>
-                  </Input>
-                
-           
-              </Form.Group>
-            </Form.Row>
-
-          
-            
-            <br />
+       
+       <FormGroup>
+         <label>Seleccione Tipo de Donante:</label>
+         <Form.Control as="select" id="selectTipoDonante">
 
 
-      
-  <br />
-             
-          </Form>
+
+         </Form.Control>
+       </FormGroup>
           <Col align="right">
             <a href="/admin/DonanTipo">
                     <Button className="btn btn-outline-primary" onClick={() => { this.handleClick() }}>Siguiente</Button>

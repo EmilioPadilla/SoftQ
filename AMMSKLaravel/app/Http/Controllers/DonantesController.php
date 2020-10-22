@@ -15,7 +15,7 @@ class DonantesController extends Controller
      */
     public function index()
     {
-        return "Mostrando los donantes de la base de datos.";
+        return Donantes::all();
 
     }
 
