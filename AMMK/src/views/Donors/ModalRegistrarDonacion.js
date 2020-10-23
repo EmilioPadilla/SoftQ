@@ -17,8 +17,17 @@ class ModalRegistrarDonacion extends Component {
 
   render() {
     return (
-      
+
       <React.StrictMode>
+        <Col>
+     <Button  size="sm" id="registrarDonacion" className="btn btn-primary float-right" onClick={() => {
+            this.handleModal();
+          }}><FontAwesomeIcon icon={['fas', 'plus']} /></Button>
+      <SimpleTooltip placement="top" target="registrarDonacion" >Registrar Donación</SimpleTooltip>
+
+      </Col>
+
+      {/* <React.StrictMode> */}
         <button
           className="btn btn-outline-primary"
           onClick={() => {
@@ -40,7 +49,7 @@ class ModalRegistrarDonacion extends Component {
                   <Form.Control type="date" placeholder=" / / " />
                 </Form.Group>
               </Form.Row>
-              
+
                 {["radio"].map((type) => (
                   <div key={`inline-${type}`} className="mb-3">
                     <Form.Check
@@ -57,7 +66,7 @@ class ModalRegistrarDonacion extends Component {
                     />
                   </div>
                 ))}
-             
+
               {/*Donacion Monetaria*/}
               <Dropdown>
                 <Dropdown.Toggle variant="success" id="dropdown-basic">
@@ -80,14 +89,14 @@ class ModalRegistrarDonacion extends Component {
               </Form.Row>
 
                             {/*Donacion en especie*/}
-                            
+
             <Form.Row>
               <Form.Group as={Row} controlId="razonSocial">
                 <Form.Label>Descripción:</Form.Label>
                 <Form.Control type="text" placeholder="15 paquetes de arroz, 3 latas de atún y 5kg de frijols" />
               </Form.Group>
               </Form.Row>
-              
+
 
               <Col align="center">
 

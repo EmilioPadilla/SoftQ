@@ -352,7 +352,7 @@ var routes = [
     layout: "/admin",
     showInSidebar: false
   },
-  
+
   {
     path: "/GeneralRegistroD",
     name: "Donantes",

@@ -8,16 +8,16 @@ class CreateAccEmp extends React.Component{
     crearSelect(){
         var sel='<option value="NA" disabled selected>Selecciona una opción</option>';
         const num=1;
-        axios.get("http://localhost:8000/api/account/")
+        axios.get("http://localhost:8000/api/employee/")
           .then(function (resp){
             console.log(resp.data);
             //Ciclo for para obtener cada uno de los elementos
             resp.data.forEach(element => {
-              sel = sel.concat('<option value="' + element.id + '"> ' + element.username + '</option> ');
+              sel = sel.concat('<option value="' + element.id + '"> ' + element.nombreCompleto + '</option> ');
             });
             //sel = sel.concat('</Form.Control> </FormGroup>');
             //insertar el select en el html
-           document.getElementById("selectEmpleadoPrueba").innerHTML = sel;
+           document.getElementById("selectEmpleado").innerHTML = sel;
           } );
       }
 
@@ -28,26 +28,22 @@ class CreateAccEmp extends React.Component{
         // Setting up functions
         this.onSubmit = this.onSubmit.bind(this);
     
-        // Setting up state
-        this.state = {
-          user: '',
-          pass: '',
-          idEmp: '',
-        }
+        
     }
     
 
 
     onSubmit(e) {
         e.preventDefault()
+        var idCuenta = 0;
         var x = document.getElementById("passwd").value;
         var y = document.getElementById("username").value;
         var z = document.getElementById("selectEmpleado").value; 
         var w = document.getElementById("confPasswd").value;
+        var v = document.getElementById("selectRol").value;
         var iguales = x.localeCompare(w);
  
         if(iguales==0){
-        var num = 1;
          const cuenta = {
           user: y,
           pass: x,
@@ -55,16 +51,32 @@ class CreateAccEmp extends React.Component{
         };
         axios.post('http://localhost:8000/api/account/', cuenta)
           .then(resp => {console.log(resp.data)});
-        // console.log(`Expense successfully created!`);
-        // console.log(`Name: ${this.state.name}`);
-        // console.log(`Amount: ${this.state.amount}`);
-        // console.log(`Description: ${this.state.description}`);
+        //Buscamos el username que acabamos de registrar
+        setTimeout(function() {
+            axios.get('http://localhost:8000/api/account/find/' + y)
+            .then(function (resp){
+                console.log(resp.data);
+                var idCuenta=(resp.data[0].id);
+                //Hacemos el registro en accounts_roles
+                const acc_rol = {
+                    idRol: v,
+                    idAccount: idCuenta,
+                };
+                axios.post('http://localhost:8000/api/accountRole',acc_rol)
+                    .then(function (resp){
+                        console.log(resp.data);
+                    });   
+            });
+        }, (3 * 1000));
+        
+        
+             
+
         Swal.fire(
         '¡Listo!',
         'Datos guardados',
         'success'
         )
-        this.setState({name: ''})
         }else{
             Swal.fire(
                 'ERROR!',
@@ -86,22 +98,10 @@ class CreateAccEmp extends React.Component{
                             <h2 align="center">Registrar Cuenta</h2>
                             <Form onSubmit={this.onSubmit}>
                                 <div class="row justify-content-center">
-                                    <div class="col-4" >
-                                        <FormGroup>
-                                            <label>Seleccione un Empleado:</label>
-                                            <Form.Control as="select" id="selectEmpleado">
-                                                <option value="1">Iván Díaz</option>
-                                                <option value="2">Eric Torres</option>
-                                                <option value="3">Emilio Aguilera</option>
-                                            </Form.Control>   
-                                        </FormGroup>
-                                    </div>
-                                </div>
-                                <div class="row justify-content-center">
                                     <div class="col-4" >  
                                     <FormGroup> 
                                         <label>Seleccione un Empleado:</label> 
-                                            <Form.Control as="select" id="selectEmpleadoPrueba"> 
+                                            <Form.Control as="select" id="selectEmpleado"> 
                                             
                                             </Form.Control> 
                                     </FormGroup>
