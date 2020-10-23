@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
 // reactstrap components
-import { Row, Table, Col, Button, FormGroup, Input, Label, InputGroup, InputGroupAddon, InputGroupText} from 'reactstrap';
-import SimpleTooltip from "../General/SimpleTooltip";
-import TakeOutB from "../Beneficiarias/TakeOutB";
-import ReenterB from "../Beneficiarias/ReenterB";
+import { Row, Col, Button, FormGroup, Input, Label, InputGroup, InputGroupAddon, InputGroupText} from 'reactstrap';
+import AdminTable from "../../components/Beneficiarias/AdminTable";
 
 //Importing Icon library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -48,9 +46,8 @@ export default class GeneralViewAdmin extends Component {
                                 <InputGroupAddon addonType="prepend">
                                 <InputGroupText><FontAwesomeIcon icon={['fas', 'search']} /></InputGroupText>
                                 </InputGroupAddon>
-                                <Input />
+                                <Input type="text" class="form-control" placeholder="Maria Sandoval Arrieta" aria-label="busquedaNombre" aria-describedby="magGlass"></Input>
                             </InputGroup>
-                            <Input type="text" class="form-control" placeholder="Maria Sandoval Arrieta" aria-label="busquedaNombre" aria-describedby="magGlass"></Input>
                         </FormGroup>
                     </Col>
 
@@ -65,36 +62,9 @@ export default class GeneralViewAdmin extends Component {
                         </FormGroup>
                     </Col>
                 </Row>
+                
+                <AdminTable/>
 
-                <Table hover>
-                    <thead>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Edad</th>
-                            <th>Diagnóstico Médico</th>
-                            <th>Sede</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                        <tr>
-                            <td>Maria Sandoval Arrieta</td>
-                            <td>25</td>
-                            <td>Parálisis cerebral</td>
-                            <td>Granja Betanía</td>
-                            <td>
-                                <Row>
-                                <Link to='/admin/Beneficiarias/SpecificView'>
-                                <Button color="info" size="sm" id="verDetalle"><FontAwesomeIcon icon={['fas', 'eye']} /></Button>
-                                <SimpleTooltip placement="top" target="verDetalle">Ver detalle</SimpleTooltip>
-                                </Link>
-
-                                <TakeOutB/>
-
-                                <ReenterB/>
-                                </Row>
-                            </td>
-                        </tr>
-                </Table>
             </div>
         )
     }

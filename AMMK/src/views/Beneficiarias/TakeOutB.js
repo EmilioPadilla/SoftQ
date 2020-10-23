@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 // reactstrap components
-import {Alert,  Badge, Button, Modal, ModalBody, ModalHeader, FormGroup, Input, Label, Row, Col, CustomInput} from 'reactstrap';
+import {Badge, Button, Modal, ModalBody, ModalHeader, FormGroup, Input, Label, Row, Col, CustomInput} from 'reactstrap';
 import SimpleTooltip from "../General/SimpleTooltip";
 
 //Importing Icon library

@@ -18,17 +18,17 @@ class CreateBeneficiariesTable extends Migration
           $table->foreignId('status_id')->constrained('status');
   			  $table->foreignId('headquarter_id')->constrained('headquarters');
           $table->string('nombreCompleto', 50);
-          $table->string('apodo', 50);
-          $table->date('fechaNacimiento');
-  		    $table->integer('edadMental');
+          $table->string('apodo', 50)->nullable();
+          $table->date('fechaNacimiento')->nullable();
+  		    $table->integer('edadMental')->nullable();;
     			$table->date('fechaIngreso');
-    			$table->string('numCurp', 25);
-    			$table->string('canalizador', 100);
-    			$table->string('dxMedico', 125);
-    			$table->text('vinculosFam');
-    			$table->date('fechaEgreso');
-    			$table->text('motivoEgreso');
-          $table->string('destino', 100);
+    			$table->string('numCurp', 25)->nullable();
+    			$table->string('canalizador', 100)->nullable();
+    			$table->string('dxMedico', 125)->nullable();
+    			$table->text('vinculosFam')->nullable();
+    			$table->date('fechaEgreso')->nullable();
+    			$table->text('motivoEgreso')->nullable();
+          $table->string('destino', 100)->nullable();
         });
     }
 
