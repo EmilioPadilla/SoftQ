@@ -26,4 +26,5 @@ class Beneficiary extends Model
     public function headquarter(){
         return $this->belongsTo('App\Models\Headquarter', 'headquarter_id');
     }
+
 }

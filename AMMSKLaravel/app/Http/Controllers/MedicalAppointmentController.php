@@ -18,7 +18,7 @@ class MedicalAppointmentController extends Controller
      */
     public function index()
     {
-        $medicalAppointments = MedicalAppointment::all();
+        $medicalAppointments = MedicalAppointment::with('specialty')->get();
         return response()->json($medicalAppointments);
     }
 

@@ -38,13 +38,13 @@ const AdminTable = () => {
         })
     }
     const renderBody = () => {
-        return beneficiaries && beneficiaries.map(({ id, nombreCompleto, fechaNacimiento, dxMedico, headquarter_id}) => {
+        return beneficiaries && beneficiaries.map(({ id, nombreCompleto, fechaNacimiento, dxMedico, headquarter}) => {
             return (
                 <tr key={id}>
                     <td>{nombreCompleto}</td>
                     <td>{fechaNacimiento}</td>
                     <td>{dxMedico}</td>
-                    <td>{headquarter_id}</td>
+                    <td>{headquarter.nombre}</td>
                     <td>
                         <Row>
                             <Link to='/admin/Beneficiarias/SpecificView'>

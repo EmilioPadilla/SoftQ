@@ -78,8 +78,8 @@ export default class AppointmentTable extends React.Component {
                 <tr key={appointment.id}>
                   <td>{appointment.fechaConsulta}</td>
                   <td>{appointment.horaConsulta}</td>
-                  <td>{appointment.hospital} {appointment.consultorio}</td>
-                  <td>{appointment.specialty_id}</td>
+                  <td>{appointment.hospital} Cons. #{appointment.consultorio}</td>
+                  <td>{appointment.specialty.nombre}</td>
                   <td>
                   <Row>
                     <ViewMedApp/>
