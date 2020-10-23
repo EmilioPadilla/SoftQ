@@ -27,4 +27,8 @@ class Beneficiary extends Model
         return $this->belongsTo('App\Models\Headquarter', 'headquarter_id');
     }
 
+    public function file() {
+        return $this->hasMany('App\Models\BenefFile', 'id');
+    }
+
 }

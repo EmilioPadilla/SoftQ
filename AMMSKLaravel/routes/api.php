@@ -17,13 +17,19 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
+/* EMPIEZA GENERALES */
 Route::resource('status', 'App\Http\Controllers\StatusController');
 
-Route::resource('headquarters', 'App\Http\Controllers\HeadquarterControlles');
+Route::resource('headquarters', 'App\Http\Controllers\HeadquarterController');
+/* TERMINA GENERALES */
 
+/* EMPIEZA BENEFICIARIAS */
+Route::get('beneficiaries/{id}/status', 'App\Http\Controllers\BeneficiaryController@status');
 Route::resource('beneficiaries', 'App\Http\Controllers\BeneficiaryController');
 
 Route::resource('treatments', 'App\Http\Controllers\TreatmentController');
 
 Route::resource('medical_appointments', 'App\Http\Controllers\MedicalAppointmentController');
+
+Route::resource('benef_files', 'App\Http\Controllers\BenefFileController');
+/* TERMINA BENEFICIARIAS */

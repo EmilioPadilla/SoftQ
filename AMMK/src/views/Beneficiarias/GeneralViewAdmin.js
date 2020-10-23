@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 // reactstrap components
 import { Row, Col, Button, FormGroup, Input, Label, InputGroup, InputGroupAddon, InputGroupText} from 'reactstrap';
 import AdminTable from "../../components/Beneficiarias/AdminTable";
+import StatusDrop from "../General/StatusDrop";
+import HeadquartersDrop from "../General/HeadquartersDrop";
 
 //Importing Icon library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -19,14 +21,7 @@ export default class GeneralViewAdmin extends Component {
                 <h1 className="title">BENEFICIARIAS</h1>
                 <Row>
                     <Col md="6">
-                        <FormGroup>
-                            <Label for="statusSelect">Estatus</Label>
-                            <Input type="select">
-                            <option> Estatus...</option>
-                            <option >Activos</option>
-                            <option>Inactivos</option>
-                            </Input>
-                        </FormGroup>
+                        <StatusDrop/>
                     </Col>
                     
                     <Col md="6">
@@ -52,14 +47,7 @@ export default class GeneralViewAdmin extends Component {
                     </Col>
 
                     <Col md="4">
-                        <FormGroup>
-                            <Label>Filtrar por sede:</Label>
-                            <Input type="select">
-                            <option>Sede...</option>
-                            <option >Asoc. MMK</option>
-                            <option>Granja Betanía</option>
-                            </Input>
-                        </FormGroup>
+                        <HeadquartersDrop/>
                     </Col>
                 </Row>
                 

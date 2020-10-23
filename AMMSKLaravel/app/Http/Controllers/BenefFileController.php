@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 //importing model 
+use App\Models\BenefFile; 
 use App\Models\Beneficiary; 
 
-class BeneficiaryController extends Controller
+class BenefFileController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +17,8 @@ class BeneficiaryController extends Controller
      */
     public function index()
     {
-        $beneficiaries = Beneficiary::with('status', 'headquarter')->get();
-        return response()->json($beneficiaries);
+        $benefFiles = BenefFile::all();
+        return response()->json($benefFiles);
     }
 
     /**
@@ -31,46 +32,26 @@ class BeneficiaryController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage. POST
+     * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //validate required data
-		$request->validate([
-            'headquarter_id' => 'required',
-            'nombreCompleto' => 'required',
-            'fechaIngreso' => 'required' 
-        ]);
-
-        $beneficiary = Beneficiary::create($request->all());
-        return response()->json(['message'=> 'Beneficiary created successfully.', 
-        'beneficiary' => $beneficiary]);     	
+        //
     }
 
     /**
-     * Display only one specific beneficiary
+     * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        return Beneficiary::where('id', $id)->get();
-    }
-
-    /**
-     * Display beneficiaries according to status value
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function status($id)
-    {
-        $beneficiaries = Beneficiary::where('status_id', '=', $id)->get();
-        return response()->json ($beneficiaries);
+        $benefFiles = BenefFile::where('beneficiary_id', '=', $id)->get();
+        return response()->json ($benefFiles);
     }
 
     /**
