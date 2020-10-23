@@ -55,12 +55,18 @@ onSubmit(e){
 
   
   };
-  var jsonArray1 = JSON.parse(localStorage.getItem("patronato"));
- var jsonArray2=  localStorage.getItem("step2");
-//const jsonArray= JSON.parse(jsonArray1.concat(jsonArray2));
-console.log(jsonArray1);
+  localStorage.setItem("facturacion", JSON.stringify(donantePatronato));
 
-  axios.post('http://localhost:8000/api/donantes/', jsonArray1).then(res => {console.log(res.data)});
+  var jsonArray1 = JSON.parse(localStorage.getItem("patronato"));
+ var jsonArray2=  JSON.parse(localStorage.getItem("gobierno"));
+ var jsonArray3=  JSON.parse(localStorage.getItem("facturacion"));
+
+const jsonArray= {...jsonArray1,...jsonArray2,...jsonArray3};
+console.log(jsonArray);
+localStorage.clear();
+
+  axios.post('http://localhost:8000/api/donantes/', jsonArray).then(res => {console.log(res)});
+  
   //Swal.fire(
   //  'Good job!',
   //  'Pokemon Added Successfully',

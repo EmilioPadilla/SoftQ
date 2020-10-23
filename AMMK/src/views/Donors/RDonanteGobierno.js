@@ -49,7 +49,7 @@ class RDonanteGobierno extends Component {
     
     };
 
-    localStorage.setItem("step2", JSON.stringify(donantePatronato));
+    localStorage.setItem("gobierno", JSON.stringify(donantePatronato));
     //axios.post('http://localhost:8000/api/donantes/', donantePatronato).then(res => {console.log(res.data)});
     //Swal.fire(
     //  'Good job!',

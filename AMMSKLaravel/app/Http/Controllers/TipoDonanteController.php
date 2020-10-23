@@ -15,7 +15,7 @@ class TipoDonanteController extends Controller
      */
     public function index()
     {
-        return Tittle::all();
+        return TipoDonante::all();
     }
 
     /**
