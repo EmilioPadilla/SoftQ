@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\TipoDonante; 
+use App\Models\Recurrencia; 
 
 
-class TipoDonanteController extends Controller
+class RecurrenciaController extends Controller
 {
      /**
      * Display a listing of the resource.
@@ -15,8 +15,7 @@ class TipoDonanteController extends Controller
      */
     public function index()
     {
-       
-        return TipoDonante::all();
+        return Recurrencia::all();
     }
 
     /**

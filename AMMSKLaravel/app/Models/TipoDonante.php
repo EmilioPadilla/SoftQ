@@ -9,4 +9,5 @@ class TipoDonante extends Model
 {
      //assigning db table model is associated with
      protected $table = 'tipo_donante';
+     //use HasFactory;
 }

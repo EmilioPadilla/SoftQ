@@ -16,21 +16,38 @@ import axios from "axios";
 
 class GeneralDonantes extends Component {
 
-  crearSelect(){
+  crearSelectTipoDonante(){
     var sel='<option value="NA" disabled selected>Selecciona una opcion</option>';
     const num=1;
-    axios.get("http://localhost:8000/api/Tipodonante/").then(function(resp){
+    axios.get("http://localhost:8000/api/tipodonante/").then(function(resp){
       
     console.log(resp.data);
     resp.data.forEach(element =>{
       sel = sel.concat('<option value="'+ element.id + ' " > '+ element.nombre+'</option>');
-      console.log(element.nombre);
+      //console.log(element.nombre);
     });
     document.getElementById("selectTipoDonante").innerHTML=sel; 
   });
   }
 
+  crearSelectRecurrencia(){
+    var sel='<option value="NA" disabled selected>Selecciona una opcion</option>';
+    const num=1;
+    axios.get("http://localhost:8000/api/recurrencia/").then(function(resp){
+      
+    console.log(resp.data);
+    resp.data.forEach(element =>{
+      sel = sel.concat('<option value="'+ element.id + ' " > '+ element.nombre+'</option>');
+      //console.log(element.nombre);
+    });
+    document.getElementById("selectRecurrencia").innerHTML=sel; 
+  });
+  }
+
   render() {
+    this.crearSelectTipoDonante();
+    this.crearSelectRecurrencia();
+
     return (
       <div className="content">
         <div class="container-fluid">
@@ -42,14 +59,14 @@ class GeneralDonantes extends Component {
                   <br/>
           <div class="container"></div>
        
-       <FormGroup>
+        <FormGroup>
          <label>Seleccione Tipo de Donante:</label>
-         <Form.Control as="select" id="selectTipoDonante">
-
-
-
-         </Form.Control>
+         <Form.Control as="select" id="selectTipoDonante"></Form.Control>
        </FormGroup>
+       <FormGroup>
+         <label>Seleccione Recurrencia de Donante:</label>
+         <Form.Control as="select" id="selectRecurrencia"></Form.Control>
+        </FormGroup>
        <Col align="right">
             <a href="/admin/RegistroDonante1">
                     <Button className="btn btn-outline-primary" onClick={() => { this.handleClick() }}>Siguiente</Button>
