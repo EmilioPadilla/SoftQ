@@ -56,23 +56,20 @@ onSubmit(e){
   
   };
   localStorage.setItem("facturacion", JSON.stringify(donantePatronato));
-
+  var jsonArray0 = JSON.parse(localStorage.getItem("generales"));
   var jsonArray1 = JSON.parse(localStorage.getItem("patronato"));
  var jsonArray2=  JSON.parse(localStorage.getItem("gobierno"));
  var jsonArray3=  JSON.parse(localStorage.getItem("facturacion"));
 
-const jsonArray= {...jsonArray1,...jsonArray2,...jsonArray3};
-console.log(jsonArray);
+const jsonArray= {...jsonArray0,...jsonArray1,...jsonArray2,...jsonArray3};
+console.log(jsonArray0);
 localStorage.clear();
 
   axios.post('http://localhost:8000/api/donantes/', jsonArray).then(res => {console.log(res)});
   
-  //Swal.fire(
-  //  'Good job!',
-  //  'Pokemon Added Successfully',
-  //  'success'
- // )
- this.setState({nombreCompleto1: ''})
+ //validacion
+
+
 }
   render() {
     return (
@@ -89,6 +86,7 @@ localStorage.clear();
             <Form.Row>
               <Form.Group as={Row} controlId="razonSocialF">
                 <Form.Label>Razón Social:</Form.Label>
+                
                 <Form.Control type="text" placeholder="Ejemplo S.A.S" />
               </Form.Group>
 
@@ -170,11 +168,8 @@ localStorage.clear();
                     </Link>
                     </Col>
                     <Col  md="6" align="right">
-                    <Button type="submit" >BD&nbsp;<FontAwesomeIcon icon={['fas', 'arrow-circle-right']}/></Button>
 
-                    <Link>
-                    <Button>Registrar</Button>
-                    </Link>
+                    <Button type="submit">Registrar</Button>
                     </Col>
                 </Form.Row>
                 </Form>

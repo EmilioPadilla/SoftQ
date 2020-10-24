@@ -127,7 +127,7 @@ class RDonantesPatronato extends Component {
                     </Link>
                     </Col>
                     <Col  md="6" align="right">
-                    <Button type="submit" >BD&nbsp;<FontAwesomeIcon icon={['fas', 'arrow-circle-right']}/></Button>
+                    <Button  type="submit">BD&nbsp;<FontAwesomeIcon icon={['fas', 'arrow-circle-right']}/></Button>
 
                     <Link to='/admin/RegistroDonante2'>
                     <Button >Siguiente&nbsp;<FontAwesomeIcon icon={['fas', 'arrow-circle-right']}/></Button>

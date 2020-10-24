@@ -17,7 +17,6 @@ class CreateDonante extends Migration
             $table->id()->from(1);
             $table->foreignId('idRecurrencia')->references("id")->on("recurrencia_donante")->onDelete("cascade")->onUpdate("cascade");
             $table->foreignId('idTipoDonante')->references("id")->on("tipo_donante")->onDelete("cascade")->onUpdate("cascade");
-            $table->foreignId('idTipoDonacion')->references("id")->on("tipo_donacion")->onDelete("cascade")->onUpdate("cascade");
 
             //Patronato
             $table->string('nombreCompleto1', 50)->nullable();

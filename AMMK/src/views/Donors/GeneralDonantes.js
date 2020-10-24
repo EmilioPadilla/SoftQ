@@ -16,6 +16,8 @@ import axios from "axios";
 
 class GeneralDonantes extends Component {
 
+  /***TIPO DE DONANTE */
+  //-> Dropdowm
   crearSelectTipoDonante(){
     var sel='<option value="NA" disabled selected>Selecciona una opcion</option>';
     const num=1;
@@ -29,6 +31,10 @@ class GeneralDonantes extends Component {
     document.getElementById("selectTipoDonante").innerHTML=sel; 
   });
   }
+  
+
+  /***TIPO DE RECURRENCIA */
+  //-> Dropdowm
 
   crearSelectRecurrencia(){
     var sel='<option value="NA" disabled selected>Selecciona una opcion</option>';
@@ -43,6 +49,29 @@ class GeneralDonantes extends Component {
     document.getElementById("selectRecurrencia").innerHTML=sel; 
   });
   }
+  //POST DONANTE
+
+  constructor(props) {
+    super(props)
+    this.onSubmit = this.onSubmit.bind(this);
+}
+
+
+
+onSubmit(e) {
+  e.preventDefault()
+  var tipoDonante=document.getElementById("selectTipoDonante").value;
+  var recurrencia= document.getElementById("selectRecurrencia").value;
+
+  const donantePatronato={
+    idRecurrencia: recurrencia,
+    idTipoDonante: tipoDonante,
+    
+  }
+localStorage.setItem("generales", JSON.stringify(donantePatronato));
+
+}
+
 
   render() {
     this.crearSelectTipoDonante();
@@ -54,24 +83,28 @@ class GeneralDonantes extends Component {
           <h1 className="title">Registrar Donante</h1>
           
            <h3 align="center">Datos Generales</h3>
-        
+           <h6 align="left">Los campos señalados con (*) son obligatorios</h6>
+
           <ProgressBar now={10} />
                   <br/>
           <div class="container"></div>
-       
+       <Form onSubmit={this.onSubmit}>
         <FormGroup>
-         <label>Seleccione Tipo de Donante:</label>
-         <Form.Control as="select" id="selectTipoDonante"></Form.Control>
+         <label>*Seleccione Tipo de Donante:</label>
+         <Form.Control as="select" id="selectTipoDonante" required></Form.Control>
        </FormGroup>
        <FormGroup>
-         <label>Seleccione Recurrencia de Donante:</label>
-         <Form.Control as="select" id="selectRecurrencia"></Form.Control>
+         <label>*Seleccione Recurrencia de Donante:</label>
+         <Form.Control as="select" id="selectRecurrencia" required></Form.Control>
         </FormGroup>
        <Col align="right">
             <a href="/admin/RegistroDonante1">
+            <Button  type="submit">BD&nbsp;</Button>
+
                     <Button className="btn btn-outline-primary" onClick={() => { this.handleClick() }}>Siguiente</Button>
                   </a>
                   </Col> 
+                  </Form>
         </div>
       </div>
     );

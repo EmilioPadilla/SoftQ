@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Row, Modal, Form, Dropdown,Button, Col } from "react-bootstrap";
+import { Row, Modal, Form, FormGroup,  Dropdown,Button, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import SimpleTooltip from "../General/SimpleTooltip";
+import axios from "axios";
 
 class ModalRegistrarDonacion extends Component {
   constructor() {
@@ -15,7 +16,29 @@ class ModalRegistrarDonacion extends Component {
     this.setState({ show: !this.state.show });
   }
 
+  /***TIPO DE DONACION */
+  //-> Dropdowm
+  /*crearSelectTipoDonacion(){
+    var sel='<option value="NA" disabled selected>Selecciona una opcion</option>';
+    const num=1;
+    axios.get("http://localhost:8000/api/tipodonacion").then(function(resp){
+      
+    console.log(resp.data);
+    resp.data.forEach(element =>{
+      sel = sel.concat('<option value="'+ element.id + ' " > '+ element.nombre+'</option>');
+      //console.log(element.nombre);
+    });
+    document.getElementById("tipoDonacion").innerHTML=sel; 
+  });
+  }
+  //**END TIPO DONACION */
+
+
   render() {
+
+    //this.crearSelectTipoDonacion();
+
+
     return (
 
       <React.StrictMode>
@@ -50,39 +73,17 @@ class ModalRegistrarDonacion extends Component {
                 </Form.Group>
               </Form.Row>
 
-                {["radio"].map((type) => (
-                  <div key={`inline-${type}`} className="mb-3">
-                    <Form.Check
-                      inline
-                      label="Monetario"
-                      type={type}
-                      id={`inline-${type}-1`}
-                    />
-                    <Form.Check
-                      inline
-                      label="Especie"
-                      type={type}
-                      id={`inline-${type}-2`}
-                    />
-                  </div>
-                ))}
+              <FormGroup>
+         <label>*Seleccione Tipo de Donación</label>
+         <Form.Control as="select" id="tipoDonacion" ></Form.Control>
+       </FormGroup>
 
               {/*Donacion Monetaria*/}
-              <Dropdown>
-                <Dropdown.Toggle variant="success" id="dropdown-basic">
-                  Selecciona medio de pago...
-                </Dropdown.Toggle>
-
-                <Dropdown.Menu>
-                  <Dropdown.Item href="#/action-1">Efectivo</Dropdown.Item>
-                  <Dropdown.Item href="#/action-2">Cheque</Dropdown.Item>
-                  <Dropdown.Item href="#/action-3">Transferencia</Dropdown.Item>
-                  <Dropdown.Item href="#/action-4">Cargo a tarjeta</Dropdown.Item>
-                  <Dropdown.Item href="#/action-5">Paypal</Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
+              
+               
+              
               <Form.Row>
-                <Form.Group as={Row} controlId="birthdayPatronato">
+                <Form.Group as={Row} controlId="Monto">
                   <Form.Label>Monto:</Form.Label>
                   <Form.Control type="date" placeholder="$3,000.00" />
                 </Form.Group>

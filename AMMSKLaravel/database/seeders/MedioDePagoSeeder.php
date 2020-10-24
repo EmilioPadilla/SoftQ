@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
 
-class RecurrenciaDonanteSeeder extends Seeder
+class MedioDePagoSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,25 +15,25 @@ class RecurrenciaDonanteSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('recurrencia_donante')->insert([
+        DB::table('medio_de_pago')->insert([
             [
-                'nombre' => 'Semanal',
+                'nombre' => 'Efectivo',
             ],
             [
-                'nombre' => 'Quincenal',
+                'nombre' => 'Transferencia',
             ],
             [
-                'nombre' => 'Mensual',
+                'nombre' => 'PayPal',
             ],
             [
-                'nombre' => 'Semestral',
+                'nombre' => 'Tarjeta de Credito',
             ],
             [
-                'nombre' => 'Anual',
+                'nombre' => 'Tarjeta Debito',
             ],
             [
-                'nombre' => 'Indefinido',
+                'nombre' => 'Cheque',
             ],
-         ]);
+            ]);
     }
 }

@@ -38,6 +38,10 @@ class DonantesController extends Controller
     public function store(Request $request)
     {
         $donante = new Donantes;
+
+        $donante->idRecurrencia= $request-> idRecurrencia;
+        $donante->idTipoDonante= $request-> idTipoDonante;
+
         //Datos donante particular/patronato
         $donante->nombreCompleto1 = $request -> nombreCompleto1;
         $donante->fechaCumpleaños1 = $request -> fechaCumpleaños1;
