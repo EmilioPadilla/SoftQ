@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Account;
+
 
 class AccountController extends Controller
 {
@@ -44,7 +44,7 @@ class AccountController extends Controller
         $account->idEmployee = $request->idEmp;
         //Guardamos el cambio en nuestro modelo
         $account->save();
-        
+
     }
 
    
