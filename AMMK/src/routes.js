@@ -26,7 +26,7 @@ import GeneralIndex from "views/General/GeneralIndex.js";
 import TableList from "views/TableList.js";
 import Typography from "views/Typography.js";
 import RegisterEmployee from "views/Employees/RE.js";
-//import RegisterEmployee2 from "views/Employees/RE2.js";
+import RegisterEmployee2 from "views/Employees/RE2.js";
 import RegisterEmployee3 from "views/Employees/RE3.js";
 import ViewEmployee from "views/Employees/ViewEmployee.js";
 import SearchEmployee from "views/Employees/SearchEmployee.js";
@@ -275,15 +275,15 @@ var routes = [
     layout: "/admin",
     showInSidebar: false
   },
-  /*{
+  {
     path: "/RE2",
     name: "Empleados",
     rtlName: "طباعة",
     icon: "tim-icons icon-single-02",
-    //component: RegisterEmployee2,
+    component: RegisterEmployee2,
     layout: "/admin",
     showInSidebar: false
-  },*/
+  },
   {
     path: "/RE3",
     name: "Empleados",
