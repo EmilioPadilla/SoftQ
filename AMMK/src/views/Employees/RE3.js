@@ -70,7 +70,7 @@ class RegisterEmployee3 extends React.Component {
                         <FormGroup>
                         <Label for="puestoSelect">Puesto</Label>
                             <Input type="select" name="select" id="puestoSelect">
-                            <option selected="1">-----</option>
+                            <option selected="1">Selecciona un puesto...</option>
                             <option >Enfermera</option>
                             <option>Servicios Generales</option>
                             <option >Cocina</option>
@@ -131,9 +131,10 @@ class RegisterEmployee3 extends React.Component {
                         <Col className="pl-md-1">
                           <FormGroup>
                             <label>Escolaridad</label>
-                            <Input
-                              placeholder="Bachillerato" type="text"
-                            />
+                            <Input type="select" name="select" id="puestoSelect">
+                            <option selected="1">Selecciona una escolaridad...</option>
+
+                            </Input>
                           </FormGroup>
                         </Col>
                       </Col>
