@@ -1,12 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Account;
+use App\Models\Employee;
 
-
-class AccountController extends Controller
+class EmployeesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class AccountController extends Controller
      */
     public function index()
     {
-        return Account::all();
+        return Employee::all();
     }
 
     /**
@@ -36,18 +36,9 @@ class AccountController extends Controller
      */
     public function store(Request $request)
     {
-        //Instanciamos la clase Account
-        $account = new Account;
-        //Declaramos los datos con los enviado en el request
-        $account->username = $request->user;
-        $account->password = $request->pass;
-        $account->idEmployee = $request->idEmp;
-        //Guardamos el cambio en nuestro modelo
-        $account->save();
-
+        //
     }
 
-   
     /**
      * Display the specified resource.
      *
@@ -56,7 +47,7 @@ class AccountController extends Controller
      */
     public function show($id)
     {
-        return Account::where('id', $id)->get();
+        //
     }
 
     /**
@@ -70,10 +61,6 @@ class AccountController extends Controller
         //
     }
 
-    public function showId($username){
-        return Account::where('username', $username)->get();
-    }
-
     /**
      * Update the specified resource in storage.
      *
@@ -83,16 +70,7 @@ class AccountController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'username' => 'required',
-            'password' => 'required',
-        ]);
-
-        $account = Account::find($id);
-        $account->username = $request->username;
-        $account->password = $request->password;
-
-        $account->save();
+        //
     }
 
     /**

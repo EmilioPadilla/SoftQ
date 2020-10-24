@@ -20,6 +20,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::resource('donantes', 'App\Http\Controllers\DonantesController');
+Route::resource('employee', 'App\Http\Controllers\EmployeesController');
 
-
+//Rutas cuentas
 Route::resource('account', 'App\Http\Controllers\AccountController');
+Route::resource('accountRole', 'App\Http\Controllers\Account_RoleController');
+Route::get('account/find/{username}', 'App\Http\Controllers\AccountController@showId');

@@ -25,7 +25,7 @@ class ModalRegistrarDonacion extends Component {
           }}><FontAwesomeIcon icon={['fas', 'plus']} /></Button>
       <SimpleTooltip placement="top" target="registrarDonacion" >Registrar Donación</SimpleTooltip>
 
-</Col>
+      </Col>
 
       {/* <React.StrictMode> */}
         <button

@@ -111,6 +111,6 @@ class PrincipalDonantes extends React.Component {
     }
 }
 
+export default  PrincipalDonantes;
 
 
-export default PrincipalDonantes;
