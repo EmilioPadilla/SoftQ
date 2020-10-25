@@ -5,36 +5,17 @@
 
 */
 import React from "react";
-
-import { Link } from "react-router-dom";
-
-// import AccountPlusIcon from 'mdi-react/AccountPlusIcon';
-// import AccountSearchIcon from 'mdi-react/AccountSearchIcon';
-// import DeleteIcon from 'mdi-react/DeleteIcon';
-
 //Importing Icon library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { fas } from '@fortawesome/free-solid-svg-icons';
 
 // reactstrap components
 import {
-  Button,
   Card,
-  CardTitle,
-  CardHeader,
   CardBody,
-  CardFooter,
-  FormGroup,
-  Input,
   Row,
   Col,
-  Progress,
   Nav,
   NavItem,
-  CustomInput,
-  Label,
-  Table
 } from "reactstrap";
 
 

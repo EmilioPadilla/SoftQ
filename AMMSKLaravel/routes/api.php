@@ -20,7 +20,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::resource('donantes', 'App\Http\Controllers\DonantesController');
+// Rutas empleados
 Route::resource('employee', 'App\Http\Controllers\EmployeesController');
+Route::resource('scholarship', 'App\Http\Controllers\ScholarshipController');
 
 //Rutas cuentas
 Route::resource('account', 'App\Http\Controllers\AccountController');

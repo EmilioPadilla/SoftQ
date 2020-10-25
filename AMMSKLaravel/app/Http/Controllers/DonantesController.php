@@ -61,7 +61,7 @@ class DonantesController extends Controller
      */
     public function show($id)
     {
-        //
+        return Employee::where('id', $id)->get();
     }
 
     /**
