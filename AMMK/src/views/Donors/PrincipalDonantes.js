@@ -11,10 +11,9 @@ import ReenterD from "../Donors/ReenterD";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
-import ModalRegistrarDonacion from './ModalRegistrarDonacion';
+import AdminTablaD from './AdminTablaD';
 
 
-import TakeOutB from "../Donors/TakeOutD";
 
 
 library.add(fas)
@@ -73,39 +72,9 @@ export default class GeneralViewAdmin extends Component {
                         </FormGroup>
                     </Col>
                 </Row>
+                <AdminTablaD />
 
-                <Table hover>
-                    <thead>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Tipo</th>
-                            <th>Recurrencia</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                        <tr>
-                            <td>Maria Sandoval Arrieta</td>
-                            <td>Particular</td>
-                            <td>Mensual</td>
-                            <td>
-                                <Row>
-                                <ModalRegistrarDonacion/>
-                                <Col md="2">
-                                <Link to='/admin/VistaDonante'>
-                                <Button color="info" size="sm" id="verDetalle"><FontAwesomeIcon icon={['fas', 'eye']} /></Button>
-                                <SimpleTooltip placement="top" target="verDetalle">Ver detalle</SimpleTooltip>
-                                </Link>
-                                </Col>
-                                <Col md="2">
-
-                                <TakeOutD/>
-                                  </Col>
-                                  <Col md="2"> <ReenterD/></Col>
-                                
-                                </Row>
-                            </td>
-                        </tr>
-                </Table>
+               
             </div>
         )
     }

@@ -51,14 +51,7 @@ class ModalRegistrarDonacion extends Component {
 </Col>
 
       {/* <React.StrictMode> */}
-        <button
-          className="btn btn-outline-primary"
-          onClick={() => {
-            this.handleModal();
-          }}
-        >
-          Iniciar Sesión
-        </button>
+        
         <Modal show={this.state.show} onHide={() => this.handleModal()} top>
           <Modal.Header closeButton>
             <Modal.Title>Registrar Donación:</Modal.Title>

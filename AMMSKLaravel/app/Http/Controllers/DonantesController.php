@@ -15,8 +15,8 @@ class DonantesController extends Controller
      */
     public function index()
     {
-        return Donantes::all();
-
+        $donantes = Donantes::with('tipoDonante')->get();
+                return response()->json($donantes);
     }
 
     /**
