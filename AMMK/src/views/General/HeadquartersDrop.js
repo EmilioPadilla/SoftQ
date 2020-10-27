@@ -8,7 +8,10 @@ import { API_BASE_URL } from '../../index';
 export default class HeadquartersDrop extends Component {
 
   state = {
-    headquarters: []
+    headquarters: [],
+    form:{
+      fruit: "1",
+    }
   }
 
   peticionGet=()=>{
@@ -19,6 +22,18 @@ export default class HeadquartersDrop extends Component {
       console.log(error.message);
     })
     }    
+
+
+  handleChange=async e=>{
+    e.persist();
+    await this.setState({
+      form:{
+        ...this.state.form,
+        fuit: e.target.value
+      }
+    });
+    console.log(this.state.form);
+    }
   
   componentDidMount() {
     this.peticionGet();
@@ -30,8 +45,9 @@ export default class HeadquartersDrop extends Component {
         <FormGroup>
           <Label for="sede">Filtrar por sede:</Label>
             <Input type="select" name="sede" id="sede">
+            <option>Seleccionar sede...</option>
             {this.state.headquarters.map((headquarter) => (
-                <option value="${headquarter.id}">{headquarter.nombre}</option>
+                <option value={headquarter.id}>{headquarter.nombre}</option>
             ))}
             </Input>
         </FormGroup>

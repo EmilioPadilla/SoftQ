@@ -32,4 +32,8 @@ Route::resource('treatments', 'App\Http\Controllers\TreatmentController');
 Route::resource('medical_appointments', 'App\Http\Controllers\MedicalAppointmentController');
 
 Route::resource('benef_files', 'App\Http\Controllers\BenefFileController');
+
+Route::resource('specialties', 'App\Http\Controllers\SpecialtyController');
+
+Route::resource('modes', 'App\Http\Controllers\ModeController');
 /* TERMINA BENEFICIARIAS */

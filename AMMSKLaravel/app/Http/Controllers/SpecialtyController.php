@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 //importing model 
-use App\Models\Beneficiary; 
+use App\Models\Specialty; 
 
-class BeneficiaryController extends Controller
+class SpecialtyController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +16,8 @@ class BeneficiaryController extends Controller
      */
     public function index()
     {
-        $beneficiaries = Beneficiary::with('status', 'headquarter')->get();
-        return response()->json($beneficiaries);
+        $specialties = Specialty::all();
+        return response()->json($specialties);
     }
 
     /**
@@ -31,47 +31,25 @@ class BeneficiaryController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage. POST
+     * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //validate required data
-		$request->validate([
-            'nombreCompleto' => 'required',
-            'fechaNacimiento' => 'required',
-            'fechaIngreso' => 'required',
-            'dxMedico' => 'required',
-        ]);
-
-        $beneficiary = Beneficiary::create($request->all());
-        return response()->json(['message'=> 'Beneficiary created successfully.', 
-        'beneficiary' => $beneficiary]);	
+        //
     }
 
     /**
-     * Display only one specific beneficiary
+     * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        return Beneficiary::where('id', $id)->get();
-    }
-
-    /**
-     * Display beneficiaries according to status value
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function status($id)
-    {
-        $beneficiaries = Beneficiary::where('status_id', '=', $id)->get();
-        return response()->json ($beneficiaries);
+        //
     }
 
     /**

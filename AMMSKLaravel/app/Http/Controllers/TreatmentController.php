@@ -92,7 +92,9 @@ class TreatmentController extends Controller
             'fechaTermino' => 'required'
         ]);
 
+        $treatment->beneficiary_id = $request->beneficiary_id();
         $treatment->nombreMed = $request->nombreMed();
+        $treatment->funcionMed = $request->funcionMed();
         $treatment->dosis = $request->dosis();
         $treatment->mode_id = $request->mode_id();
         $treatment->lapso = $request->lapso();

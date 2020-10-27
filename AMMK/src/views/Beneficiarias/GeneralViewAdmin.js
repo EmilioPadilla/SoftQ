@@ -15,6 +15,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 library.add(fas)
 
 export default class GeneralViewAdmin extends Component {
+    state = { data : "1" } 
     render() {
         return (
             <div className="content">
@@ -41,7 +42,7 @@ export default class GeneralViewAdmin extends Component {
                                 <InputGroupAddon addonType="prepend">
                                 <InputGroupText><FontAwesomeIcon icon={['fas', 'search']} /></InputGroupText>
                                 </InputGroupAddon>
-                                <Input type="text" class="form-control" placeholder="Maria Sandoval Arrieta" aria-label="busquedaNombre" aria-describedby="magGlass"></Input>
+                                <Input type="text" className="form-control" placeholder="Maria Sandoval Arrieta" aria-label="busquedaNombre" aria-describedby="magGlass"></Input>
                             </InputGroup>
                         </FormGroup>
                     </Col>
@@ -51,7 +52,7 @@ export default class GeneralViewAdmin extends Component {
                     </Col>
                 </Row>
                 
-                <AdminTable/>
+                <AdminTable dataFromParent = {this.state.data}/>
 
             </div>
         )

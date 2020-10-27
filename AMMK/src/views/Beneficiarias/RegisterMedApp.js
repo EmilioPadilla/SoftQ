@@ -16,7 +16,7 @@ export default class RegisterMedApp extends Component {
                 <Card>
                     <CardBody>
                         <Alert color="primary">Los campos marcados con un asterisco (*) son obligatorios.</Alert>
-                        <Form>
+                        <Form onSubmit={this.onSubmit}>
                             <FormGroup>
                                 <FontAwesomeIcon icon={['fas', 'calendar-alt']} />
                                 <Label for="fechaConsulta">&nbsp;Fecha de consulta médica:</Label>
@@ -82,14 +82,14 @@ export default class RegisterMedApp extends Component {
                                 </CustomInput>
                                 <Badge color="light">* Recuerda subir un archivo .pdf, .doc/x, .xls/x or .ppt/x</Badge>
                             </FormGroup>
+                                <Row className="text-center">
+                                    <Col md="12">
+                                        <Button type="submit">Registrar</Button>
+                                    </Col>
+                                </Row>
                             </Form> 
                         </CardBody>
                     </Card>
-                    <Row className="text-center">
-                        <Col md="12">
-                            <Button>Registrar</Button>
-                        </Col>
-                    </Row>
             </div>
         )
     }

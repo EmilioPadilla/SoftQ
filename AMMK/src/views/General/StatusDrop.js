@@ -31,7 +31,7 @@ export default class StatusDrop extends Component {
           <Label for="status">Estatus</Label>
             <Input type="select" name="status" id="status">
             {this.state.status.map((status) => (
-                <option value="${status.id}">{status.nombre}</option>
+                <option value={status.id}>{status.nombre}</option>
             ))}
             </Input>
         </FormGroup>

@@ -4,6 +4,12 @@ import { Link } from "react-router-dom";
 // reactstrap components
 import { Button, Card, CardHeader, CardBody, Form, Row, Progress, Alert, Col, FormGroup, Label, CustomInput} from 'reactstrap';
 
+//API calls
+import Axios from 'axios';
+import { API_BASE_URL } from 'index';
+import {convertCompilerOptionsFromJson, parseConfigFileTextToJson} from "typescript";
+
+
 //Importing Icon library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -12,6 +18,26 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 library.add(fas)
 
 export default class RegisterB3 extends Component {
+
+    constructor(props){
+        super(props)
+
+        this.onSubmit = this.onSubmit.bind(this);
+    }
+
+    onSubmit(e){
+        e.preventDefault()
+        
+        let jsonArray1 = JSON.parse(localStorage.getItem("personal"));
+        let jsonArray2 = JSON.parse(localStorage.getItem("ingreso"));
+
+        const jsonArray = {...jsonArray1, ...jsonArray2};
+        console.log(jsonArray);
+        localStorage.clear();
+
+        Axios.post(API_BASE_URL + "beneficiarias", jsonArray); 
+
+    }
     render() {
         return (
             <div className="content">
@@ -24,7 +50,7 @@ export default class RegisterB3 extends Component {
                         <Alert color="primary">* Recuerda subir un archivo .pdf, .doc/x, .xls/x or .ppt/x</Alert>
                     </CardHeader>
                     <CardBody>
-                        <Form>
+                        <Form onSubmit={this.onSubmit}>
                             <FormGroup>
                                 <FontAwesomeIcon icon={['fas', 'file-upload']} />
                                 <Label for="cargaBautismo">&nbsp;Carga de fe de bautismo:</Label>
@@ -56,7 +82,7 @@ export default class RegisterB3 extends Component {
                     </Col>
                     <Col  md="6" align="right">
                     <Link>
-                    <Button>Registrar</Button>
+                    <Button type="submit">Registrar</Button>
                     </Link>
                     </Col>
                 </Row>
