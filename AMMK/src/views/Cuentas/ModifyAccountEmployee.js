@@ -30,7 +30,7 @@ export default class ModifyAccountEmp extends Component {
         var w = document.getElementById("confpassModify").value;
         var iguales = x.localeCompare(w);
  
-        if(iguales==0){
+        if(iguales==0 && y!="" && x!=""){
         var num = 3;
          const cuenta = {
           username: y,

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Account;
-
+use Illuminate\Support\Facades\DB;
 
 class AccountController extends Controller
 {
@@ -15,7 +15,10 @@ class AccountController extends Controller
      */
     public function index()
     {
-        return Account::all();
+        $respuesta = DB::table('employees')
+                    ->whereNotIn('id', DB::table('accounts')->select('idEmployee'))
+                    ->get();
+        return $respuesta;
     }
 
     /**
@@ -83,16 +86,11 @@ class AccountController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'username' => 'required',
-            'password' => 'required',
-        ]);
-
         $account = Account::find($id);
-        $account->username = $request->username;
-        $account->password = $request->password;
-
-        $account->save();
+        $input = $request->all();
+        $account->username = $request->user;
+        $account->password = $request->pass;
+        $account->update();
     }
 
     /**
@@ -103,6 +101,6 @@ class AccountController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::table('accounts')->where('id',$id)->delete();
     }
 }

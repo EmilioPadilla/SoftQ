@@ -147,7 +147,10 @@ class GeneralIndex extends React.Component {
             </CardHeader> */}
             <CardBody>
               <h1>Cuentas</h1>
-              <div className="chart-area" style={{'font-size': '170px'}}>
+              <div className="chart-area" style={{'font-size': '170px'}} onClick={(e) => {
+                          e.preventDefault();
+                          window.location.href='/admin/Cuentas/principal';
+                        }}>
                 <FontAwesomeIcon icon={['fas', 'user-circle']} color="#3388a7"/>
               </div>
             </CardBody>

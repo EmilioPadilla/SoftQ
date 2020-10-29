@@ -15,7 +15,20 @@ class EmployeesController extends Controller
      */
     public function index()
     {
-        return Employee::all();
+        $empleado = Employee::all();
+        $respuesta = '<thead> <tr> <th> Nombre </th> <th> Username </th> <th> Rol </th> <th> Acciones </th> </tr> </thead> <tbody>';
+        foreach ($empleado as $res){
+            $respuesta .= '<tr> <td id="jkl">'. $res->nombreCompleto. '</td>';
+            $respuesta .= '<td>'.$res->CURP.'</td>';
+            $respuesta .= '<td>'.$res->correo.'</td>';
+            $respuesta .= '<td> <div class="row"> <div class="col"> <a href="/admin/view-employee"> <button id="verDetalle" type="button" class="btn btn-info btn-sm" > <i class="fa fa-eye"> </i></button> ';
+            $respuesta .= '</a> </div> <div class="col" >  <button id="eliminar" type="button" value="'.$res->id.'" class="btn btn-danger btn-sm" onClick={setValorId}> <i class="fa fa-trash-alt"> </i></button> </div> </div> </td> </tr> ';
+        }
+
+        $respuesta .= '</tbody>';
+        return $respuesta;
+
+        
     }
 
     /**
