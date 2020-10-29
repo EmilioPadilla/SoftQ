@@ -1,4 +1,12 @@
+/*!
+
+@Author: Emilio Padilla Miranda
+@Date: Sunday, October 11, 2020
+
+*/
 import React from "react";
+
+import axios from 'axios';
 
 
 // reactstrap components
@@ -15,10 +23,43 @@ import {
   Label,
   CustomInput
 } from "reactstrap";
+import EmployeeCalendarTable from "components/Employees/EmployeeCalendarTable.js";
 
-import EmployeeCalendarTable from "components/Employees/EmployeeCalendarTable.js"
+
+function parseScholarships(scholarships){
+  return scholarships.map((scholarship) => {
+    return { label: scholarship.descripcion, value: scholarship.id };
+  });
+}
+let Scholarship = [];
 
 class RegisterEmployee3 extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      scholarships: [
+      ],
+    }
+    this.onChange = this.onChange.bind(this);
+    
+    
+  }
+
+  onChange(e) {
+    this.setState({ value: e.value });
+    console.log('scholarship selected: ', e.value);
+  }
+
+  componentDidMount() {
+    this.getScholarships();
+  }
+
+  getScholarships() {
+    axios.get('http://localhost:8000/api/scholarship')
+    .then(res => this.setState({ scholarships: parseScholarships(res.data) }));
+  }
+
+
   render() {
     return (
       <>
@@ -70,7 +111,7 @@ class RegisterEmployee3 extends React.Component {
                         <FormGroup>
                         <Label for="puestoSelect">Puesto</Label>
                             <Input type="select" name="select" id="puestoSelect">
-                            <option selected="1">-----</option>
+                            <option defaultValue="1">Selecciona un puesto...</option>
                             <option >Enfermera</option>
                             <option>Servicios Generales</option>
                             <option >Cocina</option>
@@ -130,10 +171,11 @@ class RegisterEmployee3 extends React.Component {
                       <Col  md="6">
                         <Col className="pl-md-1">
                           <FormGroup>
-                            <label>Escolaridad</label>
-                            <Input
-                              placeholder="Bachillerato" type="text"
-                            />
+                            <label target="puestoSelect">Escolaridad</label>
+                            <Input type="select" name="select" id="puestoSelect" value={this.state.value} onChange={this.onChange}>
+                            <option defaultValue="0">Selecciona una escolaridad...</option>
+                            {this.state.scholarships.map((scholarship) => <option key={scholarship.value} value={scholarship.value}>{scholarship.label}</option>)}
+                            </Input>
                           </FormGroup>
                         </Col>
                       </Col>
@@ -144,7 +186,7 @@ class RegisterEmployee3 extends React.Component {
                           </FormGroup>
                         </Col>
                     <Col>
-                      <h4 class="text-center">Calendario de empleado</h4>
+                      <h4 className="text-center">Calendario de empleado</h4>
                       <EmployeeCalendarTable/>
                     </Col>
                   </Row>

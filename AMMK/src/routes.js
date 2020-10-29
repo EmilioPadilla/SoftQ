@@ -26,7 +26,7 @@ import GeneralIndex from "views/General/GeneralIndex.js";
 import TableList from "views/TableList.js";
 import Typography from "views/Typography.js";
 import RegisterEmployee from "views/Employees/RE.js";
-import RegisterEmployee2 from "views/Employees/RE2.js";
+import RegisterEmployee2 from "views/Employees/RE2emp.js";
 import RegisterEmployee3 from "views/Employees/RE3.js";
 import ViewEmployee from "views/Employees/ViewEmployee.js";
 import SearchEmployee from "views/Employees/SearchEmployee.js";

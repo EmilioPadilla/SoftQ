@@ -1,9 +1,14 @@
+/*!
+
+@Author: Emilio Padilla Miranda
+@Date: Sunday, October 11, 2020
+
+*/
+
 import React, { useState } from 'react';
 
 //Importing Icon library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { fas } from '@fortawesome/free-solid-svg-icons';
 
 import SimpleTooltip from "../General/SimpleTooltip";
 import EmployeeCalendarTable from "components/Employees/EmployeeCalendarTable.js"
@@ -17,18 +22,9 @@ import {
   CardTitle,
   CardHeader,
   CardBody,
-  CardFooter,
-  FormGroup,
-  Input,
   Row,
   Col,
-  Progress,
-  CustomInput,
   Label,
-  Table,
-  InputGroup,
-  InputGroupText,
-  InputGroupAddon,
   Badge
 } from "reactstrap";
 
