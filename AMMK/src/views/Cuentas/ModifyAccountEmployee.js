@@ -13,7 +13,7 @@ const ModifyAccountEmp = props =>{
                     <div class="row">
                         <div class="col-12" >
                             <h2 align="center">Modificar Cuenta de Empleado</h2>
-                            <Form /*onSubmit={this.onSubmit}*/>
+                            <Form>
                                 <div class="row justify-content-center">
                                     <div class="col-4" >
                                         <FormGroup>
@@ -55,13 +55,17 @@ const ModifyAccountEmp = props =>{
                                 <br/>
                                 <div class="row justify-content-center">
                                     <div class="col-4" align="center">
-                                        <Button className="btn-fill" color="primary" type="submit">
+                                        <Button className="btn-fill" color="primary" onClick={guardar}>
                                             Guardar cambios
                                         </Button>
                                     </div>
                                 </div>
-                                
                             </Form>
+                            <div>
+                                <Input type="text" id="valorId" style={{display: "none"}}>
+
+                                </Input>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -70,14 +74,44 @@ const ModifyAccountEmp = props =>{
 }
 
 function ax(idC){
-    console.log(idC);
     axios.get("http://localhost:8000/api/account/"+idC)
           .then(function (resp){
             console.log(resp.data);
            document.getElementById("usernameModify").value = resp.data[0].username;
            document.getElementById("passwordModify").value = resp.data[0].password;
            document.getElementById("confpassModify").value = resp.data[0].password;
+           document.getElementById("valorId").value = idC;
           } );
+}
+
+function guardar(){
+    var user = document.getElementById("usernameModify").value;
+    var passwrd = document.getElementById("passwordModify").value;
+    var idCuenta = document.getElementById("valorId").value;
+    if(user!="" && passwrd !=""){
+        const cuentaEditar = {
+            username: user,
+            password: passwrd,
+        }
+        axios.put('http://localhost:8000/api/account/'+idCuenta, cuentaEditar)
+              .then(function (resp){
+                console.log(resp.data);
+              } );
+
+         Swal.fire(
+          '¡Listo!',
+           'Cambios guardados',
+           'success'
+           )/*.then(function() {
+               window.location = "http://localhost:3000/admin/Cuentas/CrearCuentaEmp";
+        });*/
+    }else{
+        Swal.fire(
+            '¡Error!',
+             'Las contraseñas no coinciden o alguno de los campos está vacío',
+             'error'
+             )
+    }
 }
 
 export default ModifyAccountEmp;

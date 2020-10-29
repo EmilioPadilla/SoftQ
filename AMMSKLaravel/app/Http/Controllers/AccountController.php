@@ -104,9 +104,8 @@ class AccountController extends Controller
     public function update(Request $request, $id)
     {
         $account = Account::find($id);
-        $input = $request->all();
-        $account->username = $request->user;
-        $account->password = $request->pass;
+        $account->username = $request->username;
+        $account->password = $request->password;
         $account->update();
     }
 
