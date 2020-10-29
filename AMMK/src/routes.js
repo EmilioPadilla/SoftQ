@@ -94,7 +94,7 @@ var routes = [
   },
 
   {
-    path: "/Cuentas/CuentaPersonal",
+    path: "/Cuentas/CuentaPersonal/",
     name: "Cuenta Personal",
     rtlName: "ملف تعريفي للمستخدم",
     icon: "tim-icons icon-single-02",
@@ -112,7 +112,7 @@ var routes = [
     showInSidebar: false
   },
   {
-    path: "/Cuentas/ModCuentaEmp",
+    path: "/Cuentas/ModCuentaEmp/:id",
     name: "Modificar Cuenta Empleado",
     rtlName: "ملف تعريفي للمستخدم",
     icon: "tim-icons icon-single-02",

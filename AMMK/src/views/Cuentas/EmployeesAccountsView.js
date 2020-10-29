@@ -71,7 +71,7 @@ class EmployeesAccountView extends React.Component {
   crearTabla(){
     var tabla='<thead> <tr> <th> Nombre </th> <th> Username </th> <th> Rol </th> <th> Acciones </th> </tr> </thead> <tbody>';
     const num=1;
-    axios.get("http://localhost:8000/api/employee/")
+    axios.get("http://localhost:8000/api/account/table/all")
       .then(function (resp){
         respuesta = respuesta.concat(resp.data);
         document.getElementById("tablaCE").innerHTML = respuesta;
@@ -129,14 +129,6 @@ class EmployeesAccountView extends React.Component {
               </Table>
             </Col>
           </Row>
-        <div>
-            
-        </div>
-        <div class="col" >  
-        <button id="eliminar" type="button" value="'.$res->id.'" class="btn btn-danger btn-sm" onClick={setValorId}> 
-        <i class="fa fa-trash-alt"> </i>
-        </button> 
-        </div>
         </div>
   
     );

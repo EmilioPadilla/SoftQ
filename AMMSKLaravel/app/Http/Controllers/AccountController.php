@@ -77,6 +77,23 @@ class AccountController extends Controller
         return Account::where('username', $username)->get();
     }
 
+    public function showTable(){
+        $datos = DB::table('accounts')
+                    ->join('employees', 'accounts.idEmployee', '=', 'employees.id')
+                    ->select('accounts.id', 'employees.nombreCompleto', 'employees.RFC', 'accounts.username')
+                    ->get();
+        $respuesta = '<thead> <tr> <th> Nombre </th> <th> Username </th> <th> Rol </th> <th> Acciones </th> </tr> </thead> <tbody>';
+        foreach ($datos as $res){
+            $respuesta .= '<tr> <td id="jkl">'. $res->nombreCompleto. '</td>';
+            $respuesta .= '<td>'.$res->username.'</td>';
+            $respuesta .= '<td>'.$res->RFC.'</td>';
+            $respuesta .= '<td> <div class="row"> <div class="col"> <a href="/admin/Cuentas/ModCuentaEmp/'.$res->id.'"> <button id="verDetalle" type="button" class="btn btn-info btn-sm" > <i class="fa fa-eye"> </i></button> ';
+            $respuesta .= '</a> </div> <div class="col" > <a href="/admin/Cuentas/ModCuentaEmp/'.$res->id.'"> <button id="eliminar" type="button"  class="btn btn-danger btn-sm"> <i class="fa fa-trash-alt"> </i></button> </a> </div> </div> </td> </tr> ';
+        }
+        $respuesta .= '</tbody>';
+        return $respuesta;
+    }
+
     /**
      * Update the specified resource in storage.
      *
