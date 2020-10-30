@@ -20,7 +20,7 @@ class CreateBeneficiariesTable extends Migration
           $table->string('nombreCompleto', 50)->nullable();
           $table->string('apodo', 50)->nullable();
           $table->date('fechaNacimiento')->nullable();
-  		    $table->integer('edadMental')->nullable();;
+  		    $table->integer('edadMental')->nullable();
     			$table->date('fechaIngreso')->nullable();
     			$table->string('numCurp', 25)->nullable();
     			$table->string('canalizador', 100)->nullable();
