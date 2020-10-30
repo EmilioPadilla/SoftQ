@@ -23,6 +23,9 @@ Route::resource('donantes', 'App\Http\Controllers\DonantesController');
 // Rutas empleados
 Route::resource('employee', 'App\Http\Controllers\EmployeesController');
 Route::resource('scholarship', 'App\Http\Controllers\ScholarshipController');
+Route::resource('employeesShifts', 'App\Http\Controllers\EmployeesShiftsController');
+Route::post('employeesShifts/search', 'App\Http\Controllers\EmployeesShiftsController@filterByEmployee');
+Route::post('employeesShifts/delete', 'App\Http\Controllers\EmployeesShiftsController@deleteByEmployee');
 
 //Rutas cuentas
 Route::resource('account', 'App\Http\Controllers\AccountController');
