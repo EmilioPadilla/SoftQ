@@ -10,6 +10,8 @@ class Treatment extends Model
     //assigning db table model is associated with
     protected $table = 'treatments';
 
+    public $timestamps = false;
+
     //fillable fields
     protected $fillable = ['beneficiary_id, nombreMed, funcionMed, dosis, mode_id, lapso, fechaInicio, fechaTermino'];
 

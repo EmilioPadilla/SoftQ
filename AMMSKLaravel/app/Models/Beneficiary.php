@@ -10,10 +10,12 @@ class Beneficiary extends Model
     //assigning db table model is associated with
     protected $table = 'beneficiaries';
 
+    public $timestamps = false;
+
     //fillable fields
     protected $fillable = [
         'status_id, headquarter_id, nombreCompleto, apodo, fechaNacimiento, 
-        edadMental, fechaIngreso, destino numCurp, canalizador, vinculosFam, 
+        edadMental, fechaIngreso, destino, numCurp, canalizador, vinculosFam, 
         dxMedico, fechaEgreso, motivoEgreso'];
 	
     

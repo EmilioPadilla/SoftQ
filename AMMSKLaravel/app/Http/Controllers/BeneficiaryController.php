@@ -38,17 +38,20 @@ class BeneficiaryController extends Controller
      */
     public function store(Request $request)
     {
-        //validate required data
-		$request->validate([
-            'nombreCompleto' => 'required',
-            'fechaNacimiento' => 'required',
-            'fechaIngreso' => 'required',
-            'dxMedico' => 'required',
-        ]);
+        $beneficiary = new Beneficiary;
 
-        $beneficiary = Beneficiary::create($request->all());
-        return response()->json(['message'=> 'Beneficiary created successfully.', 
-        'beneficiary' => $beneficiary]);	
+        $beneficiary->nombreCompleto= $request-> nombreCompleto;
+        $beneficiary->apodo= $request-> apodo;
+        $beneficiary->fechaNacimiento = $request -> fechaNacimiento;
+        $beneficiary->numCurp = $request -> numCurp;
+        $beneficiary->fechaIngreso = $request -> fechaIngreso;
+        $beneficiary->edadMental = $request -> edadMental;
+        $beneficiary->canalizador = $request -> canalizador;
+        $beneficiary->vinculosFam = $request -> vinculosFam;
+        $beneficiary->dxMedico = $request -> dxMedico;
+        $beneficiary->headquarter_id = $request -> headquarter_id;
+
+        $beneficiary->save();  
     }
 
     /**
@@ -57,9 +60,11 @@ class BeneficiaryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function show($id)
     {
-        return Beneficiary::where('id', $id)->get();
+        $beneficiary = Beneficiary::where('id', $id)->get();
+        return response()->json($beneficiary);
     }
 
     /**

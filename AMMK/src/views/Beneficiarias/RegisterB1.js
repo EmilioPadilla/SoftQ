@@ -22,16 +22,16 @@ export default class RegisterB1 extends Component {
         e.preventDefault()
 
         //Agarrar los valores 
-        let nombreCompleto = document.getElementById("nombreCompleto").value;
+        let nombre = document.getElementById("nombreCompleto").value;
         let apodo = document.getElementById("apodo").value;
         let fechaNacimiento = document.getElementById("fechaNacimiento").value;
         let curp = document.getElementById("curp").value;
 
         const datosPersonales = {
-            nombreCompleto: nombreCompleto,
+            nombreCompleto: nombre,
             apodo: apodo,
             fechaNacimiento: fechaNacimiento,
-            curp: curp,
+            numCurp: curp,
         };
         localStorage.setItem("personal", JSON.stringify(datosPersonales));
     }
@@ -40,7 +40,7 @@ export default class RegisterB1 extends Component {
         return (
             <div className="content">
                 <h2 className="title">Registrar Beneficiaria</h2>
-                <Form onSubmit={this.onSubmit}>
+                <Form onClick={this.onSubmit}>
                 <Card>
                     <CardHeader>
                         <h3 className="title">Datos personales</h3>
@@ -105,8 +105,9 @@ export default class RegisterB1 extends Component {
                 </Card>
                 <Col  md="12" align="right">
                   <Link to='/admin/Beneficiarias/RegisterB2'>
-                  <Button type="submit">Siguiente&nbsp;<FontAwesomeIcon icon={['fas', 'arrow-circle-right']} /></Button>
+                  <Button onClick="onSubmit()">Siguiente&nbsp;<FontAwesomeIcon icon={['fas', 'arrow-circle-right']} /></Button>
                   </Link>
+                  
                 </Col>
                 </Form>
             </div>

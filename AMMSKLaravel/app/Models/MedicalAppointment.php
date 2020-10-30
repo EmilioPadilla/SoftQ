@@ -10,6 +10,8 @@ class MedicalAppointment extends Model
     //assigning db table model is associated with
     protected $table = 'medical_appointments';
 
+    public $timestamps = false;
+
     //fillable fields
     protected $fillable = ['beneficiary_id, fechaConsulta, horaConsulta, diagnostico, direccion, hospital, specialty_id, comentario'];
 

@@ -15,13 +15,13 @@ class CreateBeneficiariesTable extends Migration
     {
         Schema::create('beneficiaries', function (Blueprint $table) {
           $table->id()->from(1);
-          $table->foreignId('status_id')->constrained('status');
-  			  $table->foreignId('headquarter_id')->constrained('headquarters');
-          $table->string('nombreCompleto', 50);
+          $table->foreignId('status_id')->default(1)->constrained('status');
+  			  $table->foreignId('headquarter_id')->default(1)->constrained('headquarters');
+          $table->string('nombreCompleto', 50)->nullable();
           $table->string('apodo', 50)->nullable();
           $table->date('fechaNacimiento')->nullable();
   		    $table->integer('edadMental')->nullable();;
-    			$table->date('fechaIngreso');
+    			$table->date('fechaIngreso')->nullable();
     			$table->string('numCurp', 25)->nullable();
     			$table->string('canalizador', 100)->nullable();
     			$table->string('dxMedico', 125)->nullable();

@@ -5,10 +5,8 @@ import { Link } from "react-router-dom";
 import { Button, Card, CardHeader, CardBody, Form, Row, Progress, Alert, Col, FormGroup, Label, CustomInput} from 'reactstrap';
 
 //API calls
-import Axios from 'axios';
+import axios from 'axios';
 import { API_BASE_URL } from 'index';
-import {convertCompilerOptionsFromJson, parseConfigFileTextToJson} from "typescript";
-
 
 //Importing Icon library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -35,13 +33,14 @@ export default class RegisterB3 extends Component {
         console.log(jsonArray);
         localStorage.clear();
 
-        Axios.post(API_BASE_URL + "beneficiarias", jsonArray); 
+        axios.post(API_BASE_URL + "beneficiaries/", jsonArray); 
 
     }
     render() {
         return (
             <div className="content">
                 <h2 className="title">Registrar Beneficiaria</h2>
+                <Form onSubmit={this.onSubmit}>
                 <Card>
                     <CardHeader>
                         <h3 className="title">Carga de archivos religiosos</h3>
@@ -50,7 +49,7 @@ export default class RegisterB3 extends Component {
                         <Alert color="primary">* Recuerda subir un archivo .pdf, .doc/x, .xls/x or .ppt/x</Alert>
                     </CardHeader>
                     <CardBody>
-                        <Form onSubmit={this.onSubmit}>
+
                             <FormGroup>
                                 <FontAwesomeIcon icon={['fas', 'file-upload']} />
                                 <Label for="cargaBautismo">&nbsp;Carga de fe de bautismo:</Label>
@@ -71,7 +70,6 @@ export default class RegisterB3 extends Component {
                                 <CustomInput id="cargaComunion" type="file" label="Seleccionar archivo...">
                                 </CustomInput>
                             </FormGroup>
-                        </Form>
                     </CardBody>
                 </Card>
                 <Row>
@@ -81,11 +79,12 @@ export default class RegisterB3 extends Component {
                     </Link>
                     </Col>
                     <Col  md="6" align="right">
-                    <Link>
+ 
                     <Button type="submit">Registrar</Button>
-                    </Link>
+
                     </Col>
                 </Row>
+                </Form>
             </div>
         );
     }

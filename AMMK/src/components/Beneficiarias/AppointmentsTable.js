@@ -83,6 +83,7 @@ export default class AppointmentTable extends React.Component {
                   <td>
                   <Row>
                     <ViewMedApp/>
+                    
                     <Link to={"/admin/Beneficiarias/ModifyMedApp/" + appointment.id}>
                        <Button size="sm" id="editar" variant="info" onClick={()=>{this.seleccionarEmpresa(appointment);}}><FontAwesomeIcon icon={['fas', 'pencil-alt']} /></Button>
                        <SimpleTooltip placement="top" target="editar" >Editar</SimpleTooltip>

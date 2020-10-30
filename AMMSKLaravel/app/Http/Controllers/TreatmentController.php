@@ -38,18 +38,18 @@ class TreatmentController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'beneficiary_id' => 'required',
-            'nombreMed' => 'required',
-            'dosis' => 'required',
-            'mode_id' => 'required',
-            'lapso' => 'required',
-            'fechaInicio' => 'required',
-            'fechaTermino' => 'required'
-        ]);
-        $treatment = Treatment::create($request->all());
-        return response()->json(['message'=> 'treatment created', 
-        'treatment' => $treatment]);
+        $treatment = new Treatment;
+
+        $treatment->nombreMed= $request-> nombreMed;
+        $treatment->funcionMed= $request-> funcionMed;
+        $treatment->dosis = $request -> dosis;
+        $treatment->lapso = $request -> lapso;
+        $treatment->fechaInicio = $request -> fechaInicio;
+        $treatment->fechaTermino = $request -> fechaTermino;
+        $treatment->mode_id = $request -> mode_id;
+        $treatment->beneficiary_id = $request -> beneficiary_id;
+
+        $treatment->save();  
     }
 
     /**

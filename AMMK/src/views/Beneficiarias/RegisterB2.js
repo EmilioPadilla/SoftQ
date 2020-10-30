@@ -1,17 +1,35 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import Form from "react-bootstrap/Form";
 
 // reactstrap components
-import { Badge, Button, Card, CardHeader, CardBody, Form, Row, Progress, Alert, Col, FormGroup, Label, Input, CustomInput} from 'reactstrap';
+import { Badge, Button, Card, CardHeader, CardBody, Row, Progress, Alert, Col, FormGroup, Label, Input, CustomInput} from 'reactstrap';
 
 //Importing Icon library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
+import Axios from 'axios';
+import { API_BASE_URL } from 'index';
 
 library.add(fas)
 
 export default class RegisterB2 extends Component {
+
+
+    crearSelect(){
+        var sel='<option value="NA" disabled selected>Selecciona una opcion</option>';
+        const num=1;
+        Axios.get(API_BASE_URL + "headquarters").then(function(resp){
+          
+        console.log(resp.data);
+        resp.data.forEach(element =>{
+          sel = sel.concat('<option value='+ element.id + '>' + element.nombre +'</option>');
+        });
+        document.getElementById("selectSede").innerHTML=sel; 
+      });
+    }
+
     constructor(props){
         super(props)
         this.onSubmit= this.onSubmit.bind(this);
@@ -26,6 +44,7 @@ export default class RegisterB2 extends Component {
         let canalizador = document.getElementById("canalizador").value;
         let vinculosFam = document.getElementById("vinculosFam").value;
         let dxMedico = document.getElementById("dxMedico").value;
+        let sede = document.getElementById("selectSede").value;
 
         const datosIngreso = {
             fechaIngreso: fechaIngreso,
@@ -33,11 +52,13 @@ export default class RegisterB2 extends Component {
             canalizador: canalizador,
             vinculosFam: vinculosFam,
             dxMedico: dxMedico,
+            headquarter_id: sede,
         };
         localStorage.setItem("ingreso", JSON.stringify(datosIngreso));
     }
 
     render() {
+        this.crearSelect();
         return (
             <div className="content">
                 <h2 className="title">Registrar Beneficiaria</h2>
@@ -49,7 +70,11 @@ export default class RegisterB2 extends Component {
                         <Alert color="primary">Los campos marcados con un asterisco (*) son obligatorios.</Alert>
                     </CardHeader>
                     <CardBody>
-                        <Form onSubmit={this.onSubmit}>
+                        <Form onClick={this.onSubmit}>
+                            <FormGroup>
+                                <label>* Seleccione la sede:</label>
+                                <Form.Control as="select" id="selectSede" required></Form.Control>
+                            </FormGroup>
                             <Row>
                                 <Col md="6">
                                     <FormGroup>
@@ -68,7 +93,7 @@ export default class RegisterB2 extends Component {
                             </Row>
 
                             <FormGroup>
-                                <Label htmlFor="dxMedico"><FontAwesomeIcon icon={['fas', 'notes-medical']} />&nbsp;Diagnóstico médico:</Label>
+                                <Label htmlFor="dxMedico">*&nbsp;<FontAwesomeIcon icon={['fas', 'notes-medical']} />&nbsp;Diagnóstico médico:</Label>
                                 <Input maxLength="125" id="dxMedico" placeholder="Parálisis cerebral"></Input>
                             </FormGroup>
 
@@ -97,7 +122,7 @@ export default class RegisterB2 extends Component {
                     </Col>
                     <Col  md="6" align="right">
                     <Link to='/admin/Beneficiarias/RegisterB3'>
-                    <Button type="submit">Siguiente&nbsp;<FontAwesomeIcon icon={['fas', 'arrow-circle-right']}/></Button>
+                    <Button onClick="onSubmit()">Siguiente&nbsp;<FontAwesomeIcon icon={['fas', 'arrow-circle-right']}/></Button>
                     </Link>
                     </Col>
                 </Row>
