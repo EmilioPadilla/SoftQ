@@ -9,4 +9,10 @@ class Category extends Model
 {
     //assigning db table model is associated with
     protected $table = 'categories';
+
+    public $timestamps = false;
+    
+    //fillable fields
+    protected $fillable = ['nombre'];
+
 }

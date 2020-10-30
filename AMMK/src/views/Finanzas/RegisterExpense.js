@@ -1,5 +1,14 @@
 import React, { Component } from 'react';
-import { Button, Badge, Card, CardBody, Form, FormGroup, Input, Alert, Label, CustomInput, Row, Col, InputGroupText, InputGroupAddon, InputGroup} from 'reactstrap';
+import { Link } from "react-router-dom";
+
+//Components
+import Form from "react-bootstrap/Form";
+import SimpleTooltip from "../General/SimpleTooltip";
+import { Button, Modal, ModalBody, ModalFooter, Card, Input, CardBody, FormGroup, Alert, Label, CustomInput, Row, Col, InputGroupText, InputGroupAddon, InputGroup} from 'reactstrap';
+
+//API calls
+import axios from 'axios';
+import { API_BASE_URL } from 'index';
 
 //Importing Icon library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -9,17 +18,87 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 library.add(fas)
 
 export default class RegisterExpense extends Component {
+
+    crearSelect(){
+        var sel='<option value="NA" disabled selected>Selecciona una opcion</option>';
+        const num=1;
+        axios.get(API_BASE_URL + "categories").then(function(resp){
+        console.log(resp.data);
+        resp.data.forEach(element =>{
+          sel = sel.concat('<option value='+ element.id + '>' + element.nombre +'</option>');
+        });
+        document.getElementById("selectCategory").innerHTML=sel; 
+      });
+    }
+    
+    state={
+        modalEliminar: false,
+    }
+
+    constructor(props){
+        super(props)
+        this.onSubmit= this.onSubmit.bind(this);
+        this.onPost= this.onPost.bind(this);
+    }
+
+    onSubmit(e){
+        e.preventDefault()
+
+        //Agarrar los valores 
+        let fecha = document.getElementById("fecha").value;
+        let pagoA = document.getElementById("pagoA").value;
+        let descripcion = document.getElementById("descripcion").value;
+        let monto = document.getElementById("monto").value;
+        let category_id = document.getElementById("selectCategory").value;
+
+        const expense = {
+            category_id: category_id,
+            fecha: fecha,
+            pagoA: pagoA,
+            descripcion: descripcion,
+            monto: monto,
+        };
+        localStorage.setItem("expense", JSON.stringify(expense));
+
+        let jsonArray = JSON.parse(localStorage.getItem("expense"));
+        console.log(jsonArray);
+        localStorage.clear();
+
+        axios.post(API_BASE_URL + "expenses/", jsonArray); 
+    }
+
+    onPost(e){
+        e.preventDefault()
+        
+        //Agarrar los valores 
+        let nombre = document.getElementById("nombre").value;
+
+        const category = {
+            nombre: nombre,
+        };
+        localStorage.setItem("category", JSON.stringify(category));
+
+        let jsonArray = JSON.parse(localStorage.getItem("category"));
+        console.log(jsonArray);
+        localStorage.clear();
+
+        axios.post(API_BASE_URL + "categories/", jsonArray); 
+
+        this.setState({modalEliminar: false});
+    }
+
     render() {
+        this.crearSelect();
         return (
             <div className="content">
                 <h1 className="title">REGISTRAR EGRESO</h1>
                 <Card>
                     <CardBody>
                         <Alert color="primary">Los campos marcados con un asterisco (*) son obligatorios.</Alert>
-                        <Form onSubmit={this.onSubmit}>
+                        <Form onClick={this.onSubmit}>
                             <FormGroup>
-                                <Label htmlFor="fechaConsulta">*&nbsp;<FontAwesomeIcon icon={['fas', 'calendar-alt']} />&nbsp;Fecha:</Label>
-                                <Input type="date" id="fechaConsulta"></Input>
+                                <Label htmlFor="fecha">*&nbsp;<FontAwesomeIcon icon={['fas', 'calendar-alt']} />&nbsp;Fecha:</Label>
+                                <Input type="date" id="fecha"></Input>
                             </FormGroup>
                             
                             <FormGroup>
@@ -44,22 +123,43 @@ export default class RegisterExpense extends Component {
 
                             <Row>
                                 <Col md="10">
-                                    clasificación select 
+                                    <FormGroup>
+                                        <label>Selecciona categoría:</label>
+                                        <Form.Control as="select" id="selectCategory"></Form.Control>
+                                    </FormGroup>
                                 </Col>
                                 <Col md="2">
-                                    <Button>+</Button>
+                                <Button size="sm" id="añadir" onClick={()=>{this.setState({modalEliminar: true})}} color="primary"><FontAwesomeIcon icon={['fas', 'plus']} /></Button>
+                                <SimpleTooltip placement="top" target="añadir" >Añadir categoría</SimpleTooltip>
                                 </Col>
                             </Row>
 
 
                                 <Row className="text-center">
                                     <Col md="12">
-                                        <Button type="submit">Registrar</Button>
+                                        <Link to='/admin/Finanzas/MonthlyView'>
+                                        <Button onClick="this.onSubmit">Registrar</Button>
+                                        </Link>
                                     </Col>
                                 </Row>
                             </Form> 
                         </CardBody>
                     </Card>
+
+
+        <Modal isOpen={this.state.modalEliminar}>
+        <Form onSubmit={this.onPost}>
+                <ModalBody>
+                    <Label>Nueva categoría:</Label>
+                    <Input type="text" id="nombre" name="nombre" onChange={this.handleChange}></Input>
+                </ModalBody>
+                <ModalFooter>
+                  <Button color="danger"onClick={()=>this.setState({modalEliminar: false})}>Cancelar</Button>
+                  <Button color="primary" type="submit">Añadir</Button>
+                </ModalFooter>
+        </Form>
+        </Modal>
+
             </div>
         )
     }

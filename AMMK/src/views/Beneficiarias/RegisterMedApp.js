@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from "react-router-dom";
 
 import Form from "react-bootstrap/Form";
 import { Button, Badge, Card, CardBody, FormGroup, Input, Alert, Label, CustomInput, Row, Col, InputGroupText, InputGroupAddon, InputGroup} from 'reactstrap';
@@ -140,7 +141,9 @@ export default class RegisterMedApp extends Component {
                             </FormGroup>
                                 <Row className="text-center">
                                     <Col md="12">
+                                        <Link to='/admin/Beneficiarias/MedicalRecordView'>
                                         <Button type="submit">Registrar</Button>
+                                        </Link>
                                     </Col>
                                 </Row>
                             </Form> 

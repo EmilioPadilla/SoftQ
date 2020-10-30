@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+//importing model 
+use App\Models\Category;
+
 class CategoryController extends Controller
 {
     /**
@@ -13,7 +16,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::get();
+        return response()->json($categories);
     }
 
     /**
@@ -34,7 +38,11 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $category = new Category;
+
+        $category->nombre= $request-> nombre;
+
+        $category->save(); 
     }
 
     /**
@@ -45,7 +53,8 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //
+        $category = Category::find($id);
+        return response()->json($category);
     }
 
     /**

@@ -45,6 +45,12 @@ import ModifyTreatment from "views/Beneficiarias/ModifyTreatment";
 import ViewMedApp from "views/Beneficiarias/ViewMedApp";
 //FIN BENEFICIARIAS
 
+//FINANZAS
+import MonthlyView from "views/Finanzas/MonthlyView.js";
+import RegisterExpense from "views/Finanzas/RegisterExpense.js";
+import Record from "views/Finanzas/Record.js";
+//FIN FINANZAS
+
 
 var routes = [
   {
@@ -223,21 +229,40 @@ var routes = [
     layout: "/admin",
     showInSidebar: true
   },
-  
+  //STARTS FINANZAS
   {
-    path: "/typography",
+    path: "/Finanzas/RegisterExpense",
     name: "Finanzas",
     rtlName: "طباعة",
     icon: "tim-icons icon-single-02",
-    component: Typography,
+    component: RegisterExpense,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+    path: "/Finanzas/MonthlyView",
+    name: "Finanzas",
+    rtlName: "طباعة",
+    icon: "tim-icons icon-money-coins",
+    component: MonthlyView,
     layout: "/admin",
     showInSidebar: true
   },
   {
+    path: "/Finanzas/Record",
+    name: "Finanzas",
+    rtlName: "طباعة",
+    icon: "tim-icons icon-single-02",
+    component: Record,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  //ENDS FINANZAS
+  {
     path: "/typography",
     name: "Reportes",
     rtlName: "طباعة",
-    icon: "tim-icons icon-single-02",
+    icon: "tim-icons icon-chart-bar-32",
     component: Typography,
     layout: "/admin",
     showInSidebar: true

@@ -26,7 +26,6 @@ Route::resource('headquarters', 'App\Http\Controllers\HeadquarterController');
 /* EMPIEZA BENEFICIARIAS */
 Route::get('beneficiaries/{id}/status', 'App\Http\Controllers\BeneficiaryController@status');
 Route::resource('beneficiaries', 'App\Http\Controllers\BeneficiaryController');
-Route::post('beneficiaries','App\Http\Controllers\BeneficiaryController@store');
 
 Route::resource('treatments', 'App\Http\Controllers\TreatmentController');
 
@@ -38,3 +37,9 @@ Route::resource('specialties', 'App\Http\Controllers\SpecialtyController');
 
 Route::resource('modes', 'App\Http\Controllers\ModeController');
 /* TERMINA BENEFICIARIAS */
+
+/* EMPIEZA FINANZAS */
+Route::resource('categories', 'App\Http\Controllers\CategoryController');
+
+Route::resource('expenses', 'App\Http\Controllers\ExpenseController');
+/* TERMINA FINANZAS */
