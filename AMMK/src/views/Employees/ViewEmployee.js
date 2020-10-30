@@ -6,6 +6,7 @@
 */
 
 import React, { useState } from 'react';
+import axios from 'axios';
 
 //Importing Icon library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -22,6 +23,7 @@ import {
   CardTitle,
   CardHeader,
   CardBody,
+  CardFooter,
   Row,
   Col,
   Label,
@@ -29,6 +31,48 @@ import {
 } from "reactstrap";
 
 class ViewEmployee extends React.Component {
+
+    constructor(props){
+      super(props)
+      this.state = {
+        markedDays: [],
+      }
+      this.handleCalendarChange = this.handleCalendarChange.bind(this);
+      this.onSaveCalendar = this.onSaveCalendar.bind(this);
+    }
+
+    handleCalendarChange(e) {
+      this.setState({ markedDays: e });
+      console.log(this.state.markedDays);
+    }
+
+    onSaveCalendar() {
+      console.log('here');
+      this.state.markedDays.forEach((element) => {
+        const delParam = {
+          //TODO Pasar id de empleado correcto
+          idEmployees: 1
+        }
+        const empShift = {
+          nombreTurno: element.nombreTurno,
+          //TODO Pasar id de empleado correcto
+          idEmployees: 1,
+          diaSemana: element.diaSemana
+        }
+        console.log(empShift);
+        // Delete old shifts
+        axios.post('http://localhost:8000/api/employeesShifts/delete', delParam)
+        .then(res => {
+            console.log(res)
+            // Insert new shifts
+            axios.post('http://localhost:8000/api/employeesShifts', empShift)
+            .then(res => console.log(res));
+          }
+        )
+        
+      });
+    }
+
     render() {
         return (
             <div className="content">
@@ -255,7 +299,9 @@ class ViewEmployee extends React.Component {
                     </CardTitle>
                   </CardHeader>
                   <CardBody>
-                    <EmployeeCalendarTable/>
+                    <EmployeeCalendarTable employeeId={1} onChange={this.handleCalendarChange} />
+                    <button className="btn btn-primary float-right"
+                      onClick={() => { this.onSaveCalendar() }}>Guardar Cambios</button>
                   </CardBody>
                 </Card>
               </Row>
