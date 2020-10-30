@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-import { AvForm, AvField } from 'availity-reactstrap-validation';
 
 // reactstrap components
 import { Button,Card, CardHeader, CardBody, Form, FormGroup, Label, Input, CustomInput, Progress, Col, Alert, Row, Badge} from "reactstrap";
@@ -13,11 +12,35 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 library.add(fas)
 
 export default class RegisterB1 extends Component {
+
+    constructor(props){
+        super(props)
+        this.onSubmit= this.onSubmit.bind(this);
+    }
+
+    onSubmit(e){
+        e.preventDefault()
+
+        //Agarrar los valores 
+        let nombre = document.getElementById("nombreCompleto").value;
+        let apodo = document.getElementById("apodo").value;
+        let fechaNacimiento = document.getElementById("fechaNacimiento").value;
+        let curp = document.getElementById("curp").value;
+
+        const datosPersonales = {
+            nombreCompleto: nombre,
+            apodo: apodo,
+            fechaNacimiento: fechaNacimiento,
+            numCurp: curp,
+        };
+        localStorage.setItem("personal", JSON.stringify(datosPersonales));
+    }
+
     render() {
         return (
             <div className="content">
                 <h2 className="title">Registrar Beneficiaria</h2>
-                <Form>
+                <Form onClick={this.onSubmit}>
                 <Card>
                     <CardHeader>
                         <h3 className="title">Datos personales</h3>
@@ -27,29 +50,26 @@ export default class RegisterB1 extends Component {
                     </CardHeader>
                     <CardBody>
                         <FormGroup>
-                            <FontAwesomeIcon icon={['fas', 'user']} />
-                            <Label for="nombreCompleto">&nbsp;Nombre completo:</Label>
+                            <Label htmlFor="nombreCompleto">*&nbsp;<FontAwesomeIcon icon={['fas', 'user']} />&nbsp;Nombre completo:</Label>
                             <Input id="nombreCompleto" placeholder="Maria Sandoval Arrieta"></Input>
                         </FormGroup>
 
                         <FormGroup>
-                            <Label for="apodo">Apodo:</Label>
+                            <Label htmlFor="apodo">Apodo:</Label>
                             <Input id="apodo" placeholder="Mary"></Input>
                         </FormGroup>
 
                         <Row>
                         <Col md="6">
                         <FormGroup>
-                            <FontAwesomeIcon icon={['fas', 'calendar-alt']} />
-                            <Label for="fechaNacimiento">&nbsp;Fecha de nacimiento:</Label>
+                            <Label htmlFor="fechaNacimiento">*&nbsp;<FontAwesomeIcon icon={['fas', 'calendar-alt']} />&nbsp;Fecha de nacimiento:</Label>
                             <Input type="date" id="fechaNacimiento"></Input>
                         </FormGroup>
                         </Col>
 
                         <Col md="6">
                         <FormGroup>
-                            <FontAwesomeIcon icon={['fas', 'file-upload']} />
-                            <Label for="actaNacimiento">&nbsp;Carga de acta de nacimiento:</Label>
+                            <Label htmlFor="actaNacimiento"><FontAwesomeIcon icon={['fas', 'file-upload']} />&nbsp;Carga de acta de nacimiento:</Label>
                             <CustomInput id="actaNacimiento" type="file" label="Seleccionar archivo...">
                             </CustomInput>
                             <Badge color="light">* Recuerda subir un archivo .pdf, .doc/x, .xls/x or .ppt/x</Badge>
@@ -60,15 +80,14 @@ export default class RegisterB1 extends Component {
                         <Row>
                         <Col md="6">
                         <FormGroup>
-                            <Label for="curp">CURP:</Label>
+                            <Label htmlFor="curp">CURP:</Label>
                             <Input id="curp" placeholder="XEXX010101HNEXXXA4"></Input>
                         </FormGroup>
                         </Col>
 
                         <Col md="6">
                         <FormGroup>
-                            <FontAwesomeIcon icon={['fas', 'file-upload']} />
-                            <Label for="cargaCurp">&nbsp;Carga de CURP:</Label>
+                            <Label htmlFor="cargaCurp"><FontAwesomeIcon icon={['fas', 'file-upload']} />&nbsp;Carga de CURP:</Label>
                             <CustomInput id="cargaCurp" type="file" label="Seleccionar archivo...">
                             </CustomInput>
                             <Badge color="light">* Recuerda subir un archivo .pdf, .doc/x, .xls/x or .ppt/x</Badge>
@@ -77,8 +96,7 @@ export default class RegisterB1 extends Component {
                         </Row>
 
                         <FormGroup>
-                            <FontAwesomeIcon icon={['fas', 'file-upload']} />
-                            <Label for="cargaIne">&nbsp;Carga de INE:</Label>
+                            <Label htmlFor="cargaIne"><FontAwesomeIcon icon={['fas', 'file-upload']} />&nbsp;Carga de INE:</Label>
                             <CustomInput id="cargaIne" type="file" label="Seleccionar archivo...">
                             </CustomInput>
                             <Badge id="cargaIne" color="light">* Recuerda subir un archivo .pdf, .doc/x, .xls/x or .ppt/x</Badge>
@@ -87,8 +105,9 @@ export default class RegisterB1 extends Component {
                 </Card>
                 <Col  md="12" align="right">
                   <Link to='/admin/Beneficiarias/RegisterB2'>
-                  <Button>Siguiente&nbsp;<FontAwesomeIcon icon={['fas', 'arrow-circle-right']} /></Button>
+                  <Button onClick="onSubmit()">Siguiente&nbsp;<FontAwesomeIcon icon={['fas', 'arrow-circle-right']} /></Button>
                   </Link>
+                  
                 </Col>
                 </Form>
             </div>

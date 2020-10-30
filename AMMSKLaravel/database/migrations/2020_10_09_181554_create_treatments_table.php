@@ -17,7 +17,7 @@ class CreateTreatmentsTable extends Migration
             $table->id()->from(1);
   			$table->foreignId('beneficiary_id')->constrained('beneficiaries');
             $table->string('nombreMed', 70);
-  			$table->string('funcionMed', 100);
+  			$table->string('funcionMed', 100)->nullable();
   			$table->integer('dosis');
   			$table->foreignId('mode_id')->constrained('modes');
   			$table->integer('lapso');

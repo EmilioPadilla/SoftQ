@@ -18,7 +18,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
 Route::resource('donantes', 'App\Http\Controllers\DonantesController');
 // Rutas empleados
 Route::resource('employee', 'App\Http\Controllers\EmployeesController');
@@ -29,3 +28,29 @@ Route::resource('account', 'App\Http\Controllers\AccountController');
 Route::resource('accountRole', 'App\Http\Controllers\Account_RoleController');
 Route::get('account/find/{username}', 'App\Http\Controllers\AccountController@showId');
 Route::get('account/table/all', 'App\Http\Controllers\AccountController@showTable');
+/* EMPIEZA GENERALES */
+Route::resource('status', 'App\Http\Controllers\StatusController');
+
+Route::resource('headquarters', 'App\Http\Controllers\HeadquarterController');
+/* TERMINA GENERALES */
+
+/* EMPIEZA BENEFICIARIAS */
+Route::get('beneficiaries/{id}/status', 'App\Http\Controllers\BeneficiaryController@status');
+Route::resource('beneficiaries', 'App\Http\Controllers\BeneficiaryController');
+
+Route::resource('treatments', 'App\Http\Controllers\TreatmentController');
+
+Route::resource('medical_appointments', 'App\Http\Controllers\MedicalAppointmentController');
+
+Route::resource('benef_files', 'App\Http\Controllers\BenefFileController');
+
+Route::resource('specialties', 'App\Http\Controllers\SpecialtyController');
+
+Route::resource('modes', 'App\Http\Controllers\ModeController');
+/* TERMINA BENEFICIARIAS */
+
+/* EMPIEZA FINANZAS */
+Route::resource('categories', 'App\Http\Controllers\CategoryController');
+
+Route::resource('expenses', 'App\Http\Controllers\ExpenseController');
+/* TERMINA FINANZAS */
