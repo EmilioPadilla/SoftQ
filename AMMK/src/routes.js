@@ -37,6 +37,7 @@ import MainAccount from "views/Cuentas/MainAccounts";
 import ModifyPersonalAc from "views/Cuentas/ModifyPersonalAccount";
 import ModifyAccountEmp from "views/Cuentas/ModifyAccountEmployee";
 import CreateAccEmp from "views/Cuentas/CreateAccountEmployee";
+import EmployeesAccountView from "views/Cuentas/EmployeesAccountsView";
 
 //BENEFICIARIAS
 import RegisterB1 from "views/Beneficiarias/RegisterB1.js";
@@ -93,7 +94,7 @@ var routes = [
   },
 
   {
-    path: "/Cuentas/CuentaPersonal",
+    path: "/Cuentas/CuentaPersonal/",
     name: "Cuenta Personal",
     rtlName: "ملف تعريفي للمستخدم",
     icon: "tim-icons icon-single-02",
@@ -111,11 +112,20 @@ var routes = [
     showInSidebar: false
   },
   {
-    path: "/Cuentas/ModCuentaEmp",
+    path: "/Cuentas/ModCuentaEmp/:id",
     name: "Modificar Cuenta Empleado",
     rtlName: "ملف تعريفي للمستخدم",
     icon: "tim-icons icon-single-02",
     component: ModifyAccountEmp,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+    path: "/Cuentas/PrincipalEmp",
+    name: "Modificar Cuenta Empleado",
+    rtlName: "ملف تعريفي للمستخدم",
+    icon: "tim-icons icon-single-02",
+    component: EmployeesAccountView,
     layout: "/admin",
     showInSidebar: false
   },

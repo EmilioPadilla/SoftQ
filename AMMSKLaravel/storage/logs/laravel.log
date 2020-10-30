@@ -4268,7 +4268,8 @@ Did you mean one of these?
 #10 C:\\Users\\peral\\Documents\\SoftQ\\SoftQ\\AMMSKLaravel\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
 #11 {main}
 "} 
-[2020-10-22 06:12:54] local.ERROR: Call to undefined function App\Http\Controllers\returnID() {"exception":"[object] (Error(code: 0): Call to undefined function App\\Http\\Controllers\eturnID() at C:\\Users\\peral\\Documents\\SoftQ\\SoftQ\\AMMSKLaravel\\app\\Http\\Controllers\\AccountController.php:47)
+[2020-10-22 06:12:54] local.ERROR: Call to undefined function App\Http\Controllers\returnID() {"exception":"[object] (Error(code: 0): Call to undefined function App\\Http\\Controllers\
+eturnID() at C:\\Users\\peral\\Documents\\SoftQ\\SoftQ\\AMMSKLaravel\\app\\Http\\Controllers\\AccountController.php:47)
 [stacktrace]
 #0 [internal function]: App\\Http\\Controllers\\AccountController->store(Object(Illuminate\\Http\\Request))
 #1 C:\\Users\\peral\\Documents\\SoftQ\\SoftQ\\AMMSKLaravel\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Controller.php(54): call_user_func_array(Array, Array)
@@ -4413,7 +4414,8 @@ Did you mean one of these?
 #48 C:\\Users\\peral\\Documents\\SoftQ\\SoftQ\\AMMSKLaravel\\server.php(21): require_once('C:\\\\Users\\\\peral\\\\...')
 #49 {main}
 "} 
-[2020-10-22 06:14:10] local.ERROR: Call to undefined function App\Http\Controllers\returnID() {"exception":"[object] (Error(code: 0): Call to undefined function App\\Http\\Controllers\eturnID() at C:\\Users\\peral\\Documents\\SoftQ\\SoftQ\\AMMSKLaravel\\app\\Http\\Controllers\\AccountController.php:47)
+[2020-10-22 06:14:10] local.ERROR: Call to undefined function App\Http\Controllers\returnID() {"exception":"[object] (Error(code: 0): Call to undefined function App\\Http\\Controllers\
+eturnID() at C:\\Users\\peral\\Documents\\SoftQ\\SoftQ\\AMMSKLaravel\\app\\Http\\Controllers\\AccountController.php:47)
 [stacktrace]
 #0 [internal function]: App\\Http\\Controllers\\AccountController->store(Object(Illuminate\\Http\\Request))
 #1 C:\\Users\\peral\\Documents\\SoftQ\\SoftQ\\AMMSKLaravel\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Controller.php(54): call_user_func_array(Array, Array)

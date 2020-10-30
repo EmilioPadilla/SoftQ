@@ -6,9 +6,9 @@ import Swal from 'sweetalert2';
 class CreateAccEmp extends React.Component{
 
     crearSelect(){
-        var sel='<option value="NA" disabled selected>Selecciona una opción</option>';
+        var sel='<option value="-1" disabled selected>Selecciona una opción</option>';
         const num=1;
-        axios.get("http://localhost:8000/api/employee/")
+        axios.get("http://localhost:8000/api/account/")
           .then(function (resp){
             console.log(resp.data);
             //Ciclo for para obtener cada uno de los elementos
@@ -43,7 +43,7 @@ class CreateAccEmp extends React.Component{
         var v = document.getElementById("selectRol").value;
         var iguales = x.localeCompare(w);
  
-        if(iguales==0){
+        if(iguales==0 && parseInt(z) > 0 && y!="" && x!=""){
          const cuenta = {
           user: y,
           pass: x,
@@ -67,20 +67,19 @@ class CreateAccEmp extends React.Component{
                         console.log(resp.data);
                     });   
             });
-        }, (3 * 1000));
-        
-        
-             
+        }, (3 * 1000)); 
 
         Swal.fire(
         '¡Listo!',
         'Datos guardados',
         'success'
-        )
+        ).then(function() {
+            window.location = "http://localhost:3000/admin/Cuentas/CrearCuentaEmp";
+        });
         }else{
             Swal.fire(
                 'ERROR!',
-                'Las contraseñas no coinciden',
+                'Las contraseñas no coinciden o no has llenado algun valor',
                 'error'
             )
         }

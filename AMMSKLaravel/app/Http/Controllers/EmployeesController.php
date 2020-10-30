@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Employee;
+use Illuminate\Support\Facades\DB;
 
 class EmployeesController extends Controller
 {
@@ -16,7 +17,7 @@ class EmployeesController extends Controller
     public function index()
     {
         return Employee::all();
-        // return "Mostrando los empleados de la base de datos.";
+        
     }
 
     /**

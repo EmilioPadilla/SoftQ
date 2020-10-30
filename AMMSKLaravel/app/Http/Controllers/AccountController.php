@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Account;
-
+use Illuminate\Support\Facades\DB;
 
 class AccountController extends Controller
 {
@@ -15,7 +15,10 @@ class AccountController extends Controller
      */
     public function index()
     {
-        return Account::all();
+        $respuesta = DB::table('employees')
+                    ->whereNotIn('id', DB::table('accounts')->select('idEmployee'))
+                    ->get();
+        return $respuesta;
     }
 
     /**
@@ -74,6 +77,23 @@ class AccountController extends Controller
         return Account::where('username', $username)->get();
     }
 
+    public function showTable(){
+        $datos = DB::table('accounts')
+                    ->join('employees', 'accounts.idEmployee', '=', 'employees.id')
+                    ->select('accounts.id', 'employees.nombreCompleto', 'employees.RFC', 'accounts.username')
+                    ->get();
+        $respuesta = '<thead> <tr> <th> Nombre </th> <th> Username </th> <th> Rol </th> <th> Acciones </th> </tr> </thead> <tbody>';
+        foreach ($datos as $res){
+            $respuesta .= '<tr> <td id="jkl">'. $res->nombreCompleto. '</td>';
+            $respuesta .= '<td>'.$res->username.'</td>';
+            $respuesta .= '<td>'.$res->RFC.'</td>';
+            $respuesta .= '<td> <div class="row"> <div class="col"> <a href="/admin/Cuentas/ModCuentaEmp/'.$res->id.'"> <button id="verDetalle" type="button" class="btn btn-info btn-sm" > <i class="fa fa-eye"> </i></button> ';
+            $respuesta .= '</a> </div> <div class="col" > <a href="/admin/Cuentas/ModCuentaEmp/'.$res->id.'"> <button id="eliminar" type="button"  class="btn btn-danger btn-sm"> <i class="fa fa-trash-alt"> </i></button> </a> </div> </div> </td> </tr> ';
+        }
+        $respuesta .= '</tbody>';
+        return $respuesta;
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -83,16 +103,10 @@ class AccountController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'username' => 'required',
-            'password' => 'required',
-        ]);
-
         $account = Account::find($id);
         $account->username = $request->username;
         $account->password = $request->password;
-
-        $account->save();
+        $account->update();
     }
 
     /**
@@ -103,6 +117,6 @@ class AccountController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::table('accounts')->where('id',$id)->delete();
     }
 }
