@@ -41,18 +41,19 @@ class MedicalAppointmentController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'beneficiary_id' => 'required',
-            'fechaConsulta' => 'required',
-            'horaConsulta' => 'required',
-            'direccion' => 'required',
-            'hospital' => 'required',
-            'specialty_id' => 'required',
-        ]);
-        	
-        $medicalAppointment = MedicalAppointment::create($request->all());
-        return response()->json(['message'=> 'Medical appointment created', 
-        'medicalAppointment' => $medicalAppointment]);
+        $medicalAppointment = new MedicalAppointment;
+
+        $medicalAppointment->fechaConsulta= $request-> fechaConsulta;
+        $medicalAppointment->horaConsulta= $request-> horaConsulta;
+        $medicalAppointment->diagnostico= $request-> diagnostico;
+        $medicalAppointment->direccion = $request -> direccion;
+        $medicalAppointment->hospital = $request -> hospital;
+        $medicalAppointment->consultorio = $request -> consultorio;
+        $medicalAppointment->specialty_id = $request -> specialty_id;
+        $medicalAppointment->comentario = $request -> comentario;
+        $medicalAppointment->beneficiary_id = $request -> beneficiary_id;
+
+        $medicalAppointment->save();  
     }
 
     /**
