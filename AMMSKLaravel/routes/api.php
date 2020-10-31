@@ -31,3 +31,4 @@ Route::post('employeesShifts/delete', 'App\Http\Controllers\EmployeesShiftsContr
 Route::resource('account', 'App\Http\Controllers\AccountController');
 Route::resource('accountRole', 'App\Http\Controllers\Account_RoleController');
 Route::get('account/find/{username}', 'App\Http\Controllers\AccountController@showId');
+Route::get('account/table/all', 'App\Http\Controllers\AccountController@showTable');

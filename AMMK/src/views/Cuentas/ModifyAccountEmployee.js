@@ -4,63 +4,16 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 
 
-
-export default class ModifyAccountEmp extends Component {
-    recuperarInfo(){
-        const numero=3;
-        axios.get("http://localhost:8000/api/account/"+numero)
-          .then(function (resp){
-            console.log(resp.data);
-           document.getElementById("usernameModify").value = resp.data[0].username;
-           document.getElementById("passwordModify").value = resp.data[0].password;
-           document.getElementById("confpassModify").value = resp.data[0].password;
-          } );
-      }
-
-      constructor(props) {
-        super(props)
-        // Setting up functions
-        this.onSubmit = this.onSubmit.bind(this);
-    }
-
-    onSubmit(e) {
-        e.preventDefault()
-        var x = document.getElementById("passwordModify").value;
-        var y = document.getElementById("usernameModify").value;
-        var w = document.getElementById("confpassModify").value;
-        var iguales = x.localeCompare(w);
- 
-        if(iguales==0){
-        var num = 3;
-         const cuenta = {
-          username: y,
-          password: x,
-        };
-        axios.put('http://localhost:8000/api/account/'+num, cuenta)
-          .then(resp => {console.log(resp.data)});
-        Swal.fire(
-        '¡Listo!',
-        'Datos guardados',
-        'success'
-        )
-        }else{
-            Swal.fire(
-                'ERROR!',
-                'Las contraseñas no coinciden',
-                'error'
-            )
-        }
-  }
-
-    render(){
-        this.recuperarInfo();
-        return(
-            <div class="content">
+const ModifyAccountEmp = props =>{
+    const {id} = props.match.params;
+    ax(id);
+    return(
+        <div class="content">
                 <div class="container">
                     <div class="row">
                         <div class="col-12" >
                             <h2 align="center">Modificar Cuenta de Empleado</h2>
-                            <Form onSubmit={this.onSubmit}>
+                            <Form>
                                 <div class="row justify-content-center">
                                     <div class="col-4" >
                                         <FormGroup>
@@ -102,18 +55,63 @@ export default class ModifyAccountEmp extends Component {
                                 <br/>
                                 <div class="row justify-content-center">
                                     <div class="col-4" align="center">
-                                        <Button className="btn-fill" color="info" type="submit">
-                                            Guardar
+                                        <Button className="btn-fill" color="primary" onClick={guardar}>
+                                            Guardar cambios
                                         </Button>
                                     </div>
                                 </div>
-                                
                             </Form>
+                            <div>
+                                <Input type="text" id="valorId" style={{display: "none"}}>
+
+                                </Input>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        )
-    }
-
+    )
 }
+
+function ax(idC){
+    axios.get("http://localhost:8000/api/account/"+idC)
+          .then(function (resp){
+            console.log(resp.data);
+           document.getElementById("usernameModify").value = resp.data[0].username;
+           document.getElementById("passwordModify").value = resp.data[0].password;
+           document.getElementById("confpassModify").value = resp.data[0].password;
+           document.getElementById("valorId").value = idC;
+          } );
+}
+
+function guardar(){
+    var user = document.getElementById("usernameModify").value;
+    var passwrd = document.getElementById("passwordModify").value;
+    var idCuenta = document.getElementById("valorId").value;
+    if(user!="" && passwrd !=""){
+        const cuentaEditar = {
+            username: user,
+            password: passwrd,
+        }
+        axios.put('http://localhost:8000/api/account/'+idCuenta, cuentaEditar)
+              .then(function (resp){
+                console.log(resp.data);
+              } );
+
+         Swal.fire(
+          '¡Listo!',
+           'Cambios guardados',
+           'success'
+           )/*.then(function() {
+               window.location = "http://localhost:3000/admin/Cuentas/CrearCuentaEmp";
+        });*/
+    }else{
+        Swal.fire(
+            '¡Error!',
+             'Las contraseñas no coinciden o alguno de los campos está vacío',
+             'error'
+             )
+    }
+}
+
+export default ModifyAccountEmp;
