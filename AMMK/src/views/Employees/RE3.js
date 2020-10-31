@@ -37,17 +37,21 @@ class RegisterEmployee3 extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      scholarships: [
-      ],
+      scholarships: [],
+      markedDays: []
     }
     this.onChange = this.onChange.bind(this);
-    
+    this.handleCalendarChange = this.handleCalendarChange.bind(this);
     
   }
 
   onChange(e) {
     this.setState({ value: e.value });
     console.log('scholarship selected: ', e.value);
+  }
+
+  handleCalendarChange(e) {
+    this.setState({ markedDays: e });
   }
 
   componentDidMount() {
@@ -187,7 +191,7 @@ class RegisterEmployee3 extends React.Component {
                         </Col>
                     <Col>
                       <h4 className="text-center">Calendario de empleado</h4>
-                      <EmployeeCalendarTable/>
+                      <EmployeeCalendarTable onChange={this.handleCalendarChange} />
                     </Col>
                   </Row>
 
