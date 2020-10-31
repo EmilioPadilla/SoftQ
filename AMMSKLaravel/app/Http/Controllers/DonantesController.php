@@ -85,7 +85,7 @@ class DonantesController extends Controller
      */
     public function show($id)
     {
-        //
+        return Donantes::where('id',$id)->get();
     }
 
     /**
@@ -108,18 +108,7 @@ class DonantesController extends Controller
      */
     public function update(Request $request, Donantes $donante)
     {
-        $request->validate([
-            'nombreCompleto1' => 'required',
-
-        ]);
-        $donante->nombreCompleto1 = $request->nombreCompleto1();
-
-        $donante->save();
-        
-        return response()->json([
-            'message' => 'pokemon updated!',
-            'pokemon' => $donante
-        ]);
+      
     }
 
     /**

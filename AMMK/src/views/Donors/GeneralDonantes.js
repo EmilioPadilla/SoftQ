@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import Form from "react-bootstrap/Form";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import Button from "react-bootstrap/Button";
 import {
     FormGroup,
@@ -10,6 +13,8 @@ import Row from "react-bootstrap/Col";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
+import { AvForm, AvField, AvGroup, AvInput, AvFeedback, AvRadioGroup, AvRadio, AvCheckboxGroup, AvCheckbox } from 'availity-reactstrap-validation';
+
 import axios from "axios";
 
 
@@ -54,9 +59,13 @@ class GeneralDonantes extends Component {
   constructor(props) {
     super(props)
     this.onSubmit = this.onSubmit.bind(this);
+    this.handleInvalidSubmit = this.handleInvalidSubmit.bind(this);
+
 }
-
-
+//validar campos 
+handleInvalidSubmit(event, errors, values) {
+  this.setState({errors, values});
+}
 
 onSubmit(e) {
   e.preventDefault()
@@ -64,8 +73,8 @@ onSubmit(e) {
   var recurrencia= document.getElementById("selectRecurrencia").value;
 
   const donantePatronato={
-    idRecurrencia: recurrencia,
     idTipoDonante: tipoDonante,
+    idRecurrencia: recurrencia
     
   }
 localStorage.setItem("generales", JSON.stringify(donantePatronato));
@@ -80,6 +89,7 @@ localStorage.setItem("generales", JSON.stringify(donantePatronato));
     return (
       <div className="content">
         <div class="container-fluid">
+
           <h1 className="title">Registrar Donante</h1>
           
            <h3 align="center">Datos Generales</h3>
@@ -88,7 +98,7 @@ localStorage.setItem("generales", JSON.stringify(donantePatronato));
           <ProgressBar now={10} />
                   <br/>
           <div class="container"></div>
-       <Form onSubmit={this.onSubmit}>
+       <Form onClick={this.onSubmit}>
         <FormGroup>
          <label>*Seleccione Tipo de Donante:</label>
          <Form.Control as="select" id="selectTipoDonante" required></Form.Control>
@@ -97,14 +107,20 @@ localStorage.setItem("generales", JSON.stringify(donantePatronato));
          <label>*Seleccione Recurrencia de Donante:</label>
          <Form.Control as="select" id="selectRecurrencia" required></Form.Control>
         </FormGroup>
-       <Col align="right">
-            <a href="/admin/RegistroDonante1">
-            <Button  type="submit">BD&nbsp;</Button>
+        
 
-                    <Button className="btn btn-outline-primary" onClick={() => { this.handleClick() }}>Siguiente</Button>
-                  </a>
+       <Col align="right">
+
+              <Link to="/admin/RegistroDonante1">
+              <Button onClick="onSubmit()">Siguiente&nbsp;<FontAwesomeIcon icon={['fas', 'arrow-circle-right']}/></Button>
+
+              </Link>
+            
+
+                
                   </Col> 
                   </Form>
+
         </div>
       </div>
     );

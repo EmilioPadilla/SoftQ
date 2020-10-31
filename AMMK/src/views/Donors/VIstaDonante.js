@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import axios from 'axios';
 
 // reactstrap components
 import { DropdownItem, Row, Table, Col, Alert, Button, Badge } from 'reactstrap';
@@ -9,16 +10,63 @@ import SimpleTooltip from "../General/SimpleTooltip";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
+import { ResponsiveEmbed } from 'react-bootstrap';
 
 library.add(fas)
 
 export default class VIstaDonante extends Component {
+
+    state={
+        donors:[],
+        
+    }
+
+    componentDidMount() {
+       // let urlElements = window.location.href.split('/');
+        //console.log(urlElements);
+
+        axios.get('http://localhost:8000/api/donantes/6').then(response=>{
+            const donors = response.data;
+            this.setState({donors});
+        
+            
+            
+          });
+      }
+      
+      
+
     render() {
+
         return (
+
+            console.log(this.state),
+
             <div className="content">
                 <h3 className="title">DETALLE DONANTE</h3>
                 
-                
+                <Table hover>
+                <thead>
+                  <tr>
+                      <th>Nombre</th>
+                      <th>Tipo</th>
+                      <th>Recurrencia</th>
+                      <th>Acciones</th>
+                  </tr>
+                </thead>
+      
+                <tbody>
+                  {this.state.donors.map((donor) => (
+                    <tr key={donor.id}>
+                      <td>{donor.nombreCompleto1}</td>
+                      <td>{donor.fechaCumpleaños1}</td>
+                     
+                      
+                    </tr>
+                  ))}
+                </tbody>
+      
+            </Table>
                 <Row>
                    
                     <Col>

@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Recurrencia extends Model
 {
-    protected $table = 'recurrencia_donante';
+    protected $table = 'recurrencia';
 }

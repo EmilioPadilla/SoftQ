@@ -15,16 +15,17 @@ class CreateDonante extends Migration
     {
         Schema::create('_donante', function (Blueprint $table) {
             $table->id()->from(1);
-            $table->foreignId('idRecurrencia')->references("id")->on("recurrencia_donante")->onDelete("cascade")->onUpdate("cascade");
+            $table->foreignId('idRecurrencia')->references("id")->on("recurrencia")->onDelete("cascade")->onUpdate("cascade");
             $table->foreignId('idTipoDonante')->references("id")->on("tipo_donante")->onDelete("cascade")->onUpdate("cascade");
+            $table->string('nombreCompleto1', 50)->nullable();
 
             //Patronato
-            $table->string('nombreCompleto1', 50)->nullable();
             $table->date('fechaCumpleaños1')->nullable();
             $table->string('RFC1', 50)->nullable();
             $table->string('correo1', 50)->nullable();
             $table->string('telefono1', 50)->nullable();
             $table->string('celular1', 50)->nullable();
+            
             //Gobierno
             $table->string('RazonSocial2', 50)->nullable();
             $table->string('Nombre2', 50)->nullable();
@@ -50,7 +51,6 @@ class CreateDonante extends Migration
             $table->string('pais', 50)->nullable();;  
             $table->string('correo', 50)->nullable();;
 
-
         });
     }
 
@@ -61,6 +61,6 @@ class CreateDonante extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('_donante');
+        Schema::dropIfExists('donante');
     }
 }

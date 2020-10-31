@@ -48,8 +48,6 @@ class RDonantesPatronato extends Component {
       correo1: c,
       telefono1: t,
       celular1: cel,
-
-
     
     };
     
@@ -77,7 +75,7 @@ class RDonantesPatronato extends Component {
 
                   <br/>
           <div class="container"></div>
-          <Form onSubmit={this.onSubmit}>
+          <Form onClick={this.onSubmit}>
             <Form.Row>
               <Form.Group as={Row} controlId="namePatronato">
                 <Form.Label>Nombre Completo:</Form.Label>
@@ -127,10 +125,9 @@ class RDonantesPatronato extends Component {
                     </Link>
                     </Col>
                     <Col  md="6" align="right">
-                    <Button  type="submit">BD&nbsp;<FontAwesomeIcon icon={['fas', 'arrow-circle-right']}/></Button>
 
                     <Link to='/admin/RegistroDonante2'>
-                    <Button >Siguiente&nbsp;<FontAwesomeIcon icon={['fas', 'arrow-circle-right']}/></Button>
+                    <Button onClick="onSubmit()">Siguiente&nbsp;<FontAwesomeIcon icon={['fas', 'arrow-circle-right']}/></Button>
                     </Link>
                     </Col>
                 </Form.Row>

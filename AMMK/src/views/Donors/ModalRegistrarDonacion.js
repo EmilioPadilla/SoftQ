@@ -5,20 +5,10 @@ import SimpleTooltip from "../General/SimpleTooltip";
 import axios from "axios";
 
 class ModalRegistrarDonacion extends Component {
-  constructor() {
-    super();
-    this.state = {
-      show: false,
-    };
-  }
-
-  handleModal() {
-    this.setState({ show: !this.state.show });
-  }
-
-  /***TIPO DE DONACION */
+  
+   /***TIPO DE DONACION */
   //-> Dropdowm
-  /*crearSelectTipoDonacion(){
+  crearSelectTipoDonacion(){
     var sel='<option value="NA" disabled selected>Selecciona una opcion</option>';
     const num=1;
     axios.get("http://localhost:8000/api/tipodonacion").then(function(resp){
@@ -32,11 +22,36 @@ class ModalRegistrarDonacion extends Component {
   });
   }
   //**END TIPO DONACION */
+  constructor() {
+    super();
+    this.state = {
+      show: false,
+    };
+    this.onSubmit= this.onSubmit.bind(this);
+
+  }
+
+  handleModal() {
+    this.setState({ show: !this.state.show });
+  }
+
+ 
+  onSubmit(e){
+
+    e.preventDefault()
+    var rsF = document.getElementById("razonSocialF").value;
+
+    const jsonArray = {
+      RazonSocial: rsF,
+
+  }
+  axios.post('http://localhost:8000/api/donaciones/', jsonArray).then(res => {console.log(res)});
+
+}
 
 
   render() {
 
-    //this.crearSelectTipoDonacion();
 
 
     return (
@@ -58,7 +73,7 @@ class ModalRegistrarDonacion extends Component {
           </Modal.Header>
           <Modal.Body>
             <div class="container">
-            <Form>
+            <Form onSubmit={this.onSubmit}>
               <Form.Row>
                 <Form.Group as={Row} controlId="birthdayPatronato">
                   <Form.Label>Fecha en que se realizó:</Form.Label>
@@ -94,14 +109,8 @@ class ModalRegistrarDonacion extends Component {
 
               <Col align="center">
 
-              <Button
-                className="btn btn-outline-primary"
-                onClick={() => {
-                  this.handleClick();
-                }}
-              >
-                Registrar
-              </Button>
+              <Button type="submit">Registrar</Button>
+
 
           </Col>
 

@@ -40,7 +40,7 @@ class RDonanteGobierno extends Component {
 
     const donantePatronato = {
       RazonSocial2: rs,
-      Nombre2: n2,
+      nombreCompleto1: n2,
       calle2: calle,
       noInterior2: noI2,
       noExterior2: noE2,
@@ -71,7 +71,7 @@ class RDonanteGobierno extends Component {
           <ProgressBar now={30} />
                   <br/>
           <div class="container"></div>
-          <Form onSubmit={this.onSubmit}>
+          <Form onClick={this.onSubmit}>
             <Form.Row>
               <Form.Group as={Row} controlId="rs2">
                 <Form.Label>Nombre de la empresa/asociación/fundación:</Form.Label>
@@ -149,10 +149,9 @@ class RDonanteGobierno extends Component {
                     </Link>
                     </Col>
                     <Col  md="6" align="right">
-                    <Button type="submit" >BD&nbsp;<FontAwesomeIcon icon={['fas', 'arrow-circle-right']}/></Button>
 
                     <Link to='/admin/Facturacion'>
-                    <Button >Siguiente&nbsp;<FontAwesomeIcon icon={['fas', 'arrow-circle-right']}/></Button>
+                    <Button onClick="onSubmit()">Siguiente&nbsp;<FontAwesomeIcon icon={['fas', 'arrow-circle-right']}/></Button>
                     </Link>
                     </Col>
                 </Form.Row> 

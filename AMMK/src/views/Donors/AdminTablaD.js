@@ -23,6 +23,7 @@ export default class AdminTablaD extends Component {
     
     state = {
         donors: [],
+        modalEliminar: false,
       }
       
       componentDidMount() {
@@ -32,6 +33,8 @@ export default class AdminTablaD extends Component {
             this.setState({donors});
           })
       }
+
+    
 
     render() {
         return (
@@ -56,7 +59,7 @@ export default class AdminTablaD extends Component {
                           <Row>
                                 <ModalRegistrarDonacion/>
                                 <Col md="2">
-                                <Link to='/admin/VistaDonante'>
+                                <Link to={'/admin/VistaDonante/'+donor.id}>
                                 <Button color="info" size="sm" id="verDetalle"><FontAwesomeIcon icon={['fas', 'eye']} /></Button>
                                 <SimpleTooltip placement="top" target="verDetalle">Ver detalle</SimpleTooltip>
                                 </Link>

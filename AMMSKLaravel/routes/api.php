@@ -19,7 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::resource('donantes', 'App\Http\Controllers\DonantesController');
+Route::apiResource('donantes', 'App\Http\Controllers\DonantesController');
 Route::resource('tipodonante', 'App\Http\Controllers\TipoDonanteController');
 Route::resource('recurrencia', 'App\Http\Controllers\RecurrenciaController');
 Route::resource('tipodonacion', 'App\Http\Controllers\TipoDonacionController');

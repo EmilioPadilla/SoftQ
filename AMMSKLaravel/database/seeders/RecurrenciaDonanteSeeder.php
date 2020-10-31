@@ -15,7 +15,7 @@ class RecurrenciaDonanteSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('recurrencia_donante')->insert([
+        DB::table('recurrencia')->insert([
             [
                 'nombre' => 'Semanal',
             ],
