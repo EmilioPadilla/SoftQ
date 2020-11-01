@@ -68,6 +68,7 @@ import GeneralDonantes from "./views/Donors/GeneralDonantes"
 import VIstaDonante from "views/Donors/VIstaDonante.js";
 import ViewDonors from "views/Donors/ViewDonors.js";
 import ViewSpecificDonor from "views/Donors/ViewSpecificDonor";
+import RegisterDonation from "views/Donors/RegisterDonation";
 
 
 
@@ -322,7 +323,7 @@ var routes = [
     icon: "tim-icons icon-heart-2",
     component: PrincipalDonantes,
     layout: "/admin",
-    showInSidebar: true
+    showInSidebar: false
   },
   {
     path: "/ViewDonors",
@@ -331,7 +332,7 @@ var routes = [
     icon: "tim-icons icon-heart-2",
     component: ViewDonors,
     layout: "/admin",
-    showInSidebar: false
+    showInSidebar: true
   },
   {
     path: "/RegistroDonante1",
@@ -348,6 +349,15 @@ var routes = [
     rtlName: "قائمة الجدول",
     icon: "tim-icons icon-heart-2",
     component: RDonanteGobierno,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+    path: "/donacion/:id",
+    name: "Donantes",
+    rtlName: "قائمة الجدول",
+    icon: "tim-icons icon-heart-2",
+    component: RegisterDonation,
     layout: "/admin",
     showInSidebar: false
   },
@@ -411,25 +421,8 @@ var routes = [
   },
 
 
-  //-------DONANTES-----//
-  {
-    path: "/donantes",
-    name: "Donantes",
-    rtlName: "طباعة",
-    icon: "tim-icons icon-single-02",
-    component: GeneralDonantes,
-    layout: "/admin",
-    showInSidebar:true
-  },
-  {
-    path: "/DonanTipo",
-    name: "Donantes",
-    rtlName: "طباعة",
-    icon: "tim-icons icon-single-02",
-    component: GeneralDonantes,
-    layout: "/admin",
-    showInSidebar:true
-  },
+
+  
 
 
 

@@ -26,14 +26,7 @@ class CreateDonante extends Migration
             $table->string('telefono1', 50)->nullable();
             $table->string('celular1', 50)->nullable();
             
-            //Gobierno
-            $table->string('RazonSocial2', 50)->nullable();
-            $table->string('Nombre2', 50)->nullable();
-            $table->string('calle2', 20)->nullable();
-            $table->string('noInterior2', 30)->nullable();
-            $table->string('noExterior2', 30)->nullable();
-            $table->string('codigoPostal2', 30)->nullable();
-            $table->string('colonia2', 30)->nullable();
+            
             //seeder de la ciudad
     
 

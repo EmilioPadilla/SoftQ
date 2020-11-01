@@ -72,7 +72,7 @@ class RDonantesPatronato extends Component {
 
 
     const donantePatronato = {
-     // nombreCompleto1: x,
+      nombreCompleto1: x,
       fechaCumpleaños1: y,
       RFC1: z,
       correo1: c,
@@ -156,7 +156,6 @@ class RDonantesPatronato extends Component {
         <div class="container-fluid">
           <h1 className="title">Registrar Donante</h1>
           
-           <h3 align="center">(Particular/Patronato)</h3>
            <ProgressBar now={50} />
 
                   <br/>
@@ -165,12 +164,9 @@ class RDonantesPatronato extends Component {
          
 
           <div className='fullname'>
-          
-         
-          
             <Form.Row>
               <Form.Group as={Row} controlId="namePatronato">
-                <Form.Label>Nombre Completo:</Form.Label>
+                <Form.Label>Nombre de la persona/empresa/asociación/fundación</Form.Label>
                 <Form.Control
                   type="text" name='fullname'
                   placeholder="Maria Sandoval Arrieto" onChange={this.handleChange} 
@@ -207,21 +203,18 @@ class RDonantesPatronato extends Component {
             </Form.Row>
             </div>
 
-            <div className=''>
             <Form.Row>
             <Form.Group as={Row} controlId="telefonoPatronato">
                 <Form.Label>Telefono:</Form.Label>
                 <Form.Control type="text" placeholder="234 3344" />
               </Form.Group>
-              </Form.Row>
               &nbsp;&nbsp;&nbsp;
-              </div>
               <Form.Group as={Row} controlId="celularPatronato">
                 <Form.Label>Celular:</Form.Label>
                 <Form.Control type="text" placeholder="442 343 3233" />
               </Form.Group>
               
-           
+           </Form.Row>
             <Form.Row>
                     <Col  md="6" align="left">
                     <Link to='/admin/GeneralRegistroD'>
@@ -230,7 +223,7 @@ class RDonantesPatronato extends Component {
                     </Col>
                     <Col  md="6" align="right">
 
-                    <Link to='/admin/RegistroDonante2'>
+                    <Link to='/admin/Facturacion'>
                     <Button onClick="onSubmit()">Siguiente&nbsp;<FontAwesomeIcon icon={['fas', 'arrow-circle-right']}/></Button>
                     </Link>
                     </Col>

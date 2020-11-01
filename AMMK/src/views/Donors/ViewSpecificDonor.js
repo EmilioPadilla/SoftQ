@@ -176,8 +176,6 @@ function ax(idD){
     .then(function (resp){
       console.log(resp.data);
      document.getElementById("nombreDonante").innerHTML = resp.data[0].nombreCompleto1;
-     
-
      document.getElementById("fechaCumple").innerHTML = resp.data[0].fechaCumpleaños1;
      document.getElementById("RFC1").innerHTML = resp.data[0].RFC1;
      document.getElementById("correo1").innerHTML = resp.data[0].correo1;

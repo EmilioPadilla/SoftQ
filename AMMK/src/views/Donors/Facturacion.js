@@ -60,10 +60,9 @@ onSubmit(e){
   var jsonArray0 = JSON.parse(localStorage.getItem("tipoDonante2"));
   var jsonArray1 = JSON.parse(localStorage.getItem("recurrencia"));
   var jsonArray2 = JSON.parse(localStorage.getItem("patronato"));
- var jsonArray3=  JSON.parse(localStorage.getItem("gobierno"));
- var jsonArray4=  JSON.parse(localStorage.getItem("facturacion"));
+ var jsonArray3=  JSON.parse(localStorage.getItem("facturacion"));
 
-const jsonArray= {...jsonArray0,...jsonArray1,...jsonArray2,...jsonArray3,...jsonArray4};
+const jsonArray= {...jsonArray0,...jsonArray1,...jsonArray2,...jsonArray3};
 console.log(jsonArray0);
 localStorage.clear();
 
@@ -174,7 +173,7 @@ localStorage.clear();
             <Form.Row></Form.Row>
           <Form.Row>
                     <Col  md="6" align="left">
-                    <Link to='/admin/RegistroDonante2'>
+                    <Link to='/admin/RegistroDonante1'>
                     <Button><FontAwesomeIcon icon={['fas', 'arrow-circle-left']}/>&nbsp;Anterior</Button>
                     </Link>
                     </Col>
