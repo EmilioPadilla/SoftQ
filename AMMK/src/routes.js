@@ -67,6 +67,7 @@ import RDonanteGobierno from "./views/Donors/RDonanteGobierno"
 import GeneralDonantes from "./views/Donors/GeneralDonantes"
 import VIstaDonante from "views/Donors/VIstaDonante.js";
 import ViewDonors from "views/Donors/ViewDonors.js";
+import ViewSpecificDonor from "views/Donors/ViewSpecificDonor";
 
 
 
@@ -347,6 +348,15 @@ var routes = [
     rtlName: "قائمة الجدول",
     icon: "tim-icons icon-heart-2",
     component: RDonanteGobierno,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+    path: "/ViewSpecificDonor/:id",
+    name: "Donantes",
+    rtlName: "قائمة الجدول",
+    icon: "tim-icons icon-heart-2",
+    component: ViewSpecificDonor,
     layout: "/admin",
     showInSidebar: false
   },
