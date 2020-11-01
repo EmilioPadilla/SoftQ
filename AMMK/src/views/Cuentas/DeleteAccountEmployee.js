@@ -32,11 +32,11 @@ const DeleteAccountEmp = props =>{
                                 <div class="row justify-content-center">
                                     <div class="col-4">
                                         <FormGroup>
-                                            <label>Contraseña:</label>
+                                            <label>Nombre Completo:</label>
                                             <Input
-                                                id="passwordModify"
+                                                id="nombreModify"
                                                 
-                                                type="password"
+                                                type="text"
                                             
                                             /> 
                                         </FormGroup>
@@ -45,10 +45,10 @@ const DeleteAccountEmp = props =>{
                                 <div class="row justify-content-center">
                                     <div class="col-4">
                                         <FormGroup>
-                                            <label>Confirmar contraseña:</label>
+                                            <label>Rol:</label>
                                             <Input
-                                                id="confpassModify"
-                                                type="password"
+                                                id="rolModify"
+                                                type="text"
                                             
                                             /> 
                                         </FormGroup>
@@ -58,10 +58,10 @@ const DeleteAccountEmp = props =>{
                                 <div class="row justify-content-center">
                                     <div class="col-4" align="center">
                                     <Link to="/admin/Cuentas/PrincipalEmp">
-                                            <Button className="btn-fill" color="primary" /*onClick={guardar}*/>
+                                            <Button className="btn-fill" color="primary" >
                                                 Regresar
                                             </Button>
-                                        </Link>
+                                    </Link>
                                     </div>
                                     <div class="col-4" align="center">
                                             <Button className="btn-fill" color="danger" onClick={eliminar}>
@@ -83,12 +83,12 @@ const DeleteAccountEmp = props =>{
 }
 
 function ax(idC){
-    axios.get("http://localhost:8000/api/account/"+idC)
+    axios.get("http://localhost:8000/api/account/delete/information/"+idC)
           .then(function (resp){
             console.log(resp.data);
            document.getElementById("usernameModify").value = resp.data[0].username;
-           document.getElementById("passwordModify").value = resp.data[0].password;
-           document.getElementById("confpassModify").value = resp.data[0].password;
+           document.getElementById("nombreModify").value = resp.data[0].nombreCompleto;
+           document.getElementById("rolModify").value = resp.data[0].nombreRol;
            document.getElementById("valorId").value = idC;
           } );
 }

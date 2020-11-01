@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Account;
+use App\Models\Account_Role;
 use Illuminate\Support\Facades\DB;
 
 class AccountController extends Controller
@@ -21,6 +22,16 @@ class AccountController extends Controller
         return $respuesta;
     }
 
+    public function deleteInfo($id)
+    {
+        return DB::table('accounts')
+                ->where('accounts.id', $id)
+                ->join('employees', 'accounts.idEmployee', '=', 'employees.id')
+                ->join('accounts_roles','accounts.id','=','accounts_roles.idAccount')
+                ->join('roles','accounts_roles.idRol','=','roles.id')
+                ->select('roles.nombreRol','employees.nombreCompleto','accounts.username')
+                ->get();
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -45,9 +56,26 @@ class AccountController extends Controller
         $account->username = $request->user;
         $account->password = $request->pass;
         $account->idEmployee = $request->idEmp;
-        //Guardamos el cambio en nuestro modelo
-        $account->save();
-
+        
+        DB::beginTransaction();
+        try{
+            if($account->save()){
+                $idCuenta = Account::where('username', $request->user)->get();
+                $aC = new Account_Role;
+                $aC->idRol = $request->rol;
+                $aC->idAccount = $idCuenta[0]->id;
+                $aC->save();
+                DB::commit();
+                return 1;
+            }else{
+                DB::rollback();
+                return 0;
+            }
+        }
+        catch(QueryException $ex){
+            DB::rollback();
+            return 0;
+        }
     }
 
    

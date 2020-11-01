@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 
 
 const ModifyAccountEmp = props =>{
+    
     const {id} = props.match.params;
     ax(id);
     return(
@@ -102,9 +103,9 @@ function guardar(){
           '¡Listo!',
            'Cambios guardados',
            'success'
-           )/*.then(function() {
-               window.location = "http://localhost:3000/admin/Cuentas/CrearCuentaEmp";
-        });*/
+           ).then(function() {
+               window.location = "http://localhost:3000/admin/Cuentas/PrincipalEmp";
+        });
     }else{
         Swal.fire(
             '¡Error!',

@@ -70,7 +70,7 @@ class EmployeesAccountView extends React.Component {
 
   crearTabla(){
     var tabla='<thead> <tr> <th> Nombre </th> <th> Username </th> <th> Rol </th> <th> Acciones </th> </tr> </thead> <tbody>';
-    const num=1;
+
     axios.get("http://localhost:8000/api/account/table/all")
       .then(function (resp){
         respuesta = respuesta.concat(resp.data);
