@@ -17,9 +17,9 @@ class RegistroContactoDonante extends Component {
         var nombre = document.getElementById("nombre").value;
         var  cargo= document.getElementById("cargo").value;
         var cumple = document.getElementById("cumple").value;
-        var correo = document.getElementById("tipoDonacion").value;
-        var telefono = document.getElementById("tipoDonacion").value;
-        var celular = document.getElementById("tipoDonacion").value;
+        var correo = document.getElementById("correo").value;
+        var telefono = document.getElementById("telefono").value;
+        var celular = document.getElementById("celular").value;
 
       
       //nombre + F de facturacion
@@ -29,13 +29,13 @@ class RegistroContactoDonante extends Component {
           fechaCumpleaño: cumple,
           correo1:correo,
           telefono1:telefono,
-          celular:celular,
+          celular1:celular,
 
 
         };
         
         
-        localStorage.setItem("contcato", JSON.stringify(donacion));
+        localStorage.setItem("contacto", JSON.stringify(donacion));
         var jsonArray0 = JSON.parse(localStorage.getItem("donante"));
         var jsonArray1 = JSON.parse(localStorage.getItem("contacto"));
         const jsonArray= {...jsonArray0,...jsonArray1};
@@ -78,12 +78,12 @@ class RegistroContactoDonante extends Component {
        </Form.Row>
               
        <Form.Row>
-              <FormGroup as={Row}>
-              <Form.Label>Cargo:</Form.Label>
-         <Form.Control id="cargo" placeholder="Maria Sandoval" ></Form.Control>
-       </FormGroup>
+                <Form.Group as={Row} controlId="cargo">
+                  <Form.Label>Cargo:</Form.Label>
+                  <Form.Control type="text" id="cargo" placeholder="Gerente Comercial" />
+                </Form.Group>
+              </Form.Row>
 
-       </Form.Row>
               <Form.Row>
                 <Form.Group as={Row} controlId="cumple">
                   <Form.Label>Fecha de Cumpleaños:</Form.Label>
@@ -94,13 +94,7 @@ class RegistroContactoDonante extends Component {
                 
                
               
-              <Form.Row>
-                <Form.Group as={Row} controlId="cargo">
-                  <Form.Label>Cargo:</Form.Label>
-                  <Form.Control type="text" id="cargo" placeholder="Gerente Comercial" />
-                </Form.Group>
-              </Form.Row>
-
+              
 
             <Form.Row>
               <Form.Group as={Row} controlId="telefono">
@@ -112,6 +106,12 @@ class RegistroContactoDonante extends Component {
               <Form.Group as={Row} controlId="celular">
                 <Form.Label>Celular:</Form.Label>
                 <Form.Control type="text" id="celular" placeholder="442 434 7652" />
+              </Form.Group>
+              </Form.Row>
+              <Form.Row>
+              <Form.Group as={Row} controlId="correo">
+                <Form.Label>Correo:</Form.Label>
+                <Form.Control type="email" id="correo" placeholder="ejemplo@ejemplo.com" />
               </Form.Group>
               </Form.Row>
 

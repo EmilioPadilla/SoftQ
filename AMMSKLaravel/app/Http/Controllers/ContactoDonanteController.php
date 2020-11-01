@@ -38,16 +38,16 @@ class ContactoDonanteController extends Controller
     {
         $contactoD = new ContactoDonante;
         
-        $donacion->idDonante= $request->idDonante;
+        $contactoD->idDonante= $request->idDonante;
         $contactoD->nombreCompleto= $request-> nombreCompleto;
-        $donacion->cargo= $request-> cargo;
-        $donacion->fechaCumpleaño= $request-> fechaCumpleaño;
-        $donacion->correo1= $request-> correo1;
-        $donacion->telefono1= $request->telefono1;
-        $donacion->celular1= $request->celular1;
+        $contactoD->cargo= $request-> cargo;
+        $contactoD->fechaCumpleaño= $request-> fechaCumpleaño;
+        $contactoD->correo1= $request-> correo1;
+        $contactoD->telefono1= $request->telefono1;
+        $contactoD->celular1= $request->celular1;
 
 
-        $donante->save();
+        $contactoD->save();
 
     }
 
@@ -57,7 +57,7 @@ class ContactoDonanteController extends Controller
                     ->join('recurrencia', '_donante.idRecurrencia', '=', 'recurrencia.id')
                     ->select('_donante.id', 'tipo_donante.nombre', '_donante.nombreCompleto1','recurrencia.nombreR')
                     ->get();
-        $respuesta = '<thead> <tr> <th> Nombre </th> <th> Tipo </th> <th> Recurrencia </th> <th> Acciones </th> </tr> </thead> <tbody>';
+        $respuesta = '<thead> <tr> <th> Nombre </th> <th> Cargo </th> <th> Fecha de Cumpleaños </th> <th> Correo </th> <th> Telefono </th> <th> Celular </th> Acción </tr> </thead> <tbody>';
         foreach ($datos as $res){
             $respuesta .= '<tr> <td id="jkl">'. $res->nombreCompleto1. '</td>';
             $respuesta .= '<td>'.$res->nombre.'</td>';
@@ -80,7 +80,7 @@ class ContactoDonanteController extends Controller
      */
     public function show($id)
     {
-        return Donantes::where('id',$id)->get();
+        return ContactoDonante::where('id',$id)->get();
     }
 
     /**
