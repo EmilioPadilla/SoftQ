@@ -10,22 +10,52 @@ import Col from "react-bootstrap/Col";
 import axios from 'axios';
 import Index from "@material-ui/core/styles/zIndex";
 //import Swal from 'sweetalert2';
+const validateForm = (errors) => {
+  let valid = true;
+  Object.values(errors).forEach(
+    // if we have an error string set valid to false
+    (val) => val.length > 0 && (valid = false)
+  );
+  return valid;
+}
 
-
+const validEmailRegex = 
+  RegExp(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
 class RDonantesPatronato extends Component {
 
+  
   constructor(props){
     super(props)
+    this.state={
+      fullname:null,
+      birthday:null,
+      rfc:null,
+      email:null,
+      telefono:null,
+      celular:null,
 
+      errors:{
+        fullname:'',
+        birthday:'',
+        rfc:'',
+        email:'',
+        telefono:'',
+        celular:'',
+      }
 
- 
+    };
+   
+   
 
   this.onSubmit= this.onSubmit.bind(this);
-  
+  this.handleChange = this.handleChange.bind(this);
+
  
 }
 
- 
+
+
+
 
 
   onSubmit(e){
@@ -42,7 +72,7 @@ class RDonantesPatronato extends Component {
 
 
     const donantePatronato = {
-      nombreCompleto1: x,
+     // nombreCompleto1: x,
       fechaCumpleaños1: y,
       RFC1: z,
       correo1: c,
@@ -62,9 +92,65 @@ class RDonantesPatronato extends Component {
    this.setState({nombreCompleto1: ''})
 
   }
+  
+  
+    handleChange = (event) => {
+      event.preventDefault();
+      const { name, value } = event.target;
+      let errors = this.state.errors;
+    
+      switch (name) {
+        case 'fullname': 
+          errors.fullname = 
+            value.length < 8
+              ? 'Recuerde que debe ingresar nombre completo'
+              : '';
+          break;
+          case 'rfc': 
+          errors.rfc = 
+            value.length < 12
+              ? 'El RFC debe de tener al menos 12 caracteres'
+              : '';
+          break;
+        case 'email': 
+          errors.email = 
+            validEmailRegex.test(value)
+              ? ''
+              : 'El correo no es valido';
+          break;
+        case 'telefono': 
+          errors.telefono = 
+            value.length < 9
+              ? 'El telefono debe de contener 8 digitos'
+              : '';
+          break;
+          case 'celular': 
+          errors.celular = 
+            value.length < 11
+              ? 'El celular debe de contener 10 digitos'
+              : '';
+          break;
+        default:
+          break;
+      }
+      this.setState({errors, [name]: value});
 
+     
+    }
+
+    handleSubmit = (event) => {
+      event.preventDefault();
+      if(validateForm(this.state.errors)) {
+        console.info('Valid Form')
+      }else{
+        console.error('Invalid Form')
+      }
+    }
 
   render() {
+    
+    const {errors} = this.state;
+
     return (
       <div className="content">
         <div class="container-fluid">
@@ -76,48 +162,66 @@ class RDonantesPatronato extends Component {
                   <br/>
           <div class="container"></div>
           <Form onClick={this.onSubmit}>
+         
+
+          <div className='fullname'>
+          
+         
+          
             <Form.Row>
               <Form.Group as={Row} controlId="namePatronato">
                 <Form.Label>Nombre Completo:</Form.Label>
                 <Form.Control
-                  type="text"
-                  placeholder="Maria Sandoval Arrieto" 
-                />
+                  type="text" name='fullname'
+                  placeholder="Maria Sandoval Arrieto" onChange={this.handleChange} 
+                /> 
+                {errors.fullname.length > 0 && 
+               <span className='error'>{errors.fullname}</span>}
               </Form.Group>
+             
             </Form.Row>
-
+            </div>
+           
             <Form.Row>
               <Form.Group as={Row} controlId="birthdayPatronato">
                 <Form.Label>Fecha de Cumpleaños:</Form.Label>
-                <Form.Control type="date" placeholder=" / / "  />
+                <Form.Control type="date" placeholder=" / / " noValidate/>
               </Form.Group>
             </Form.Row>
-
+           
+            <div className='birthday'>
             <Form.Row>
               <Form.Group as={Row} controlId="RFCPatronato">
                 <Form.Label>RFC:</Form.Label>
                 <Form.Control type="text" placeholder="VECJ880326 XXX"  />
               </Form.Group>
             </Form.Row>
+            </div>
+
+            <div className='email'>
             <Form.Row>
               <Form.Group as={Row} controlId="emailPatronato">
                 <Form.Label>Correo:</Form.Label>
                 <Form.Control type="email" placeholder="ejemplo@ejemplo.com" />
               </Form.Group>
             </Form.Row>
+            </div>
+
+            <div className=''>
             <Form.Row>
             <Form.Group as={Row} controlId="telefonoPatronato">
                 <Form.Label>Telefono:</Form.Label>
                 <Form.Control type="text" placeholder="234 3344" />
               </Form.Group>
+              </Form.Row>
               &nbsp;&nbsp;&nbsp;
-
+              </div>
               <Form.Group as={Row} controlId="celularPatronato">
                 <Form.Label>Celular:</Form.Label>
                 <Form.Control type="text" placeholder="442 343 3233" />
               </Form.Group>
               
-            </Form.Row>
+           
             <Form.Row>
                     <Col  md="6" align="left">
                     <Link to='/admin/GeneralRegistroD'>

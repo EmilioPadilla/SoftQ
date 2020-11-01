@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Donantes; 
+use Illuminate\Support\Facades\DB;
 
 
 class DonantesController extends Controller
@@ -77,6 +78,23 @@ class DonantesController extends Controller
 
     }
 
+    public function showTable(){
+        $datos = DB::table('_donante')
+                    ->join('tipo_donante', '_donante.idTipoDonante', '=', 'tipo_donante.id')
+                    ->join('recurrencia', '_donante.idRecurrencia', '=', 'recurrencia.id')
+                    ->select('_donante.id', 'tipo_donante.nombre', '_donante.nombreCompleto1','recurrencia.nombreR')
+                    ->get();
+        $respuesta = '<thead> <tr> <th> Nombre </th> <th> Tipo </th> <th> Recurrencia </th> <th> Acciones </th> </tr> </thead> <tbody>';
+        foreach ($datos as $res){
+            $respuesta .= '<tr> <td id="jkl">'. $res->nombreCompleto1. '</td>';
+            $respuesta .= '<td>'.$res->nombre.'</td>';
+            $respuesta .= '<td>'.$res->nombreR.'</td>';
+            $respuesta .= '<td> <div class="row"> <div class="col"> <a href="/admin/VistaDonante/'.$res->id.'"> <button id="verDetalle" type="button" class="btn btn-info btn-sm" > <i class="fa fa-eye"> </i></button> ';
+           $respuesta .= '</a> </div> <div class="col" > <a href="/admin/Cuentas/ModCuentaEmp/'.$res->id.'"> <button id="eliminar" type="button"  class="btn btn-danger btn-sm"> <i class="fa fa-trash-alt"> </i></button> </a> </div> </div> </td> </tr> ';
+        }
+        $respuesta .= '</tbody>';
+        return $respuesta;
+    }
     /**
      * Display the specified resource.
      *

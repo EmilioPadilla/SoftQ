@@ -17,22 +17,22 @@ class RecurrenciaDonanteSeeder extends Seeder
     {
         DB::table('recurrencia')->insert([
             [
-                'nombre' => 'Semanal',
+                'nombreR' => 'Semanal',
             ],
             [
-                'nombre' => 'Quincenal',
+                'nombreR' => 'Quincenal',
             ],
             [
-                'nombre' => 'Mensual',
+                'nombreR' => 'Mensual',
             ],
             [
-                'nombre' => 'Semestral',
+                'nombreR' => 'Semestral',
             ],
             [
-                'nombre' => 'Anual',
+                'nombreR' => 'Anual',
             ],
             [
-                'nombre' => 'Indefinido',
+                'nombreR' => 'Indefinido',
             ],
          ]);
     }

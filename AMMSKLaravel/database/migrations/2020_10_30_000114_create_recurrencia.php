@@ -15,7 +15,7 @@ class CreateRecurrencia extends Migration
     {
         Schema::create('recurrencia', function (Blueprint $table) {
             $table->id()->from(1);
-            $table->string('nombre', 10);
+            $table->string('nombreR', 10);
         });
     }
 

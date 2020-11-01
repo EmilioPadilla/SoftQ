@@ -66,6 +66,7 @@ import Facturacion from "./views/Donors/Facturacion"
 import RDonanteGobierno from "./views/Donors/RDonanteGobierno"
 import GeneralDonantes from "./views/Donors/GeneralDonantes"
 import VIstaDonante from "views/Donors/VIstaDonante.js";
+import ViewDonors from "views/Donors/ViewDonors.js";
 
 
 
@@ -322,7 +323,15 @@ var routes = [
     layout: "/admin",
     showInSidebar: true
   },
-
+  {
+    path: "/ViewDonors",
+    name: "Donantes",
+    rtlName: "قائمة الجدول",
+    icon: "tim-icons icon-heart-2",
+    component: ViewDonors,
+    layout: "/admin",
+    showInSidebar: false
+  },
   {
     path: "/RegistroDonante1",
     name: "Donantes",

@@ -7,6 +7,7 @@ import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Swal from 'sweetalert2';
 
 import axios from 'axios';
 import { convertCompilerOptionsFromJson, parseConfigFileTextToJson } from "typescript";
@@ -56,18 +57,28 @@ onSubmit(e){
   
   };
   localStorage.setItem("facturacion", JSON.stringify(donantePatronato));
-  var jsonArray0 = JSON.parse(localStorage.getItem("generales"));
-  var jsonArray1 = JSON.parse(localStorage.getItem("patronato"));
- var jsonArray2=  JSON.parse(localStorage.getItem("gobierno"));
- var jsonArray3=  JSON.parse(localStorage.getItem("facturacion"));
+  var jsonArray0 = JSON.parse(localStorage.getItem("tipoDonante2"));
+  var jsonArray1 = JSON.parse(localStorage.getItem("recurrencia"));
+  var jsonArray2 = JSON.parse(localStorage.getItem("patronato"));
+ var jsonArray3=  JSON.parse(localStorage.getItem("gobierno"));
+ var jsonArray4=  JSON.parse(localStorage.getItem("facturacion"));
 
-const jsonArray= {...jsonArray0,...jsonArray1,...jsonArray2,...jsonArray3};
+const jsonArray= {...jsonArray0,...jsonArray1,...jsonArray2,...jsonArray3,...jsonArray4};
 console.log(jsonArray0);
 localStorage.clear();
 
   axios.post('http://localhost:8000/api/donantes/', jsonArray).then(res => {console.log(res)});
   
  //validacion
+
+ Swal.fire(
+  '¡Listo!',
+  'Datos guardados',
+  'success'
+  ).then(function() {
+      window.location = "http://localhost:3000/admin/ViewDonors";
+  });
+  
 
 
 }

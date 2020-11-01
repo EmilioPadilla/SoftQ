@@ -16,6 +16,7 @@ import Card from "react-bootstrap/Card";
 import { AvForm, AvField, AvGroup, AvInput, AvFeedback, AvRadioGroup, AvRadio, AvCheckboxGroup, AvCheckbox } from 'availity-reactstrap-validation';
 
 import axios from "axios";
+import { Switch } from "@material-ui/core";
 
 
 
@@ -48,7 +49,7 @@ class GeneralDonantes extends Component {
       
     console.log(resp.data);
     resp.data.forEach(element =>{
-      sel = sel.concat('<option value="'+ element.id + ' " > '+ element.nombre+'</option>');
+      sel = sel.concat('<option value="'+ element.id + ' " > '+ element.nombreR+'</option>');
       //console.log(element.nombre);
     });
     document.getElementById("selectRecurrencia").innerHTML=sel; 
@@ -72,12 +73,16 @@ onSubmit(e) {
   var tipoDonante=document.getElementById("selectTipoDonante").value;
   var recurrencia= document.getElementById("selectRecurrencia").value;
 
-  const donantePatronato={
-    idTipoDonante: tipoDonante,
+  const tipoDonante2={
+    idTipoDonante: tipoDonante
+    
+  }
+  const tipoRecurrencia={
     idRecurrencia: recurrencia
     
   }
-localStorage.setItem("generales", JSON.stringify(donantePatronato));
+localStorage.setItem("tipoDonante2", JSON.stringify(tipoDonante2));
+localStorage.setItem("recurrencia", JSON.stringify(tipoRecurrencia));
 
 }
 
@@ -85,6 +90,7 @@ localStorage.setItem("generales", JSON.stringify(donantePatronato));
   render() {
     this.crearSelectTipoDonante();
     this.crearSelectRecurrencia();
+
 
     return (
       <div className="content">
@@ -110,13 +116,19 @@ localStorage.setItem("generales", JSON.stringify(donantePatronato));
         
 
        <Col align="right">
-
-              <Link to="/admin/RegistroDonante1">
-              <Button onClick="onSubmit()">Siguiente&nbsp;<FontAwesomeIcon icon={['fas', 'arrow-circle-right']}/></Button>
-
-              </Link>
+         
+      <>
             
+       <Link to="/admin/RegistroDonante1">
+       <Button onClick="onSubmit()">Siguiente&nbsp;<FontAwesomeIcon icon={['fas', 'arrow-circle-right']}/></Button>
 
+       </Link>
+       
+
+       </>
+
+      
+  
                 
                   </Col> 
                   </Form>
