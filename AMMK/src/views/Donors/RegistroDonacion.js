@@ -7,6 +7,7 @@ import SimpleTooltip from "../General/SimpleTooltip";
 import axios from "axios";
 import Swal from 'sweetalert2';
 
+//form de registerDonation
 class RegistroDonacion extends Component {
    
   //const {id}= props.match.params;  

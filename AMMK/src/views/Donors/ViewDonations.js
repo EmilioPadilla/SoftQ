@@ -12,7 +12,7 @@ function setValorId(params) {
 class ViewDonations extends Component {
     
     crearTabla(){
-        var tabla='<thead> <tr> <th>FECHA DE DONACIÓN: </th> <th> TIPO DE DONACIÓN: </th> <th> MONTO: </th> <th> DESCRIPCIÓN:</th> </tr> </thead> <tbody>';
+        var tabla='<thead> <tr> <th>FECHA DE DONACIÓN: </th> <th> TIPO DE DONACIÓN: </th> <th> MONTO: </th> <th> DESCRIPCIÓN:</th> <th> Acciones </th></tr> </thead> <tbody>';
         const num=1;
         axios.get("http://localhost:8000/api/donations/table/all")
           .then(function (resp){

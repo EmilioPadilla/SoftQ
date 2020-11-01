@@ -51,14 +51,16 @@ class DonacionController extends Controller
     public function showTable(){
         $datos = DB::table('donacion')
                     ->join('tipo_donacion', 'donacion.idTipoDonacion', '=', 'tipo_donacion.id')
-                    ->select('donacion.idDonante', 'tipo_donacion.nombre', 'donacion.fechaDonacion','donacion.descripcion','donacion.monto')
+                    ->select('donacion.id','donacion.idDonante', 'tipo_donacion.nombre', 'donacion.fechaDonacion','donacion.descripcion','donacion.monto')
                     ->get();
-        $respuesta = '<thead> <tr> <th> FECHA DE DONACIÓN </th> <th> TIPO </th> <th> MONTO</th> <th> DESCRIPCION </th>  </tr> </thead> <tbody>';
+        $respuesta = '<thead> <tr> <th> FECHA DE DONACIÓN </th> <th> TIPO </th> <th> MONTO</th> <th> DESCRIPCION </th> <th> ACCIONES </th>  </tr> </thead> <tbody>';
         foreach ($datos as $res){
             $respuesta .= '<tr> <td id="jkl">'. $res->fechaDonacion. '</td>';
             $respuesta .= '<td>'.$res->nombre.'</td>';
             $respuesta .= '<td>'.$res->monto.'</td>';
-            $respuesta .= '<td>'.$res->descripcion.'</td></tr>';
+            $respuesta .= '<td>'.$res->descripcion.'</td>';
+            $respuesta .= '<td>  <div class="col"> <a href="/admin/ViewSpecificDonor/'.$res->id.'"> <button id="verDetalle" type="button" class="btn btn-danger btn-sm" > <i class="fa fa-trash-alt"> </i></button> </a> </div> </td> </tr>';
+
         }
         $respuesta .= '</tbody>';
         return $respuesta;

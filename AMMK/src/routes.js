@@ -60,15 +60,13 @@ import ViewMedApp from "views/Beneficiarias/ViewMedApp";
 //FIN BENEFICIARIAS
 
 //DONANTES
-import PrincipalDonantes from "./views/Donors/PrincipalDonantes.js"
 import RDonantePatronato from "./views/Donors/RDonantePatronato"
 import Facturacion from "./views/Donors/Facturacion"
-import RDonanteGobierno from "./views/Donors/RDonanteGobierno"
 import GeneralDonantes from "./views/Donors/GeneralDonantes"
-import VIstaDonante from "views/Donors/VIstaDonante.js";
 import ViewDonors from "views/Donors/ViewDonors.js";
 import ViewSpecificDonor from "views/Donors/ViewSpecificDonor";
 import RegisterDonation from "views/Donors/RegisterDonation";
+import RegisterDonorContact from "views/Donors/RegisterDonorContact";
 
 
 
@@ -316,15 +314,7 @@ var routes = [
   /*  END EMPLOYEES */
 
   /*DONANTES*/
-  {
-    path: "/donantes",
-    name: "Donantes",
-    rtlName: "قائمة الجدول",
-    icon: "tim-icons icon-heart-2",
-    component: PrincipalDonantes,
-    layout: "/admin",
-    showInSidebar: false
-  },
+ 
   {
     path: "/ViewDonors",
     name: "Donantes",
@@ -343,21 +333,22 @@ var routes = [
     layout: "/admin",
     showInSidebar: false
   },
-  {
-    path: "/RegistroDonante2",
-    name: "Donantes",
-    rtlName: "قائمة الجدول",
-    icon: "tim-icons icon-heart-2",
-    component: RDonanteGobierno,
-    layout: "/admin",
-    showInSidebar: false
-  },
+  
   {
     path: "/donacion/:id",
     name: "Donantes",
     rtlName: "قائمة الجدول",
     icon: "tim-icons icon-heart-2",
     component: RegisterDonation,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+    path: "/contactoDonante/:id",
+    name: "Donantes",
+    rtlName: "قائمة الجدول",
+    icon: "tim-icons icon-heart-2",
+    component: RegisterDonorContact,
     layout: "/admin",
     showInSidebar: false
   },
@@ -390,15 +381,7 @@ var routes = [
     showInSidebar: false
   },
 
-  {
-    path: "/VistaDonante",
-    name: "Donantes",
-    rtlName: "قائمة الجدول",
-    icon: "tim-icons icon-heart-2",
-    component: VIstaDonante,
-    layout: "/admin",
-    showInSidebar: false
-  },
+ 
 
       /*END DONANTES*/
   {
