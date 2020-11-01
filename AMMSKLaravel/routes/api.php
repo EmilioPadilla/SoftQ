@@ -24,6 +24,7 @@ Route::resource('tipodonante', 'App\Http\Controllers\TipoDonanteController');
 Route::resource('recurrencia', 'App\Http\Controllers\RecurrenciaController');
 Route::resource('tipodonacion', 'App\Http\Controllers\TipoDonacionController');
 Route::get('donors/table/all', 'App\Http\Controllers\DonantesController@showTable');
+Route::get('donations/table/all', 'App\Http\Controllers\DonacionController@showTable');
 
 Route::resource('donaciones', 'App\Http\Controllers\DonacionController');
 

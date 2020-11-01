@@ -49,22 +49,16 @@ class DonacionController extends Controller
     }
 
     public function showTable(){
-        $datos = DB::table('_donacion')
-                    ->join('tipo_donante', '_donante.idTipoDonante', '=', 'tipo_donante.id')
-                    ->join('recurrencia', '_donante.idRecurrencia', '=', 'recurrencia.id')
-                    ->select('_donante.id', 'tipo_donante.nombre', '_donante.nombreCompleto1','recurrencia.nombreR')
+        $datos = DB::table('donacion')
+                    ->join('tipo_donacion', 'donacion.idTipoDonacion', '=', 'tipo_donacion.id')
+                    ->select('donacion.idDonante', 'tipo_donacion.nombre', 'donacion.fechaDonacion','donacion.descripcion','donacion.monto')
                     ->get();
-        $respuesta = '<thead> <tr> <th> Nombre </th> <th> Tipo </th> <th> Recurrencia </th> <th> Acciones </th> </tr> </thead> <tbody>';
+        $respuesta = '<thead> <tr> <th> FECHA DE DONACIÓN </th> <th> TIPO </th> <th> MONTO</th> <th> DESCRIPCION </th>  </tr> </thead> <tbody>';
         foreach ($datos as $res){
-            $respuesta .= '<tr> <td id="jkl">'. $res->nombreCompleto1. '</td>';
+            $respuesta .= '<tr> <td id="jkl">'. $res->fechaDonacion. '</td>';
             $respuesta .= '<td>'.$res->nombre.'</td>';
-            $respuesta .= '<td>'.$res->nombreR.'</td>';
-            $respuesta .= '<td> <div class="row"> <div class="col"> <a href="/admin/ViewSpecificDonor/'.$res->id.'"> <button id="verDetalle" type="button" class="btn btn-info btn-sm" > <i class="fa fa-eye"> </i></button> ';
-           $respuesta .= '</a> </div> <div class="col" > <a href="/admin/Donacion/'.$res->id.'"> <button id="registrarDonacion" type="button" class="btn btn-primary  btn-sm"> <i class="fa fa-plus" aria-hidden="true"></i></button> ';
-           $respuesta .= '</a> </div> <div class="col" > <a href="/admin/contactoDonante/'.$res->id.'"> <button id="registrarContactoDonate" type="button"  class="btn btn-primary btn-sm"> <i class="fa fa-address-book" aria-hidden="true"></i> </button> ';
-           $respuesta .= '</a> </div> <div class="col" > <a href="/admin/contactoDonante/'.$res->id.'"> <button id="registrarContactoDonate" type="button"  class="btn btn-success btn-sm"> <i class="fa fa-repeat" aria-hidden="true"></i> </button>';
-           $respuesta .= '</a> </div> <div class="col" > <a href="/admin/contactoDonante/'.$res->id.'"> <button id="registrarContactoDonate" type="button"  class="btn btn-danger btn-sm"> <i class="fa fa-trash-alt"> </i> </button> </a> </div> </div> </td> </tr> ';
-
+            $respuesta .= '<td>'.$res->monto.'</td>';
+            $respuesta .= '<td>'.$res->descripcion.'</td></tr>';
         }
         $respuesta .= '</tbody>';
         return $respuesta;

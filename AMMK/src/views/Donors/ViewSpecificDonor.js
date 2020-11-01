@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-
+import ViewDonations from 'views/Donors/ViewDonations'
 
 // reactstrap components
 import { DropdownItem, Input, Row, Table, Col, Alert, Button, Badge } from 'reactstrap';
@@ -137,28 +137,14 @@ const ViewSpecificDonor = props =>{
                             <p id="correo"></p>
 
                             </Col>
-                            
+                            <ViewDonations/> 
                         
                     </Col>
                 </Row>
+                
           <br></br>
                 
-                <Table hover>
-                    <thead>
-                        <tr>
-                            <th>FECHA DE DONACIÓN:</th>
-                            <th>TIPO DE DONACIÓN:</th>
-                            <th>MONTO:</th>
-                            <th>DESCRIPCIÓN:</th>
-                        </tr>
-                    </thead>
-                        <tr>
-                            <td>18-10-2020</td>
-                            <td>ESPECIE</td>
-                            <td>$5000</td>
-                            <td>CAJAS DE MEDICAMENTOS</td>
-                        </tr>
-                </Table>
+        
                 <div>
                                 <Input type="text" id="valorId" style={{display: "none"}}>
 

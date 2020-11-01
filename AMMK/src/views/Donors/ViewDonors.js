@@ -95,10 +95,7 @@ class  ViewDonors extends Component {
                         </FormGroup>
                     </Col>
                 </Row>
-                <Col md="12">
-              <Table hover id="tablaD">
-              </Table>
-            </Col>
+               
                
             </div>
 
