@@ -9,5 +9,5 @@ class Donacion extends Model
 {
     protected $table = 'donacion';
     public $timestamps = false;
-    protected $fillable = ['idTipoDonacion','fechaDonacion','descripcion','monto'];
+    protected $fillable = ['idDonante','idTipoDonacion','fechaDonacion','descripcion','monto'];
 }

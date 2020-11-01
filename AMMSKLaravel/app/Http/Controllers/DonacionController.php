@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Models\Donacion; 
 use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
 
 class DonacionController extends Controller
 {
@@ -37,10 +37,12 @@ class DonacionController extends Controller
     public function store(Request $request)
     {
         $donacion = new Donacion;
-        $donante->idTipoDonacion= $request-> idTipoDonacion;
-        $donante->fechaDonacion= $request-> fechaDonacion;
-        $donante->descripcion= $request-> descripcion;
-        $donante->monto= $request->monto;
+        $donacion->idTipoDonacion= $request-> idTipoDonacion;
+        $donacion->fechaDonacion= $request-> fechaDonacion;
+        $donacion->descripcion= $request-> descripcion;
+        $donacion->monto= $request->monto;
+        $donacion->idDonante= $request->idDonante;
+
 
         $donacion->save();
 
