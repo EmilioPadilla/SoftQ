@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import ViewDonations from 'views/Donors/ViewDonations'
+import ViewContacts from 'views/Donors/ViewContacts'
+import Form from "react-bootstrap/Form";
 
 // reactstrap components
 import { DropdownItem, Input, Row, Table, Col, Alert, Button, Badge } from 'reactstrap';
@@ -23,134 +25,169 @@ const ViewSpecificDonor = props =>{
     ax(id);
 
     return(
-<div className="content">
-                <h1 className="title">DETALLE DONANTE</h1>
-                
-                <Row>
-                   
-                    <Col>
-                        <h3 className="title" id="nombreDonante"></h3>
-                        
 
-                        <Badge color="primary">DATOS GENERALES</Badge>
-                        <Col >
-                        <br></br>
+        <div className="content">
+        <div class="container-fluid">
 
-                        <Button  className="float-right" size="sm" id="editar"><FontAwesomeIcon icon={['fas', 'pencil-alt']} /></Button>
-                        <SimpleTooltip placement="top" target="editar" >Editar</SimpleTooltip>
-                        </Col >
-                            <Col >
-                                <p className="font-weight-bold">FECHA DE CUMPLEAÑOS: </p>
+        <h1 className="title">DETALLE DONANTE</h1>
+        <h3 className="title" id="nombreDonante"></h3>
+
+        <Badge color="primary">DATOS GENERALES</Badge>
+
+        <br></br>
+        <br></br>
+        <Form.Row>
+              <Form.Group as={Col} controlId="fechaCumple">
+              <p className="font-weight-bold">FECHA DE CUMPLEAÑOS: </p>
                                 <p id="fechaCumple"></p>
-                                
-                                                                      </Col>
-                            <Col >
-                                <p className="font-weight-bold" >RFC:</p>
+                  </Form.Group>
+                  &nbsp;&nbsp;&nbsp;
+
+                  <Form.Group as={Col}>
+                  <p className="font-weight-bold" >RFC:</p>
                                 <p id="RFC1"></p>
+                  </Form.Group>
 
-                            </Col>
-                           
-                            <Col >
-                                <p className="font-weight-bold" >TELEFONO:</p>
+                  <Form.Group as={Col}>
+                  </Form.Group>
+                  </Form.Row>
+
+                  <br></br>
+        <br></br>
+                  <Form.Row>
+              <Form.Group as={Col}>
+              <p className="font-weight-bold" >TELEFONO:</p>
                                 <p id="tel"></p>
+                  </Form.Group>
+                  &nbsp;&nbsp;&nbsp;
 
-                            </Col>
-                            <Col >
-                                <p className="font-weight-bold">CELULAR:</p>
+                  <Form.Group as={Col}>
+                  <p className="font-weight-bold">CELULAR:</p>
                                 <p id="cel"></p>
+                  </Form.Group>
 
-                            </Col>
-                            <Col >
-                                <p className="font-weight-bold">CORREO:</p>
+                  <Form.Group as={Col}>
+                  <p className="font-weight-bold">CORREO:</p>
                                 <p id="correo1"></p>
+                  </Form.Group>
+                  </Form.Row>
+                  
 
-                            </Col>
-                            <br></br>
-
-                        
-                            <Badge color="primary">DATOS DE FACTURACIÓN</Badge>
-                        <Col >
-                        <br></br>
-
-                        <Button  className="float-right" size="sm" id="editar"><FontAwesomeIcon icon={['fas', 'pencil-alt']} /></Button>
-                        <SimpleTooltip placement="top" target="editar" >Editar</SimpleTooltip>
-                        </Col >
-                            <Col >
-                                <p className="font-weight-bold">RAZÓN SOCIAL:</p>
+            <br></br>
+            <br></br>
+            <Badge color="primary">DATOS FACTURACIÓN</Badge>
+            <br></br>
+            <br></br>
+        <Form.Row>
+              <Form.Group as={Col}>
+              <p className="font-weight-bold">RAZÓN SOCIAL:</p>
                                 <p id="razonSocial"></p>
+                  </Form.Group>
+                  &nbsp;&nbsp;&nbsp;
 
-                            </Col>
-                            <Col >
-                                <p className="font-weight-bold">RFC:</p>
+                  <Form.Group as={Col}>
+                  <p className="font-weight-bold">RFC:</p>
                                 <p id="RFC2"></p>
-
-                            </Col>
-
-                        
-                            <Col >
-                            <p className="font-weight-bold">CALLE:</p>
+                  </Form.Group>
+                  <Form.Group as={Col}>
+                  </Form.Group>
+                  </Form.Row>
+                  <br></br>
+        <br></br>
+            
+            <Form.Row>
+              <Form.Group as={Col}>
+              <p className="font-weight-bold">CALLE:</p>
                             <p id="calle"></p>
 
-                            </Col>
-                            <Col >
-                            <p className="font-weight-bold"># Interior:</p>
+                  </Form.Group>
+                  &nbsp;&nbsp;&nbsp;
+
+                  <Form.Group as={Col}>
+                  <p className="font-weight-bold"># Interior:</p>
                             <p id="interior"></p>
 
-                            </Col>
-                            <Col >
-                            <p className="font-weight-bold"># Exterior:</p>
-                            <p id="exterior"></p>
+                  </Form.Group>
 
-                            </Col>
-                            <Col >
-                            <p className="font-weight-bold">C.P. :</p>
+                  <Form.Group as={Col}>
+                  <p className="font-weight-bold"># Exterior:</p>
+                            <p id="exterior"></p>
+                  </Form.Group>
+                  </Form.Row>
+                  <br></br>
+        <br></br>
+            
+            <Form.Row>
+              <Form.Group as={Col}>
+              <p className="font-weight-bold">C.P. :</p>
                             <p id="cp"></p>
 
-                            </Col>
-                            <Col >
-                            <p className="font-weight-bold">COLONIA:</p>
-                            <p id="colonia"></p>
-                            </Col>
-                           
-                            <Col >
-                            <p className="font-weight-bold">CIUDAD:</p>
-                            <p id="ciudad"></p>
+                  </Form.Group>
+                  &nbsp;&nbsp;&nbsp;
 
-                            </Col>
-                            <Col >
-                            <p className="font-weight-bold">MUNICIPIO:</p>
+                  <Form.Group as={Col}>
+                  <p className="font-weight-bold">COLONIA:</p>
+                            <p id="colonia"></p>
+
+                  </Form.Group>
+
+                  <Form.Group as={Col}>
+                  <p className="font-weight-bold">CIUDAD:</p>
+                            <p id="ciudad"></p>
+                  </Form.Group>
+                  </Form.Row>
+
+                  <br></br>
+        <br></br>
+            
+            <Form.Row>
+              <Form.Group as={Col}>
+              <p className="font-weight-bold">MUNICIPIO:</p>
                             <p id="municipio"></p>
 
-                            </Col>
-                            <Col >
-                            <p className="font-weight-bold">ESTADO:</p>
+                  </Form.Group>
+                  &nbsp;&nbsp;&nbsp;
+
+                  <Form.Group as={Col}>
+                  <p className="font-weight-bold">ESTADO:</p>
                             <p id="estado"></p>
 
-                            </Col>
-                            <Col >
-                            <p className="font-weight-bold">PAÍS:</p>
+                  </Form.Group>
+
+                  <Form.Group as={Col}>
+                  <p className="font-weight-bold">PAÍS:</p>
                             <p id="pais"></p>
-
-                            </Col>
-                            <Col >
-                            <p className="font-weight-bold">CORREO:</p>
+                  </Form.Group>
+                  </Form.Row>
+                  <br></br>
+       
+                  <Form.Row>
+              <Form.Group as={Col}>
+              <p className="font-weight-bold">CORREO:</p>
                             <p id="correo"></p>
+                  </Form.Group></Form.Row>
+                  <br></br>
+                  <br></br>
 
-                            </Col>
-                            <ViewDonations/> 
-                        
-                    </Col>
-                </Row>
-                
+                  <Badge color="primary">CONTACTOS:</Badge>
+
+<ViewContacts/> 
           <br></br>
-                
-        
-                <div>
+
+<Badge color="primary">DONACIONES:</Badge>
+
+<ViewDonations/> 
+
+<br></br> 
+<div>
                                 <Input type="text" id="valorId" style={{display: "none"}}>
 
                                 </Input>
                             </div>
+
             </div>
+        </div>
+  
 
     )
 

@@ -119,14 +119,17 @@ class RegistroDonacion extends Component {
               </Form.Group>
               </Form.Row>
 
-
-              <Col align="left">
-
+              <Form.Row>
+              <Form.Group as={Col} controlId="descripcion">
+              <Button type="submit" class="danger">Cancelar</Button>
+              </Form.Group>
+              <Form.Group as={Col} controlId="descripcion">
               <Button type="submit">Registrar</Button>
+              </Form.Group>
+              </Form.Row>
 
+              
 
-          </Col>
-          
           </Form>
          
             </div>
