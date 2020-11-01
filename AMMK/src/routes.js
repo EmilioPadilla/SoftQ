@@ -70,6 +70,11 @@ import RDonanteGobierno from "./views/Donors/RDonanteGobierno"
 import GeneralRegistroD from "./views/Donors/GeneralRegistroD"
 import VIstaDonante from "views/Donors/VIstaDonante.js";
 
+//FINANZAS
+import MonthlyView from "views/Finanzas/MonthlyView.js";
+import RegisterExpense from "views/Finanzas/RegisterExpense.js";
+import Record from "views/Finanzas/Record.js";
+//FIN FINANZAS
 
 
 var routes = [
@@ -384,15 +389,35 @@ var routes = [
   },
 
       /*END DONANTES*/
+  //STARTS FINANZAS
   {
-    path: "/typography",
+    path: "/Finanzas/RegisterExpense",
+    name: "Finanzas",
+    rtlName: "طباعة",
+    icon: "tim-icons icon-single-02",
+    component: RegisterExpense,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+    path: "/Finanzas/MonthlyView",
     name: "Finanzas",
     rtlName: "طباعة",
     icon: "tim-icons icon-money-coins",
-    component: Typography,
+    component: MonthlyView,
     layout: "/admin",
     showInSidebar: true
   },
+  {
+    path: "/Finanzas/Record",
+    name: "Finanzas",
+    rtlName: "طباعة",
+    icon: "tim-icons icon-single-02",
+    component: Record,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  //ENDS FINANZAS
   {
     path: "/typography",
     name: "Reportes",
