@@ -6,7 +6,7 @@ import { API_BASE_URL } from '../../index';
 
 //Components
 import { Link } from "react-router-dom";
-import {Table, Button, Row, ModalBody, ModalFooter, Modal} from 'reactstrap';
+import {Table, Button, Col, Row, ModalBody, ModalFooter, Modal} from 'reactstrap';
 import SimpleTooltip from '../../views/General/SimpleTooltip';
 
 //Importing Icon library
@@ -76,7 +76,8 @@ export default class AdminTable extends React.Component {
 
   render() {
     return (
-      <div>
+      <Row>
+      <Col md="12">
         <Table hover>
             <thead>
               <tr>
@@ -118,8 +119,8 @@ export default class AdminTable extends React.Component {
                   <Button color="danger" onClick={()=>this.peticionDelete()}>Sí</Button>
                 </ModalFooter>
         </Modal>
-
-      </div>
+      </Col>
+      </Row>
     )
   }
 } 

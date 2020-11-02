@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
 // reactstrap components
-import { Row, Col, Button, FormGroup} from 'reactstrap';
+import { Row, Col, Button, FormGroup, Card, CardHeader, CardTitle, CardBody} from 'reactstrap';
 import Form from "react-bootstrap/Form";
 import ExpensesTable from "../../components/Finanzas/ExpensesTable";
+import IncomesTable from "../../components/Finanzas/IncomesTable";
 import SimpleTooltip from "../General/SimpleTooltip";
 
 //API calls
@@ -68,32 +69,48 @@ export default class MonthlyView extends Component {
 
                 <Row>
                     <Col md="6">
-                        <h3 className="title">INGRESOS</h3>
+                        <Card>
+                            <CardHeader>
+                                    <CardTitle>
+                                     <h3 className="title">INGRESOS</h3>
+                                    </CardTitle>
+                            </CardHeader>  
+                            <CardBody>
+                                <IncomesTable />
+                            </CardBody>
+                        </Card>
                     </Col>
                     <Col md="6">
-                        <Row>
-                        <h3 className="title">EGRESOS</h3>
-                        <Link to='/admin/Finanzas/RegisterExpense'>
-                        <Button className="float-right" size="sm" id="registrarEgreso"><FontAwesomeIcon icon={['fas', 'plus']}/></Button>
-                        <SimpleTooltip placement="right" target="registrarEgreso" >Registrar egreso</SimpleTooltip>
-                        </Link>
-                        </Row>
-
-                        <Row>
-                            <Col md="6">
-                            total
-                            </Col>
-                            <Col md="6">
-                            <FormGroup>
-                                <label>Filtra por categoría...</label>
-                                <Form.Control as="select" id="selectCategory"></Form.Control>
-                            </FormGroup>
-                            </Col>
-                        </Row>
-
-                        <Row>
-                            <ExpensesTable/>
-                        </Row>
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>
+                                    <Row>
+                                    <Col md="12">
+                                        <h3 className="title m-0 d-inline">EGRESOS</h3>
+                                        <Link className="float-right" to='/admin/Finanzas/RegisterExpense'>
+                                        <Button size="sm" id="registrarEgreso"><FontAwesomeIcon icon={['fas', 'plus']}/></Button>
+                                        <SimpleTooltip placement="right" target="registrarEgreso" >Registrar egreso</SimpleTooltip>
+                                        </Link>
+                                    </Col>    
+                                    </Row>
+                                </CardTitle>
+                            </CardHeader>        
+                            <CardBody>
+                                <Row>
+                                    <Col md="6">
+                                    total
+                                    </Col>
+                                    <Col md="6">
+                                    <FormGroup>
+                                        <label>Filtra por categoría...</label>
+                                        <Form.Control as="select" id="selectCategory"></Form.Control>
+                                    </FormGroup>
+                                    </Col>
+                                </Row>
+                                <ExpensesTable/>
+                            </CardBody>
+                        </Card>
+                        
                     </Col>
                 </Row>        
                 

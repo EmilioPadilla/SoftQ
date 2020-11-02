@@ -9,7 +9,7 @@ import {
     Col
     } from "reactstrap";
 
-class TableIncomes extends React.Component {
+class IncomesTable extends React.Component {
     render() {
         return (
             <Row>
@@ -47,4 +47,4 @@ class TableIncomes extends React.Component {
     }
 }
 
-export default TableIncomes;
+export default IncomesTable;
