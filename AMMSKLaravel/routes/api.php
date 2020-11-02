@@ -41,13 +41,15 @@ Route::get('donorContacts/showAll/{id}', 'App\Http\Controllers\DonantesControlle
 Route::resource('donaciones', 'App\Http\Controllers\DonacionController');
 Route::resource('contactoDonante', 'App\Http\Controllers\ContactoDonanteController');
 
+Route::post('incomes/search', 'App\Http\Controllers\IncomesController@filterByDate');
+
 Route::resource('account', 'App\Http\Controllers\AccountController');
 Route::resource('accountRole', 'App\Http\Controllers\Account_RoleController');
 Route::get('account/find/{username}', 'App\Http\Controllers\AccountController@showId');
 Route::get('account/table/all', 'App\Http\Controllers\AccountController@showTable');
+
 /* EMPIEZA GENERALES */
 Route::resource('status', 'App\Http\Controllers\StatusController');
-
 Route::resource('headquarters', 'App\Http\Controllers\HeadquarterController');
 /* TERMINA GENERALES */
 
