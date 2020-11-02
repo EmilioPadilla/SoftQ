@@ -5,7 +5,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 
 
-const DeleteAccountEmp = props =>{
+const EliminarDonacion = props =>{
     const {id} = props.match.params;
     ax(id);
     return(
@@ -14,50 +14,44 @@ const DeleteAccountEmp = props =>{
                     <div class="row">
                         <div class="col-12" >
                             <h2 align="center">Eliminar Cuenta de Empleado</h2>
-                            <h4 align="center">ATENCIÓN: ELIMINAR UNA CUENTA ES UNA ACCIÓN PERMANENTE</h4>
+                            <h4 align="center">ATENCIÓN: ESTA ES UNA ACCIÓN PERMANENTE</h4>
                             <Form>
                                 <div class="row justify-content-center">
                                     <div class="col-4" >
                                         <FormGroup>
-                                            <label>Nombre de usuario:</label>
-                                            <Input
-                                                id="usernameModify"
-                                                
-                                                type="text"
-                                            
-                                            /> 
+                                        <p className="font-weight-bold">FECHA EN QUE SE REALIZÓ: </p>
+                                        <p id="fecha"></p>
                                         </FormGroup>
                                     </div>
                                 </div>
                                 <div class="row justify-content-center">
                                     <div class="col-4">
                                         <FormGroup>
-                                            <label>Nombre Completo:</label>
-                                            <Input
-                                                id="nombreModify"
-                                                
-                                                type="text"
-                                            
-                                            /> 
+                                        <p className="font-weight-bold">TIPO DONACIÓN: </p>
+                                        <p id="tipo"></p>
                                         </FormGroup>
                                     </div>
                                 </div>
                                 <div class="row justify-content-center">
                                     <div class="col-4">
                                         <FormGroup>
-                                            <label>Rol:</label>
-                                            <Input
-                                                id="rolModify"
-                                                type="text"
-                                            
-                                            /> 
+                                        <p className="font-weight-bold">MONTO: </p>
+                                        <p id="monto"></p>
+                                        </FormGroup>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-4">
+                                        <FormGroup>
+                                        <p className="font-weight-bold">DESCRIPCIÓN: </p>
+                                        <p id="descripcion"></p>
                                         </FormGroup>
                                     </div>
                                 </div>
                                 <br/>
                                 <div class="row justify-content-center">
                                     <div class="col-4" align="center">
-                                    <Link to="/admin/Cuentas/PrincipalEmp">
+                                    <Link to="/admin/ViewDonors">
                                             <Button className="btn-fill" color="primary" >
                                                 Regresar
                                             </Button>
@@ -83,29 +77,31 @@ const DeleteAccountEmp = props =>{
 }
 
 function ax(idC){
-    axios.get("http://localhost:8000/api/account/delete/information/"+idC)
+    axios.get("http://localhost:8000/api/donations/delete/"+idC)
           .then(function (resp){
             console.log(resp.data);
-           document.getElementById("usernameModify").value = resp.data[0].username;
-           document.getElementById("nombreModify").value = resp.data[0].nombreCompleto;
-           document.getElementById("rolModify").value = resp.data[0].nombreRol;
+           document.getElementById("tipo").value = resp.data[0].idTipoDonacion;
+           document.getElementById("fecha").value = resp.data[0].fechaDonacion;
+           document.getElementById("descripcion").value = resp.data[0].descripcion;
+           document.getElementById("monto").value = resp.data[0].monto;
            document.getElementById("valorId").value = idC;
           } );
 }
 
 function eliminar(){
-    var idCuenta = document.getElementById("valorId").value;
-        axios.delete('http://localhost:8000/api/account/'+idCuenta)
+    var idD = document.getElementById("valorId").value;
+    console.log(idD);
+        axios.delete('http://localhost:8000/api/donaciones/'+idD)
               .then(function (resp){
                 console.log(resp.data);
               } );
          Swal.fire(
           '¡Listo!',
-           'Se eliminó la cuenta',
+           'Se ha eliminado la donación!',
            'success'
            ).then(function() {
-               window.location = "http://localhost:3000/admin/Cuentas/PrincipalEmp";
+               window.location = "http://localhost:3000/admin/ViewDonors";
         });
 }
 
-export default DeleteAccountEmp;
+export default EliminarDonacion;

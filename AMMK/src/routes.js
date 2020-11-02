@@ -67,6 +67,7 @@ import ViewDonors from "views/Donors/ViewDonors.js";
 import ViewSpecificDonor from "views/Donors/ViewSpecificDonor";
 import RegisterDonation from "views/Donors/RegisterDonation";
 import RegisterDonorContact from "views/Donors/RegisterDonorContact";
+import EliminarDonacion from "views/Donors/EliminarDonacion";
 
 
 
@@ -323,6 +324,15 @@ var routes = [
     component: ViewDonors,
     layout: "/admin",
     showInSidebar: true
+  },
+  {
+    path: "/EliminarDonacion/:id",
+    name: "Donantes",
+    rtlName: "قائمة الجدول",
+    icon: "tim-icons icon-heart-2",
+    component: EliminarDonacion,
+    layout: "/admin",
+    showInSidebar: false
   },
   {
     path: "/RegistroDonante1",

@@ -18,7 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
+/*DONANTES Y DONACIONES*/
 Route::apiResource('donantes', 'App\Http\Controllers\DonantesController');
 Route::resource('tipodonante', 'App\Http\Controllers\TipoDonanteController');
 Route::resource('recurrencia', 'App\Http\Controllers\RecurrenciaController');
@@ -28,8 +28,11 @@ Route::get('donations/table/all', 'App\Http\Controllers\DonacionController@showT
 Route::get('donors/contact/table/all', 'App\Http\Controllers\ContactoDonanteController@showTable');
 Route::get('donations/showAll/{id}', 'App\Http\Controllers\DonantesController@showDonaciones');
 Route::get('donorContacts/showAll/{id}', 'App\Http\Controllers\DonantesController@showContactos');
+Route::get('donations/delete/{id}', 'App\Http\Controllers\DonacionController@delete');
+//Route::get('donorContacts/showAll/{id}', 'App\Http\Controllers\DonantesController@showContactos');
 
 Route::resource('donaciones', 'App\Http\Controllers\DonacionController');
 Route::resource('contactoDonante', 'App\Http\Controllers\ContactoDonanteController');
 
+/*DONANTES Y DONACIONES END*/
 Route::resource('account', 'App\Http\Controllers\AccountController');
