@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {FormGroup, Form, Input, Button} from "reactstrap"
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { Link } from "react-router-dom";
 
 
 const ModifyAccountEmp = props =>{
@@ -55,6 +56,13 @@ const ModifyAccountEmp = props =>{
                                 </div>
                                 <br/>
                                 <div class="row justify-content-center">
+                                    <div class="col-4" align="center">
+                                        <Link to="/admin/Cuentas/PrincipalEmp">
+                                            <Button className="btn-fill" color="primary" >
+                                                Regresar
+                                            </Button>
+                                        </Link>
+                                    </div>
                                     <div class="col-4" align="center">
                                         <Button className="btn-fill" color="primary" onClick={guardar}>
                                             Guardar cambios

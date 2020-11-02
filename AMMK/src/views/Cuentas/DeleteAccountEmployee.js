@@ -22,7 +22,7 @@ const DeleteAccountEmp = props =>{
                                             <label>Nombre de usuario:</label>
                                             <Input
                                                 id="usernameModify"
-                                                
+                                                disabled
                                                 type="text"
                                             
                                             /> 
@@ -35,7 +35,7 @@ const DeleteAccountEmp = props =>{
                                             <label>Nombre Completo:</label>
                                             <Input
                                                 id="nombreModify"
-                                                
+                                                disabled
                                                 type="text"
                                             
                                             /> 
@@ -47,6 +47,7 @@ const DeleteAccountEmp = props =>{
                                         <FormGroup>
                                             <label>Rol:</label>
                                             <Input
+                                                disabled
                                                 id="rolModify"
                                                 type="text"
                                             

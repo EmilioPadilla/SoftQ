@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {FormGroup, Form, Input, Button} from "react-bootstrap"
 import axios from 'axios';
 import Swal from 'sweetalert2';
@@ -146,6 +147,13 @@ class CreateAccEmp extends React.Component{
                                 </div>
                                 <br/>
                                 <div class="row justify-content-center">
+                                    <div class="col-4" align="center">
+                                        <Link to="/admin/Cuentas/PrincipalEmp">
+                                            <Button className="btn-fill" color="primary" >
+                                                Regresar
+                                            </Button>
+                                        </Link>
+                                    </div>
                                     <div class="col-4" align="center">
                                         <Button className="btn-fill" color="info" type="submit">
                                             Registrar

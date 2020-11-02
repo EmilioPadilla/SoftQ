@@ -69,14 +69,44 @@ class EmployeesAccountView extends React.Component {
   
 
   crearTabla(){
-    var tabla='<thead> <tr> <th> Nombre </th> <th> Username </th> <th> Rol </th> <th> Acciones </th> </tr> </thead> <tbody>';
-
     axios.get("http://localhost:8000/api/account/table/all")
       .then(function (resp){
         respuesta = respuesta.concat(resp.data);
         document.getElementById("tablaCE").innerHTML = respuesta;
       } );
   }
+
+  searchBar(){
+    var palabra = document.getElementById('busq').value;
+    if(palabra == ""){
+      palabra = "allOfEm";
+    }
+    axios.get("http://localhost:8000/api/account/table/search/"+palabra)
+      .then(function (resp){
+        respuesta = resp.data;
+        document.getElementById("tablaCE").innerHTML = respuesta;
+      } );
+    }
+  
+
+  sortByRole(){
+   var rol = document.getElementById('roleSelect').value;
+   var numRol;
+   if (rol === "Empleado General"){
+    numRol=1;
+   }else if (rol ==="Enfermera"){
+    numRol=2;
+   }else{
+    numRol=3;
+   }
+  
+    axios.get("http://localhost:8000/api/account/table/roles/"+numRol)
+      .then(function (resp){
+        respuesta = resp.data;
+        document.getElementById("tablaCE").innerHTML = respuesta;
+      } );
+  }
+
 
 
   render() {
@@ -92,11 +122,11 @@ class EmployeesAccountView extends React.Component {
             <label>Búsqueda por nombre:</label>
              <InputGroup>
                  <InputGroupAddon addonType="prepend">
-                   <InputGroupText id="busqNombre">
+                   <InputGroupText id="busqNombre" >
                      <FontAwesomeIcon icon={['fas', 'search']} />
                    </InputGroupText>
                  </InputGroupAddon>
-                 <Input placeholder="Juan Artal Gonzalez"/>
+                 <Input placeholder="Juan Artal Gonzalez"  id="busq" onInput={this.searchBar}/>
              </InputGroup>      
            </FormGroup>
          </Col>
@@ -113,12 +143,12 @@ class EmployeesAccountView extends React.Component {
         <Row>
          <Col>
            <FormGroup>
-           <Label for="statusSelect">Búsqueda por rol</Label>
-               <Input type="select" name="select" id="statusSelect">
+           <Label for="roleSelect">Búsqueda por rol</Label>
+               <Input type="select" name="select" id="roleSelect" onChange={this.sortByRole}>
                <option disabled selected >Rol...</option>
-               <option >Empleado General</option>
-               <option>Enfermera</option>
-               <option>Administrador</option>
+               <option valaue={1}>Empleado General</option>
+               <option valaue={2}>Enfermera</option>
+               <option valaue={3}>Administrador</option>
                </Input>
            </FormGroup>
          </Col>

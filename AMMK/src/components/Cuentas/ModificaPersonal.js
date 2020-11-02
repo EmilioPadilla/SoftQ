@@ -2,6 +2,7 @@ import React from "react";
 import {FormGroup, Form, Input, Button} from "reactstrap"
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { Link } from "react-router-dom";
 
 
 export class ModificaPersonal extends React.Component{
@@ -15,6 +16,17 @@ export class ModificaPersonal extends React.Component{
         
     }
 
+    datos(){
+        var id=17;
+        axios.get("http://localhost:8000/api/account/"+id)
+          .then(function (resp){
+            console.log(resp.data);
+           document.getElementById("usernamePersonal").value = resp.data[0].username;
+           document.getElementById("passwordPersonal").value = resp.data[0].password;
+           document.getElementById("confPassPersonal").value = resp.data[0].password;
+          } );
+    }
+
     onSubmit(e) {
         e.preventDefault()
         var id=17;
@@ -25,8 +37,8 @@ export class ModificaPersonal extends React.Component{
  
         if(iguales==0 && x!="" && y!=""){
          const cuenta = {
-          user: y,
-          pass: x,
+          username: y,
+          password: x,
         };
         axios.put('http://localhost:8000/api/account/'+id, cuenta)
           .then(resp => {console.log(resp.data)});
@@ -50,6 +62,7 @@ export class ModificaPersonal extends React.Component{
 
 
     render(){
+        this.datos();
         return(
             <div class="content">
                 <div class="container">
@@ -62,7 +75,6 @@ export class ModificaPersonal extends React.Component{
                                         <FormGroup>
                                             <label>Nombre de usuario:</label>
                                             <Input
-                                                defaultValue="JuanEmp1"
                                                 type="text"
                                                 id="usernamePersonal"
                                             /> 
@@ -74,7 +86,6 @@ export class ModificaPersonal extends React.Component{
                                         <FormGroup>
                                             <label>Contraseña:</label>
                                             <Input
-                                                defaultValue="MuySecreto11"
                                                 id="passwordPersonal"
                                                 type="password"
                                             
@@ -87,7 +98,6 @@ export class ModificaPersonal extends React.Component{
                                         <FormGroup>
                                             <label>Confirmar contraseña:</label>
                                             <Input
-                                                defaultValue="MuySecreto11"
                                                 id="confPassPersonal"
                                                 type="password"
                                             
@@ -97,6 +107,13 @@ export class ModificaPersonal extends React.Component{
                                 </div>
                                 <br/>
                                 <div class="row justify-content-center">
+                                    <div class="col-4" align="center">
+                                    <Link to="/admin/Cuentas/principal">
+                                            <Button className="btn-fill" color="primary" >
+                                                Regresar
+                                            </Button>
+                                    </Link>
+                                    </div>
                                     <div class="col-4" align="center">
                                         <Button className="btn-fill" color="primary" type="submit">
                                             Guardar Cambios

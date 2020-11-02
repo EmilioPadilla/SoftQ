@@ -29,4 +29,6 @@ Route::resource('account', 'App\Http\Controllers\AccountController');
 Route::resource('accountRole', 'App\Http\Controllers\Account_RoleController');
 Route::get('account/find/{username}', 'App\Http\Controllers\AccountController@showId');
 Route::get('account/table/all', 'App\Http\Controllers\AccountController@showTable');
+Route::get('account/table/roles/{role}', 'App\Http\Controllers\AccountController@showByRole');
+Route::get('account/table/search/{keyWord}', 'App\Http\Controllers\AccountController@searchBar');
 Route::get('account/delete/information/{id}', 'App\Http\Controllers\AccountController@deleteInfo');
