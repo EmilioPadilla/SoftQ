@@ -644,6 +644,7 @@ return array(
     'Faker\\Provider\\en_US\\Payment' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/en_US/Payment.php',
     'Faker\\Provider\\en_US\\Person' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/en_US/Person.php',
     'Faker\\Provider\\en_US\\PhoneNumber' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/en_US/PhoneNumber.php',
+    'Faker\\Provider\\en_US\\Text' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/en_US/Text.php',
     'Faker\\Provider\\en_ZA\\Address' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/en_ZA/Address.php',
     'Faker\\Provider\\en_ZA\\Company' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/en_ZA/Company.php',
     'Faker\\Provider\\en_ZA\\Internet' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/en_ZA/Internet.php',

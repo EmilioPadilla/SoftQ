@@ -7,15 +7,12 @@
 
 import React from "react";
 
-import AccountSearchIcon from 'mdi-react/AccountSearchIcon';
-import DeleteIcon from 'mdi-react/DeleteIcon';
 import ModalExitEmployee from "components/Employees/ModalExitEmployee.js";
 import SimpleTooltip from "../../views/General/SimpleTooltip";
 
 //Importing Icon library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { fas } from '@fortawesome/free-solid-svg-icons';
+
 
 
 // reactstrap components
