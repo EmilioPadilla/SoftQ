@@ -17,7 +17,12 @@ class ContactoDonanteController extends Controller
         $donantes = Donantes::with('tipoDonante')->get();
                 return response()->json($donantes);
     }
-
+    public function deleteC($id){
+        return DB::table('contacto_donante')
+                ->where('contacto_donante.id', $id)
+                ->select('contacto_donante.id','contacto_donante.nombreCompleto','contacto_donante.fechaCumpleaño','contacto_donante.cargo','contacto_donante.correo1','contacto_donante.telefono1','contacto_donante.celular1')
+                ->get();
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -63,7 +68,7 @@ class ContactoDonanteController extends Controller
             $respuesta .= '<td>'.$res->correo1.'</td>';
             $respuesta .= '<td>'.$res->telefono1.'</td>';
             $respuesta .= '<td>'.$res->celular1.'</td>';
-            $respuesta .= '<td>  <div class="col"> <a href="/admin/ViewSpecificDonor/'.$res->id.'"> <button id="verDetalle" type="button" class="btn btn-danger btn-sm" > <i class="fa fa-trash-alt"> </i></button> </a> </div> </td> </tr>';
+            $respuesta .= '<td>  <div class="col"> <a href="/admin/EliminarContactoDonante/'.$res->id.'"> <button id="verDetalle" type="button" class="btn btn-danger btn-sm" > <i class="fa fa-trash-alt"> </i></button> </a> </div> </td> </tr>';
 
         }
         $respuesta .= '</tbody>';
@@ -111,6 +116,7 @@ class ContactoDonanteController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::table('contacto_donante')->where('id',$id)->delete();
+
     }
 }

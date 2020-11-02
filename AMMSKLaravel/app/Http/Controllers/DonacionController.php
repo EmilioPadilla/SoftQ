@@ -27,7 +27,7 @@ class DonacionController extends Controller
     {
         //
     }
-    public function delete($id){
+    public function deleteD($id){
         return DB::table('donacion')
                 ->where('donacion.id', $id)
                 ->join('tipo_donacion', 'donacion.idTipoDonacion', '=', 'tipo_donacion.id')

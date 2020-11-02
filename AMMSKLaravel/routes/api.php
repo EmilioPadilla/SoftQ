@@ -28,8 +28,8 @@ Route::get('donations/table/all', 'App\Http\Controllers\DonacionController@showT
 Route::get('donors/contact/table/all', 'App\Http\Controllers\ContactoDonanteController@showTable');
 Route::get('donations/showAll/{id}', 'App\Http\Controllers\DonantesController@showDonaciones');
 Route::get('donorContacts/showAll/{id}', 'App\Http\Controllers\DonantesController@showContactos');
-Route::get('donations/delete/{id}', 'App\Http\Controllers\DonacionController@delete');
-//Route::get('donorContacts/showAll/{id}', 'App\Http\Controllers\DonantesController@showContactos');
+Route::get('donations/delete/{id}', 'App\Http\Controllers\DonacionController@deleteD');
+Route::get('donorContacts/delete/{id}', 'App\Http\Controllers\ContactoDonanteController@deleteC');
 
 Route::resource('donaciones', 'App\Http\Controllers\DonacionController');
 Route::resource('contactoDonante', 'App\Http\Controllers\ContactoDonanteController');

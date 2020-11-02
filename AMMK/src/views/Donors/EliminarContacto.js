@@ -7,7 +7,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 library.add(fas)
 
-const EliminarDonacion = props =>{
+const EliminarContacto = props =>{
     const {id} = props.match.params;
     ax(id);
     return(
@@ -15,16 +15,16 @@ const EliminarDonacion = props =>{
                 <div class="container">
                     <div class="row">
                         <div class="col-12" >
-                            <h2 align="center">Eliminar Donación</h2>
+                            <h2 align="center">Eliminar Contacto Donante</h2>
                             <h4 align="center">ATENCIÓN: ESTA ES UNA ACCIÓN PERMANENTE</h4>
 
                             <Form>
                                 <div class="row justify-content-center">
                                     <div class="col-4" >
                                         <FormGroup>
-                                        <p className="font-weight-bold">FECHA EN QUE SE REALIZÓ: </p>
+                                        <p className="font-weight-bold">NOMBRE: </p>
                                         <Input
-                                                id="fecha"
+                                                id="nombre"
                                                 
                                                 type="text"
                                             />    
@@ -34,9 +34,9 @@ const EliminarDonacion = props =>{
                                 <div class="row justify-content-center">
                                     <div class="col-4">
                                         <FormGroup>
-                                        <p className="font-weight-bold">TIPO DONACIÓN: </p>
+                                        <p className="font-weight-bold">CARGO: </p>
                                         <Input
-                                                id="tipo"
+                                                id="cargo"
                                                 
                                                 type="text"
                                             /> 
@@ -48,9 +48,9 @@ const EliminarDonacion = props =>{
                                 
                                     <div class="col-4">
                                         <FormGroup id="monto">
-                                        <p id="monto" className="font-weight-bold">MONTO: </p>
+                                        <p id="monto" className="font-weight-bold">FECHA DE CUMPLEAÑOS: </p>
                                         <Input
-                                                id="monto"
+                                                id="fecha"
                                                 
                                                 type="text"
                                             /> 
@@ -60,9 +60,35 @@ const EliminarDonacion = props =>{
                                 <div class="row justify-content-center">
                                     <div class="col-4">
                                         <FormGroup>
-                                        <p className="font-weight-bold">DESCRIPCIÓN: </p>
+                                        <p className="font-weight-bold">CORREO: </p>
                                         <Input
-                                                id="descripcion"
+                                                id="correo"
+                                                
+                                                type="text"
+                                            /> 
+                                        </FormGroup>
+                                    </div>
+                                </div>
+                                <br/>
+                                <div class="row justify-content-center">
+                                    <div class="col-4">
+                                        <FormGroup>
+                                        <p className="font-weight-bold">TELEFONO: </p>
+                                        <Input
+                                                id="tel"
+                                                
+                                                type="text"
+                                            /> 
+                                        </FormGroup>
+                                    </div>
+                                </div>
+                                <br/>
+                                <div class="row justify-content-center">
+                                    <div class="col-4">
+                                        <FormGroup>
+                                        <p className="font-weight-bold">CELULAR: </p>
+                                        <Input
+                                                id="cel"
                                                 
                                                 type="text"
                                             /> 
@@ -98,13 +124,16 @@ const EliminarDonacion = props =>{
 }
 
 function ax(idC){
-    axios.get("http://localhost:8000/api/donations/delete/"+idC)
+    axios.get("http://localhost:8000/api/donorContacts/delete/"+idC)
           .then(function (resp){
             console.log(resp.data);
-           document.getElementById("tipo").value = resp.data[0].nombre;
-           document.getElementById("fecha").value = resp.data[0].fechaDonacion;
-           document.getElementById("descripcion").value = resp.data[0].descripcion;
-           document.getElementById("monto").value = resp.data[0].monto;
+           document.getElementById("nombre").value = resp.data[0].nombreCompleto;
+           document.getElementById("cargo").value = resp.data[0].cargo;
+           document.getElementById("fecha").value = resp.data[0].fechaCumpleaño;
+           document.getElementById("correo").value = resp.data[0].correo1;
+           document.getElementById("tel").value = resp.data[0].telefono1;
+           document.getElementById("cel").value = resp.data[0].celular1;
+
            document.getElementById("valorId").value = idC;
           } );
 }
@@ -112,7 +141,7 @@ function ax(idC){
 function eliminar(){
     var idD = document.getElementById("valorId").value;
     console.log(idD);
-        axios.delete('http://localhost:8000/api/donaciones/'+idD)
+        axios.delete('http://localhost:8000/api/contactoDonante/'+idD)
               .then(function (resp){
                 console.log(resp.data);
               } );
@@ -125,4 +154,4 @@ function eliminar(){
         });
 }
 
-export default EliminarDonacion;
+export default EliminarContacto;

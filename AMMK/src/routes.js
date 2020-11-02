@@ -68,6 +68,7 @@ import ViewSpecificDonor from "views/Donors/ViewSpecificDonor";
 import RegisterDonation from "views/Donors/RegisterDonation";
 import RegisterDonorContact from "views/Donors/RegisterDonorContact";
 import EliminarDonacion from "views/Donors/EliminarDonacion";
+import EliminarContacto from "views/Donors/EliminarContacto";
 
 
 
@@ -331,6 +332,15 @@ var routes = [
     rtlName: "قائمة الجدول",
     icon: "tim-icons icon-heart-2",
     component: EliminarDonacion,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+    path: "/EliminarContactoDonante/:id",
+    name: "Donantes",
+    rtlName: "قائمة الجدول",
+    icon: "tim-icons icon-heart-2",
+    component: EliminarContacto,
     layout: "/admin",
     showInSidebar: false
   },
