@@ -20,6 +20,28 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 library.add(fas)
 
 export default class MonthlyView extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            incomesStartDate: null,
+            incomesEndDate: null,
+            incomesTotal: null,
+            expensesTotal: null
+        }
+      this.onIncomesChange = this.onIncomesChange.bind(this);
+      this.onExpensesChange = this.onExpensesChange.bind(this);
+    }
+
+    setIncomesDates() {
+        var date = new Date();
+        var firstDay = new Date(date.getFullYear(), date.getMonth(), 1)
+            .toISOString().split('T')[0];
+        var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0)
+            .toISOString().split('T')[0];
+        this.setState({ incomesStartDate: firstDay, incomesEndDate: lastDay });
+    }
+
     crearSelect(){
         var sel='<option value="NA" disabled selected>Selecciona una opcion</option>';
         const num=1;
@@ -42,6 +64,20 @@ export default class MonthlyView extends Component {
         });
         document.getElementById("selectSede").innerHTML=sel; 
       });
+    }
+
+    onIncomesChange(e) {
+        this.setState({ incomesTotal: e });
+        console.log(this.state.incomesTotal);
+    }
+
+    onExpensesChange(e) {
+        this.setState({ expensesTotal: e });
+        console.log(this.state.expensesTotal);
+    }
+
+    componentDidMount() {
+        this.setIncomesDates();
     }
 
     render() {
@@ -76,7 +112,15 @@ export default class MonthlyView extends Component {
                                     </CardTitle>
                             </CardHeader>  
                             <CardBody>
-                                <IncomesTable />
+                                <Row>
+                                    <Col md="12">
+                                        <h4>Total: {this.state.incomesTotal}</h4>
+                                    </Col>
+                                </Row>
+                                <IncomesTable
+                                    startDate={"2020-11-01"}
+                                    endDate={"2020-11-30"}
+                                    onChange={this.onIncomesChange} />
                             </CardBody>
                         </Card>
                     </Col>
@@ -97,17 +141,19 @@ export default class MonthlyView extends Component {
                             </CardHeader>        
                             <CardBody>
                                 <Row>
-                                    <Col md="6">
-                                    total
+                                    <Col md="12">
+                                        <h4>Total: {this.state.expensesTotal}</h4>
                                     </Col>
-                                    <Col md="6">
+                                </Row>
+                                <Row>
+                                    <Col md="12">
                                     <FormGroup>
                                         <label>Filtra por categoría...</label>
                                         <Form.Control as="select" id="selectCategory"></Form.Control>
                                     </FormGroup>
                                     </Col>
                                 </Row>
-                                <ExpensesTable/>
+                                <ExpensesTable onChange={this.onExpensesChange} />
                             </CardBody>
                         </Card>
                         
