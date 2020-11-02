@@ -27,6 +27,20 @@ Route::post('employeesShifts/search', 'App\Http\Controllers\EmployeesShiftsContr
 Route::post('employeesShifts/delete', 'App\Http\Controllers\EmployeesShiftsController@deleteByEmployee');
 
 //Rutas cuentas
+
+Route::apiResource('donantes', 'App\Http\Controllers\DonantesController');
+Route::resource('tipodonante', 'App\Http\Controllers\TipoDonanteController');
+Route::resource('recurrencia', 'App\Http\Controllers\RecurrenciaController');
+Route::resource('tipodonacion', 'App\Http\Controllers\TipoDonacionController');
+Route::get('donors/table/all', 'App\Http\Controllers\DonantesController@showTable');
+Route::get('donations/table/all', 'App\Http\Controllers\DonacionController@showTable');
+Route::get('donors/contact/table/all', 'App\Http\Controllers\ContactoDonanteController@showTable');
+Route::get('donations/showAll/{id}', 'App\Http\Controllers\DonantesController@showDonaciones');
+Route::get('donorContacts/showAll/{id}', 'App\Http\Controllers\DonantesController@showContactos');
+
+Route::resource('donaciones', 'App\Http\Controllers\DonacionController');
+Route::resource('contactoDonante', 'App\Http\Controllers\ContactoDonanteController');
+
 Route::resource('account', 'App\Http\Controllers\AccountController');
 Route::resource('accountRole', 'App\Http\Controllers\Account_RoleController');
 Route::get('account/find/{username}', 'App\Http\Controllers\AccountController@showId');
