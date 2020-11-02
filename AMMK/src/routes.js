@@ -46,7 +46,6 @@ import RegisterB3 from "views/Beneficiarias/RegisterB3.js";
 import RegisterTreatment from "views/Beneficiarias/RegisterTreatment.js";
 
 
-import GeneralDonantes from "views/Donors/GeneralDonantes";
 
 
 import GeneralViewAdmin from "views/Beneficiarias/GeneralViewAdmin.js";
@@ -63,12 +62,13 @@ import ViewMedApp from "views/Beneficiarias/ViewMedApp";
 //FIN BENEFICIARIAS
 
 //DONANTES
-import PrincipalDonantes from "./views/Donors/PrincipalDonantes.js"
 import RDonantePatronato from "./views/Donors/RDonantePatronato"
 import Facturacion from "./views/Donors/Facturacion"
-import RDonanteGobierno from "./views/Donors/RDonanteGobierno"
-import GeneralRegistroD from "./views/Donors/GeneralRegistroD"
-import VIstaDonante from "views/Donors/VIstaDonante.js";
+import GeneralDonantes from "./views/Donors/GeneralDonantes"
+import ViewDonors from "views/Donors/ViewDonors.js";
+import ViewSpecificDonor from "views/Donors/ViewSpecificDonor";
+import RegisterDonation from "views/Donors/RegisterDonation";
+import RegisterDonorContact from "views/Donors/RegisterDonorContact";
 
 //FINANZAS
 import MonthlyView from "views/Finanzas/MonthlyView.js";
@@ -330,16 +330,16 @@ var routes = [
   /*  END EMPLOYEES */
 
   /*DONANTES*/
+ 
   {
-    path: "/donantes",
+    path: "/ViewDonors",
     name: "Donantes",
     rtlName: "قائمة الجدول",
     icon: "tim-icons icon-heart-2",
-    component: PrincipalDonantes,
+    component: ViewDonors,
     layout: "/admin",
     showInSidebar: true
   },
-
   {
     path: "/RegistroDonante1",
     name: "Donantes",
@@ -349,12 +349,31 @@ var routes = [
     layout: "/admin",
     showInSidebar: false
   },
+  
   {
-    path: "/RegistroDonante2",
+    path: "/donacion/:id",
     name: "Donantes",
     rtlName: "قائمة الجدول",
     icon: "tim-icons icon-heart-2",
-    component: RDonanteGobierno,
+    component: RegisterDonation,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+    path: "/contactoDonante/:id",
+    name: "Donantes",
+    rtlName: "قائمة الجدول",
+    icon: "tim-icons icon-heart-2",
+    component: RegisterDonorContact,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+    path: "/ViewSpecificDonor/:id",
+    name: "Donantes",
+    rtlName: "قائمة الجدول",
+    icon: "tim-icons icon-heart-2",
+    component: ViewSpecificDonor,
     layout: "/admin",
     showInSidebar: false
   },
@@ -373,20 +392,12 @@ var routes = [
     name: "Donantes",
     rtlName: "قائمة الجدول",
     icon: "tim-icons icon-heart-2",
-    component: GeneralRegistroD,
+    component: GeneralDonantes,
     layout: "/admin",
     showInSidebar: false
   },
 
-  {
-    path: "/VistaDonante",
-    name: "Donantes",
-    rtlName: "قائمة الجدول",
-    icon: "tim-icons icon-heart-2",
-    component: VIstaDonante,
-    layout: "/admin",
-    showInSidebar: false
-  },
+ 
 
       /*END DONANTES*/
   //STARTS FINANZAS
@@ -429,25 +440,8 @@ var routes = [
   },
 
 
-  //-------DONANTES-----//
-  {
-    path: "/donantes",
-    name: "Donantes",
-    rtlName: "طباعة",
-    icon: "tim-icons icon-single-02",
-    component: GeneralDonantes,
-    layout: "/admin",
-    showInSidebar:true
-  },
-  {
-    path: "/DonanTipo",
-    name: "Donantes",
-    rtlName: "طباعة",
-    icon: "tim-icons icon-single-02",
-    component: GeneralDonantes,
-    layout: "/admin",
-    showInSidebar:true
-  },
+
+  
 
 
 

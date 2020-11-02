@@ -1,9 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Donantes; 
+use App\Models\Donacion; 
+use App\Models\ContactoDonante; 
+
+
+
+use Illuminate\Support\Facades\DB;
 
 
 class DonantesController extends Controller
@@ -15,8 +21,8 @@ class DonantesController extends Controller
      */
     public function index()
     {
-        return "Mostrando los donantes de la base de datos.";
-
+        $donantes = Donantes::with('tipoDonante')->get();
+                return response()->json($donantes);
     }
 
     /**
@@ -39,6 +45,10 @@ class DonantesController extends Controller
     {
         $donante = new Donantes;
 
+        $donante->idRecurrencia= $request-> idRecurrencia;
+        $donante->idTipoDonante= $request-> idTipoDonante;
+
+        //Datos donante particular/patronato
         $donante->nombreCompleto1 = $request -> nombreCompleto1;
         $donante->fechaCumpleaños1 = $request -> fechaCumpleaños1;
         $donante->RFC1 = $request -> RFC1;
@@ -46,13 +56,47 @@ class DonantesController extends Controller
         $donante->telefono1 = $request -> telefono1;
         $donante->celular1 = $request -> celular1;
 
+      
 
-
+        //Datos facturacion
+        $donante->RazonSocial = $request -> RazonSocial;
+        $donante->RFC = $request -> RFC;
+        $donante->calle = $request -> calle;
+        $donante->noInterior = $request -> noInterior;
+        $donante->noExterior = $request -> noExterior;
+        $donante->codigoPostal = $request -> codigoPostal;
+        $donante->colonia = $request -> colonia;
+        $donante->ciudad = $request -> ciudad;
+        $donante->municipio = $request -> municipio;
+        $donante->estado = $request -> estado;
+        $donante->pais = $request -> pais;
+        $donante->correo = $request -> correo;
 
         $donante->save();
 
     }
 
+    public function showTable(){
+        $datos = DB::table('_donante')
+                    ->join('tipo_donante', '_donante.idTipoDonante', '=', 'tipo_donante.id')
+                    ->join('recurrencia', '_donante.idRecurrencia', '=', 'recurrencia.id')
+                    ->select('_donante.id', 'tipo_donante.nombre', '_donante.nombreCompleto1','recurrencia.nombreR')
+                    ->get();
+        $respuesta = '<thead> <tr> <th> Nombre </th> <th> Tipo </th> <th> Recurrencia </th> <th> Acciones </th> </tr> </thead> <tbody>';
+        foreach ($datos as $res){
+            $respuesta .= '<tr> <td id="jkl">'. $res->nombreCompleto1. '</td>';
+            $respuesta .= '<td>'.$res->nombre.'</td>';
+            $respuesta .= '<td>'.$res->nombreR.'</td>';
+            $respuesta .= '<td> <div class="row"> <div class="col"> <a href="/admin/ViewSpecificDonor/'.$res->id.'"> <button id="verDetalle" type="button" class="btn btn-info btn-sm" > <i class="fa fa-eye"> </i></button> ';
+           $respuesta .= '</a> </div> <div class="col" > <a href="/admin/donacion/'.$res->id.'"> <button id="registrarDonacion" type="button" class="btn btn-primary  btn-sm"> <i class="fa fa-plus" aria-hidden="true"></i></button> ';
+           $respuesta .= '</a> </div> <div class="col" > <a href="/admin/contactoDonante/'.$res->id.'"> <button id="registrarContactoDonate" type="button"  class="btn btn-primary btn-sm"> <i class="fa fa-address-book" aria-hidden="true"></i> </button> ';
+           $respuesta .= '</a> </div> <div class="col" > <a href="/admin/contactoDonante/'.$res->id.'"> <button id="registrarContactoDonate" type="button"  class="btn btn-success btn-sm"> <i class="fa fa-repeat" aria-hidden="true"></i> </button>';
+           $respuesta .= '</a> </div> <div class="col" > <a href="/admin/contactoDonante/'.$res->id.'"> <button id="registrarContactoDonate" type="button"  class="btn btn-danger btn-sm"> <i class="fa fa-trash-alt"> </i> </button> </a> </div> </div> </td> </tr> ';
+
+        }
+        $respuesta .= '</tbody>';
+        return $respuesta;
+    }
     /**
      * Display the specified resource.
      *
@@ -61,7 +105,22 @@ class DonantesController extends Controller
      */
     public function show($id)
     {
+<<<<<<< HEAD
         return Employee::where('id', $id)->get();
+=======
+        return Donantes::where('id',$id)->get();
+
+    }
+    public function showDonaciones($id)
+    {
+        return Donacion::prueba($id);
+
+    }
+    public function showContactos($id)
+    {
+        return ContactoDonante::prueba($id);
+
+>>>>>>> Mariana/feat-Donantes
     }
 
     /**
@@ -84,19 +143,15 @@ class DonantesController extends Controller
      */
     public function update(Request $request, Donantes $donante)
     {
-        $request->validate([
-            'nombreCompleto1' => 'required',
-
-        ]);
-        $donante->nombreCompleto1 = $request->nombreCompleto1();
-
-        $donante->save();
-        
-        return response()->json([
-            'message' => 'pokemon updated!',
-            'pokemon' => $donante
-        ]);
+      
     }
+/**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     * * @param  \Illuminate\Http\Request  $request
+     */
+  
 
     /**
      * Remove the specified resource from storage.

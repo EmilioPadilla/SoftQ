@@ -8,5 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class TipoDonante extends Model
 {
      //assigning db table model is associated with
-     protected $table = 'tipo_de_donante';
+     protected $table = 'tipo_donante';
+     //use HasFactory;
 }
