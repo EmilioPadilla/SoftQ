@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Donantes; 
+use App\Models\Donacion; 
+
+
 use Illuminate\Support\Facades\DB;
 
 
@@ -101,6 +104,12 @@ class DonantesController extends Controller
     public function show($id)
     {
         return Donantes::where('id',$id)->get();
+
+    }
+    public function showDonaciones($id)
+    {
+        return Donacion::prueba($id);
+
     }
 
     /**
@@ -125,6 +134,13 @@ class DonantesController extends Controller
     {
       
     }
+/**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     * * @param  \Illuminate\Http\Request  $request
+     */
+  
 
     /**
      * Remove the specified resource from storage.

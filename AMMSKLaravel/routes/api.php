@@ -26,6 +26,8 @@ Route::resource('tipodonacion', 'App\Http\Controllers\TipoDonacionController');
 Route::get('donors/table/all', 'App\Http\Controllers\DonantesController@showTable');
 Route::get('donations/table/all', 'App\Http\Controllers\DonacionController@showTable');
 Route::get('donors/contact/table/all', 'App\Http\Controllers\ContactoDonanteController@showTable');
+Route::get('donations/showAll/{id}', 'App\Http\Controllers\DonantesController@showDonaciones');
+Route::get('donacionesAll', 'App\Http\Controllers\DonantesController@showDonaciones');
 
 Route::resource('donaciones', 'App\Http\Controllers\DonacionController');
 Route::resource('contactoDonante', 'App\Http\Controllers\ContactoDonanteController');

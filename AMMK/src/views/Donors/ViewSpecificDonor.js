@@ -22,7 +22,8 @@ library.add(fas)
 const ViewSpecificDonor = props =>{
 
     const {id}= props.match.params;
-    ax(id);
+   // ax(id);
+ prueba(id);
 
     return(
 
@@ -176,7 +177,30 @@ const ViewSpecificDonor = props =>{
 
 <Badge color="primary">DONACIONES:</Badge>
 
-<ViewDonations/> 
+<Table>
+      <thead>
+        <tr>
+          <th>FECHA</th>
+          <th>TIPO</th>
+          <th>DESCRIPCIÓN</th>
+          <th>MONTO</th>
+          <th>ACCIÓN</th>
+
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td id="fecha"></td>
+          <td id="tipoDonacion"></td>
+
+          <td id="des"></td>
+
+          <td id="monto"></td>
+        </tr>
+        
+      </tbody>
+    </Table>
 
 <br></br> 
 <div>
@@ -192,15 +216,26 @@ const ViewSpecificDonor = props =>{
     )
 
 }
+function prueba(idD){
+    axios.get("http://localhost:8000/api/donations/showAll/"+idD)
+    .then(function (resp){
+      console.log(resp.data);
+      document.getElementById("fecha").innerHTML = resp.data[0].fechas;
+      document.getElementById("tipoDonacion").innerHTML = resp.data[0].nombre;
+      document.getElementById("des").innerHTML = resp.data[0].descripciones;
+      document.getElementById("monto").innerHTML = resp.data[0].montos;
 
 
-function ax(idD){
-    axios.get("http://localhost:8000/api/donantes/"+idD)
+    } );
+}
+
+/*function ax(idD){
+    axios.get("http://localhost:8000/api/donors"+idD)
     .then(function (resp){
       console.log(resp.data);
      document.getElementById("nombreDonante").innerHTML = resp.data[0].nombreCompleto1;
-     document.getElementById("fechaCumple").innerHTML = resp.data[0].fechaCumpleaños1;
-     document.getElementById("RFC1").innerHTML = resp.data[0].RFC1;
+     document.getElementById("fechaCumple").innerHTML = resp.data[0].fechas;
+    document.getElementById("RFC1").innerHTML = resp.data[0].RFC1;
      document.getElementById("correo1").innerHTML = resp.data[0].correo1;
      document.getElementById("tel").innerHTML = resp.data[0].telefono1;
      document.getElementById("cel").innerHTML = resp.data[0].celular1;
@@ -219,5 +254,12 @@ function ax(idD){
      document.getElementById("valorId").innerHTML = idD;
 
     } );
-}
+
+
+    
+}*/
+
+
 export default ViewSpecificDonor;
+
+
