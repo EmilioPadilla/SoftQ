@@ -22,9 +22,8 @@ library.add(fas)
 const ViewSpecificDonor = props =>{
 
     const {id}= props.match.params;
-   // ax(id);
- prueba(id);
-
+    ax(id);
+ 
     return(
 
         <div className="content">
@@ -172,35 +171,13 @@ const ViewSpecificDonor = props =>{
 
                   <Badge color="primary">CONTACTOS:</Badge>
 
-<ViewContacts/> 
+               <ViewContacts/>
+
+
           <br></br>
 
 <Badge color="primary">DONACIONES:</Badge>
-
-<Table>
-      <thead>
-        <tr>
-          <th>FECHA</th>
-          <th>TIPO</th>
-          <th>DESCRIPCIÓN</th>
-          <th>MONTO</th>
-          <th>ACCIÓN</th>
-
-
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td id="fecha"></td>
-          <td id="tipoDonacion"></td>
-
-          <td id="des"></td>
-
-          <td id="monto"></td>
-        </tr>
-        
-      </tbody>
-    </Table>
+<ViewDonations/>
 
 <br></br> 
 <div>
@@ -216,21 +193,9 @@ const ViewSpecificDonor = props =>{
     )
 
 }
-function prueba(idD){
-    axios.get("http://localhost:8000/api/donations/showAll/"+idD)
-    .then(function (resp){
-      console.log(resp.data);
-      document.getElementById("fecha").innerHTML = resp.data[0].fechas;
-      document.getElementById("tipoDonacion").innerHTML = resp.data[0].nombre;
-      document.getElementById("des").innerHTML = resp.data[0].descripciones;
-      document.getElementById("monto").innerHTML = resp.data[0].montos;
 
-
-    } );
-}
-
-/*function ax(idD){
-    axios.get("http://localhost:8000/api/donors"+idD)
+function ax(idD){
+    axios.get("http://localhost:8000/api/donantes/"+idD)
     .then(function (resp){
       console.log(resp.data);
      document.getElementById("nombreDonante").innerHTML = resp.data[0].nombreCompleto1;
@@ -257,7 +222,7 @@ function prueba(idD){
 
 
     
-}*/
+}
 
 
 export default ViewSpecificDonor;

@@ -27,7 +27,7 @@ Route::get('donors/table/all', 'App\Http\Controllers\DonantesController@showTabl
 Route::get('donations/table/all', 'App\Http\Controllers\DonacionController@showTable');
 Route::get('donors/contact/table/all', 'App\Http\Controllers\ContactoDonanteController@showTable');
 Route::get('donations/showAll/{id}', 'App\Http\Controllers\DonantesController@showDonaciones');
-Route::get('donacionesAll', 'App\Http\Controllers\DonantesController@showDonaciones');
+Route::get('donorContacts/showAll/{id}', 'App\Http\Controllers\DonantesController@showContactos');
 
 Route::resource('donaciones', 'App\Http\Controllers\DonacionController');
 Route::resource('contactoDonante', 'App\Http\Controllers\ContactoDonanteController');

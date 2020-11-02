@@ -5,6 +5,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Donantes; 
 use App\Models\Donacion; 
+use App\Models\ContactoDonante; 
+
 
 
 use Illuminate\Support\Facades\DB;
@@ -109,6 +111,11 @@ class DonantesController extends Controller
     public function showDonaciones($id)
     {
         return Donacion::prueba($id);
+
+    }
+    public function showContactos($id)
+    {
+        return ContactoDonante::prueba($id);
 
     }
 

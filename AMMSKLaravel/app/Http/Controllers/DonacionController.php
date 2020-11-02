@@ -62,7 +62,7 @@ class DonacionController extends Controller
             $respuesta .= '<td>'.$res->nombre.'</td>';
             $respuesta .= '<td>'.$res->monto.'</td>';
             $respuesta .= '<td>'.$res->descripcion.'</td>';
-            $respuesta .= '<td>  <div class="col"> <a href="/admin/ViewSpecificDonor/'.$res->id.'"> <button id="verDetalle" type="button" class="btn btn-danger btn-sm" > <i class="fa fa-trash-alt"> </i></button> </a> </div> </td> </tr>';
+            $respuesta .= '<td>  <div class="col"> <a href="/admin/EliminarDonacion/'.$res->id.'"> <button id="verDetalle" type="button" class="btn btn-danger btn-sm" > <i class="fa fa-trash-alt"> </i></button> </a> </div> </td> </tr>';
 
         }
         $respuesta .= '</tbody>';
