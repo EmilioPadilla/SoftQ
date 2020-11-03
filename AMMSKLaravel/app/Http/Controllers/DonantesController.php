@@ -105,9 +105,6 @@ class DonantesController extends Controller
      */
     public function show($id)
     {
-<<<<<<< HEAD
-        return Employee::where('id', $id)->get();
-=======
         return Donantes::where('id',$id)->get();
 
     }
@@ -120,7 +117,6 @@ class DonantesController extends Controller
     {
         return ContactoDonante::prueba($id);
 
->>>>>>> Mariana/feat-Donantes
     }
 
     /**

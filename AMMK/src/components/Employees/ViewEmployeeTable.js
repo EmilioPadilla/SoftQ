@@ -37,7 +37,7 @@ import {
   class ViewEmployeeTable extends React.Component {
     state = {
       employees:[],
-      status:1,
+      status:2,
     }
 
     componentDidMount() {
