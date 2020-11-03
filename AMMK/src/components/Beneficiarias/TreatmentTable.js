@@ -41,13 +41,13 @@ export default class TreatmentTable extends React.Component {
   }
   
   peticionDelete=()=>{
-    axios.delete(API_BASE_URL + 'medical_appointments/' + this.state.form.id).then(response=>{
+    axios.delete(API_BASE_URL + 'treatments/' + this.state.form.id).then(response=>{
         console.log(response);
         console.log(response.data);
       this.setState({modalEliminar: false});
 
-      const appointments = this.state.appointments.filter(item => item.id !== this.state.form.id);
-    this.setState({ appointments });
+      const treatments = this.state.treatments.filter(item => item.id !== this.state.form.id);
+    this.setState({ treatments });
     })
   }
 
@@ -103,7 +103,7 @@ export default class TreatmentTable extends React.Component {
 
         <Modal isOpen={this.state.modalEliminar}>
                 <ModalBody>
-                   ¿Estás segur@ que deseas eliminar la consulta médica?
+                   ¿Estás segur@ que deseas eliminar el tratamiento?
                 </ModalBody>
                 <ModalFooter>
                   <Button color="primary"onClick={()=>this.setState({modalEliminar: false})}>No</Button>
