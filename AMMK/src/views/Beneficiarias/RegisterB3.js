@@ -7,6 +7,7 @@ import { Button, Card, CardHeader, CardBody, Form, Row, Progress, Alert, Col, Fo
 //API calls
 import axios from 'axios';
 import { API_BASE_URL } from 'index';
+import Swal from 'sweetalert2';
 
 //Importing Icon library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -34,6 +35,15 @@ export default class RegisterB3 extends Component {
         localStorage.clear();
 
         axios.post(API_BASE_URL + "beneficiaries/", jsonArray); 
+
+        Swal.fire(
+            '¡Listo!',
+            'Beneficiaria registrada de manera exitosa',
+            'success'
+            ).then(function() {
+                window.location = "http://localhost:3000/admin/Beneficiarias/GeneralViewAdmin";
+            }
+        );
 
     }
     render() {

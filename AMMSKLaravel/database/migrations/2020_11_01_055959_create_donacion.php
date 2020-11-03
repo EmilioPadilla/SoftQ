@@ -20,6 +20,8 @@ class CreateDonacion extends Migration
             $table->date('fechaDonacion')->nullable();
             $table->string('descripcion', 100)->nullable();
             $table->string('monto', 50)->nullable();
+            $table->string('folio', 50)->nullable();
+            $table->string('factura', 50)->nullable();
 
 
         });
