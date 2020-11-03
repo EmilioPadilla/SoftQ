@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Account_Role;
 
 class Account_RoleController extends Controller
 {
@@ -35,7 +36,13 @@ class Account_RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //Instanciamos la clase Account_Role
+        $accountR = new Account_Role;
+        //Declaramos los datos con los enviado en el request
+        $accountR->idRol = $request->idRol;
+        $accountR->idAccount = $request->idAccount;
+        //Guardamos el cambio en nuestro modelo
+        $accountR->save();
     }
 
     /**

@@ -10,4 +10,10 @@ class Account extends Model
     protected $table = 'accounts';
     public $timestamps = false;
     protected $fillable = ['username', 'password', 'idEmployee'];
+
+    public function employee()
+    {
+        return $this->hasOne('App\Models\Employee', 'idEmployee');
+    }
+
 }

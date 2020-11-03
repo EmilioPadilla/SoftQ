@@ -6,30 +6,78 @@
 */
 
 import React from "react";
+import { Link } from "react-router-dom";
+import axios from 'axios';
+import { API_BASE_URL } from '../../index';
 
-import AccountSearchIcon from 'mdi-react/AccountSearchIcon';
-import DeleteIcon from 'mdi-react/DeleteIcon';
 import SimpleTooltip from "../../views/General/SimpleTooltip";
 
 //Importing Icon library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { fas } from '@fortawesome/free-solid-svg-icons';
 
 // reactstrap components
 import {
-  Card,
-  CardTitle,
-  CardHeader,
-  CardBody,
-  CardFooter,
   Table,
   Row,
   Button,
-  Col
+  Col,
+  Modal, 
+  ModalBody, 
+  ModalFooter
   } from "reactstrap";
 
+
   class TableEmployeeVacations extends React.Component {
+
+    constructor(props){
+      super(props)
+      this.state = {
+        vacations: [],
+        modalEliminar: false,
+        form:{
+          id: '',
+          fechaRegistro: '',
+          fechaSalida: '',
+          fechaRegreso: ''
+    }
+      }
+    }
+
+    componentDidMount() {
+      this.getVacations();
+    }
+
+
+  peticionDelete=()=>{
+    axios.delete(API_BASE_URL + 'employeeVacations/' + this.state.form.id).then(response=>{
+        console.log(response);
+        console.log(response.data);
+      this.setState({modalEliminar: false});
+
+      const vacations = this.state.vacations.filter(item => item.id !== this.state.form.id);
+    this.setState({ vacations });
+    })
+  }
+
+  seleccionarVacacion=(vacations)=>{
+    this.setState({
+      form: {
+        id: vacations.id,
+        fechaRegistro: vacations.fechaRegistro,
+        fechaSalida: vacations.fechaSalida,
+        fechaRegreso: vacations.fechaRegreso
+      }
+    })
+  }
+
+    getVacations() {
+      axios.get('http://localhost:8000/api/employeeVacations/1')
+      .then(res => {
+        const vacations = res.data;
+        this.setState({ vacations })
+      });
+    }
+
     render() {
         return (
           <Row>
@@ -39,59 +87,44 @@ import {
                       <tr>
                         <th>Fecha de registro</th>
                         <th>Fecha de salida</th>
-                        <th>Días</th>
+                        <th>Fecha de regreso</th>
                         <th className="text-center">Acciones</th>
                       </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>10 de junio de 2020</td>
-                      <td>22 de Diciembre de 2020</td>
-                      <td>8</td>
-                      <td className="text-center">
-                        <Row>
-                          <Col md="4">
+                  {this.state.vacations.map((vacation) => (
+                      <tr key={vacation.id}>
+                        <td>{vacation.fechaRegistro}</td>
+                        <td>{vacation.fechaSalida}</td>
+                        <td>{vacation.fechaRegreso}</td>
+                        <td>
+                            <Row>
                             <a href="/admin/view-employee">
                               <button id="editar" type="button" class="btn btn-info btn-sm">
                                 <FontAwesomeIcon icon={['fas', 'edit']} />
                               </button>
                               <SimpleTooltip placement="top" target="editar">Editar registro</SimpleTooltip>
                             </a>
-
-                          </Col>
-                          <Col md="4">
-                            <Button color="danger" size="sm" id="eliminar">
-                            <FontAwesomeIcon icon={['fas', 'trash-alt']} /> </Button>
-                            <SimpleTooltip placement="top" target="eliminar" >Elimina registro</SimpleTooltip>
-                          </Col>
-                        </Row>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>10 de junio de 2020</td>
-                      <td>3 de Febrero de 2021</td>
-                      <td>8</td>
-                      <td className="text-center">
-                        <Row>
-                          <Col md="4">
-                            <a href="/admin/view-employee">
-                              <button id="editar" type="button" class="btn btn-info btn-sm">
-                                <FontAwesomeIcon icon={['fas', 'edit']} />
-                              </button>
-                              <SimpleTooltip placement="top" target="editar">Editar registro</SimpleTooltip>
-                            </a>
-
-                          </Col>
-                          <Col md="4">
-                            <Button color="danger" size="sm" id="eliminar">
-                            <FontAwesomeIcon icon={['fas', 'trash-alt']} /> </Button>
-                            <SimpleTooltip placement="top" target="eliminar" >Elimina registro</SimpleTooltip>
-                          </Col>
-                        </Row>
-                      </td>
-                    </tr>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                              <Link>
+                                <SimpleTooltip placement="top" target="eliminar">Eliminar</SimpleTooltip>
+                                <Button size="sm" id="eliminar" color="danger" onClick={()=>{this.seleccionarVacacion(vacation); this.setState({modalEliminar: true})}}><FontAwesomeIcon icon={['fas', 'trash-alt']}/></Button>
+                              </Link>
+                            </Row>
+                        </td>
+                      </tr>
+                    ))}
                     </tbody>
               </Table>
+              <Modal isOpen={this.state.modalEliminar}>
+                <ModalBody>
+                   ¿Estás segur@ que deseas eliminar el registro de estas vacaciones?
+                </ModalBody>
+                <ModalFooter>
+                  <Button color="primary"onClick={()=>this.setState({modalEliminar: false})}>No</Button>
+                  <Button color="danger" onClick={()=>this.peticionDelete()}>Sí</Button>
+                </ModalFooter>
+        </Modal>
             </Col>
           </Row>
         );

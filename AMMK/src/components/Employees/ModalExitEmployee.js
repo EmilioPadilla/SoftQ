@@ -1,8 +1,21 @@
 /* eslint react/no-multi-comp: 0, react/prop-types: 0 */
 
 import React, { useState } from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Col, Row, Input, FormGroup, CustomInput, Label } from 'reactstrap';
+
+import axios from 'axios';
+import Swal from 'sweetalert2';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Col, Row, Input, FormGroup, CustomInput, Label, Form } from 'reactstrap';
 import SimpleTooltip from "../../views/General/SimpleTooltip";
+
+//  function   onSubmit(e) {
+//   Swal.fire(
+//     '¡Listo!',
+//     'Datos guardados',
+//     'success'
+//     ).then(function() {
+//       window.location = "http://localhost:3000/admin/view-employee";
+//   });
+// }
 
 const ModalExample = (props) => {
   const {
@@ -10,6 +23,9 @@ const ModalExample = (props) => {
     className
   } = props;
 
+
+
+  
   const [modal, setModal] = useState(false);
 
   const toggle = () => setModal(!modal);
@@ -18,6 +34,7 @@ const ModalExample = (props) => {
     <div>
       <Button id="egresar" color="danger" className="inline" size="sm" inline onClick={toggle}>{buttonLabel}</Button>
       <SimpleTooltip placement="top" target="egresar">Egresar</SimpleTooltip>
+      {/* <Form onSubmit={this.onSubmit}> */}
       <Modal isOpen={modal} toggle={toggle} className={className} color="primary">
         <ModalHeader toggle={toggle}>Egresar empleado</ModalHeader>
         {/* <h3 color="primary">Egresar empleado</h3> */}
@@ -52,9 +69,10 @@ const ModalExample = (props) => {
 
         <ModalFooter>
           <Button color="info" visibility="none" onClick={toggle}>salir</Button>{' '}
-          <Button color="danger" onClick={toggle}>Egresar</Button>
+          <Button  onClick={toggle}>Egresar</Button>
         </ModalFooter>
       </Modal>
+      {/* </Form> */}
     </div>
   );
 }

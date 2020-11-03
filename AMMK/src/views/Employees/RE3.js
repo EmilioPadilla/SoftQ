@@ -1,5 +1,15 @@
+/*!
+
+@Author: Emilio Padilla Miranda
+@Date: Sunday, October 11, 2020
+
+*/
 import React from "react";
 
+import axios from 'axios';
+import Swal from 'sweetalert2';
+import { Link } from "react-router-dom";
+import EmployeeCalendarTable from "components/Employees/EmployeeCalendarTable.js";
 
 // reactstrap components
 import {
@@ -13,64 +23,97 @@ import {
   Col,
   Progress,
   Label,
-  CustomInput
+  Alert,
+  Button,
 } from "reactstrap";
 
-import EmployeeCalendarTable from "components/Employees/EmployeeCalendarTable.js"
 
-class RegisterEmployee3 extends React.Component {
+export default class RegisterEmployee3 extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      markedDays: []
+    }
+    this.onChange = this.onChange.bind(this);
+    this.handleCalendarChange = this.handleCalendarChange.bind(this);
+    this.onSubmit= this.onSubmit.bind(this);
+  }
+
+  onChange(e) {
+    this.setState({ value: e.value });
+  }
+
+  handleCalendarChange(e) {
+    this.setState({ markedDays: e });
+  }
+
+  onSubmit(e) {
+  Swal.fire(
+    '¡Listo!',
+    'Datos guardados',
+    'success'
+    ).then(function() {
+      window.location = "http://localhost:3000/admin/view-employee";
+  });
+}
+
+
   render() {
     return (
       <>
         <div className="content">
+         <h2 className="title">Registrar empleado</h2>
           <Row>
+          <Form onSubmit={this.onSubmit}>
             <Col md="12">
               <Card>
-                <CardHeader>
-                  <Progress value="100" />
-                  <br/>
-                  <h3 className="title">Registrar Empleado</h3>
-                </CardHeader>
-                <CardBody>
-                  <Form>
-                    <Row>
+                <Card.Header>
+                  
+                <h3 className="title">Datos de empleado</h3>
+                    <Progress value="100" striped color="primary"/>
+                    <br></br>
+                        <Alert color="primary">Los campos marcados con un asterisco (*) son obligatorios.</Alert>
+                   </Card.Header>
+                <Card.Body>
+                  
+                    <Form.Row>
                     <Col className="pl-md-1" md="6">
                       <Col>
-                        <FormGroup>
+                        <Form.Group>
                           <label>
                             Fecha de ingreso
                           </label>
                           <Input type="date" />
-                        </FormGroup>
+                        </Form.Group>
                       </Col>
                       </Col>
                       <Col className="pl-md-1" md="6">
-                        <Label for="sedeCheckbox">Sede</Label>
-                        <Row>
+                        <Form.Label for="sedeCheckbox">Sede</Form.Label>
+                        <Form.Row>
                           <Col>
-                        <FormGroup check inline>
-                          <Label check>
+                        <Form.Group check inline>
+                          <Form.Label check>
                             <Input id="MK" defaultValue="" name="sedeRadio" type="radio" />
-                          </Label>
+                          </Form.Label>
                         María Kolbe
-                        </FormGroup>
+                        </Form.Group>
                       </Col>
                       <Col>
-                        <FormGroup check inline>
-                          <Label check>
+                        <Form.Group check inline>
+                          <Form.Label check>
                              <Input id="GB" defaultValue="" name="sedeRadio" type="radio" />
-                          </Label>
+                          </Form.Label>
                           Granja Bretania
-                        </FormGroup>
+                        </Form.Group>
                       </Col>
-                    </Row>
+                    </Form.Row>
                       </Col>
                       <Col className="pl-md-1" md="6">
                         <Col>
-                        <FormGroup>
-                        <Label for="puestoSelect">Puesto</Label>
+                        <Form.Group>
+                        <Form.Label for="puestoSelect">Puesto</Form.Label>
                             <Input type="select" name="select" id="puestoSelect">
-                            <option selected="1">-----</option>
+                            <option defaultValue="1">Selecciona un puesto...</option>
                             <option >Enfermera</option>
                             <option>Servicios Generales</option>
                             <option >Cocina</option>
@@ -80,92 +123,76 @@ class RegisterEmployee3 extends React.Component {
                             <option >Dirección Administrativa</option>
                             <option >Directora</option>
                             </Input>
-                        </FormGroup>
+                        </Form.Group>
                       </Col>
                       </Col>
                       <Col className="pl-md-1" md="6">
-                        <Label for="sedeCheckbox">Salario</Label>
-                        <Row>
+                        <Form.Label for="sedeCheckbox">Salario</Form.Label>
+                        <Form.Row>
                           <Col>
-                        <FormGroup check inline>
-                          <Label check>
+                        <Form.Group check inline>
+                          <Form.Label check>
                             <Input id="MK" defaultValue="" name="salarioRadio" type="radio" />
-                          </Label>
+                          </Form.Label>
                         Fijo
-                        </FormGroup>
+                        </Form.Group>
                       </Col>
                       <Col>
-                        <FormGroup check inline>
+                        <Form.Group check inline>
                           <Label check>
                              <Input id="GB" defaultValue="" name="salarioRadio" type="radio" />
                           </Label>
                           Variable
-                        </FormGroup>
+                        </Form.Group>
                       </Col>
-                    </Row>
+                    </Form.Row>
                        </Col>
-                    </Row>
-                    <Row>
+                    </Form.Row>
+                    <Form.Row>
                       <Col  md="6">
                         <Col className="pl-md-1">
-                          <FormGroup>
+                          <Form.Group>
                             <label>Monto</label>
                             <Input
                               placeholder="1500"
                               type="text"
                             />
-                          </FormGroup>
+                          </Form.Group>
                         </Col>
                       </Col>
                         <Col>
-                          <FormGroup>
-                            <label>Turnos por quincena</label>
+                          <Form.Group>
+                            <Form.Label>Turnos por quincena</Form.Label>
                             <Input
                               placeholder="" type="number"
                             />
-                          </FormGroup>
+                          </Form.Group>
                         </Col>
-                    </Row>
-                    <Row>
-                      <Col  md="6">
-                        <Col className="pl-md-1">
-                          <FormGroup>
-                            <label>Escolaridad</label>
-                            <Input
-                              placeholder="Bachillerato" type="text"
-                            />
-                          </FormGroup>
-                        </Col>
-                      </Col>
-                        <Col md="6">
-                          <FormGroup>
-                          <Label for="Contrato">Copia de Contrato</Label>
-                          <CustomInput type="file" name="customFile" id="Contraro" label="Selecciona un archivo"/>
-                          </FormGroup>
-                        </Col>
+                    </Form.Row>
+
+                  <Form.Row>
                     <Col>
-                      <h4 class="text-center">Calendario de empleado</h4>
-                      <EmployeeCalendarTable/>
+                      <h4 className="text-center">Calendario de empleado</h4>
+                      <EmployeeCalendarTable onChange={this.handleCalendarChange} />
                     </Col>
-                  </Row>
+                  </Form.Row>
 
 
-                  </Form>
-                </CardBody>
+                  
+                </Card.Body>
               </Card>
               <Row>
                 <Col  md="6">
-                <a href="/admin/RE2">
-                  <button className="btn btn-primary" onClick={() => { this.handleClick() }}>Regresar</button>
-                </a>
+                <Link to='/admin/RE2'>
+                  <Button >Regresar</Button>
+                  </Link>
                 </Col>
                 <Col md="6" align="right">
-                <a href="/admin/RE3">
-                  <button  className="btn btn-primary" onClick={() => { this.handleClick() }}>Terminar</button>
-                </a>
+                  <Button type="submit"> Registrar</Button>
                 </Col>
               </Row>
             </Col>
+            </Form>
           </Row>
         </div>
       </>
@@ -173,4 +200,3 @@ class RegisterEmployee3 extends React.Component {
   }
 }
 
-export default RegisterEmployee3;

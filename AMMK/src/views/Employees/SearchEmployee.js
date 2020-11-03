@@ -6,16 +6,14 @@
 */
 import React from "react";
 
+import axios from 'axios';
+
 import { Link } from "react-router-dom";
 
 import AccountPlusIcon from 'mdi-react/AccountPlusIcon';
-import AccountSearchIcon from 'mdi-react/AccountSearchIcon';
-import DeleteIcon from 'mdi-react/DeleteIcon';
 
 //Importing Icon library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { fas } from '@fortawesome/free-solid-svg-icons';
 
 
 import ViewEmployeeTable from "components/Employees/ViewEmployeeTable.js";
@@ -23,41 +21,65 @@ import ViewEmployeeTable from "components/Employees/ViewEmployeeTable.js";
 // reactstrap components
 import {
   Button,
-  Card,
-  CardTitle,
-  CardHeader,
-  CardBody,
-  CardFooter,
   FormGroup,
   Input,
   Row,
   Col,
-  Progress,
-  CustomInput,
   Label,
-  Table,
   InputGroup,
   InputGroupText,
   InputGroupAddon
 } from "reactstrap";
 
+function parseStatus(statuses) {
+  return statuses.map((status) => {
+    return { label: status.nombre, value: status.id };
+  });
+}
+function parseJobTitle(jobTitles) {
+  return jobTitles.map((jobTitle) => {
+    return { label: jobTitle.nombre, value: jobTitle.id };
+  });
+}
+
 
 class SearchEmployee extends React.Component {
+  constructor(props){ 
+    super(props)
+    this.state = {
+      statuses: [],
+      jobTitles: []
+    }
+  }
+
+  componentDidMount() {
+    this.getStatus();
+    this.getJobTitle();
+  }
+  
+
+  getStatus() {
+    axios.get('http://localhost:8000/api/employeeStatus')
+    .then(res => this.setState({ statuses: parseStatus(res.data) }));
+  }
+
+  getJobTitle() {
+    axios.get('http://localhost:8000/api/employeeJobTitles')
+    .then(res => this.setState({ jobTitles: parseJobTitle(res.data) }));
+  }
+
   render() {
     return (
       <>
         <div className="content">
-          <h2>
-            Empleados
-          </h2>
+        <h1 className="title">EMPLEADOS</h1>
           <Row>
             <Col>
               <FormGroup>
               <Label for="statusSelect">Estatus</Label>
                   <Input type="select" name="select" id="statusSelect">
-                  <option selected="1">Estatus...</option>
-                  <option >Activos</option>
-                  <option>Inactivos</option>
+                  <option defaultValue="0">Estatus...</option>
+                  {this.state.statuses.map((status) => <option key={status.value} value={status.value}>{status.label}</option>)}
                   </Input>
               </FormGroup>
             </Col>
@@ -87,13 +109,10 @@ class SearchEmployee extends React.Component {
          </Col>
          <Col>
            <FormGroup>
-           <Label for="statusSelect">Búsqueda por puesto</Label>
-               <Input type="select" name="select" id="statusSelect">
-               <option selected="1">Puesto...</option>
-               <option >Empleado General</option>
-               <option>Chofer</option>
-               <option>Administrador</option>
-               <option>Enfermera</option>
+           <Label for="puestoSelect">Búsqueda por puesto</Label>
+               <Input type="select" name="select" id="puestoSelect">
+               <option defaultValue="0">Puesto...</option>
+                  {this.state.jobTitles.map((jobTitle) => <option key={jobTitle.value} value={jobTitle.value}>{jobTitle.label}</option>)}
                </Input>
            </FormGroup>
          </Col>

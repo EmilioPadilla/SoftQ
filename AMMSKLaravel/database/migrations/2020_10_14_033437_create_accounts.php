@@ -15,7 +15,7 @@ class CreateAccounts extends Migration
     {
         Schema::create('accounts', function (Blueprint $table) {
             $table->id();
-            $table->string("username");
+            $table->string("username")->unique();
             $table->string("password");
             $table->foreignId("idEmployee");
             $table->foreign("idEmployee")->references("id")->on("employees")->onDelete("cascade")->onUpdate("cascade");

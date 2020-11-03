@@ -1,23 +1,84 @@
 import React from "react";
 import {FormGroup, Form, Input, Button} from "reactstrap"
+import axios from 'axios';
+import Swal from 'sweetalert2';
+import { Link } from "react-router-dom";
+
 
 export class ModificaPersonal extends React.Component{
+
+    constructor(props) {
+        super(props)
+    
+        // Setting up functions
+        this.onSubmit = this.onSubmit.bind(this);
+    
+        
+    }
+
+    datos(){
+        var id=1;
+        axios.get("http://localhost:8000/api/account/"+id)
+          .then(function (resp){
+            console.log(resp.data);
+           document.getElementById("usernamePersonal").value = resp.data[0].username;
+           document.getElementById("passwordPersonal").value = resp.data[0].password;
+           document.getElementById("confPassPersonal").value = resp.data[0].password;
+          } );
+    }
+
+    onSubmit(e) {
+        e.preventDefault()
+        var id=1;
+        var x = document.getElementById("passwordPersonal").value;
+        var y = document.getElementById("usernamePersonal").value;
+        var w = document.getElementById("confPassPersonal").value;
+        var iguales = x.localeCompare(w);
+ 
+        if(iguales==0 && x!="" && y!=""){
+         const cuenta = {
+          username: y,
+          password: x,
+        };
+        axios.put('http://localhost:8000/api/account/'+id, cuenta)
+          .then(resp => {console.log(resp.data)});
+        //Buscamos el username que acabamos de registrar
+        setTimeout(function() {
+        }, (3 * 1000));
+        Swal.fire(
+        '¡Listo!',
+        'Datos guardados',
+        'success'
+        ).then(function() {
+            window.location = "http://localhost:3000/admin/Cuentas/CuentaPersonal";
+        });
+        }else{
+            Swal.fire(
+                'ERROR!',
+                'Las contraseñas no coinciden',
+                'error'
+            )
+        }
+  }
+
+
+
     render(){
+        this.datos();
         return(
             <div class="content">
                 <div class="container">
                     <div class="row">
                         <div class="col-12" >
                             <h2 align="center">Modificar Mi Cuenta</h2>
-                            <Form>
+                            <Form onSubmit={this.onSubmit}>
                                 <div class="row justify-content-center">
                                     <div class="col-4" >
                                         <FormGroup>
                                             <label>Nombre de usuario:</label>
                                             <Input
-                                                defaultValue="JuanEmp1"
                                                 type="text"
-                                            
+                                                id="usernamePersonal"
                                             /> 
                                         </FormGroup>
                                     </div>
@@ -27,8 +88,7 @@ export class ModificaPersonal extends React.Component{
                                         <FormGroup>
                                             <label>Contraseña:</label>
                                             <Input
-                                                defaultValue="MuySecreto11"
-                                                placeholder=""
+                                                id="passwordPersonal"
                                                 type="password"
                                             
                                             /> 
@@ -40,8 +100,7 @@ export class ModificaPersonal extends React.Component{
                                         <FormGroup>
                                             <label>Confirmar contraseña:</label>
                                             <Input
-                                                defaultValue="MuySecreto11"
-                                                placeholder=""
+                                                id="confPassPersonal"
                                                 type="password"
                                             
                                             /> 
@@ -50,6 +109,13 @@ export class ModificaPersonal extends React.Component{
                                 </div>
                                 <br/>
                                 <div class="row justify-content-center">
+                                    <div class="col-4" align="center">
+                                    <Link to="/admin/Cuentas/principal">
+                                            <Button className="btn-fill" color="primary" >
+                                                Regresar
+                                            </Button>
+                                    </Link>
+                                    </div>
                                     <div class="col-4" align="center">
                                         <Button className="btn-fill" color="primary" type="submit">
                                             Guardar Cambios

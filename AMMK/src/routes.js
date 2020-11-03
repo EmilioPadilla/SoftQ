@@ -26,7 +26,7 @@ import GeneralIndex from "views/General/GeneralIndex.js";
 import TableList from "views/TableList.js";
 import Typography from "views/Typography.js";
 import RegisterEmployee from "views/Employees/RE.js";
-//import RegisterEmployee2 from "views/Employees/RE2.js";
+import RegisterEmployee2 from "views/Employees/RE2emp.js";
 import RegisterEmployee3 from "views/Employees/RE3.js";
 import ViewEmployee from "views/Employees/ViewEmployee.js";
 import SearchEmployee from "views/Employees/SearchEmployee.js";
@@ -37,15 +37,14 @@ import MainAccount from "views/Cuentas/MainAccounts";
 import ModifyPersonalAc from "views/Cuentas/ModifyPersonalAccount";
 import ModifyAccountEmp from "views/Cuentas/ModifyAccountEmployee";
 import CreateAccEmp from "views/Cuentas/CreateAccountEmployee";
+import EmployeesAccountView from "views/Cuentas/EmployeesAccountsView";
+import DeleteAccountEmployee from "views/Cuentas/DeleteAccountEmployee";
 
 //BENEFICIARIAS
 import RegisterB1 from "views/Beneficiarias/RegisterB1.js";
 import RegisterB2 from "views/Beneficiarias/RegisterB2.js";
 import RegisterB3 from "views/Beneficiarias/RegisterB3.js";
 import RegisterTreatment from "views/Beneficiarias/RegisterTreatment.js";
-
-
-
 import GeneralViewAdmin from "views/Beneficiarias/GeneralViewAdmin.js";
 import SpecificView from "views/Beneficiarias/SpecificView.js";
 //import GeneralViewNurse from "views/Beneficiarias/GeneralViewNurse.js";
@@ -70,6 +69,11 @@ import RegisterDonorContact from "views/Donors/RegisterDonorContact";
 import EliminarDonacion from "views/Donors/EliminarDonacion";
 import EliminarContacto from "views/Donors/EliminarContacto";
 
+//FINANZAS
+import MonthlyView from "views/Finanzas/MonthlyView.js";
+import RegisterExpense from "views/Finanzas/RegisterExpense.js";
+import Record from "views/Finanzas/Record.js";
+//FIN FINANZAS
 
 
 var routes = [
@@ -94,7 +98,7 @@ var routes = [
   },
 
   {
-    path: "/Cuentas/CuentaPersonal",
+    path: "/Cuentas/CuentaPersonal/",
     name: "Cuenta Personal",
     rtlName: "ملف تعريفي للمستخدم",
     icon: "tim-icons icon-single-02",
@@ -112,11 +116,29 @@ var routes = [
     showInSidebar: false
   },
   {
-    path: "/Cuentas/ModCuentaEmp",
+    path: "/Cuentas/ModCuentaEmp/:id",
     name: "Modificar Cuenta Empleado",
     rtlName: "ملف تعريفي للمستخدم",
     icon: "tim-icons icon-single-02",
     component: ModifyAccountEmp,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+    path: "/Cuentas/DelCuentaEmp/:id",
+    name: "Eliminar Cuenta Empleado",
+    rtlName: "ملف تعريفي للمستخدم",
+    icon: "tim-icons icon-single-02",
+    component: DeleteAccountEmployee,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+    path: "/Cuentas/PrincipalEmp",
+    name: "Cuentas Empleado",
+    rtlName: "ملف تعريفي للمستخدم",
+    icon: "tim-icons icon-single-02",
+    component: EmployeesAccountView,
     layout: "/admin",
     showInSidebar: false
   },
@@ -277,15 +299,15 @@ var routes = [
     layout: "/admin",
     showInSidebar: false
   },
-  /*{
+  {
     path: "/RE2",
     name: "Empleados",
     rtlName: "طباعة",
     icon: "tim-icons icon-single-02",
-    //component: RegisterEmployee2,
+    component: RegisterEmployee2,
     layout: "/admin",
     showInSidebar: false
-  },*/
+  },
   {
     path: "/RE3",
     name: "Empleados",
@@ -404,15 +426,35 @@ var routes = [
  
 
       /*END DONANTES*/
+  //STARTS FINANZAS
   {
-    path: "/typography",
+    path: "/Finanzas/RegisterExpense",
+    name: "Finanzas",
+    rtlName: "طباعة",
+    icon: "tim-icons icon-single-02",
+    component: RegisterExpense,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+    path: "/Finanzas/MonthlyView",
     name: "Finanzas",
     rtlName: "طباعة",
     icon: "tim-icons icon-money-coins",
-    component: Typography,
+    component: MonthlyView,
     layout: "/admin",
     showInSidebar: true
   },
+  {
+    path: "/Finanzas/Record",
+    name: "Finanzas",
+    rtlName: "طباعة",
+    icon: "tim-icons icon-single-02",
+    component: Record,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  //ENDS FINANZAS
   {
     path: "/typography",
     name: "Reportes",

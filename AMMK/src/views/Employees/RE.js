@@ -6,6 +6,8 @@
 */
 import React from "react";
 
+import axios from 'axios';
+
 import { Link } from "react-router-dom";
 
 // reactstrap components
@@ -20,19 +22,47 @@ import {
   Col,
   Progress,
   CustomInput,
-  Label
+  Label,
+  Alert
 } from "reactstrap";
 
+function parseScholarships(scholarships){
+  return scholarships.map((scholarship) => {
+    return { label: scholarship.descripcion, value: scholarship.id };
+  });
+}
+let Scholarship = [];
+
 class RegisterEmployee extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      scholarships: [],
+    }
+  }
+
+  componentDidMount() {
+    this.getScholarships();
+  }
+
+  getScholarships() {
+    axios.get('http://localhost:8000/api/scholarship')
+    .then(res => this.setState({ scholarships: parseScholarships(res.data) }));
+  }
+
   render() {
     return (
       <>
         <div className="content">
+          <h2 className="title">Registrar empleado</h2>
                 <Card>
                   <CardHeader>
-                    <Progress value="33.33" />
-                    <br/>
-                    <h3 className="title">Registrar Empleado</h3>
+                   
+                   
+                    <h3 className="title">Datos Personales</h3>
+                    <Progress value="33.33" striped color="primary"/>
+                    <br></br>
+                        <Alert color="primary">Los campos marcados con un asterisco (*) son obligatorios.</Alert>
                   </CardHeader>
                   <CardBody>
                     <Form>
@@ -85,6 +115,23 @@ class RegisterEmployee extends React.Component {
                           </FormGroup>
                         </Col>
                       </Row>
+                      <Row>
+                        <Col className="pl-md-1">
+                          <FormGroup>
+                            <label target="puestoSelect">Escolaridad</label>
+                            <Input type="select" name="select" id="puestoSelect" value={this.state.value} onChange={this.onChange}>
+                            <option defaultValue="0">Selecciona una escolaridad...</option>
+                            {this.state.scholarships.map((scholarship) => <option key={scholarship.value} value={scholarship.value}>{scholarship.label}</option>)}
+                            </Input>
+                          </FormGroup>
+                        </Col>
+                        <Col md="6">
+                          <FormGroup>
+                          <Label for="Contrato">Copia de Contrato</Label>
+                          <CustomInput type="file" name="customFile" id="Contraro" label="Selecciona un archivo"/>
+                          </FormGroup>
+                        </Col>
+                    </Row>
 
                       <Row>
                         <Col className="pl-md-1" md="6">

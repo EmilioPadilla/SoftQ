@@ -4,6 +4,11 @@ import { Link } from "react-router-dom";
 // reactstrap components
 import { Button, Card, CardHeader, CardBody, Form, Row, Progress, Alert, Col, FormGroup, Label, CustomInput} from 'reactstrap';
 
+//API calls
+import axios from 'axios';
+import { API_BASE_URL } from 'index';
+import Swal from 'sweetalert2';
+
 //Importing Icon library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -12,10 +17,40 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 library.add(fas)
 
 export default class RegisterB3 extends Component {
+
+    constructor(props){
+        super(props)
+
+        this.onSubmit = this.onSubmit.bind(this);
+    }
+
+    onSubmit(e){
+        e.preventDefault()
+        
+        let jsonArray1 = JSON.parse(localStorage.getItem("personal"));
+        let jsonArray2 = JSON.parse(localStorage.getItem("ingreso"));
+
+        const jsonArray = {...jsonArray1, ...jsonArray2};
+        console.log(jsonArray);
+        localStorage.clear();
+
+        axios.post(API_BASE_URL + "beneficiaries/", jsonArray); 
+
+        Swal.fire(
+            '¡Listo!',
+            'Beneficiaria registrada de manera exitosa',
+            'success'
+            ).then(function() {
+                window.location = "http://localhost:3000/admin/Beneficiarias/GeneralViewAdmin";
+            }
+        );
+
+    }
     render() {
         return (
             <div className="content">
                 <h2 className="title">Registrar Beneficiaria</h2>
+                <Form onSubmit={this.onSubmit}>
                 <Card>
                     <CardHeader>
                         <h3 className="title">Carga de archivos religiosos</h3>
@@ -24,7 +59,7 @@ export default class RegisterB3 extends Component {
                         <Alert color="primary">* Recuerda subir un archivo .pdf, .doc/x, .xls/x or .ppt/x</Alert>
                     </CardHeader>
                     <CardBody>
-                        <Form>
+
                             <FormGroup>
                                 <FontAwesomeIcon icon={['fas', 'file-upload']} />
                                 <Label for="cargaBautismo">&nbsp;Carga de fe de bautismo:</Label>
@@ -45,7 +80,6 @@ export default class RegisterB3 extends Component {
                                 <CustomInput id="cargaComunion" type="file" label="Seleccionar archivo...">
                                 </CustomInput>
                             </FormGroup>
-                        </Form>
                     </CardBody>
                 </Card>
                 <Row>
@@ -55,11 +89,12 @@ export default class RegisterB3 extends Component {
                     </Link>
                     </Col>
                     <Col  md="6" align="right">
-                    <Link>
-                    <Button>Registrar</Button>
-                    </Link>
+ 
+                    <Button type="submit">Registrar</Button>
+
                     </Col>
                 </Row>
+                </Form>
             </div>
         );
     }

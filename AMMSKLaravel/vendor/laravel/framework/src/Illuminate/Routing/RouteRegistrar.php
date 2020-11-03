@@ -5,6 +5,7 @@ namespace Illuminate\Routing;
 use BadMethodCallException;
 use Closure;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Reflector;
 use InvalidArgumentException;
 
 /**
@@ -42,7 +43,7 @@ class RouteRegistrar
     /**
      * The methods to dynamically pass through to the router.
      *
-     * @var array
+     * @var string[]
      */
     protected $passthru = [
         'get', 'post', 'put', 'patch', 'delete', 'options', 'any',
@@ -51,7 +52,7 @@ class RouteRegistrar
     /**
      * The attributes that can be set through this class.
      *
-     * @var array
+     * @var string[]
      */
     protected $allowedAttributes = [
         'as', 'domain', 'middleware', 'name', 'namespace', 'prefix', 'where',
@@ -181,8 +182,11 @@ class RouteRegistrar
         }
 
         if (is_array($action) &&
-            is_callable($action) &&
-            ! Arr::isAssoc($action)) {
+            ! Arr::isAssoc($action) &&
+            Reflector::isCallable($action)) {
+            if (strncmp($action[0], '\\', 1)) {
+                $action[0] = '\\'.$action[0];
+            }
             $action = [
                 'uses' => $action[0].'@'.$action[1],
                 'controller' => $action[0].'@'.$action[1],

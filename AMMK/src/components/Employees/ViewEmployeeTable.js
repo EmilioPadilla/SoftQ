@@ -7,32 +7,57 @@
 
 import React from "react";
 
-import AccountSearchIcon from 'mdi-react/AccountSearchIcon';
-import DeleteIcon from 'mdi-react/DeleteIcon';
+
+import { Link } from "react-router-dom";
+
+//API CALLS
+import axios from 'axios';
+import { API_BASE_URL } from '../../index';
+
+
 import ModalExitEmployee from "components/Employees/ModalExitEmployee.js";
+import ReenterEmp from "components/Employees/Re_enter_emp.js";
 import SimpleTooltip from "../../views/General/SimpleTooltip";
 
 //Importing Icon library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { fas } from '@fortawesome/free-solid-svg-icons';
+
 
 
 // reactstrap components
 import {
-  Card,
-  CardTitle,
-  CardHeader,
-  CardBody,
-  CardFooter,
   Table,
   Row,
   Button,
   Col
   } from "reactstrap";
 
+
+
   class ViewEmployeeTable extends React.Component {
+    state = {
+      employees:[],
+      status:2,
+    }
+
+    componentDidMount() {
+      let id = this.props.dataFromParent;
+      console.log(id);
+      axios.get(API_BASE_URL + 'employee/')
+        .then(res => {
+          const employees = res.data;
+          this.setState({ employees });
+        })
+    }
+
+
     render() {
+      let action;
+      if (this.state.status == 1) {
+        action = <ModalExitEmployee buttonLabel={<FontAwesomeIcon icon={['fas', 'trash-alt']} />}/>;
+      } else {
+        action = <ReenterEmp></ReenterEmp>;
+      }
         return (
           <Row>
             <Col md="12">
@@ -46,99 +71,24 @@ import {
                       </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>Dakota Rice</td>
-                      <td>Niger</td>
-                      <td>Enfermero</td>
-                      <td >
-                        <Row>
-                          <Col md="3">
-                            <a href="/admin/view-employee">
-                              <button id="verDetalle" type="button" class="btn btn-info btn-sm">
-                                <FontAwesomeIcon icon={['fas', 'eye']} />
-                              </button>
-                              <SimpleTooltip placement="top" target="verDetalle">Ver detalle</SimpleTooltip>
-                            </a>
 
-                        </Col>
-                        <Col md="3">
-                          <ModalExitEmployee buttonLabel={<FontAwesomeIcon icon={['fas', 'trash-alt']} />}/>
-                        </Col>
-                      </Row>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Minerva Hooper</td>
-                      <td>Curaçao</td>
-                      <td>Chofer</td>
-                      <td className="text-center">
-                        <Row>
-                          <Col md="3">
-                          <button id="verDetalle" type="button" class="btn btn-info btn-sm">
-                            <FontAwesomeIcon icon={['fas', 'eye']} />
-                          </button>
-                          <SimpleTooltip placement="top" target="verDetalle">Ver detalle</SimpleTooltip>
-                        </Col>
-                        <Col md="3">
-                          <ModalExitEmployee buttonLabel={<FontAwesomeIcon icon={['fas', 'trash-alt']} />}/>
-                        </Col>
-                      </Row>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Sage Rodriguez</td>
-                      <td>Netherlands</td>
-                      <td>Administrador</td>
-                      <td className="text-center">
-                        <Row>
-                          <Col md="3">
-                            <button id="verDetalle" type="button" class="btn btn-info btn-sm">
-                              <FontAwesomeIcon icon={['fas', 'eye']} />
-                            </button>
-                            <SimpleTooltip placement="top" target="verDetalle">Ver detalle</SimpleTooltip>
-                        </Col>
-                        <Col md="3">
-                          <ModalExitEmployee buttonLabel={<FontAwesomeIcon icon={['fas', 'trash-alt']} />}/>
-                        </Col>
-                      </Row>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Philip Chaney</td>
-                      <td>Korea, South</td>
-                      <td>Cocinero</td>
-                      <td className="text-center">
-                        <Row>
-                          <Col md="3">
-                            <button id="verDetalle" type="button" class="btn btn-info btn-sm">
-                              <FontAwesomeIcon icon={['fas', 'eye']} />
-                            </button>
-                            <SimpleTooltip placement="top" target="verDetalle">Ver detalle</SimpleTooltip>
-                        </Col>
-                        <Col md="3">
-                          <ModalExitEmployee buttonLabel={<FontAwesomeIcon icon={['fas', 'trash-alt']} />}/>
-                        </Col>
-                      </Row>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Doris Greene</td>
-                      <td>Malawi</td>
-                      <td>Cuidadora</td>
-                      <td className="text-center">
-                        <Row>
-                          <Col md="3">
-                            <button id="verDetalle" type="button" class="btn btn-info btn-sm">
-                              <FontAwesomeIcon icon={['fas', 'eye']} />
-                            </button>
-                            <SimpleTooltip placement="top" target="verDetalle">Ver detalle</SimpleTooltip>
-                        </Col>
-                        <Col md="3">
-                          <ModalExitEmployee buttonLabel={<FontAwesomeIcon icon={['fas', 'trash-alt']} />}/>
-                        </Col>
-                      </Row>
-                      </td>
-                    </tr>
+                    {this.state.employees.map((employee) => (
+                      <tr key={employee.id}>
+                        <td>{employee.nombreCompleto}</td>
+                        <td>{employee.RFC}</td>
+                        <td>{employee.puesto}</td>
+                        <td>
+                            <Row>
+                                <Link to='/admin/view-employee'>
+                                <Button color="info" size="sm" id="verDetalle"><FontAwesomeIcon icon={['fas', 'eye']} /></Button>
+                                <SimpleTooltip placement="top" target="verDetalle">Ver detalle</SimpleTooltip>
+                                </Link>
+                                &nbsp;&nbsp;&nbsp;&nbsp; 
+                                {action}
+                            </Row>
+                        </td>
+                      </tr>
+                    ))}
                     </tbody>
               </Table>
             </Col>
