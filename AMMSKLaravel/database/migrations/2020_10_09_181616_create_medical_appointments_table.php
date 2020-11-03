@@ -18,12 +18,12 @@ class CreateMedicalAppointmentsTable extends Migration
   					$table->foreignId('beneficiary_id')->constrained('beneficiaries');
   					$table->date('fechaConsulta');
   					$table->time('horaConsulta');
-  					$table->string('diagnostico', 100);
+  					$table->string('diagnostico', 100)->nullable();
   					$table->string('direccion', 150);
   					$table->string('hospital', 100);
-  					$table->integer('consultorio');
+  					$table->integer('consultorio')->nullable();;
   					$table->foreignId('specialty_id')->constrained('specialties');
-  					$table->text('comentario');
+  					$table->text('comentario')->nullable();
 });
     }
 

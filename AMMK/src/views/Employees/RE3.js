@@ -26,37 +26,23 @@ import {
 import EmployeeCalendarTable from "components/Employees/EmployeeCalendarTable.js";
 
 
-function parseScholarships(scholarships){
-  return scholarships.map((scholarship) => {
-    return { label: scholarship.descripcion, value: scholarship.id };
-  });
-}
-let Scholarship = [];
-
 class RegisterEmployee3 extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      scholarships: [
-      ],
+      markedDays: []
     }
     this.onChange = this.onChange.bind(this);
-    
+    this.handleCalendarChange = this.handleCalendarChange.bind(this);
     
   }
 
   onChange(e) {
     this.setState({ value: e.value });
-    console.log('scholarship selected: ', e.value);
   }
 
-  componentDidMount() {
-    this.getScholarships();
-  }
-
-  getScholarships() {
-    axios.get('http://localhost:8000/api/scholarship')
-    .then(res => this.setState({ scholarships: parseScholarships(res.data) }));
+  handleCalendarChange(e) {
+    this.setState({ markedDays: e });
   }
 
 
@@ -167,27 +153,11 @@ class RegisterEmployee3 extends React.Component {
                           </FormGroup>
                         </Col>
                     </Row>
-                    <Row>
-                      <Col  md="6">
-                        <Col className="pl-md-1">
-                          <FormGroup>
-                            <label target="puestoSelect">Escolaridad</label>
-                            <Input type="select" name="select" id="puestoSelect" value={this.state.value} onChange={this.onChange}>
-                            <option defaultValue="0">Selecciona una escolaridad...</option>
-                            {this.state.scholarships.map((scholarship) => <option key={scholarship.value} value={scholarship.value}>{scholarship.label}</option>)}
-                            </Input>
-                          </FormGroup>
-                        </Col>
-                      </Col>
-                        <Col md="6">
-                          <FormGroup>
-                          <Label for="Contrato">Copia de Contrato</Label>
-                          <CustomInput type="file" name="customFile" id="Contraro" label="Selecciona un archivo"/>
-                          </FormGroup>
-                        </Col>
+
+                  <Row>
                     <Col>
                       <h4 className="text-center">Calendario de empleado</h4>
-                      <EmployeeCalendarTable/>
+                      <EmployeeCalendarTable onChange={this.handleCalendarChange} />
                     </Col>
                   </Row>
 

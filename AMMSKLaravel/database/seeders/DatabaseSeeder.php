@@ -22,9 +22,16 @@ class DatabaseSeeder extends Seeder
         $this->call(RolesSeeder::class);
         $this->call(Roles_PrivilegesSeeder::class);
         $this->call(ScholarshipSeeder::class);
-        $this->call(SeederRecurrenciaD::class);
-        $this->call(SeederTipoDonante::class);
+        // $this->call(SeederRecurrenciaD::class);
+        // $this->call(SeederTipoDonante::class);
         $this->call(SpecialtySeeder::class);
         $this->call(StatusSeeder::class);
+        $this->call(ShiftsSeeder::class);
+        $this->call(CategorySeeder::class);
+        $this->call(StatusEmployeeSeeder::class);
+        $this->call(JobTitleSeeder::class);
+        $this->call(VacationSeeder::class);
+        $this->call(FilesSeeder::class);
+        
     }
 }

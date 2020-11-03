@@ -1,50 +1,65 @@
 import React from "react";
-import moment from 'moment';
+import axios from 'axios';
 
 import {Table, Input, FormGroup, Label} from "reactstrap";
-
-function getDates(startDate, stopDate) {
-    var dateArray = [];
-    var currentDate = moment(startDate);
-    var stopDate = moment(stopDate);
-    while (currentDate <= stopDate) {
-        dateArray.push( moment(currentDate).format('YYYY-MM-DD') )
-        currentDate = moment(currentDate).add(1, 'days');
-    }
-    return dateArray;
-}
-
-function getWeekStartEnd() {
-    var startOfWeek = moment().startOf('week').toISOString();
-    var endOfWeek   = moment().endOf('week').toISOString();
-
-    return [startOfWeek, endOfWeek];
-}
 
 class EmployeeCalendarTable extends React.Component {
     constructor(props) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
+        this.handleCheck = this.handleCheck.bind(this);
         this.state = {
             employeeId: props.employeeId,
             markedDays: [],
         }
     }
 
+    parseMarkedDays(empShifts) {
+        return empShifts.map((shift) => {
+            return {
+                label: shift.diaSemana + "-" + shift.nombre,
+                diaSemana: shift.diaSemana,
+                nombreTurno: shift.nombre
+            };
+        });
+        
+    }
+
     componentDidMount() {
-        var {employeeId, markedDays} = this.state;
-        if (employeeId) {
-            // TODO Fetch scheduled days of employee
+        if (this.props.employeeId) {
+            this.getShifts();
         }
     }
 
-    handleChange(e) {
-        if (e.target.checked) {
-            this.state.markedDays.push(e.target.id);
-        } else {
-            this.state.markedDays = this.state.markedDays.filter(el => el !== e.target.id)
+    getShifts() {
+        var params = {
+            //TODO Pasar id de empleado correcto
+            idEmployees: 1
         }
-        console.log(this.state.markedDays);
+        axios.post('http://localhost:8000/api/employeesShifts/search', params)
+        .then(res => this.setState({ markedDays: this.parseMarkedDays(res.data) }));
+    }
+
+    handleCheck(value) {
+        return this.state.markedDays.some(item => value === item.label);
+    }
+
+    handleChange(e) {
+        const splitted = e.target.id.split("-");
+        if (e.target.checked) {
+            this.state.markedDays.push(
+                {
+                    label: e.target.id,
+                    diaSemana: splitted[0],
+                    nombreTurno: splitted[1]
+                }
+            );
+        } else {
+            this.state.markedDays = this.state.markedDays.filter(el => el.label !== e.target.id)
+        }
+        if (this.props.onChange) {
+            this.props.onChange(this.state.markedDays);
+        }
     }
 
     renderTableRow(turno) {
@@ -64,7 +79,9 @@ class EmployeeCalendarTable extends React.Component {
                         <div className="clearfix">
                             <FormGroup check className="d-inline">
                                 <Label check>
-                                <Input defaultValue="" type="checkbox"
+                                <Input defaultValue="" 
+                                    type="checkbox"
+                                    checked={this.handleCheck(dia+"-"+turno)}
                                     onChange={this.handleChange}
                                     id={dia+"-"+turno}/>
                                 <span className="form-check-sign">

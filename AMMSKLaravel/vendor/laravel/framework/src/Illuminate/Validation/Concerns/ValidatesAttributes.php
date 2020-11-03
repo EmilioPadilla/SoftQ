@@ -1252,6 +1252,29 @@ trait ValidatesAttributes
     }
 
     /**
+     * Validate the value of an attribute is a multiple of a given value.
+     *
+     * @param  string  $attribute
+     * @param  mixed  $value
+     * @param  array  $parameters
+     * @return bool
+     */
+    public function validateMultipleOf($attribute, $value, $parameters)
+    {
+        $this->requireParameterCount(1, $parameters, 'multiple_of');
+
+        if (! $this->validateNumeric($attribute, $value) || ! $this->validateNumeric($attribute, $parameters[0])) {
+            return false;
+        }
+
+        if ((float) $parameters[0] === 0.0) {
+            return false;
+        }
+
+        return bcmod($value, $parameters[0], 16) === '0.0000000000000000';
+    }
+
+    /**
      * "Indicate" validation should pass if value is null.
      *
      * Always returns true, just lets us put "nullable" in rules.

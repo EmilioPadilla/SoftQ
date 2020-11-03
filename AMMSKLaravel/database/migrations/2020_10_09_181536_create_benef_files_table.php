@@ -18,7 +18,7 @@ class CreateBenefFilesTable extends Migration
   			$table->foreignId('beneficiary_id')->constrained('beneficiaries');
             $table->string('categoria', 30);
   			$table->string('path', 500);
-  			$table->text('comentario');
+  			$table->text('comentario')->nullable();
   			$table->timestamps();
         });
     }

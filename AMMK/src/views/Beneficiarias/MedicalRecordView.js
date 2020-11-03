@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
 // reactstrap components
-import {Card, CardBody, Row, Col, Table, Button, FormGroup} from 'reactstrap';
+import {Card, CardBody, Row, Col, Button} from 'reactstrap';
 import SimpleTooltip from "../General/SimpleTooltip";
-import ModifyTreatment from "../Beneficiarias/ModifyTreatment";
-import ViewMedApp from "../Beneficiarias/ViewMedApp";
+import TreatmentTable from "../../components/Beneficiarias/TreatmentTable";
+import AppointmentsTable from "../../components/Beneficiarias/AppointmentsTable";
 
 //Importing Icon library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -36,31 +36,7 @@ export default class MedicalRecordView extends Component {
                     <CardBody>
                         <Row>
                             <Col md="12">
-                                <Table hover>
-                                    <thead>
-                                        <tr>
-                                            <th>Nombre del medicamento</th>
-                                            <th>Función</th>
-                                            <th>Dosis</th>
-                                            <th>Lapso</th>
-                                            <th>Acciones</th>
-                                        </tr>
-                                    </thead>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                                <Row>
-                                                        <ModifyTreatment/>
-
-                                                        <Button size="sm" id="eliminar" color="danger"><FontAwesomeIcon icon={['fas', 'trash-alt']} /></Button>
-                                                        <SimpleTooltip placement="top" target="eliminar" >Eliminar</SimpleTooltip>
-                                                </Row>
-                                            </td>
-                                        </tr>
-                                </Table>
+                            <TreatmentTable/>
                             </Col>
                         </Row>
                     </CardBody>
@@ -83,40 +59,7 @@ export default class MedicalRecordView extends Component {
                     <CardBody>
                         <Row>
                             <Col md="12">
-                                <Table hover>
-                                    <thead>
-                                        <tr>
-                                            <th>Fecha</th>
-                                            <th>Hora</th>
-                                            <th>Hospital/Consultorio</th>
-                                            <th>Especialidad</th>
-                                            <th>Diagnóstico</th>
-                                            <th>Acciones</th>
-                                        </tr>
-                                    </thead>
-                                        <tr className="table-primary">
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                                <Row>
-                                                <ViewMedApp/>
-
-                                                <Link to='/admin/Beneficiarias/ModifyMedApp'>
-                                                <Button size="sm" id="editar" color=""><FontAwesomeIcon icon={['fas', 'pencil-alt']} /></Button>                      
-                                                <SimpleTooltip placement="top" target="editar" >Editar</SimpleTooltip>
-                                                </Link>
-
-                                                <Link>
-                                                <Button size="sm" id="eliminar" color="danger"><FontAwesomeIcon icon={['fas', 'trash-alt']} /></Button>
-                                                <SimpleTooltip placement="top" target="eliminar">Eliminar</SimpleTooltip>
-                                                </Link>
-                                                </Row>
-                                            </td>
-                                        </tr>
-                                </Table>
+                                <AppointmentsTable/>
                             </Col>
                         </Row>
                     </CardBody>

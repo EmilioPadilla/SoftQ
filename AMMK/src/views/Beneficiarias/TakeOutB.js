@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 // reactstrap components
-import {Alert,  Badge, Button, Modal, ModalBody, ModalHeader, FormGroup, Input, Label, Row, Col, CustomInput} from 'reactstrap';
+import {Badge, Button, Modal, ModalBody, ModalHeader, FormGroup, Input, Label, Row, Col, CustomInput} from 'reactstrap';
 import SimpleTooltip from "../General/SimpleTooltip";
 
 //Importing Icon library
@@ -33,20 +33,20 @@ const TakeOutB = (props) => {
         <ModalBody>
             <FormGroup>
                 <FontAwesomeIcon icon={['fas', 'calendar-alt']} />
-                <Label>&nbsp;Fecha de egreso:</Label>
+                <Label htmlFor="fechaEgreso">&nbsp;Fecha de egreso:</Label>
                 <Input type="date" id="fechaEgreso" autocomplete="off" required></Input>
             </FormGroup>
 
             <FormGroup>
                 <FontAwesomeIcon icon={['fas', 'comment']} />
-                <Label for="motivoEgreso">&nbsp;Motivo:</Label>
+                <Label htmlFor="motivoEgreso">&nbsp;Motivo:</Label>
                 <Input type="textarea" id="motivoEgreso"></Input>
             </FormGroup>
 
             <FormGroup>
                 <FontAwesomeIcon icon={['fas', 'file-uplaod']} />
-                <Label for="hojaEgreso">&nbsp;Hoja de egreso:</Label>
-                <CustomInput type="file" label="Seleccionar archivo..."></CustomInput>
+                <Label htmlFor="hojaEgreso">&nbsp;Hoja de egreso:</Label>
+                <CustomInput id="hojaEgreso" type="file" label="Seleccionar archivo..."></CustomInput>
                 <Badge color="light">* Recuerda subir un archivo .pdf, .doc/x, .xls/x or .ppt/x</Badge>
             </FormGroup>
                 <Row className="text-center">
