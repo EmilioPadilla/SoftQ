@@ -116,7 +116,7 @@ class ExpensesTable extends React.Component {
                   <td>{expense.pagoA}</td>
                   <td>{expense.descripcion}</td>
                   <td>{expense.monto}</td>
-                  <td>{expense.category_id}</td>
+                  <td>{expense.category.nombre}</td>
                   <td>
                       <Row>
                         <Button size="sm" id="eliminar" onClick={()=>{this.seleccionarEgreso(expense); this.setState({modalEliminar: true})}} color="danger"><FontAwesomeIcon icon={['fas', 'trash-alt']} /></Button>
