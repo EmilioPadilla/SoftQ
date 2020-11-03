@@ -12,14 +12,58 @@ import Swal from 'sweetalert2';
 import axios from 'axios';
 import { convertCompilerOptionsFromJson, parseConfigFileTextToJson } from "typescript";
 
-class Facturacion extends Component {
+const validateForm = (errors) => {
+  let valid = true;
+  Object.values(errors).forEach(
+    // if we have an error string set valid to false
+    (val) => val.length > 0 && (valid = false)
+  );
+  return valid;
+}
+const validEmailRegex = 
+  RegExp(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
+
+
+  class Facturacion extends Component {
 
   constructor(props){
     super(props)
+    this.state={
+      RazonSocial: null,
+    RFC: null,
+    calle: null,
+    noInterior: null,
+    noExterior: null,
+    codigoPostal: null,
+    colonia: null,
+    ciudad: null,
+    municipio: null,
+    estado: null,
+    pais: null,
+    correo: null,
+      
+
+      errors:{
+        RazonSocial: '',
+        RFC: '',
+        calle: '',
+        noInterior: '',
+        noExterior: '',
+        codigoPostal: '',
+        colonia: '',
+        ciudad: '',
+        municipio: '',
+        estado: '',
+        pais: '',
+        correo: '',
+      }
+
+    };
 
   this.onSubmit= this.onSubmit.bind(this);
   
- 
+  this.handleChange = this.handleChange.bind(this);
+
 }
 
 onSubmit(e){
@@ -80,8 +124,107 @@ localStorage.clear();
   
 
 
-}
+  }
+  handleChange = (event) => {
+    event.preventDefault();
+    const { name, value } = event.target;
+    let errors = this.state.errors;
+  
+    switch (name) {
+      case 'RazonSocial': 
+        errors.RazonSocial = 
+          value.length < 8
+            ? ''
+            : '';
+        break;
+        case 'RFC': 
+        errors.RFC = 
+          value.length < 12
+            ? 'El RFC debe de tener al menos 12 caracteres'
+            : '';
+        break;
+      case 'calle': 
+        errors.calle = 
+        value.length < 1
+                    ? ''
+            : 'Ingrese la calle de la dirección ';
+        break;
+      case 'noInterior': 
+        errors.noInterior = 
+          value.length < 1
+            ? 'Ingrese el número interior de la dirección'
+            : '';
+        break;
+        case 'noExterior': 
+        errors.noExterior = 
+          value.length < 11
+            ? 'Ingrese el número exterior de la dirección'
+            : '';
+        break;
+        case 'codigoPostal': 
+        errors.codigoPostal = 
+          value.length < 7
+            ? 'El código postal debe de contener al menos 6 digitos'
+            : '';
+        break;
+        case 'colonia': 
+        errors.colonia = 
+          value.length < 1
+            ? 'Ingrese el nombre de la colonia'
+            : '';
+        break;
+        case 'ciudad': 
+        errors.ciudad = 
+          value.length < 2
+            ? 'Ingrese el nombre de la ciudad'
+            : '';
+        break;
+        case 'municipio': 
+        errors.municipio = 
+          value.length < 2
+            ? 'Ingrese el nombre del municipio'
+            : '';
+        break;
+        case 'estado': 
+        errors.estado = 
+          value.length < 2
+            ? 'Ingrese el nombre del estado'
+            : '';
+        break;
+        case 'pais': 
+        errors.pais = 
+          value.length < 2
+            ? 'Ingrese el nombre del país'
+            : '';
+        break;
+        case 'correo': 
+        errors.correo = 
+        validEmailRegex.test(value)
+        ? ''
+        :'El correo no es valido';
+            
+        break;
+      default:
+        break;
+    }
+    this.setState({errors, [name]: value});
+
+   
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    if(validateForm(this.state.errors)) {
+      console.info('Valid Form')
+    }else{
+      console.error('Invalid Form')
+    }
+  }
+
+  
   render() {
+    const {errors} = this.state;
+
     return (
       <div className="content">
         <div class="container-fluid">
@@ -99,11 +242,14 @@ localStorage.clear();
                 
                 <Form.Control type="text" placeholder="Ejemplo S.A.S" />
               </Form.Group>
-
+              <div class='RFC'>
               <Form.Group as={Row} controlId="RFCF">
                 <Form.Label>RFC:</Form.Label>
-                <Form.Control type="text" placeholder="VECJ880326 XXX" />
+                <Form.Control name='RFC' type="text" placeholder="VECJ880326 XXX" onChange={this.handleChange} />
+                {errors.RFC.length > 0 && 
+               <span className='error'>{errors.RFC}</span>}
               </Form.Group>
+              </div>
             </Form.Row>
 
             <br />
