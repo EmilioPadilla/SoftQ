@@ -84,7 +84,6 @@ class ExpensesTable extends React.Component {
   peticionDelete=()=>{
     axios.delete(API_BASE_URL + 'expenses/' + this.state.form.id).then(response=>{
       this.setState({modalEliminar: false});
-      this.peticionGet();
     })
   }
   
@@ -131,7 +130,7 @@ class ExpensesTable extends React.Component {
 
         <Modal isOpen={this.state.modalEliminar}>
                 <ModalBody>
-                   ¿Estás segur@ que deseas eliminar la consulta médica?
+                   ¿Estás segur@ que deseas eliminar el egreso?
                 </ModalBody>
                 <ModalFooter>
                   <Button color="primary"onClick={()=>this.setState({modalEliminar: false})}>No</Button>
