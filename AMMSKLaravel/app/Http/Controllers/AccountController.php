@@ -122,7 +122,7 @@ class AccountController extends Controller
             $respuesta .= '<tr> <td id="jkl">'. $res->nombreCompleto. '</td>';
             $respuesta .= '<td>'.$res->username.'</td>';
             $respuesta .= '<td>'.$res->nombreRol.'</td>';
-            $respuesta .= '<td> <div class="row"> <div class="col"> <a href="/admin/Cuentas/ModCuentaEmp/'.$res->id.'"> <button id="verDetalle" type="button" class="btn btn-info btn-sm" > <i class="fa fa-eye"> </i></button> ';
+            $respuesta .= '<td> <div class="row"> <div class="col"> <a href="/admin/Cuentas/ModCuentaEmp/'.$res->id.'"> <button id="verDetalle" type="button" class="btn btn-info btn-sm" > <i class="fa fa-edit"> </i></button> ';
             $respuesta .= '</a> </div> <div class="col" > <a href="/admin/Cuentas/DelCuentaEmp/'.$res->id.'"> <button id="eliminar" type="button"  class="btn btn-danger btn-sm"> <i class="fa fa-trash-alt"> </i></button> </a> </div> </div> </td> </tr> ';
         }
         $respuesta .= '</tbody>';
@@ -149,7 +149,7 @@ class AccountController extends Controller
             $respuesta .= '<tr> <td id="jkl">'. $res->nombreCompleto. '</td>';
             $respuesta .= '<td>'.$res->username.'</td>';
             $respuesta .= '<td>'.$res->nombreRol.'</td>';
-            $respuesta .= '<td> <div class="row"> <div class="col"> <a href="/admin/Cuentas/ModCuentaEmp/'.$res->id.'"> <button id="verDetalle" type="button" class="btn btn-info btn-sm" > <i class="fa fa-eye"> </i></button> ';
+            $respuesta .= '<td> <div class="row"> <div class="col"> <a href="/admin/Cuentas/ModCuentaEmp/'.$res->id.'"> <button id="verDetalle" type="button" class="btn btn-info btn-sm" > <i class="fa fa-edit"> </i></button> ';
             $respuesta .= '</a> </div> <div class="col" > <a href="/admin/Cuentas/DelCuentaEmp/'.$res->id.'"> <button id="eliminar" type="button"  class="btn btn-danger btn-sm"> <i class="fa fa-trash-alt"> </i></button> </a> </div> </div> </td> </tr> ';
         }
         $respuesta .= '</tbody>';
@@ -171,7 +171,7 @@ class AccountController extends Controller
             $respuesta .= '<tr> <td id="jkl">'. $res->nombreCompleto. '</td>';
             $respuesta .= '<td>'.$res->username.'</td>';
             $respuesta .= '<td>'.$res->nombreRol.'</td>';
-            $respuesta .= '<td> <div class="row"> <div class="col"> <a href="/admin/Cuentas/ModCuentaEmp/'.$res->id.'"> <button id="verDetalle" type="button" class="btn btn-info btn-sm" > <i class="fa fa-eye"> </i></button> ';
+            $respuesta .= '<td> <div class="row"> <div class="col"> <a href="/admin/Cuentas/ModCuentaEmp/'.$res->id.'"> <button id="verDetalle" type="button" class="btn btn-info btn-sm" > <i class="fa fa-edit"> </i></button> ';
             $respuesta .= '</a> </div> <div class="col" > <a href="/admin/Cuentas/DelCuentaEmp/'.$res->id.'"> <button id="eliminar" type="button"  class="btn btn-danger btn-sm"> <i class="fa fa-trash-alt"> </i></button> </a> </div> </div> </td> </tr> ';
         }
         $respuesta .= '</tbody>';

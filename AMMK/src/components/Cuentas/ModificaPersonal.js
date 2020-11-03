@@ -17,7 +17,7 @@ export class ModificaPersonal extends React.Component{
     }
 
     datos(){
-        var id=17;
+        var id=1;
         axios.get("http://localhost:8000/api/account/"+id)
           .then(function (resp){
             console.log(resp.data);
@@ -29,7 +29,7 @@ export class ModificaPersonal extends React.Component{
 
     onSubmit(e) {
         e.preventDefault()
-        var id=17;
+        var id=1;
         var x = document.getElementById("passwordPersonal").value;
         var y = document.getElementById("usernamePersonal").value;
         var w = document.getElementById("confPassPersonal").value;
@@ -49,7 +49,9 @@ export class ModificaPersonal extends React.Component{
         '¡Listo!',
         'Datos guardados',
         'success'
-        )
+        ).then(function() {
+            window.location = "http://localhost:3000/admin/Cuentas/CuentaPersonal";
+        });
         }else{
             Swal.fire(
                 'ERROR!',
