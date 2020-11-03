@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {FormGroup, Form, Input, Button} from "react-bootstrap"
 import axios from 'axios';
 import Swal from 'sweetalert2';
@@ -48,34 +49,31 @@ class CreateAccEmp extends React.Component{
           user: y,
           pass: x,
           idEmp: z,
+          rol: v,
         };
         axios.post('http://localhost:8000/api/account/', cuenta)
-          .then(resp => {console.log(resp.data)});
-        //Buscamos el username que acabamos de registrar
-        setTimeout(function() {
-            axios.get('http://localhost:8000/api/account/find/' + y)
-            .then(function (resp){
-                console.log(resp.data);
-                var idCuenta=(resp.data[0].id);
-                //Hacemos el registro en accounts_roles
-                const acc_rol = {
-                    idRol: v,
-                    idAccount: idCuenta,
-                };
-                axios.post('http://localhost:8000/api/accountRole',acc_rol)
-                    .then(function (resp){
-                        console.log(resp.data);
-                    });   
-            });
-        }, (3 * 1000)); 
-
-        Swal.fire(
-        '¡Listo!',
-        'Datos guardados',
-        'success'
-        ).then(function() {
-            window.location = "http://localhost:3000/admin/Cuentas/CrearCuentaEmp";
-        });
+          .then(function (resp){
+            if(resp.data==1){
+                setTimeout(function(){
+                    Swal.fire(
+                        '¡Listo!',
+                        'Datos guardados',
+                        'success'
+                        ).then(function() {
+                            window.location = "http://localhost:3000/admin/Cuentas/CrearCuentaEmp";
+                        });
+                },(1000));
+            }else{
+                Swal.fire(
+                    'ERROR!',
+                    'Hubo un error al tratar de crear la cuenta, intentalo con un Nombre de Usuario distinto',
+                    'error'
+                )
+            }
+          });
+       
+        
+        
         }else{
             Swal.fire(
                 'ERROR!',
@@ -149,6 +147,13 @@ class CreateAccEmp extends React.Component{
                                 </div>
                                 <br/>
                                 <div class="row justify-content-center">
+                                    <div class="col-4" align="center">
+                                        <Link to="/admin/Cuentas/PrincipalEmp">
+                                            <Button className="btn-fill" color="primary" >
+                                                Regresar
+                                            </Button>
+                                        </Link>
+                                    </div>
                                     <div class="col-4" align="center">
                                         <Button className="btn-fill" color="info" type="submit">
                                             Registrar

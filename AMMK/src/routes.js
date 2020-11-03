@@ -38,6 +38,7 @@ import ModifyPersonalAc from "views/Cuentas/ModifyPersonalAccount";
 import ModifyAccountEmp from "views/Cuentas/ModifyAccountEmployee";
 import CreateAccEmp from "views/Cuentas/CreateAccountEmployee";
 import EmployeesAccountView from "views/Cuentas/EmployeesAccountsView";
+import DeleteAccountEmployee from "views/Cuentas/DeleteAccountEmployee";
 
 //BENEFICIARIAS
 import RegisterB1 from "views/Beneficiarias/RegisterB1.js";
@@ -122,8 +123,17 @@ var routes = [
     showInSidebar: false
   },
   {
+    path: "/Cuentas/DelCuentaEmp/:id",
+    name: "Eliminar Cuenta Empleado",
+    rtlName: "ملف تعريفي للمستخدم",
+    icon: "tim-icons icon-single-02",
+    component: DeleteAccountEmployee,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
     path: "/Cuentas/PrincipalEmp",
-    name: "Modificar Cuenta Empleado",
+    name: "Cuentas Empleado",
     rtlName: "ملف تعريفي للمستخدم",
     icon: "tim-icons icon-single-02",
     component: EmployeesAccountView,
