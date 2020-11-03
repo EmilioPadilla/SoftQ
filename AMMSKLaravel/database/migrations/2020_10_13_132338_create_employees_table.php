@@ -15,10 +15,12 @@ class CreateEmployeesTable extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->id()->from(1);
+            $table->foreignId('status_id')->default(1)->constrained('status_emp');
             $table->foreignId('civil_status_id')->constrained('civil_status');
-    			  $table->foreignId('scholarship_id')->constrained('scholarship');
+    		$table->foreignId('scholarship_id')->constrained('scholarship');
             $table->foreignId('headquarter_id')->constrained('headquarters');
             $table->string("nombreCompleto");
+            $table->date("fechaNac");
             $table->integer("salarioxhora");
             $table->date("fechaIngreso");
             $table->string("RFC", 20);
@@ -36,9 +38,12 @@ class CreateEmployeesTable extends Migration
             $table->boolean("voluntario");
             $table->string("diasLaborales");
             $table->integer("numBeneficiarios");
+            $table->string("frecuenciaSalario");
+            $table->string("puesto");
             $table->date("fechaEgreso");
             $table->text("motivoEgreso");
-
+            $table->date("fechaReingreso");
+            $table->text("motivoReingreso");
         });
     }
 
