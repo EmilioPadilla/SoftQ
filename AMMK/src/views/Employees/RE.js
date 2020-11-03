@@ -22,7 +22,8 @@ import {
   Col,
   Progress,
   CustomInput,
-  Label
+  Label,
+  Alert
 } from "reactstrap";
 
 function parseScholarships(scholarships){
@@ -53,11 +54,15 @@ class RegisterEmployee extends React.Component {
     return (
       <>
         <div className="content">
+          <h2 className="title">Registrar empleado</h2>
                 <Card>
                   <CardHeader>
-                    <Progress value="33.33" />
-                    <br/>
-                    <h3 className="title">Registrar Empleado</h3>
+                   
+                   
+                    <h3 className="title">Datos Personales</h3>
+                    <Progress value="33.33" striped color="primary"/>
+                    <br></br>
+                        <Alert color="primary">Los campos marcados con un asterisco (*) son obligatorios.</Alert>
                   </CardHeader>
                   <CardBody>
                     <Form>

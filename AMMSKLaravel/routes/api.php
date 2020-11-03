@@ -26,6 +26,7 @@ Route::resource('scholarship', 'App\Http\Controllers\ScholarshipController');
 Route::resource('status', 'App\Http\Controllers\EmployeesShiftsController');
 Route::resource('employeesShifts', 'App\Http\Controllers\EmployeesShiftsController');
 Route::resource('employeeJobTitles', 'App\Http\Controllers\JobTitleController');
+Route::resource('employeeVacations', 'App\Http\Controllers\VacationsController');
 Route::post('employeesShifts/search', 'App\Http\Controllers\EmployeesShiftsController@filterByEmployee');
 Route::post('employeesShifts/delete', 'App\Http\Controllers\EmployeesShiftsController@deleteByEmployee');
 Route::get('employee/{id}', 'App\Http\Controllers\EmployeesController@show');

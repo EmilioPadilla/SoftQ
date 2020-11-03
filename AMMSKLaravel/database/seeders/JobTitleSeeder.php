@@ -16,19 +16,25 @@ class JobTitleSeeder extends Seeder
     {
         DB::table('job_title')->insert([
             [
-                'nombre' => 'Empleado General',
+                'nombre' => 'Enfermera',
             ],
             [
-                'nombre' => 'Administrador(a)',
+                'nombre' => 'Director(a)',
             ],
             [
-                'nombre' => 'Enfermera(o)',
+                'nombre' => 'Servicios generales',
             ],
             [
-                'nombre' => 'Chofer',
+                'nombre' => 'Lavanderia',
             ],
             [
-                'nombre' => 'Voluntario',
+                'nombre' => 'Mayordomo',
+            ],
+            [
+                'nombre' => 'Hermana',
+            ],
+            [
+                'nombre' => 'Dirección administrativa',
             ],
          ]);
     }

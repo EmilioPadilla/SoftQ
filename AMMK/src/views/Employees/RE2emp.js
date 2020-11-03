@@ -22,7 +22,8 @@ import {
   Col,
   Progress,
   Label,
-  CustomInput
+  CustomInput,
+  Alert
 } from "reactstrap";
 
 
@@ -33,14 +34,17 @@ class RegisterEmployee2 extends React.Component {
     return (
       <>
         <div className="content">
-
+          <h2 className="title">Registrar empleado</h2>
           <Row>
             <Col md="12">
               <Card>
                 <CardHeader>
-                  <Progress value="66.6" />
-                  <br/>
-                  <h3 className="title">Registrar Empleado</h3>
+                 
+                <h3 className="title">Datos de contacto</h3>
+                    <Progress value="66.66" striped color="primary"/>
+                    <br></br>
+                        <Alert color="primary">Los campos marcados con un asterisco (*) son obligatorios.</Alert>
+                  
                 </CardHeader>
                 <CardBody>
                   <Form>
