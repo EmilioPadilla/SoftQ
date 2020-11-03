@@ -101,7 +101,7 @@ function ax(idC){
     axios.get("http://localhost:8000/api/donations/delete/"+idC)
           .then(function (resp){
             console.log(resp.data);
-           document.getElementById("tipo").value = resp.data[0].nombre;
+           //document.getElementById("tipo").value = resp.data[0].idTipoDonacion;
            document.getElementById("fecha").value = resp.data[0].fechaDonacion;
            document.getElementById("descripcion").value = resp.data[0].descripcion;
            document.getElementById("monto").value = resp.data[0].monto;
