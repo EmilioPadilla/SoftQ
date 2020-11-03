@@ -16,12 +16,11 @@ import { API_BASE_URL } from '../../index';
 
 
 import ModalExitEmployee from "components/Employees/ModalExitEmployee.js";
+import ReenterEmp from "components/Employees/Re_enter_emp.js";
 import SimpleTooltip from "../../views/General/SimpleTooltip";
 
 //Importing Icon library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { fas } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -33,9 +32,12 @@ import {
   Col
   } from "reactstrap";
 
+
+
   class ViewEmployeeTable extends React.Component {
     state = {
       employees:[],
+      status:1,
     }
 
     componentDidMount() {
@@ -50,6 +52,12 @@ import {
 
 
     render() {
+      let action;
+      if (this.state.status == 1) {
+        action = <ModalExitEmployee buttonLabel={<FontAwesomeIcon icon={['fas', 'trash-alt']} />}/>;
+      } else {
+        action = <ReenterEmp></ReenterEmp>;
+      }
         return (
           <Row>
             <Col md="12">
@@ -68,7 +76,7 @@ import {
                       <tr key={employee.id}>
                         <td>{employee.nombreCompleto}</td>
                         <td>{employee.RFC}</td>
-                        <td>{employee.civil_status_id}</td>
+                        <td>{employee.puesto}</td>
                         <td>
                             <Row>
                                 <Link to='/admin/view-employee'>
@@ -76,7 +84,7 @@ import {
                                 <SimpleTooltip placement="top" target="verDetalle">Ver detalle</SimpleTooltip>
                                 </Link>
                                 &nbsp;&nbsp;&nbsp;&nbsp; 
-                                <ModalExitEmployee buttonLabel={<FontAwesomeIcon icon={['fas', 'trash-alt']} />}/>
+                                {action}
                             </Row>
                         </td>
                       </tr>

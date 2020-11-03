@@ -15,9 +15,10 @@ class CreateVacationsTable extends Migration
     {
         Schema::create('vacations', function (Blueprint $table) {
           $table->id()->from(1);
+          $table->timestamp('fechaRegistro', 0);
           $table->foreignId('employees_id')->constrained('employees');
-          $table->date("fechaSalida");
           $table->date("fechaRegreso");
+          $table->date("fechaSalida");
         });
     }
 

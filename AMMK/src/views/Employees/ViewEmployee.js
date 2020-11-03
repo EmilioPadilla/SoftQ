@@ -6,7 +6,10 @@
 */
 
 import React, { useState } from 'react';
+
+//API CALLS
 import axios from 'axios';
+import { API_BASE_URL } from '../../index';
 
 //Importing Icon library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -23,12 +26,13 @@ import {
   CardTitle,
   CardHeader,
   CardBody,
-  CardFooter,
   Row,
   Col,
   Label,
   Badge
 } from "reactstrap";
+
+const calculate_age = birthDate => Math.floor((new Date() - new Date(birthDate).getTime()) / 3.15576e+10)
 
 class ViewEmployee extends React.Component {
 
@@ -36,15 +40,32 @@ class ViewEmployee extends React.Component {
       super(props)
       this.state = {
         markedDays: [],
+        statuses: [],
+        employees: [],
       }
       this.handleCalendarChange = this.handleCalendarChange.bind(this);
       this.onSaveCalendar = this.onSaveCalendar.bind(this);
     }
 
+
     handleCalendarChange(e) {
       this.setState({ markedDays: e });
       console.log(this.state.markedDays);
     }
+
+    componentDidMount() {
+      let id = this.props.dataFromParent;
+      console.log(id);
+      axios.get(API_BASE_URL + 'employee/1')
+        .then(res => {
+          const employees = res.data;
+          this.setState({ employees });
+        })
+    }
+
+
+
+
 
     onSaveCalendar() {
       console.log('here');
@@ -74,11 +95,14 @@ class ViewEmployee extends React.Component {
     }
 
     render() {
+      let months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+      let sedes = ["No registrado", "Granja Betania", "Asoc. MMK"];
         return (
             <div className="content">
-
-              <h1>Emilio Padilla Miranda</h1>
-
+              {this.state.employees.map((employee) => (
+              <h1>{employee.nombreCompleto}</h1>
+              ))}
+              
               <Row>
                 <Col>
                   <Card>
@@ -99,9 +123,9 @@ class ViewEmployee extends React.Component {
                       <a href="#pablo" onClick={(e) => e.preventDefault()}>
                         <img
                           alt="..."
-                          src={require("assets/img/profile.jpeg")}
-                          width="380in"
-                          height="451in"
+                          src={require("assets/img/default-avatar.png")}
+                          width="400in"
+                          height="500in"
                           style={{ alignSelf: 'center' }}
                         />
                       </a>
@@ -124,16 +148,51 @@ class ViewEmployee extends React.Component {
                         </Row>
                       </CardTitle>
                     </CardHeader>
+                    {this.state.employees.map((employee) => (
                     <CardBody>
                       <Row>
-                        <Col>
+                        <Col> 
                           <Label>
                             <strong>Nombre Completo:</strong>
                           </Label>
                         </Col>
                         <Col>
                           <Label>
-                            Emilio Padilla Miranda
+                          {employee.nombreCompleto}
+                          </Label>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col>
+                          <Label>
+                            <strong>Numero de Seguro Social:</strong>
+                          </Label>
+                        </Col>
+                        <Col>
+                          <Label>
+                          {employee.numSeguroSocial}
+                          </Label>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col>
+                          <Label>
+                            <strong>Escolaridad:</strong>
+                          </Label>
+                        </Col>
+                        <Col>
+                          <Label>
+                          {employee.scholarship_id}
+                          </Label>
+                        </Col>
+                        <Col>
+                          <Label>
+                            <strong>Archivo:</strong>
+                          </Label>
+                        </Col>
+                        <Col>
+                         <Label>
+                          certificadoSecu.pdf
                           </Label>
                         </Col>
                       </Row>
@@ -145,7 +204,17 @@ class ViewEmployee extends React.Component {
                         </Col>
                         <Col>
                           <Label>
-                            23 de Diciembre de 2020
+                          {employee.fechaNac.split("-")[2]} de {months[employee.fechaNac.split("-")[1] - 1]} 
+                          </Label>
+                        </Col>
+                        <Col>
+                          <Label>
+                            <strong>Archivo:</strong>
+                          </Label>
+                        </Col>
+                        <Col>
+                         <Label>
+                          INE.pdf
                           </Label>
                         </Col>
                       </Row>
@@ -157,22 +226,84 @@ class ViewEmployee extends React.Component {
                         </Col>
                         <Col>
                           <Label>
-                            21 años
+                            {calculate_age(employee.fechaNac)} años
+                          </Label>
+                        </Col>
+                        <Col>
+                          <Label>
+                            <strong>Archivo:</strong>
+                          </Label>
+                        </Col>
+                        <Col>
+                         <Label>
+                          actaNac.pdf
+                          </Label>
+                        </Col>
+                      </Row>
+                      
+                      <Row>
+                        <Col>
+                          <Label>
+                            <strong>RFC:</strong>
+                          </Label>
+                        </Col>
+                        <Col>
+                          <Label>
+                          {employee.RFC}
+                          </Label>
+                        </Col>
+                        <Col>
+                          <Label>
+                            <strong>Archivo:</strong>
+                          </Label>
+                        </Col>
+                        <Col>
+                         <Label>
+                          RFC.pdf
                           </Label>
                         </Col>
                       </Row>
                       <Row>
                         <Col>
                           <Label>
-                            <strong>Antiguedad en la organización:</strong>
+                            <strong>CURP:</strong>
                           </Label>
                         </Col>
                         <Col>
                           <Label>
-                            3 años 7 meses
+                          {employee.CURP}
+                          </Label>
+                        </Col>
+                        <Col>
+                          <Label>
+                            <strong>Archivo:</strong>
+                          </Label>
+                        </Col>
+                        <Col>
+                         <Label>
+                         CURP.pdf
                           </Label>
                         </Col>
                       </Row>
+                    </CardBody>
+                   ))}
+                  </Card>
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>
+                        <Row>
+                          <Col>
+                            <Badge color="primary">Datos de contacto</Badge>
+                          </Col>
+                          <Col>
+                            <Button  className="float-right" size="sm" id="editarpers"><FontAwesomeIcon icon={['fas', 'pencil-alt']} /></Button>
+                            <SimpleTooltip placement="top" target="editarpers" >Editar datos de contacto</SimpleTooltip>
+                          </Col>
+                        </Row>
+                      </CardTitle>
+                    </CardHeader>
+                    {this.state.employees.map((employee) => (
+                    <CardBody>
                       <Row>
                         <Col>
                           <Label>
@@ -181,14 +312,103 @@ class ViewEmployee extends React.Component {
                         </Col>
                         <Col>
                           <Label>
-                            462 264 2021
+                          {employee.telefono}
                           </Label>
                         </Col>
                       </Row>
+                      <Row>
+                        <Col>
+                          <Label>
+                            <strong>Celular:</strong>
+                          </Label>
+                        </Col>
+                        <Col>
+                          <Label>
+                          {employee.celular}
+                          </Label>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col>
+                          <Label>
+                            <strong>Correo:</strong>
+                          </Label>
+                        </Col>
+                        <Col>
+                          <Label>
+                          {employee.correo}
+                          </Label>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col>
+                          <Label>
+                            <strong>Estado:</strong>
+                          </Label>
+                        </Col>
+                        <Col>
+                          <Label>
+                          {employee.nombreCompleto}
+                          </Label>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col>
+                          <Label>
+                            <strong>Ciudad:</strong>
+                          </Label>
+                        </Col>
+                        <Col>
+                          <Label>
+                          {employee.numInterior}
+                          </Label>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col>
+                          <Label>
+                            <strong>Calle:</strong>
+                          </Label>
+                        </Col>
+                        <Col>
+                          <Label>
+                          {employee.calle}
+                          </Label>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col>
+                          <Label>
+                            <strong>Número exterior:</strong>
+                          </Label>
+                        </Col>
+                        <Col>
+                          <Label>
+                          {employee.numExterior}
+                          </Label>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col>
+                          <Label>
+                            <strong>Número interior:</strong>
+                          </Label>
+                        </Col>
+                        <Col>
+                          <Label>
+                          {employee.numInterior}
+                          </Label>
+                        </Col>
+                      </Row>
+                      
                     </CardBody>
-
+                   ))}
                   </Card>
-                  <Card>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                <Card>
                     <CardHeader>
                       <CardTitle>
                         <Row>
@@ -202,6 +422,7 @@ class ViewEmployee extends React.Component {
                         </Row>
                       </CardTitle>
                     </CardHeader>
+                    {this.state.employees.map((employee) => (
                     <CardBody>
                       <Row>
                         <Col>
@@ -210,8 +431,9 @@ class ViewEmployee extends React.Component {
                           </Label>
                         </Col>
                         <Col>
+
                           <Label style={{'font-size': '25px', 'color':'#3272a7'}} >
-                            Granja Betania
+                            {sedes[employee.headquarter_id]}
                           </Label>
                         </Col>
                       </Row>
@@ -224,9 +446,23 @@ class ViewEmployee extends React.Component {
                         <Col>
                           <Label style={{'font-size': '20px'}} >
                             <FontAwesomeIcon icon={['fas', 'check-circle']} color="green"/>
+
+                            
                           </Label>
                         </Col>
                       </Row>
+                        <Row>
+                        <Col>
+                          <Label>
+                            <strong>Antiguedad en la organización:</strong>
+                          </Label>
+                        </Col>
+                        <Col>
+                          <Label>
+                          {calculate_age(employee.fechaIngreso)} años
+                          </Label>
+                        </Col>
+                      </Row> 
                       <Row>
                         <Col>
                           <Label>
@@ -288,6 +524,7 @@ class ViewEmployee extends React.Component {
                         </Col>
                       </Row>
                     </CardBody>
+                    ))}
                   </Card>
                 </Col>
               </Row>
@@ -310,7 +547,15 @@ class ViewEmployee extends React.Component {
                   <Card>
                     <CardHeader>
                       <CardTitle>
-                        <Badge color="primary">Documentos de contrato</Badge>
+                        <Row>
+                        <Col>
+                          <Badge color="primary">Documentos</Badge>
+                          </Col>
+                          <Col>
+                            <Button  className="float-right" size="sm" id="RegistrarDocumentos"><FontAwesomeIcon icon={['fas', 'plus-square']} /></Button>
+                            <SimpleTooltip placement="top" target="RegistrarDocumentos" >Registrar documentos</SimpleTooltip>
+                          </Col>
+                          </Row>
                       </CardTitle>
                     </CardHeader>
                     <CardBody>
@@ -327,9 +572,10 @@ class ViewEmployee extends React.Component {
                             <Badge color="primary">Vacaciones</Badge>
                           </Col>
                           <Col>
-                            <Button  className="float-right" size="sm" id="RegistrarVacaciones"><FontAwesomeIcon icon={['fas', 'plus-circle']} /></Button>
+                            <Button  className="float-right" size="sm" id="RegistrarVacaciones"><FontAwesomeIcon icon={['fas', 'plus-square']} /></Button>
                             <SimpleTooltip placement="top" target="RegistrarVacaciones" >Registrar vacaciones</SimpleTooltip>
                           </Col>
+                          
                         </Row>
 
                       </CardTitle>
@@ -339,10 +585,8 @@ class ViewEmployee extends React.Component {
                     </CardBody>
                   </Card>
                 </Col>
-              </Row>
-
-
-
+              </Row> 
+              
             </div>
         )
     }
