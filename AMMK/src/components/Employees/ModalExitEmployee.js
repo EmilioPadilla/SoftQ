@@ -2,20 +2,8 @@
 
 import React, { useState } from 'react';
 
-import axios from 'axios';
-import Swal from 'sweetalert2';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Col, Row, Input, FormGroup, CustomInput, Label, Form } from 'reactstrap';
 import SimpleTooltip from "../../views/General/SimpleTooltip";
-
-//  function   onSubmit(e) {
-//   Swal.fire(
-//     '¡Listo!',
-//     'Datos guardados',
-//     'success'
-//     ).then(function() {
-//       window.location = "http://localhost:3000/admin/view-employee";
-//   });
-// }
 
 const ModalExample = (props) => {
   const {

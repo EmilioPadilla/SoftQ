@@ -72,6 +72,18 @@ class EmployeesController extends Controller
         //
     }
 
+        /**
+     * Display employees according to status value
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function status($id)
+    {
+        $beneficiaries = Beneficiary::where('status_id', '=', $id)->get();
+        return response()->json ($beneficiaries);
+    }
+
     /**
      * Update the specified resource in storage.
      *
