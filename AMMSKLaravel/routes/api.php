@@ -68,6 +68,7 @@ Route::get('account/table/all', 'App\Http\Controllers\AccountController@showTabl
 Route::get('account/table/roles/{role}', 'App\Http\Controllers\AccountController@showByRole');
 Route::get('account/table/search/{keyWord}', 'App\Http\Controllers\AccountController@searchBar');
 Route::get('account/delete/information/{id}', 'App\Http\Controllers\AccountController@deleteInfo');
+Route::post('account/login/confirmation', 'App\Http\Controllers\AccountController@loginInfo');
 
 /* EMPIEZA GENERALES */
 Route::resource('status', 'App\Http\Controllers\StatusController');

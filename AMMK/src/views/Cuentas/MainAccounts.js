@@ -12,6 +12,10 @@ import {
 
 class MainAccount extends React.Component{
     render(){
+        const login = localStorage.getItem("isLoggedIn");
+        if (!login) {
+            window.location = "http://localhost:3000/login";
+        }
         return(
             <div class="content">
                 <div class="container">

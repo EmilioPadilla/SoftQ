@@ -21,6 +21,10 @@ import {
 
 class GeneralIndex extends React.Component {
   render() {
+    const login = localStorage.getItem("isLoggedIn");
+    if (!login) {
+      window.location = "http://localhost:3000/login";
+    }
     return (
       <>
       <br/><br/><br/>

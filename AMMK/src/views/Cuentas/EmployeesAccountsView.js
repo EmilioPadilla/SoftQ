@@ -110,6 +110,10 @@ class EmployeesAccountView extends React.Component {
 
 
   render() {
+    const login = localStorage.getItem("isLoggedIn");
+    if (!login) {
+      window.location = "http://localhost:3000/login";
+    }
     this.crearTabla();
     return (
         <div className="content">
@@ -132,12 +136,12 @@ class EmployeesAccountView extends React.Component {
          </Col>
          <Col className="text-right">
               <br/>
-              <Link to='/admin/Cuentas/CrearCuentaEmp'>
+              <a href="/admin/Cuentas/CrearCuentaEmp">
               <Button className="btn btn-primary ">
                 <AccountPlusIcon/> &nbsp;
                 Registrar nueva cuenta
               </Button>
-            </Link>
+              </a>
             </Col>
         </Row>
         <Row>

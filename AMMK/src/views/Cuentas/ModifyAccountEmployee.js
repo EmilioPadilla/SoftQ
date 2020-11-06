@@ -6,7 +6,10 @@ import { Link } from "react-router-dom";
 
 
 const ModifyAccountEmp = props =>{
-    
+    const login = localStorage.getItem("isLoggedIn");
+    if (!login) {
+        window.location = "http://localhost:3000/login";
+    }
     const {id} = props.match.params;
     ax(id);
     return(

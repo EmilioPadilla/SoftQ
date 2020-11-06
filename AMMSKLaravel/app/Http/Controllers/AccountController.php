@@ -90,6 +90,27 @@ class AccountController extends Controller
         return Account::where('id', $id)->get();
     }
 
+
+    public function loginInfo(Request $request)
+    {
+        $usernameStatus =  Account::where('username', $request->username)->get();
+
+        if(count($usernameStatus)!=0){
+            $passwordDb =  DB::table('accounts')
+                            ->join('accounts_roles','accounts.id','=','accounts_roles.idAccount')
+                            ->where('username', $request->username)
+                            ->select('accounts.password', 'accounts.id','accounts_roles.idRol')
+                            ->get();
+            if(strcmp($request->password,$passwordDb[0]->password ) == 0){
+                return [$passwordDb[0]->id,$passwordDb[0]->idRol];
+            }else{
+                return 0; 
+            }
+        }else{
+            return -1;
+        }
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

@@ -86,6 +86,10 @@ class CreateAccEmp extends React.Component{
 
 
     render(){
+        const login = localStorage.getItem("isLoggedIn");
+        if (!login) {
+            window.location = "http://localhost:3000/login";
+        }
         this.crearSelect();
         return(
             <div class="content">
@@ -148,11 +152,11 @@ class CreateAccEmp extends React.Component{
                                 <br/>
                                 <div class="row justify-content-center">
                                     <div class="col-4" align="center">
-                                        <Link to="/admin/Cuentas/PrincipalEmp">
+                                    <Link to="/admin/Cuentas/PrincipalEmp">
                                             <Button className="btn-fill" color="primary" >
                                                 Regresar
                                             </Button>
-                                        </Link>
+                                    </Link>
                                     </div>
                                     <div class="col-4" align="center">
                                         <Button className="btn-fill" color="info" type="submit">

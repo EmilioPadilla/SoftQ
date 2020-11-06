@@ -17,7 +17,7 @@ export class ModificaPersonal extends React.Component{
     }
 
     datos(){
-        var id=1;
+        const id = localStorage.getItem("idCuenta");
         axios.get("http://localhost:8000/api/account/"+id)
           .then(function (resp){
             console.log(resp.data);
