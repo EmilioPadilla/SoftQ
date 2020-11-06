@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
+
+//API CALLS
 import { API_BASE_URL } from '../../index';
 import axios from 'axios';
+
+//COMPONENTS
 import { Button, Badge, Card, CardBody, Form, FormGroup, Input, Alert, Label, CustomInput, Row, Col, InputGroupText, InputGroupAddon, InputGroup} from 'reactstrap';
+import Swal from 'sweetalert2';
 
-
-//Importing Icon library
+//ICONS
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
-
 library.add(fas)
 
 export default class ModifyMedApp extends Component {

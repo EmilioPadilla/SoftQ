@@ -21,6 +21,8 @@ import Rtl from "views/Rtl.js";
 // import Facturacion from "views/Facturacion";
 
 import GeneralIndex from "views/General/GeneralIndex.js";
+import NurseIndex from "views/General/NurseIndex.js";
+import Nomina from "views/Nomina/Nomina.js";
 
 
 import TableList from "views/TableList.js";
@@ -45,8 +47,8 @@ import RegisterB2 from "views/Beneficiarias/RegisterB2.js";
 import RegisterB3 from "views/Beneficiarias/RegisterB3.js";
 import RegisterTreatment from "views/Beneficiarias/RegisterTreatment.js";
 import GeneralViewAdmin from "views/Beneficiarias/GeneralViewAdmin.js";
+import GeneralViewNurse from "views/Beneficiarias/GeneralViewNurse.js";
 import SpecificView from "views/Beneficiarias/SpecificView.js";
-//import GeneralViewNurse from "views/Beneficiarias/GeneralViewNurse.js";
 import MedicalRecordView from "views/Beneficiarias/MedicalRecordView";
 import RegisterMedApp from "views/Beneficiarias/RegisterMedApp";
 import ModifyMedApp from "views/Beneficiarias/ModifyMedApp";
@@ -71,6 +73,7 @@ import MonthlyView from "views/Finanzas/MonthlyView.js";
 import RegisterExpense from "views/Finanzas/RegisterExpense.js";
 import Record from "views/Finanzas/Record.js";
 //FIN FINANZAS
+
 
 
 var routes = [
@@ -140,6 +143,15 @@ var routes = [
     layout: "/general",
     showInSidebar: false
   },
+  {
+    path: "/NurseIndex",
+    name: "panel de enfermera",
+    rtlName: "ملف تعريفي للمستخدم",
+    icon: "tim-icons icon-single-02",
+    component: NurseIndex,
+    layout: "/general",
+    showInSidebar: false
+  },
   /*  START BENEFICIARIAS */
   {
     path: "/Beneficiarias/GeneralViewAdmin",
@@ -150,17 +162,17 @@ var routes = [
     layout: "/admin",
     showInSidebar: true
   },
-  /*{
+  {
     path: "/Beneficiarias/GeneralViewNurse",
     name: "Beneficiarias",
     rtlName: "ملف تعريفي للمستخدم",
     icon: "tim-icons icon-single-02",
     component: GeneralViewNurse,
     layout: "/admin",
-    showInSidebar: true
-  },*/
+    showInSidebar: false
+  },
   {
-    path: "/Beneficiarias/SpecificView",
+    path: "/Beneficiarias/SpecificView/:id",
     name: "Beneficiarias",
     rtlName: "ملف تعريفي للمستخدم",
     icon: "tim-icons icon-single-02",
@@ -169,7 +181,7 @@ var routes = [
     showInSidebar: false
   },
   {
-    path: "/Beneficiarias/TakeOutB",
+    path: "/Beneficiarias/TakeOutB/:id",
     name: "Beneficiarias",
     rtlName: "ملف تعريفي للمستخدم",
     icon: "tim-icons icon-single-02",
@@ -178,7 +190,7 @@ var routes = [
     showInSidebar: false
   },
   {
-    path: "/Beneficiarias/ReenterB",
+    path: "/Beneficiarias/ReenterB/:id",
     name: "Beneficiarias",
     rtlName: "ملف تعريفي للمستخدم",
     icon: "tim-icons icon-single-02",
@@ -187,7 +199,7 @@ var routes = [
     showInSidebar: false
   },
   {
-    path: "/Beneficiarias/ModifyTreatment",
+    path: "/Beneficiarias/ModifyTreatment/:id",
     name: "Beneficiarias",
     rtlName: "ملف تعريفي للمستخدم",
     icon: "tim-icons icon-single-02",
@@ -196,7 +208,7 @@ var routes = [
     showInSidebar: false
   },
   {
-    path: "/Beneficiarias/ViewMedApp",
+    path: "/Beneficiarias/ViewMedApp/:id",
     name: "Beneficiarias",
     rtlName: "ملف تعريفي للمستخدم",
     icon: "tim-icons icon-single-02",
@@ -205,7 +217,7 @@ var routes = [
     showInSidebar: false
   },
   {
-    path: "/Beneficiarias/MedicalRecordView",
+    path: "/Beneficiarias/MedicalRecordView/:id",
     name: "Beneficiarias",
     rtlName: "طباعة",
     icon: "tim-icons icon-single-02",
@@ -232,7 +244,7 @@ var routes = [
     showInSidebar: false
   },
   {
-    path: "/Beneficiarias/ModifyMedApp",
+    path: "/Beneficiarias/ModifyMedApp/:id",
     name: "Beneficiarias",
     rtlName: "طباعة",
     icon: "tim-icons icon-single-02",
@@ -425,6 +437,15 @@ var routes = [
     showInSidebar: false
   },
   //ENDS FINANZAS
+  {
+    path: "/Nomina/Nomina",
+    name: "Nomina",
+    rtlName: "طباعة",
+    icon: "tim-icons icon-chart-bar-32",
+    component: Nomina,
+    layout: "/admin",
+    showInSidebar: false
+  },
   {
     path: "/typography",
     name: "Reportes",

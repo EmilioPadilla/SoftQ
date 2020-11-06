@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 
-// reactstrap components
+// COMPONENTS
 import {Button, Modal, ModalBody, ModalHeader, FormGroup, Input, Label, Row, Col} from 'reactstrap';
 import SimpleTooltip from "../General/SimpleTooltip";
+import Swal from 'sweetalert2';
 
-//Importing Icon library
+//API CALLS
+import { API_BASE_URL } from '../../index';
+import axios from 'axios';
+
+//ICONS
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';

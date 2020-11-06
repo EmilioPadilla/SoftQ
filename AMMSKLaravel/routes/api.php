@@ -61,6 +61,7 @@ Route::resource('headquarters', 'App\Http\Controllers\HeadquarterController');
 
 /* EMPIEZA BENEFICIARIAS */
 Route::get('beneficiaries/{id}/status', 'App\Http\Controllers\BeneficiaryController@status');
+Route::post('beneficiaries/{id}/reingresar', 'App\Http\Controllers\BeneficiaryController@reingresar');
 Route::resource('beneficiaries', 'App\Http\Controllers\BeneficiaryController');
 
 Route::resource('treatments', 'App\Http\Controllers\TreatmentController');

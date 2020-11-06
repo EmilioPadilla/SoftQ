@@ -4,16 +4,16 @@ import React from 'react';
 import axios from 'axios';
 import { API_BASE_URL } from '../../index';
 
-//Components
-import {Table, Button, Row, ModalBody, ModalFooter, Modal} from 'reactstrap';
+//COMPONENTS
+import {Table, Button, Row, ModalBody, ModalFooter, Modal, Col} from 'reactstrap';
 import ModifyTreatment from "../../views/Beneficiarias/ModifyTreatment";
 import SimpleTooltip from '../../views/General/SimpleTooltip';
+import Swal from 'sweetalert2';
 
-//Importing Icon library
+//ICONS
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
-
 library.add(fas)
   
 export default class TreatmentTable extends React.Component {
@@ -45,7 +45,11 @@ export default class TreatmentTable extends React.Component {
         console.log(response);
         console.log(response.data);
       this.setState({modalEliminar: false});
-
+      Swal.fire(
+        'LISTO!',
+        'El tratamiento fue eliminado de manera exitosa.',
+        'success'
+    )
       const treatments = this.state.treatments.filter(item => item.id !== this.state.form.id);
     this.setState({ treatments });
     })
@@ -89,10 +93,14 @@ export default class TreatmentTable extends React.Component {
                   <td>Cada {treatment.lapso} hrs</td>
                   <td>
                     <Row>
+                        <Col md="4">
                         <ModifyTreatment/>
+                        </Col>
 
+                        <Col md="4">
                         <Button size="sm" id="eliminar" onClick={()=>{this.seleccionarEmpresa(treatment); this.setState({modalEliminar: true})}} color="danger"><FontAwesomeIcon icon={['fas', 'trash-alt']} /></Button>
                         <SimpleTooltip placement="top" target="eliminar" >Eliminar</SimpleTooltip>
+                        </Col>
                     </Row>
                   </td>
                 </tr>

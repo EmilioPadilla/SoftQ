@@ -1,28 +1,25 @@
 import React, { Component } from 'react';
 
-// reactstrap components
+//COMPONENTS
 import Form from "react-bootstrap/Form";
 import { Card, CardBody, Row, Alert, Col, FormGroup, Label, Input, InputGroup, InputGroupAddon, InputGroupText, Badge, Button} from 'reactstrap';
-
-//API calls
-import axios from 'axios';
-import { API_BASE_URL } from 'index';
 import Swal from 'sweetalert2';
 
-//Importing Icon library
+//API CALLS
+import axios from 'axios';
+import { API_BASE_URL } from 'index';
+
+//ICONS
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
-
 library.add(fas)
 
 // REGEX FOR VALIDATIONS
-
 const validAlphanumericInput = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ \0-9]+[\w]+$/);
 const validTextInput = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ ]+[\w]+$/);
 const validAge = RegExp(/^[0-9]{1,2}$/);
 const validDate = RegExp(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/);
-
 
 //FORM VALIDATION
 const validateForm = (errors) => {

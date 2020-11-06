@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
+//COMPONENTS
 import Form from "react-bootstrap/Form";
 import { Button, Badge, Card, CardBody, FormGroup, Input, Alert, Label, CustomInput, Row, Col, InputGroupText, InputGroupAddon, InputGroup} from 'reactstrap';
+import Swal from 'sweetalert2';
 
 //API calls
 import axios from 'axios';
 import { API_BASE_URL } from 'index';
-import Swal from 'sweetalert2';
 
 //Importing Icon library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
-
 library.add(fas)
 
 // REGEX FOR VALIDATIONS
