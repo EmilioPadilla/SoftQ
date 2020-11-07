@@ -18,7 +18,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('donantes', 'App\Http\Controllers\DonantesController');
 // Rutas empleados
 Route::resource('employee', 'App\Http\Controllers\EmployeesController');
 Route::resource('employeeStatus', 'App\Http\Controllers\StatusEmployeeController');
@@ -35,6 +34,8 @@ Route::get('employeeFiles/{id}', 'App\Http\Controllers\Employee_FilesController@
 
 //Rutas cuentas
 
+/*DONANTES Y DONACIONES*/
+Route::resource('donantes', 'App\Http\Controllers\DonantesController');
 Route::apiResource('donantes', 'App\Http\Controllers\DonantesController');
 Route::resource('tipodonante', 'App\Http\Controllers\TipoDonanteController');
 Route::resource('recurrencia', 'App\Http\Controllers\RecurrenciaController');
@@ -44,12 +45,15 @@ Route::get('donations/table/all', 'App\Http\Controllers\DonacionController@showT
 Route::get('donors/contact/table/all', 'App\Http\Controllers\ContactoDonanteController@showTable');
 Route::get('donations/showAll/{id}', 'App\Http\Controllers\DonantesController@showDonaciones');
 Route::get('donorContacts/showAll/{id}', 'App\Http\Controllers\DonantesController@showContactos');
-
+Route::get('donations/delete/{id}', 'App\Http\Controllers\DonacionController@deleteD');
+Route::get('donorContacts/delete/{id}', 'App\Http\Controllers\ContactoDonanteController@deleteC');
 Route::resource('donaciones', 'App\Http\Controllers\DonacionController');
 Route::resource('contactoDonante', 'App\Http\Controllers\ContactoDonanteController');
 
+
 Route::post('incomes/search', 'App\Http\Controllers\IncomesController@filterByDate');
 
+/*DONANTES Y DONACIONES END*/
 Route::resource('account', 'App\Http\Controllers\AccountController');
 Route::resource('accountRole', 'App\Http\Controllers\Account_RoleController');
 Route::get('account/find/{username}', 'App\Http\Controllers\AccountController@showId');
