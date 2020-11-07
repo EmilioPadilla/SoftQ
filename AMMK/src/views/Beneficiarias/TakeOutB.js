@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Modal, ModalBody, ModalFooter, Col, Label, Input, FormGroup, Row, Button, Form, ModalHeader, Badge, CustomInput} from 'reactstrap';
 import Swal from 'sweetalert2';
+import SimpleTooltip from "../General/SimpleTooltip";
 
 //API CALLS
 import axios from "axios";
@@ -155,7 +156,8 @@ onSubmit(e){
     const {errors} = this.state;
   return (
     <div className="content">
-      <Button color="danger" size="sm" onClick={()=>{this.setState({modalEgresar: true})}}><FontAwesomeIcon icon={faTrashAlt}/></Button>
+      <Button color="danger" size="sm" id="egresar" onClick={()=>{this.setState({modalEgresar: true})}}><FontAwesomeIcon icon={faTrashAlt}/></Button>
+      <SimpleTooltip placement="top" target="egresar" >Egresar</SimpleTooltip>
 
           <Modal isOpen={this.state.modalEgresar}>
           <Form onSubmit={this.onSubmit} autocomplete="off">

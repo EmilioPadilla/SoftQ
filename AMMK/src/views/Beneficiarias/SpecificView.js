@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 //COMPONENTS
 import { DropdownItem, Row, Table, Col, Alert, Button, Badge, CardBody, Card } from 'reactstrap';
 import SimpleTooltip from "../General/SimpleTooltip";
+import ModifyTakeOut from './ModifyTakeOut';
+import ModifyEntry from './ModifyEntry';
+import ModifyPersonal from './ModifyPersonal';
 
 //API CALLS
 import axios from 'axios';
@@ -51,8 +54,7 @@ export default class SpecificView extends Component {
                         <h1 className="title">{beneficiary.nombreCompleto}</h1>
                         <DropdownItem divider />
                         <Badge color="primary">DATOS PERSONALES</Badge>
-                        <Button  className="float-right" size="sm" id="editar"><FontAwesomeIcon icon={['fas', 'pencil-alt']} /></Button>
-                        <SimpleTooltip placement="top" target="editar" >Editar</SimpleTooltip>
+                        <ModifyPersonal id={beneficiary.id}/>
                         <p className="font-weight-bold" style={{'font-size': '15px'}}>Apodo: {beneficiary.apodo}</p>
                         <p className="font-weight-bold">Fecha de nacimiento: {beneficiary.fechaNacimiento}</p>
                         <p className="font-weight-bold">Edad:</p>
@@ -79,8 +81,7 @@ export default class SpecificView extends Component {
                         <Badge color="primary">DATOS DE INGRESO</Badge>
                     </Col>
                     <Col md="6">
-                        <Button  className="float-right" size="sm" id="editar"><FontAwesomeIcon icon={['fas', 'pencil-alt']} /></Button>
-                        <SimpleTooltip placement="top" target="editar" >Editar</SimpleTooltip>
+                        <ModifyEntry id={beneficiary.id}/>
                     </Col>
                 </Row>
                 <Row>
@@ -115,8 +116,7 @@ export default class SpecificView extends Component {
                         <Badge color="primary">DATOS DE EGRESO</Badge>
                     </Col>
                     <Col md="6">
-                        <Button  className="float-right" size="sm" id="editar"><FontAwesomeIcon icon={['fas', 'pencil-alt']} /></Button>
-                        <SimpleTooltip placement="top" target="editar" >Editar</SimpleTooltip>
+                        <ModifyTakeOut id={beneficiary.id}/>
                     </Col>
                 </Row>
                 <Row>

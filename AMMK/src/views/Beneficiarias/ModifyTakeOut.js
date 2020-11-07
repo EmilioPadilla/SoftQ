@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Modal, ModalBody, ModalFooter, Col, Label, Input, FormGroup, Row, Button, Form, ModalHeader, Badge, CustomInput} from 'reactstrap';
 import Swal from 'sweetalert2';
+import SimpleTooltip from "../General/SimpleTooltip";
 
 //API CALLS
 import axios from "axios";
@@ -155,12 +156,13 @@ onSubmit(e){
     const {errors} = this.state;
   return (
     <div className="content">
-      <Button color="danger" size="sm" onClick={()=>{this.setState({modalEgresar: true})}}><FontAwesomeIcon icon={faTrashAlt}/></Button>
-
+      <Button  className="float-right" size="sm" id="editar" onClick={()=>{this.setState({modalEgresar: true})}}><FontAwesomeIcon icon={['fas', 'pencil-alt']} /></Button>
+      <SimpleTooltip placement="top" target="editar" >Editar</SimpleTooltip>
+      
           <Modal isOpen={this.state.modalEgresar}>
           <Form onSubmit={this.onSubmit} autocomplete="off">
-          <ModalHeader>
-            <h3 className="title">EGRESAR</h3>
+          <ModalHeader className="text-center">
+            <h3 className="title">MODIFICAR EGRESO</h3>
             <Badge color="primary"><p style={{'font-size': '15px'}} >Los campos marcados con un asterisco (*) son obligatorios.</p></Badge>
           </ModalHeader>
           <ModalBody>
@@ -182,11 +184,10 @@ onSubmit(e){
                             <Input type="text" id="canalizador" name="canalizador" value={beneficiary.canalizador} hidden></Input>
                             <Input type="text" id="dxMedico" name="dxMedico" value={beneficiary.dxMedico} hidden></Input>
                             <Input type="text" id="vinculosFam" name="vinculosFam" value={beneficiary.vinculosFam} hidden></Input>
-                            </>
-                ))}
+
                         <FormGroup>
                             <Label htmlFor="fechaEgreso">*&nbsp;<FontAwesomeIcon icon={['fas', 'calendar-alt']} />&nbsp;Fecha de egreso:</Label>
-                            <Input type="date" id="fechaEgreso" name="fechaEgreso" onChange={this.handleChange}></Input>
+                            <Input type="date" id="fechaEgreso" name="fechaEgreso" onChange={this.handleChange} value={beneficiary.fechaEgreso}></Input>
                             {errors.fechaEgreso.length > 0 && <span className='error'>{errors.fechaEgreso}</span> 
                                 || 
                             errors.fechaEgreso.length == 0 && <span className='error'>{errors.fechaEgreso}</span>}
@@ -195,7 +196,7 @@ onSubmit(e){
                         <FormGroup>
                             <FontAwesomeIcon icon={['fas', 'map-marker-alt']} />
                             <Label htmlFor="destino">&nbsp;Destino:</Label>
-                            <Input type="text" id="destino" name="destino" onChange={this.handleChange}></Input>
+                            <Input type="text" id="destino" name="destino" onChange={this.handleChange} value={beneficiary.destino}></Input>
                             {errors.destino.length > 0 && <span className='error'>{errors.destino}</span> 
                                 || 
                                 errors.destino.length == 0 && <span className='error'>{errors.destino}</span>}
@@ -203,7 +204,7 @@ onSubmit(e){
 
                         <FormGroup>
                             <Label htmlFor="motivoEgreso">*&nbsp;<FontAwesomeIcon icon={['fas', 'comment']} />&nbsp;Motivo:</Label>
-                            <Input type="textarea" id="motivoEgreso" name="motivoEgreso" onChange={this.handleChange}></Input>
+                            <Input type="textarea" id="motivoEgreso" name="motivoEgreso" onChange={this.handleChange} value={beneficiary.motivoEgreso}></Input>
                             {errors.motivoEgreso.length > 0 && <span className='error'>{errors.motivoEgreso}</span> 
                                 || 
                                 errors.motivoEgreso.length == 0 && <span className='error'>{errors.motivoEgreso}</span>}
@@ -215,6 +216,8 @@ onSubmit(e){
                             <CustomInput id="hojaEgreso" type="file" label="Seleccionar archivo..."></CustomInput>
                             <Badge color="light">* Recuerda subir un archivo .pdf, .doc/x, .xls/x or .ppt/x</Badge>
                         </FormGroup>
+                        </>
+                        ))}
                     </Col>
                 </Row>
         </ModalBody>
