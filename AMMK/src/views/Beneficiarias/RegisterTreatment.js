@@ -42,7 +42,6 @@ export default class RegisterTreatment extends Component {
 
     crearSelect(){
         var sel='<option value="NA" disabled selected>Selecciona una opcion</option>';
-        const num=1;
         axios.get(API_BASE_URL + "modes").then(function(resp){
         console.log(resp.data);
         resp.data.forEach(element =>{
@@ -182,7 +181,7 @@ export default class RegisterTreatment extends Component {
             'Tratamiento registrado de manera exitosa',
             'success',
             ).then(function() {
-                window.location = "http://localhost:3000/admin/Beneficiarias/MedicalRecordView";
+                window.location = "http://localhost:3000/admin/Beneficiarias/MedicalRecordView/" + beneficiary_id;
             });
             }else{
                 Swal.fire(
@@ -197,6 +196,9 @@ export default class RegisterTreatment extends Component {
     render() {
         const {errors, formValid} = this.state;
         this.crearSelect();
+
+        let urlElements = window.location.href.split('/');
+      console.log(urlElements[6]);
         return (
             <div className="content">
                 <h1 className="title">REGISTRAR TRATAMIENTO</h1>
@@ -204,7 +206,7 @@ export default class RegisterTreatment extends Component {
                     <CardBody>
                         <Alert color="primary">Los campos marcados con un asterisco (*) son obligatorios.</Alert>
                         <Form onSubmit={this.onSubmit} autocomplete="off">
-                            <Input id="beneficiary_id" name="beneficiary_id" value="1" hidden></Input>
+                            <Input id="beneficiary_id" name="beneficiary_id" value={urlElements[6]} hidden></Input>
 
                             <div className='nombreMed'>
                             <FormGroup>

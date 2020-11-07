@@ -17,7 +17,7 @@ import {faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 const validTextInput = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ ]+[\w]+$/);
 const validDate = RegExp(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/);
 
-export default class TakeOutB extends Component {
+export default class ModifyTakeOut extends Component {
   constructor(props){
     super(props);
     this.state = {

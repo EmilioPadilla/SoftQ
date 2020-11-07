@@ -60,7 +60,8 @@ class TreatmentController extends Controller
      */
     public function show($id)
     {
-        //
+        $treatment = Treatment::where('id', $id)->get();
+        return response()->json($treatment);
     }
 
     /**

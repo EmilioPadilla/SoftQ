@@ -117,7 +117,7 @@ onSubmit(e){
     let dxMedico = document.getElementById("dxMedico").value;
     let vinculosFam = document.getElementById("vinculosFam").value;
 
-    if(fechaIngreso != ''){
+    if(fechaIngreso !== ''){
     const beneficiary = {
         id: id,
         status_id: 1,
@@ -207,7 +207,7 @@ onSubmit(e){
                 </Row>
         </ModalBody>
             <ModalFooter>
-              <Button color="secondary" onClick={()=>this.setState({modalReingresar: false})}>No</Button>
+              <Button color="info" onClick={()=>this.setState({modalReingresar: false})}>Cancelar</Button>
               <Button color="success" type="submit">Reingresar</Button>
             </ModalFooter>
             </Form>

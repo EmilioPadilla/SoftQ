@@ -226,7 +226,7 @@ var routes = [
     showInSidebar: false
   },
   {
-    path: "/Beneficiarias/RegisterTreatment",
+    path: "/Beneficiarias/RegisterTreatment/:id",
     name: "Beneficiarias",
     rtlName: "طباعة",
     icon: "tim-icons icon-single-02",
@@ -235,7 +235,7 @@ var routes = [
     showInSidebar: false
   },
   {
-    path: "/Beneficiarias/RegisterMedApp",
+    path: "/Beneficiarias/RegisterMedApp/:id",
     name: "Beneficiarias",
     rtlName: "طباعة",
     icon: "tim-icons icon-single-02",

@@ -19,9 +19,7 @@ library.add(fas)
 // REGEX FOR VALIDATIONS
 const validAlphanumericInput = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ \0-9]+[\w]+$/);
 const validTextInput = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ ]+[\w]+$/);
-const validName = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ]+(?:\s[A-Za-zÀ-ÖØ-öø-ÿ]+)+(?:\s[A-Za-zÀ-ÖØ-öø-ÿ]+)+[\w]+$/);
 const validAge = RegExp(/^[0-9]{1,3}$/);
-const validCurp = RegExp(/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/);
 const validTextArea = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ _:\0-9@]+$/);
 const validTime = RegExp(/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/);
 const validDate = RegExp(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/);
@@ -85,6 +83,7 @@ export default class RegisterMedApp extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.onSubmit= this.onSubmit.bind(this);
     }
+    
 
     handleChange = (event) => {
         event.preventDefault();
@@ -192,7 +191,7 @@ export default class RegisterMedApp extends Component {
             'Consulta médica registrada de manera exitosa',
             'success'
             ).then(function() {
-                window.location = "http://localhost:3000/admin/Beneficiarias/MedicalRecordView";
+                window.location = "http://localhost:3000/admin/Beneficiarias/MedicalRecordView/" + beneficiary_id;
             });
         }else{
                 Swal.fire(
@@ -205,6 +204,9 @@ export default class RegisterMedApp extends Component {
     }
 
     render() {
+      let urlElements = window.location.href.split('/');
+      console.log(urlElements[6]);
+
         const {errors, formValid} = this.state;
         this.crearSelect();
         return (
@@ -215,7 +217,7 @@ export default class RegisterMedApp extends Component {
                         <Alert color="primary">Los campos marcados con un asterisco (*) son obligatorios.</Alert>
                         <Form onSubmit={this.onSubmit} autocomplete="off">
 
-                            <Input id="beneficiary_id" name="beneficiary_id" value="1" hidden></Input>
+                            <Input id="beneficiary_id" name="beneficiary_id" value={urlElements[6]} hidden></Input>
 
                             <FormGroup>
                                 <Label for="fechaConsulta">*&nbsp;<FontAwesomeIcon icon={['fas', 'calendar-alt']} />&nbsp;Fecha de consulta médica:</Label>

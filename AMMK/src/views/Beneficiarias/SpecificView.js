@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
 //COMPONENTS
-import { DropdownItem, Row, Table, Col, Alert, Button, Badge } from 'reactstrap';
+import { DropdownItem, Row, Table, Col, Alert, Button, Badge, CardBody, Card } from 'reactstrap';
 import SimpleTooltip from "../General/SimpleTooltip";
 
 //API CALLS
@@ -46,16 +46,19 @@ export default class SpecificView extends Component {
                         <img src="archivosBeneficiarias/<?php echo obtenerImagen($idBeneficiaria.'_imagenIngreso_')?>" width="250" class="img-fluid" alt="Imagen de Ingreso" id="fotoBenef" onerror="this.onerror=null; this.src='avatar.jpg';"></img>
                     </Col>
                     <Col md="8">
+                    <Card>
+                  <CardBody>
                         <h1 className="title">{beneficiary.nombreCompleto}</h1>
                         <DropdownItem divider />
                         <Badge color="primary">DATOS PERSONALES</Badge>
                         <Button  className="float-right" size="sm" id="editar"><FontAwesomeIcon icon={['fas', 'pencil-alt']} /></Button>
                         <SimpleTooltip placement="top" target="editar" >Editar</SimpleTooltip>
-                        <p className="font-weight-bold">Apodo: {beneficiary.apodo}</p>
+                        <p className="font-weight-bold" style={{'font-size': '15px'}}>Apodo: {beneficiary.apodo}</p>
                         <p className="font-weight-bold">Fecha de nacimiento: {beneficiary.fechaNacimiento}</p>
                         <p className="font-weight-bold">Edad:</p>
                         <p className="font-weight-bold">CURP:{beneficiary.curp}</p>
-
+                        </CardBody>
+                    </Card>
                         <Row className="text-center">
                             <Col md="12">
                             <Link   to={{
@@ -69,6 +72,8 @@ export default class SpecificView extends Component {
                     </Col>
                 </Row>
                 <br></br>
+                <Card>
+                  <CardBody>
                 <Row>
                     <Col md="6">
                         <Badge color="primary">DATOS DE INGRESO</Badge>
@@ -100,7 +105,11 @@ export default class SpecificView extends Component {
                     <p className="font-weight-bold">Vinculos familiares: {beneficiary.vinculosFam}</p>
                     </Col>
                 </Row>
+                </CardBody>
+                </Card>
                 <br></br>
+                <Card>
+                  <CardBody>
                 <Row>
                     <Col md="6">
                         <Badge color="primary">DATOS DE EGRESO</Badge>
@@ -121,9 +130,13 @@ export default class SpecificView extends Component {
                     <p className="font-weight-bold">Destino: {beneficiary.destino}</p>
                     </Col>
                 </Row>
+                </CardBody>
+                </Card>
                 <br></br>
                 </>
                 ))}
+                <Card>
+                  <CardBody>
                 <Row>
                     <Col md="6">
                         <Badge color="primary">ARCHIVOS DE REGISTRO</Badge>
@@ -147,17 +160,27 @@ export default class SpecificView extends Component {
                             <td></td>
                             <td></td>
                             <td>
-                                <Button color="info" size="sm" id="verArchivo"><FontAwesomeIcon icon={['fas', 'eye']} /></Button>
-                                <SimpleTooltip placement="top" target="verArchivo" >Ver archivo</SimpleTooltip>
+                                <Row>
+                                    <Col md="4">
+                                    <Button color="info" size="sm" id="verArchivo"><FontAwesomeIcon icon={['fas', 'eye']} /></Button>
+                                    <SimpleTooltip placement="top" target="verArchivo" >Ver archivo</SimpleTooltip>
+                                    </Col>
 
-                                <Button color="primary" size="sm" id="descargar"><FontAwesomeIcon icon={['fas', 'download']} /></Button>
-                                <SimpleTooltip placement="top" target="descargar" >Descargar</SimpleTooltip>
+                                    <Col md="4">
+                                    <Button color="primary" size="sm" id="descargar"><FontAwesomeIcon icon={['fas', 'download']} /></Button>
+                                    <SimpleTooltip placement="top" target="descargar" >Descargar</SimpleTooltip>
+                                    </Col>
 
-                                <Button color="danger" size="sm" id="eliminar"><FontAwesomeIcon icon={['fas', 'trash-alt']} /></Button>
-                                <SimpleTooltip placement="top" target="eliminar" >Eliminar</SimpleTooltip>
+                                    <Col md="4">
+                                    <Button color="danger" size="sm" id="eliminar"><FontAwesomeIcon icon={['fas', 'trash-alt']} /></Button>
+                                    <SimpleTooltip placement="top" target="eliminar" >Eliminar</SimpleTooltip>
+                                    </Col>
+                                </Row>
                             </td>
                         </tr>
                 </Table>
+                </CardBody>
+                </Card>
             </div>
         )
     }

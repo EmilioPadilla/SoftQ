@@ -94,7 +94,7 @@ export default class TreatmentTable extends React.Component {
                   <td>
                     <Row>
                         <Col md="4">
-                        <ModifyTreatment/>
+                        <ModifyTreatment id={treatment.id}/>
                         </Col>
 
                         <Col md="4">
