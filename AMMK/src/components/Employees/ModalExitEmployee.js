@@ -1,9 +1,11 @@
 /* eslint react/no-multi-comp: 0, react/prop-types: 0 */
 
 import React, { useState } from 'react';
+import axios from 'axios';
 
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Col, Row, Input, FormGroup, CustomInput, Label, Form } from 'reactstrap';
 import SimpleTooltip from "../../views/General/SimpleTooltip";
+
 
 const ModalExample = (props) => {
   const {
@@ -38,7 +40,7 @@ const ModalExample = (props) => {
                 <Label for="motivoTextArea">
                   Motivo:
                   <br/>
-                  <textarea rows="3" cols="68" id="motivoTextArea"/>
+                  <textarea rows="3" cols="64" id="motivoTextArea"/>
                 </Label>
               </FormGroup>
 

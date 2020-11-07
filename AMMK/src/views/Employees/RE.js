@@ -23,7 +23,8 @@ import {
   Progress,
   CustomInput,
   Label,
-  Alert
+  Alert,
+  Button
 } from "reactstrap";
 
 function parseScholarships(scholarships){
@@ -38,8 +39,36 @@ class RegisterEmployee extends React.Component {
     super(props)
     this.state = {
       scholarships: [],
+      nombreCompleto: null,
+      fechaNacimiento: null, 
+      RFC: null,
+      CURP: null, 
+      NumSeguroSocial: null,
+      escolaridad: null
     }
   }
+
+  onSubmit(e){
+    e.preventDefault()
+    //Agarrar los valores 
+    let nombreCompleto = document.getElementById("nombreCompleto").value;
+    let escolaridad = document.getElementById("puestoSelect").value;
+    let fechaNacimiento = document.getElementById("fechaNacimiento").value;
+    let CURP = document.getElementById("CURP").value;
+    let RFC = document.getElementById("RFC").value;
+    let NumSeguroSocial = document.getElementById("NumSeguroSocial").value;
+
+    const datosPersonales = {
+      nombreCompleto: nombreCompleto,
+      fechaNacimiento: fechaNacimiento, 
+      RFC: RFC,
+      CURP: CURP, 
+      NumSeguroSocial: NumSeguroSocial,
+      escolaridad: escolaridad
+    };
+    localStorage.setItem("personal", JSON.stringify(datosPersonales));
+    // console.log(localStorage.getItem("personal"));
+}
 
   componentDidMount() {
     this.getScholarships();
@@ -55,6 +84,7 @@ class RegisterEmployee extends React.Component {
       <>
         <div className="content">
           <h2 className="title">Registrar empleado</h2>
+          <Form onClick={this.onSubmit}>
                 <Card>
                   <CardHeader>
                    
@@ -65,15 +95,15 @@ class RegisterEmployee extends React.Component {
                         <Alert color="primary">Los campos marcados con un asterisco (*) son obligatorios.</Alert>
                   </CardHeader>
                   <CardBody>
-                    <Form>
                       <Row>
                         <Col className="pl-md-1" md="6">
                           <FormGroup>
-                            <label>Nombre Completo</label>
+                            <Label htmlFor="nombreCompleto">Nombre Completo</Label>
                             <Input
                               defaultValue=""
                               placeholder="Juan Perez Díaz"
                               type="text"
+                              id="nombreCompleto"
                             />
                           </FormGroup>
                         </Col>
@@ -81,36 +111,39 @@ class RegisterEmployee extends React.Component {
                       <Row>
                         <Col className="pl-md-1" md="6">
                           <FormGroup>
-                            <label>
+                            <Label htmlFor="fechaNacimiento">
                               Fecha de nacimiento
-                            </label>
-                            <Input type="date" />
+                            </Label>
+                            <Input type="date" id="fechaNacimiento"/>
                           </FormGroup>
                         </Col>
                         <Col className="pl-md-1" md="6">
                           <FormGroup>
-                            <label>RFC</label>
+                            <Label htmlFor="RFC">RFC</Label>
                             <Input
                               placeholder="PAMP951122QQ3"
                               type="text"
+                              id="RFC"
                             />
                           </FormGroup>
                         </Col>
                         <Col className="pl-md-1" md="6">
                           <FormGroup>
-                            <label>CURP</label>
+                            <Label htmlFor="CURP">CURP</Label>
                             <Input
                               placeholder="PAMP951122HGTDMM05"
                               type="text"
+                              id="CURP"
                             />
                           </FormGroup>
                         </Col>
                         <Col className="pl-md-1" md="6">
                           <FormGroup>
-                            <label>Número de Seguro Social</label>
+                            <Label htmlFor="NumSeguroSocial">Número de Seguro Social</Label>
                             <Input
                               placeholder="???"
                               type="text"
+                              id="NumSeguroSocial"
                             />
                           </FormGroup>
                         </Col>
@@ -118,7 +151,7 @@ class RegisterEmployee extends React.Component {
                       <Row>
                         <Col className="pl-md-1">
                           <FormGroup>
-                            <label target="puestoSelect">Escolaridad</label>
+                            <Label target="puestoSelect" htmlFor="puestoSelect">Escolaridad</Label>
                             <Input type="select" name="select" id="puestoSelect" value={this.state.value} onChange={this.onChange}>
                             <option defaultValue="0">Selecciona una escolaridad...</option>
                             {this.state.scholarships.map((scholarship) => <option key={scholarship.value} value={scholarship.value}>{scholarship.label}</option>)}
@@ -160,15 +193,15 @@ class RegisterEmployee extends React.Component {
                         </Col>
 
                       </Row>
-                    </Form>
+                    
                   </CardBody>
                 </Card>
                 <Col  md="12" align="right">
                   <Link to='/admin/RE2'>
-                    <button className="btn btn-primary">Siguiente</button>
+                    <Button className="btn btn-primary" onClick="onSubmit()">Siguiente</Button>
                   </Link>
                 </Col>
-
+                </Form>
         </div>
 
       </>

@@ -8,25 +8,12 @@ import DeleteIcon from 'mdi-react/DeleteIcon';
 
 //Importing Icon library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { fas } from '@fortawesome/free-solid-svg-icons';
-
-
-import ViewEmployeeTable from "components/Employees/ViewEmployeeTable.js";
-
 // reactstrap components
 import {
   Button,
-  Card,
-  CardTitle,
-  CardHeader,
-  CardBody,
-  CardFooter,
   Input,
   Row,
   Col,
-  Progress,
-  CustomInput,
   Label,
   Table,
   InputGroup,

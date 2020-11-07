@@ -23,7 +23,6 @@ class Facturacion extends Component {
 }
 
 onSubmit(e){
-
   e.preventDefault()
 //agarrrar los valores con el id del forms
   var rsF = document.getElementById("razonSocialF").value;

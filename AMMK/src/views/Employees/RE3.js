@@ -4,6 +4,9 @@
 */
 import React from "react";
 import axios from 'axios';
+import { Link } from "react-router-dom";
+import { API_BASE_URL } from 'index';
+import Swal from 'sweetalert2';
 import EmployeeCalendarTable from "components/Employees/EmployeeCalendarTable.js";
 // reactstrap components
   import {
@@ -17,27 +20,32 @@ import EmployeeCalendarTable from "components/Employees/EmployeeCalendarTable.js
     Col,
     Progress,
     Label,
-    CustomInput
+    CustomInput,
+    Button,
   } from "reactstrap";
 
 
-
- function parseScholarships(scholarships){
-   return scholarships.map((scholarship) => {
-     return { label: scholarship.descripcion, value: scholarship.id };
-   });
- }
- let Scholarship = [];
+ function parseJobTitles(jobTitles){
+  return jobTitles.map((jobTitles) => {
+    return { label: jobTitles.nombre, value: jobTitles.id };
+  });
+}
 
  class RegisterEmployee3 extends React.Component {
    constructor(props){
      super(props)
      this.state = {
-       scholarships: [],
-       markedDays: []
+       markedDays: [],
+       jobTitles: [],
+       fechaIngreso: null,
+       sede: null, 
+       salario: null,
+       puesto: null, 
+       turnosQuincena: null,
+       monto: null
      }
      this.onChange = this.onChange.bind(this);
-    this.handleCalendarChange = this.handleCalendarChange.bind(this);
+      this.handleCalendarChange = this.handleCalendarChange.bind(this);
     
   }
 
@@ -51,37 +59,78 @@ import EmployeeCalendarTable from "components/Employees/EmployeeCalendarTable.js
    }
 
    componentDidMount() {
-     this.getScholarships();
+     this.getJobTitles();
    }
 
-   getScholarships() {
-     axios.get('http://localhost:8000/api/scholarship')
-     .then(res => this.setState({ scholarships: parseScholarships(res.data) }));
-   }
+   getJobTitles() {
+    axios.get('http://localhost:8000/api/employeeJobTitles')
+    .then(res => this.setState({ jobTitles: parseJobTitles(res.data) }));
+  }
+
+   onSubmit(e){
+    e.preventDefault()
+    //Agarrar los valores 
+    let fechaIngreso = document.getElementById("fechaIngreso").value;
+    let sede = document.getElementById("sede").value;
+    let salario = document.getElementById("salario").value;
+    let puesto = document.getElementById("puesto").value;
+    let turnosQuincena = document.getElementById("turnosQuincena").value;
+    let monto = document.getElementById("monto").value;
+
+    const datosEmpleado = {
+      fechaIngreso: fechaIngreso,
+      sede: sede, 
+      salario: salario,
+      puesto: puesto, 
+      turnosQuincena: turnosQuincena,
+      monto: monto
+    };
+    
+    let jsonEmpleado = localStorage.setItem("empleado", JSON.stringify(datosEmpleado));
+    let jsonPersonal = JSON.parse(localStorage.getItem("personal"));
+    let jsonContacto = JSON.parse(localStorage.getItem("ingreso"));
+    const json = {...jsonPersonal, ...jsonContacto, ...jsonEmpleado};
+    console.log(json);
+    localStorage.clear();
+
+    axios.post(API_BASE_URL + "employee/", json); 
+
+    Swal.fire(
+      '¡Listo!',
+      'Empleado registrado de manera exitosa',
+      'success'
+      ).then(function() {
+          window.location = "http://localhost:3000/admin/search-employee";
+      }
+  );
+
+}
 
 
    render() {
      return (
         <>
         <div className="content">
+        <h2 className="title">Registrar empleado</h2>
+        <Form onSubmit={this.onSubmit}>
           <Row>
             <Col md="12">
               <Card>
                 <CardHeader>
                   <Progress value="100" />
                   <br/>
-                  <h3 className="title">Registrar Empleado</h3>
+                  <h3 className="title">Datos de empleado</h3>
                 </CardHeader>
                 <CardBody>
-                  <Form>
+                  
                     <Row>
                     <Col className="pl-md-1" md="6">
                       <Col>
                         <FormGroup>
-                          <label>
+                          <Label htmlFor="fechaIngreso">
                             Fecha de ingreso
-                          </label>
-                          <Input type="date" />
+                          </Label>
+                          <Input type="date" id="fechaIngreso"/>
                         </FormGroup>
                       </Col>
                       </Col>
@@ -90,16 +139,16 @@ import EmployeeCalendarTable from "components/Employees/EmployeeCalendarTable.js
                         <Row>
                           <Col>
                         <FormGroup check inline>
-                          <Label check>
-                            <Input id="MK" defaultValue="" name="sedeRadio" type="radio" />
+                          <Label check htmlFor="MK">
+                            <Input id="MK" defaultValue="Asoc. MMK" name="sede" type="radio" />
                           </Label>
                         María Kolbe
                         </FormGroup>
-                      </Col>
+                      </Col>  
                       <Col>
                         <FormGroup check inline>
-                          <Label check>
-                             <Input id="GB" defaultValue="" name="sedeRadio" type="radio" />
+                          <Label check htmlFor="GB">
+                             <Input id="GB" defaultValue="Granja Betania" name="sede" type="radio" />
                           </Label>
                           Granja Bretania
                         </FormGroup>
@@ -109,28 +158,21 @@ import EmployeeCalendarTable from "components/Employees/EmployeeCalendarTable.js
                       <Col className="pl-md-1" md="6">
                         <Col>
                         <FormGroup>
-                        <Label for="puestoSelect">Puesto</Label>
-                            <Input type="select" name="select" id="puestoSelect">
-                            <option defaultValue="1">Selecciona un puesto...</option>
-                            <option >Enfermera</option>
-                            <option>Servicios Generales</option>
-                            <option >Cocina</option>
-                            <option >Lavandería</option>
-                            <option >Mayordomo</option>
-                            <option >Hermana</option>
-                            <option >Dirección Administrativa</option>
-                            <option >Directora</option>
+                        <Label htmlFor="puesto">Puesto</Label>
+                            <Input type="select" name="select" id="puesto">
+                            <option defaultValue="0">Selecciona un puesto...</option>
+                            {this.state.jobTitles.map((jobTitle) => <option key={jobTitle.value} value={jobTitle.value}>{jobTitle.label}</option>)}
                             </Input>
                         </FormGroup>
                       </Col>
                       </Col>
                       <Col className="pl-md-1" md="6">
-                        <Label for="sedeCheckbox">Salario</Label>
+                        <Label htmlFor="salario">Salario</Label>
                         <Row>
                           <Col>
                         <FormGroup check inline>
                           <Label check>
-                            <Input id="MK" defaultValue="" name="salarioRadio" type="radio" />
+                            <Input id="Fijo" defaultValue="Fijo" name="salario" type="radio" />
                           </Label>
                         Fijo
                         </FormGroup>
@@ -138,7 +180,7 @@ import EmployeeCalendarTable from "components/Employees/EmployeeCalendarTable.js
                       <Col>
                         <FormGroup check inline>
                           <Label check>
-                             <Input id="GB" defaultValue="" name="salarioRadio" type="radio" />
+                             <Input id="Variable" defaultValue="Variable" name="salario" type="radio" />
                           </Label>
                           Variable
                         </FormGroup>
@@ -150,35 +192,25 @@ import EmployeeCalendarTable from "components/Employees/EmployeeCalendarTable.js
                       <Col  md="6">
                         <Col className="pl-md-1">
                           <FormGroup>
-                            <label>Monto</label>
+                            <Label htmlFor="monto">Monto</Label>
                             <Input
                               placeholder="1500"
                               type="text"
+                              id="monto"
                             />
                           </FormGroup>
                         </Col>
                       </Col>
                         <Col>
                           <FormGroup>
-                            <label>Turnos por quincena</label>
+                            <Label htmlFor="turnosQuincena">Turnos por quincena</Label>
                             <Input
-                              placeholder="" type="number"
+                              placeholder="" type="number" id="turnosQuincena"
                             />
                            </FormGroup>
                          </Col>
                      </Row>
                      <Row>
-                       <Col  md="6">
-                         <Col className="pl-md-1">
-                           <FormGroup>
-                             <label target="puestoSelect">Escolaridad</label>
-                             <Input type="select" name="select" id="puestoSelect" value={this.state.value} onChange={this.onChange}>
-                             <option defaultValue="0">Selecciona una escolaridad...</option>
-                             {this.state.scholarships.map((scholarship) => <option key={scholarship.value} value={scholarship.value}>{scholarship.label}</option>)}
-                             </Input>
-                           </FormGroup>
-                         </Col>
-                       </Col>
                          <Col md="6">
                            <FormGroup>
                            <Label for="Contrato">Copia de Contrato</Label>
@@ -193,23 +225,25 @@ import EmployeeCalendarTable from "components/Employees/EmployeeCalendarTable.js
                       </Col>
                     </Row>
                     
-                  </Form>
                 </CardBody>
               </Card>
               <Row>
                 <Col  md="6">
-                <a href="/admin/RE2">
-                  <button className="btn btn-primary" onClick={() => { this.handleClick() }}>Regresar</button>
-                </a>
+                {/* <a href="/admin/RE2"> */}
+                <Link to="/admin/RE2">
+                  <button className="btn btn-primary">Regresar</button>
+                  </Link>
+                {/* </a> */}
                 </Col>
                 <Col md="6" align="right">
                 <a href="/admin/RE3">
-                  <button  className="btn btn-primary" onClick={() => { this.handleClick() }}>Terminar</button>
+                  <button  className="btn btn-primary" onClick="onSubmit()">Terminar</button>
                 </a>
                 </Col>
               </Row>
             </Col>
           </Row>
+          </Form>
         </div>
       </>
     );

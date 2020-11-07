@@ -80,8 +80,8 @@ class EmployeesController extends Controller
      */
     public function status($id)
     {
-        $beneficiaries = Beneficiary::where('status_id', '=', $id)->get();
-        return response()->json ($beneficiaries);
+        $employees = Employee::where('status_id', '=', $id)->get();
+        return response()->json ($employees);
     }
 
     /**
@@ -115,6 +115,17 @@ class EmployeesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $deleted = Employee::find($id);
+        $deleted->delete();
+
+        if ($deleted) {
+            return response()->json([
+                'message' => 'Employee deleted'
+            ]);
+        } else {
+            return response()->json([
+                'message' => 'error'
+            ]);
+        }
     }
 }

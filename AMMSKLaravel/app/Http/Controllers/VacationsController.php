@@ -103,7 +103,6 @@ class VacationsController extends Controller
      */
     public function destroy($id)
     {
-        // $deleted = $id->delete();
         $deleted = Vacations::find($id);
         $deleted->delete();
 
