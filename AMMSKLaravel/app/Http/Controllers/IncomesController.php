@@ -2,31 +2,48 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Vacations; 
+use App\Models\Donacion; 
 
-
-class VacationsController extends Controller
+class IncomesController extends Controller
 {
-     /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-       
-        return Vacations::all();
+        //
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Filter by date.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function filterByDate(Request $request)
     {
-        //
+        $incomes = Donacion::join(
+            "_donante",
+            "_donante.id",
+            "=",
+            "donacion.idDonante"
+        )->select(
+            "donacion.id",
+            "_donante.nombreCompleto1",
+            "donacion.descripcion",
+            "donacion.monto",
+            "donacion.folio",
+            "donacion.factura",
+            "donacion.fechaDonacion"
+        )->whereBetween(
+            "donacion.fechaDonacion",
+            [$request->startDate, $request->endDate]
+        )->get();
+        return $incomes;
     }
 
     /**
@@ -47,17 +64,6 @@ class VacationsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        return Vacations::where('employees_id', $id)->get();;
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
     {
         //
     }
@@ -80,11 +86,8 @@ class VacationsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Vacations $id)
+    public function destroy($id)
     {
-        $id->delete();
-        return response()->json([
-            'message' => 'vacation deleted'
-        ]);
+        //
     }
 }

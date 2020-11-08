@@ -177,20 +177,23 @@ class RDonantesPatronato extends Component {
              
             </Form.Row>
             </div>
+
+           
            
             <Form.Row>
               <Form.Group as={Row} controlId="birthdayPatronato">
                 <Form.Label>Fecha de Cumpleaños:</Form.Label>
-                <Form.Control type="date" placeholder=" / / " noValidate/>
+                <Form.Control type="date" placeholder=" / / "  noValidate/>
               </Form.Group>
             </Form.Row>
            
-            <div className='birthday'>
+            <div className='rfc'>
             <Form.Row>
               <Form.Group as={Row} controlId="RFCPatronato">
                 <Form.Label>RFC:</Form.Label>
-                <Form.Control type="text" placeholder="VECJ880326 XXX"  />
-              </Form.Group>
+                <Form.Control type="text"  name='rfc' placeholder="VECJ880326 XXX" onChange={this.handleChange}  />
+                {errors.rfc.length > 0 && 
+               <span className='error'>{errors.rfc}</span>}</Form.Group>
             </Form.Row>
             </div>
 
@@ -198,23 +201,35 @@ class RDonantesPatronato extends Component {
             <Form.Row>
               <Form.Group as={Row} controlId="emailPatronato">
                 <Form.Label>Correo:</Form.Label>
-                <Form.Control type="email" placeholder="ejemplo@ejemplo.com" />
-              </Form.Group>
+                <Form.Control name='email' type="email" placeholder="ejemplo@ejemplo.com" onChange={this.handleChange} />
+                {errors.email.length > 0 && 
+               <span className='error'>{errors.email}</span>}</Form.Group>
             </Form.Row>
             </div>
+            <div className='telefono'>
 
             <Form.Row>
             <Form.Group as={Row} controlId="telefonoPatronato">
                 <Form.Label>Telefono:</Form.Label>
-                <Form.Control type="text" placeholder="234 3344" />
+                <Form.Control type="text" name='telefono' placeholder="234 3344" onChange={this.handleChange} />{errors.telefono.length > 0 && 
+               <span className='error'>{errors.telefono}</span>}
               </Form.Group>
+              </Form.Row>
+              </div>
               &nbsp;&nbsp;&nbsp;
+              <div className='celular'>
+
+              <Form.Row>
+
               <Form.Group as={Row} controlId="celularPatronato">
                 <Form.Label>Celular:</Form.Label>
-                <Form.Control type="text" placeholder="442 343 3233" />
+                <Form.Control name='celular'type="text" placeholder="442 343 3233" onChange={this.handleChange} />{errors.celular.length > 0 && 
+               <span className='error'>{errors.celular}</span>}
               </Form.Group>
               
            </Form.Row>
+           </div>
+           
             <Form.Row>
                     <Col  md="6" align="left">
                     <Link to='/admin/GeneralRegistroD'>

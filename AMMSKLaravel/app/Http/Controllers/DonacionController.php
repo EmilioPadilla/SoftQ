@@ -27,6 +27,14 @@ class DonacionController extends Controller
     {
         //
     }
+    public function deleteD($id){
+        return DB::table('donacion')
+                ->where('donacion.id', $id)
+                ->join('tipo_donacion', 'donacion.idTipoDonacion', '=', 'tipo_donacion.id')
+                ->join('_donante', 'donacion.idDonante', '=', '_donante.id')
+                ->select( '_donante.id','tipo_donacion.nombre', 'donacion.fechaDonacion','donacion.descripcion','donacion.monto')
+                ->get();
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -110,6 +118,7 @@ class DonacionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::table('donacion')->where('id',$id)->delete();
+
     }
 }

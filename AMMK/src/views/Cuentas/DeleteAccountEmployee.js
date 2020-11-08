@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
+import { Link } from "react-router-dom";
 import {FormGroup, Form, Input, Button} from "reactstrap"
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { Link } from "react-router-dom";
 
 
-const ModifyAccountEmp = props =>{
-    
+const DeleteAccountEmp = props =>{
     const {id} = props.match.params;
     ax(id);
     return(
@@ -14,7 +13,8 @@ const ModifyAccountEmp = props =>{
                 <div class="container">
                     <div class="row">
                         <div class="col-12" >
-                            <h2 align="center">Modificar Cuenta de Empleado</h2>
+                            <h2 align="center">Eliminar Cuenta de Empleado</h2>
+                            <h4 align="center">ATENCIÓN: ELIMINAR UNA CUENTA ES UNA ACCIÓN PERMANENTE</h4>
                             <Form>
                                 <div class="row justify-content-center">
                                     <div class="col-4" >
@@ -22,7 +22,7 @@ const ModifyAccountEmp = props =>{
                                             <label>Nombre de usuario:</label>
                                             <Input
                                                 id="usernameModify"
-                                                
+                                                disabled
                                                 type="text"
                                             
                                             /> 
@@ -32,11 +32,11 @@ const ModifyAccountEmp = props =>{
                                 <div class="row justify-content-center">
                                     <div class="col-4">
                                         <FormGroup>
-                                            <label>Contraseña:</label>
+                                            <label>Nombre Completo:</label>
                                             <Input
-                                                id="passwordModify"
-                                                
-                                                type="password"
+                                                id="nombreModify"
+                                                disabled
+                                                type="text"
                                             
                                             /> 
                                         </FormGroup>
@@ -45,10 +45,11 @@ const ModifyAccountEmp = props =>{
                                 <div class="row justify-content-center">
                                     <div class="col-4">
                                         <FormGroup>
-                                            <label>Confirmar contraseña:</label>
+                                            <label>Rol:</label>
                                             <Input
-                                                id="confpassModify"
-                                                type="password"
+                                                disabled
+                                                id="rolModify"
+                                                type="text"
                                             
                                             /> 
                                         </FormGroup>
@@ -57,16 +58,16 @@ const ModifyAccountEmp = props =>{
                                 <br/>
                                 <div class="row justify-content-center">
                                     <div class="col-4" align="center">
-                                        <Link to="/admin/Cuentas/PrincipalEmp">
+                                    <Link to="/admin/Cuentas/PrincipalEmp">
                                             <Button className="btn-fill" color="primary" >
                                                 Regresar
                                             </Button>
-                                        </Link>
+                                    </Link>
                                     </div>
                                     <div class="col-4" align="center">
-                                        <Button className="btn-fill" color="primary" onClick={guardar}>
-                                            Guardar cambios
-                                        </Button>
+                                            <Button className="btn-fill" color="danger" onClick={eliminar}>
+                                                Eliminar
+                                            </Button>
                                     </div>
                                 </div>
                             </Form>
@@ -83,44 +84,29 @@ const ModifyAccountEmp = props =>{
 }
 
 function ax(idC){
-    axios.get("http://localhost:8000/api/account/"+idC)
+    axios.get("http://localhost:8000/api/account/delete/information/"+idC)
           .then(function (resp){
             console.log(resp.data);
            document.getElementById("usernameModify").value = resp.data[0].username;
-           document.getElementById("passwordModify").value = resp.data[0].password;
-           document.getElementById("confpassModify").value = resp.data[0].password;
+           document.getElementById("nombreModify").value = resp.data[0].nombreCompleto;
+           document.getElementById("rolModify").value = resp.data[0].nombreRol;
            document.getElementById("valorId").value = idC;
           } );
 }
 
-function guardar(){
-    var user = document.getElementById("usernameModify").value;
-    var passwrd = document.getElementById("passwordModify").value;
+function eliminar(){
     var idCuenta = document.getElementById("valorId").value;
-    if(user!="" && passwrd !=""){
-        const cuentaEditar = {
-            username: user,
-            password: passwrd,
-        }
-        axios.put('http://localhost:8000/api/account/'+idCuenta, cuentaEditar)
+        axios.delete('http://localhost:8000/api/account/'+idCuenta)
               .then(function (resp){
                 console.log(resp.data);
               } );
-
          Swal.fire(
           '¡Listo!',
-           'Cambios guardados',
+           'Se eliminó la cuenta',
            'success'
            ).then(function() {
                window.location = "http://localhost:3000/admin/Cuentas/PrincipalEmp";
         });
-    }else{
-        Swal.fire(
-            '¡Error!',
-             'Las contraseñas no coinciden o alguno de los campos está vacío',
-             'error'
-             )
-    }
 }
 
-export default ModifyAccountEmp;
+export default DeleteAccountEmp;
