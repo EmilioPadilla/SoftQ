@@ -22,7 +22,7 @@ const ModifyDonation = (props) => {
                             <Input
                                     id="fecha"
                                     
-                                    type="text"
+                                    type="date"
                                 />    
                      </FormGroup>
                         </div>
@@ -43,8 +43,8 @@ const ModifyDonation = (props) => {
                     <div class="row justify-content-center">
                     
                         <div class="col-4">
-                            <FormGroup id="monto">
-                            <p id="monto" className="font-weight-bold">MONTO: </p>
+                            <FormGroup >
+                            <p className="font-weight-bold">MONTO: </p>
                             <Input
                                     id="monto"
                                     
@@ -111,7 +111,7 @@ function modificar() {
     var descripcion=document.getElementById("descripcion").value ;
     var monto=document.getElementById("monto").value ;
     var idD=document.getElementById("valorId").value;
-  if (tipo!= "" && fecha != ""&&fecha != ""&&descripcion != ""&&monto!= "") {
+  if (tipo!= "" &&fecha != ""&&descripcion != ""&&monto!= "") {
     const donacion = {
         fechaDonacion: fecha,
         descripcion: descripcion,

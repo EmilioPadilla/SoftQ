@@ -48,7 +48,7 @@ const ModifyDonorContact = (props) => {
                             <Input
                                     id="fecha"
                                     
-                                    type="text"
+                                    type="date"
                                 /> 
                             </FormGroup>
                         </div>
