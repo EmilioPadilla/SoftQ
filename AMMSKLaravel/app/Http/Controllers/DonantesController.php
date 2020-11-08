@@ -75,7 +75,7 @@ class DonantesController extends Controller
         $donante->save();
 
     }
-
+    
     public function showTable(){
         $datos = DB::table('_donante')
                     ->join('tipo_donante', '_donante.idTipoDonante', '=', 'tipo_donante.id')

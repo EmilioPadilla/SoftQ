@@ -68,7 +68,8 @@ class ContactoDonanteController extends Controller
             $respuesta .= '<td>'.$res->correo1.'</td>';
             $respuesta .= '<td>'.$res->telefono1.'</td>';
             $respuesta .= '<td>'.$res->celular1.'</td>';
-            $respuesta .= '<td>  <div class="col"> <a href="/admin/EliminarContactoDonante/'.$res->id.'"> <button id="verDetalle" type="button" class="btn btn-danger btn-sm" > <i class="fa fa-trash-alt"> </i></button> </a> </div> </td> </tr>';
+            $respuesta .= '<td> <div class="row"> <div class="col"> <a href="/admin/ModificarContactoDonante/'.$res->id.'"> <button id="verDetalle" type="button" class="btn btn-info btn-sm" > <i class="fa fa-pencil-alt" ></i> </button> ';
+            $respuesta .= ' </a></div><div class="col"> <a href="/admin/EliminarContactoDonante/'.$res->id.'"> <button id="verDetalle" type="button" class="btn btn-danger btn-sm" > <i class="fa fa-trash-alt"> </i></button> </a> </div> </td> </tr>';
 
         }
         $respuesta .= '</tbody>';
@@ -103,11 +104,18 @@ class ContactoDonanteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Donantes $donante)
+    public function update(Request $request, $id)
     {
-      
+        $contactoD =  ContactoDonante::find($id);
+        
+        $contactoD->nombreCompleto= $request-> nombreCompleto;
+        $contactoD->cargo= $request-> cargo;
+        $contactoD->fechaCumpleaño= $request-> fechaCumpleaño;
+        $contactoD->correo1= $request-> correo1;
+        $contactoD->telefono1= $request->telefono1;
+        $contactoD->celular1= $request->celular1;
+        $contactoD->update();
     }
-
     /**
      * Remove the specified resource from storage.
      *

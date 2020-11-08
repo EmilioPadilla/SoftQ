@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import ViewDonations from 'views/Donors/ViewDonations'
 import ViewContacts from 'views/Donors/ViewContacts'
+
 import Form from "react-bootstrap/Form";
 
 // reactstrap components
@@ -33,6 +34,7 @@ const ViewSpecificDonor = props =>{
         <h3 className="title" id="nombreDonante"></h3>
 
         <Badge color="primary">DATOS GENERALES</Badge>
+        <a href="/admin/ModificarDonacion/"><button id="verDetalle" type="button" class="btn btn-info btn-sm" > <i class="fa fa-pencil-alt" ></i> </button></a> 
 
         <br></br>
         <br></br>
@@ -180,6 +182,7 @@ const ViewSpecificDonor = props =>{
 <ViewDonations/>
 
 <br></br> 
+
 <div>
                                 <Input type="text" id="valorId" style={{display: "none"}}>
 
