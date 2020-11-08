@@ -6,7 +6,7 @@ import { API_BASE_URL } from '../../index';
 
 //Components
 import { Link } from "react-router-dom";
-import {Table, Button, Col, Row, ModalBody, ModalFooter, Modal} from 'reactstrap';
+import {Table, Button, Row, ModalBody, ModalFooter, Modal} from 'reactstrap';
 import SimpleTooltip from '../../views/General/SimpleTooltip';
 
 //Importing Icon library
@@ -16,31 +16,20 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 
 library.add(fas)
   
-class ExpensesTable extends React.Component {
+export default class AdminTable extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      expenses: [],
-      expensesTotal: null,
-      modalEliminar: false,
-      form:{
-          id: '',
-          fecha: '',
-          pagoA: '',
-          descripcion: '',
-          monto: '',
-          category_id: '',
-          totalExpenses: null
-      }
+  state = {
+    expenses: [],
+    modalEliminar: false,
+    form:{
+        id: '',
+        fecha: '',
+        pagoA: '',
+        descripcion: '',
+        monto: '',
+        category_id: ''
     }
-    this.formatter = new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      minimumFractionDigits: 2
-    });
   }
-  
   
   componentDidMount() {
     let id = this.props.dataFromParent;
@@ -48,13 +37,7 @@ class ExpensesTable extends React.Component {
     axios.get(API_BASE_URL + 'expenses/')
       .then(res => {
         const expenses = res.data;
-        const expensesTotal = this.formatter.format(
-          res.data.reduce((accum,item) => accum + parseFloat(item.monto), 0)
-        )
-        this.setState({ expenses, expensesTotal });
-        if (this.props.onChange) {
-          this.props.onChange(this.state.expensesTotal);
-        }
+        this.setState({ expenses });
       })
   }
 
@@ -73,9 +56,7 @@ class ExpensesTable extends React.Component {
 
   peticionGet=()=>{
     axios.get(API_BASE_URL + 'expenses').then(response=>{
-      this.setState({
-        data: response.data
-      });
+      this.setState({data: response.data});
     }).catch(error=>{
       console.log(error.message);
     })
@@ -84,6 +65,7 @@ class ExpensesTable extends React.Component {
   peticionDelete=()=>{
     axios.delete(API_BASE_URL + 'expenses/' + this.state.form.id).then(response=>{
       this.setState({modalEliminar: false});
+      this.peticionGet();
     })
   }
   
@@ -94,8 +76,7 @@ class ExpensesTable extends React.Component {
 
   render() {
     return (
-      <Row>
-      <Col md="12">
+      <div>
         <Table hover>
             <thead>
               <tr>
@@ -130,17 +111,15 @@ class ExpensesTable extends React.Component {
 
         <Modal isOpen={this.state.modalEliminar}>
                 <ModalBody>
-                   ¿Estás segur@ que deseas eliminar el egreso?
+                   ¿Estás segur@ que deseas eliminar la consulta médica?
                 </ModalBody>
                 <ModalFooter>
                   <Button color="primary"onClick={()=>this.setState({modalEliminar: false})}>No</Button>
                   <Button color="danger" onClick={()=>this.peticionDelete()}>Sí</Button>
                 </ModalFooter>
         </Modal>
-      </Col>
-      </Row>
+
+      </div>
     )
   }
-}
-
-export default ExpensesTable;
+} 
