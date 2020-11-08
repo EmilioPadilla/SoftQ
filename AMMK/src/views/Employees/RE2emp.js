@@ -53,9 +53,9 @@ class RegisterEmployee2 extends React.Component {
     let estado = document.getElementById("estadoSelect").value;
     let ciudad = document.getElementById("ciudadSelect").value;
     let calle = document.getElementById("calle").value;
-    let numExt = document.getElementById("numExt").value;
-    let numInt = document.getElementById("numInt").value;
-    let cp = document.getElementById("cp").value;
+    let numExterior = document.getElementById("numExt").value;
+    let numInterior = document.getElementById("numInt").value;
+    let codigoPostal = document.getElementById("cp").value;
     let colonia = document.getElementById("colonia").value;
     let municipio = document.getElementById("municipio").value;
     let correo = document.getElementById("correo").value;
@@ -66,9 +66,9 @@ class RegisterEmployee2 extends React.Component {
       estado: estado,
       ciudad: ciudad, 
       calle: calle,
-      numExt: numExt, 
-      numInt: numInt, 
-      cp: cp, 
+      numExterior: numExterior, 
+      numInterior: numInterior, 
+      codigoPostal: codigoPostal, 
       colonia: colonia,
       municipio: municipio,
       correo: correo, 
@@ -102,7 +102,7 @@ class RegisterEmployee2 extends React.Component {
                     <Row>
                       <Col className="pl-md-1" md="6">
                         <FormGroup>
-                          <Label htmlFor="estadoSelect">Estado</Label>
+                          <Label htmlFor="estadoSelect">* Estado</Label>
                           <Input type="select" name="select" id="estadoSelect">
                           <option defaultValue="1">Selecciona un estado...</option>
                           <option >Guanajuato</option>
@@ -113,7 +113,7 @@ class RegisterEmployee2 extends React.Component {
                       </Col>
                       <Col className="pl-md-1" md="6">
                         <FormGroup>
-                          <Label htmlFor="ciudadSelect">Ciudad</Label>
+                          <Label htmlFor="ciudadSelect">* Ciudad</Label>
                           <Input type="select" name="select" id="ciudadSelect">
                           <option defaultValue="1">Selecciona una ciudad...</option>
                           <option >Guanajuato</option>
@@ -183,7 +183,7 @@ class RegisterEmployee2 extends React.Component {
                       </Col>
                       <Col className="pl-md-1" md="6">
                         <FormGroup>
-                          <Label htmlFor="municipio">Municipio</Label>
+                          <Label htmlFor="municipio">* Municipio</Label>
                           <Input
                             placeholder="Corregidora"
                             type="text"
@@ -219,7 +219,7 @@ class RegisterEmployee2 extends React.Component {
                       </Col>
                       <Col className="pl-md-1" md="6">
                         <FormGroup>
-                          <Label htmlFor="celular">Celular</Label>
+                          <Label htmlFor="celular">* Celular</Label>
                           <Input
                             placeholder="" type="tel" id="celular"
                           />

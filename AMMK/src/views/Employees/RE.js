@@ -32,19 +32,25 @@ function parseScholarships(scholarships){
     return { label: scholarship.descripcion, value: scholarship.id };
   });
 }
-let Scholarship = [];
+function parseCivilStatus(civilStatus){
+  return civilStatus.map((civilStatus) => {
+    return { label: civilStatus.descripcion, value: civilStatus.id };
+  });
+}
 
 class RegisterEmployee extends React.Component {
   constructor(props){
     super(props)
     this.state = {
       scholarships: [],
+      civilStatus: [],
       nombreCompleto: null,
       fechaNacimiento: null, 
       RFC: null,
       CURP: null, 
       NumSeguroSocial: null,
-      escolaridad: null
+      scholarship_id: null,
+      NumInfonavit: null
     }
   }
 
@@ -52,19 +58,23 @@ class RegisterEmployee extends React.Component {
     e.preventDefault()
     //Agarrar los valores 
     let nombreCompleto = document.getElementById("nombreCompleto").value;
-    let escolaridad = document.getElementById("puestoSelect").value;
-    let fechaNacimiento = document.getElementById("fechaNacimiento").value;
+    let scholarship_id = document.getElementById("puestoSelect").value;
+    let fechaNac = document.getElementById("fechaNacimiento").value;
     let CURP = document.getElementById("CURP").value;
     let RFC = document.getElementById("RFC").value;
     let NumSeguroSocial = document.getElementById("NumSeguroSocial").value;
+    let civil_status_id = document.getElementById("civil_status").value;
+    let infonavit = document.getElementById("NumInfonavit").value;
 
     const datosPersonales = {
       nombreCompleto: nombreCompleto,
-      fechaNacimiento: fechaNacimiento, 
+      fechaNac: fechaNac, 
       RFC: RFC,
       CURP: CURP, 
       NumSeguroSocial: NumSeguroSocial,
-      escolaridad: escolaridad
+      scholarship_id: scholarship_id,
+      civil_status_id: civil_status_id,
+      infonavit: infonavit
     };
     localStorage.setItem("personal", JSON.stringify(datosPersonales));
     // console.log(localStorage.getItem("personal"));
@@ -72,11 +82,17 @@ class RegisterEmployee extends React.Component {
 
   componentDidMount() {
     this.getScholarships();
+    this.getCivilStatus();
   }
 
   getScholarships() {
     axios.get('http://localhost:8000/api/scholarship')
     .then(res => this.setState({ scholarships: parseScholarships(res.data) }));
+  }
+
+  getCivilStatus() {
+    axios.get('http://localhost:8000/api/employeeCivilStatus')
+    .then(res => this.setState({ civilStatus: parseCivilStatus(res.data) }));
   }
 
   render() {
@@ -98,7 +114,7 @@ class RegisterEmployee extends React.Component {
                       <Row>
                         <Col className="pl-md-1" md="6">
                           <FormGroup>
-                            <Label htmlFor="nombreCompleto">Nombre Completo</Label>
+                            <Label htmlFor="nombreCompleto">* Nombre Completo</Label>
                             <Input
                               defaultValue=""
                               placeholder="Juan Perez Díaz"
@@ -107,16 +123,18 @@ class RegisterEmployee extends React.Component {
                             />
                           </FormGroup>
                         </Col>
-                      </Row>
-                      <Row>
                         <Col className="pl-md-1" md="6">
                           <FormGroup>
                             <Label htmlFor="fechaNacimiento">
-                              Fecha de nacimiento
+                              * Fecha de nacimiento
                             </Label>
                             <Input type="date" id="fechaNacimiento"/>
                           </FormGroup>
                         </Col>
+
+                      </Row>
+                      <Row>
+                        
                         <Col className="pl-md-1" md="6">
                           <FormGroup>
                             <Label htmlFor="RFC">RFC</Label>
@@ -141,32 +159,53 @@ class RegisterEmployee extends React.Component {
                           <FormGroup>
                             <Label htmlFor="NumSeguroSocial">Número de Seguro Social</Label>
                             <Input
-                              placeholder="???"
+                              placeholder="92919084431"
                               type="text"
                               id="NumSeguroSocial"
                             />
                           </FormGroup>
                         </Col>
+                        <Col className="pl-md-1">
+                          <FormGroup>
+                            <Label target="puestoSelect" htmlFor="civil_status">* Estado civil</Label>
+                            <Input type="select" name="select" id="civil_status" value={this.state.value} onChange={this.onChange}>
+                            <option defaultValue="0">Selecciona un estado civil...</option>
+                            {this.state.civilStatus.map((civil_status) => <option key={civil_status.value} value={civil_status.value}>{civil_status.label}</option>)}
+                            </Input>
+                          </FormGroup>
+                        </Col>
+                        
                       </Row>
                       <Row>
                         <Col className="pl-md-1">
                           <FormGroup>
-                            <Label target="puestoSelect" htmlFor="puestoSelect">Escolaridad</Label>
+                            <Label target="puestoSelect" htmlFor="puestoSelect">* Escolaridad</Label>
                             <Input type="select" name="select" id="puestoSelect" value={this.state.value} onChange={this.onChange}>
                             <option defaultValue="0">Selecciona una escolaridad...</option>
                             {this.state.scholarships.map((scholarship) => <option key={scholarship.value} value={scholarship.value}>{scholarship.label}</option>)}
                             </Input>
                           </FormGroup>
                         </Col>
-                        <Col md="6">
+                        <Col>
+                        <FormGroup>
+                            <Label htmlFor="NumInfonavit">Número de Infonavit</Label>
+                            <Input
+                              placeholder="92-91-90-8443-1"
+                              type="text"
+                              id="NumInfonavit"
+                            />
+                          </FormGroup>
+                        </Col>
+                        
+                    </Row>
+
+                      <Row>
+                      <Col className="pl-md-1"  md="6">
                           <FormGroup>
                           <Label for="Contrato">Copia de Contrato</Label>
                           <CustomInput type="file" name="customFile" id="Contraro" label="Selecciona un archivo"/>
                           </FormGroup>
                         </Col>
-                    </Row>
-
-                      <Row>
                         <Col className="pl-md-1" md="6">
                           <FormGroup>
                           <Label for="DocRFC">Carga de RFC</Label>

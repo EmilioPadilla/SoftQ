@@ -19,6 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::resource('donantes', 'App\Http\Controllers\DonantesController');
+
 // Rutas empleados
 Route::resource('employee', 'App\Http\Controllers\EmployeesController');
 Route::resource('employeeStatus', 'App\Http\Controllers\StatusEmployeeController');
@@ -26,6 +27,7 @@ Route::resource('scholarship', 'App\Http\Controllers\ScholarshipController');
 Route::resource('status', 'App\Http\Controllers\EmployeesShiftsController');
 Route::resource('employeesShifts', 'App\Http\Controllers\EmployeesShiftsController');
 Route::resource('employeeJobTitles', 'App\Http\Controllers\JobTitleController');
+Route::resource('employeeCivilStatus', 'App\Http\Controllers\CivilStatusController');
 Route::resource('employeeVacations', 'App\Http\Controllers\VacationsController');
 Route::post('employeesShifts/search', 'App\Http\Controllers\EmployeesShiftsController@filterByEmployee');
 Route::post('employeesShifts/delete', 'App\Http\Controllers\EmployeesShiftsController@deleteByEmployee');
@@ -34,7 +36,6 @@ Route::get('employeeVacations/{id}', 'App\Http\Controllers\VacationsController@s
 Route::get('employeeFiles/{id}', 'App\Http\Controllers\Employee_FilesController@show');
 
 //Rutas cuentas
-
 Route::apiResource('donantes', 'App\Http\Controllers\DonantesController');
 Route::resource('tipodonante', 'App\Http\Controllers\TipoDonanteController');
 Route::resource('recurrencia', 'App\Http\Controllers\RecurrenciaController');
