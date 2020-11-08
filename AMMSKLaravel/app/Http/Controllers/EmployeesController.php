@@ -41,7 +41,7 @@ class EmployeesController extends Controller
     {
         $employee = new Employee;
 
-        // $employee->id = $request -> id;
+
         $employee->nombreCompleto = $request -> nombreCompleto;
         $employee->scholarship_id = $request -> scholarship_id;
         $employee->status_id = '1';
@@ -70,11 +70,6 @@ class EmployeesController extends Controller
         $employee->puesto = $request -> puesto;
         $employee->diasLaborales = $request -> diasLaborales;
         $employee->numSeguroSocial = $request -> numSeguroSocial;
-
-        // $employee->fechaEgreso = null;
-        // $employee->motivoEgreso = null;
-        // $employee->fechaReingreso = null;
-        // $employee->motivoReingreso = null;
 
         $employee->save();
     }

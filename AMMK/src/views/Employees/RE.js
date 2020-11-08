@@ -7,6 +7,7 @@
 import React from "react";
 
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 import { Link } from "react-router-dom";
 
@@ -76,7 +77,20 @@ class RegisterEmployee extends React.Component {
       civil_status_id: civil_status_id,
       infonavit: infonavit
     };
-    localStorage.setItem("personal", JSON.stringify(datosPersonales));
+
+    if (nombreCompleto !== null && fechaNac !== null && civil_status_id !== null && scholarship_id !== null) {
+      localStorage.setItem("personal", JSON.stringify(datosPersonales));
+    } else {
+      Swal.fire(
+        'Error!',
+        'No se han llenado todos los campos obligatorios',
+        'error'
+        ).then(function() {
+            window.location = "http://localhost:3000/admin/RE";
+        })
+    }
+
+    // localStorage.setItem("personal", JSON.stringify(datosPersonales));
     // console.log(localStorage.getItem("personal"));
 }
 
