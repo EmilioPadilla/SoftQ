@@ -43,13 +43,22 @@ Route::resource('scholarship', 'App\Http\Controllers\ScholarshipController');
 Route::resource('status', 'App\Http\Controllers\EmployeesShiftsController');
 Route::resource('employeesShifts', 'App\Http\Controllers\EmployeesShiftsController');
 Route::resource('employeeJobTitles', 'App\Http\Controllers\JobTitleController');
+Route::resource('employeeCivilStatus', 'App\Http\Controllers\CivilStatusController');
 Route::resource('employeeVacations', 'App\Http\Controllers\VacationsController');
 Route::post('employeesShifts/search', 'App\Http\Controllers\EmployeesShiftsController@filterByEmployee');
 Route::post('employeesShifts/delete', 'App\Http\Controllers\EmployeesShiftsController@deleteByEmployee');
 Route::get('employee/{id}', 'App\Http\Controllers\EmployeesController@show');
 Route::get('employeeVacations/{id}', 'App\Http\Controllers\VacationsController@show');
 Route::get('employeeFiles/{id}', 'App\Http\Controllers\Employee_FilesController@show');
+Route::any('employee/exit/{id}', 'App\Http\Controllers\EmployeesController@exitEmployee');
 
+
+
+
+
+
+
+Route::post('incomes/search', 'App\Http\Controllers\IncomesController@filterByDate');
 //Rutas cuentas
 
 Route::resource('account', 'App\Http\Controllers\AccountController');

@@ -1,12 +1,11 @@
 /*!
-
 @Author: Emilio Padilla Miranda
 @Date: Sunday, October 11, 2020
-
 */
 import React from "react";
 
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 import { Link } from "react-router-dom";
 
@@ -23,7 +22,8 @@ import {
   Progress,
   CustomInput,
   Label,
-  Alert
+  Alert,
+  Button
 } from "reactstrap";
 
 function parseScholarships(scholarships){
@@ -31,18 +31,70 @@ function parseScholarships(scholarships){
     return { label: scholarship.descripcion, value: scholarship.id };
   });
 }
-let Scholarship = [];
+function parseCivilStatus(civilStatus){
+  return civilStatus.map((civilStatus) => {
+    return { label: civilStatus.descripcion, value: civilStatus.id };
+  });
+}
 
 class RegisterEmployee extends React.Component {
   constructor(props){
     super(props)
     this.state = {
       scholarships: [],
+      civilStatus: [],
+      nombreCompleto: null,
+      fechaNacimiento: null, 
+      RFC: null,
+      CURP: null, 
+      NumSeguroSocial: null,
+      scholarship_id: null,
+      NumInfonavit: null
     }
   }
 
+  onSubmit(e){
+    e.preventDefault()
+    //Agarrar los valores 
+    let nombreCompleto = document.getElementById("nombreCompleto").value;
+    let scholarship_id = document.getElementById("puestoSelect").value;
+    let fechaNac = document.getElementById("fechaNacimiento").value;
+    let CURP = document.getElementById("CURP").value;
+    let RFC = document.getElementById("RFC").value;
+    let NumSeguroSocial = document.getElementById("NumSeguroSocial").value;
+    let civil_status_id = document.getElementById("civil_status").value;
+    let infonavit = document.getElementById("NumInfonavit").value;
+
+
+    if (nombreCompleto !== '' && fechaNac !== '' && civil_status_id !== '' && scholarship_id !== '') {
+      console.log(nombreCompleto);
+      const datosPersonales = {
+        nombreCompleto: nombreCompleto,
+        fechaNac: fechaNac, 
+        RFC: RFC,
+        CURP: CURP, 
+        NumSeguroSocial: NumSeguroSocial,
+        scholarship_id: scholarship_id,
+        civil_status_id: civil_status_id,
+        infonavit: infonavit
+      };
+      localStorage.setItem("personal", JSON.stringify(datosPersonales));
+      window.location = "http://localhost:3000/admin/RE2";
+    } else {
+      Swal.fire( {
+        icon: 'error',
+        title: 'Oops...',
+        text: 'No se han llenado todos los campos obligatorios!',
+      })
+    }
+
+    // localStorage.setItem("personal", JSON.stringify(datosPersonales));
+    // console.log(localStorage.getItem("personal"));
+}
+
   componentDidMount() {
     this.getScholarships();
+    this.getCivilStatus();
   }
 
   getScholarships() {
@@ -50,11 +102,17 @@ class RegisterEmployee extends React.Component {
     .then(res => this.setState({ scholarships: parseScholarships(res.data) }));
   }
 
+  getCivilStatus() {
+    axios.get('http://localhost:8000/api/employeeCivilStatus')
+    .then(res => this.setState({ civilStatus: parseCivilStatus(res.data) }));
+  }
+
   render() {
     return (
       <>
         <div className="content">
           <h2 className="title">Registrar empleado</h2>
+          <Form >
                 <Card>
                   <CardHeader>
                    
@@ -65,75 +123,101 @@ class RegisterEmployee extends React.Component {
                         <Alert color="primary">Los campos marcados con un asterisco (*) son obligatorios.</Alert>
                   </CardHeader>
                   <CardBody>
-                    <Form>
                       <Row>
                         <Col className="pl-md-1" md="6">
                           <FormGroup>
-                            <label>Nombre Completo</label>
+                            <Label htmlFor="nombreCompleto">* Nombre Completo</Label>
                             <Input
                               defaultValue=""
                               placeholder="Juan Perez Díaz"
                               type="text"
+                              id="nombreCompleto"
                             />
                           </FormGroup>
                         </Col>
-                      </Row>
-                      <Row>
                         <Col className="pl-md-1" md="6">
                           <FormGroup>
-                            <label>
-                              Fecha de nacimiento
-                            </label>
-                            <Input type="date" />
+                            <Label htmlFor="fechaNacimiento">
+                              * Fecha de nacimiento
+                            </Label>
+                            <Input type="date" id="fechaNacimiento"/>
                           </FormGroup>
                         </Col>
+
+                      </Row>
+                      <Row>
+                        
                         <Col className="pl-md-1" md="6">
                           <FormGroup>
-                            <label>RFC</label>
+                            <Label htmlFor="RFC">RFC</Label>
                             <Input
                               placeholder="PAMP951122QQ3"
                               type="text"
+                              id="RFC"
                             />
                           </FormGroup>
                         </Col>
                         <Col className="pl-md-1" md="6">
                           <FormGroup>
-                            <label>CURP</label>
+                            <Label htmlFor="CURP">CURP</Label>
                             <Input
                               placeholder="PAMP951122HGTDMM05"
                               type="text"
+                              id="CURP"
                             />
                           </FormGroup>
                         </Col>
                         <Col className="pl-md-1" md="6">
                           <FormGroup>
-                            <label>Número de Seguro Social</label>
+                            <Label htmlFor="NumSeguroSocial">Número de Seguro Social</Label>
                             <Input
-                              placeholder="???"
+                              placeholder="92919084431"
                               type="text"
+                              id="NumSeguroSocial"
                             />
                           </FormGroup>
                         </Col>
+                        <Col className="pl-md-1">
+                          <FormGroup>
+                            <Label target="puestoSelect" htmlFor="civil_status">* Estado civil</Label>
+                            <Input type="select" name="select" id="civil_status" value={this.state.value} onChange={this.onChange}>
+                            <option defaultValue="0">Selecciona un estado civil...</option>
+                            {this.state.civilStatus.map((civil_status) => <option key={civil_status.value} value={civil_status.value}>{civil_status.label}</option>)}
+                            </Input>
+                          </FormGroup>
+                        </Col>
+                        
                       </Row>
                       <Row>
                         <Col className="pl-md-1">
                           <FormGroup>
-                            <label target="puestoSelect">Escolaridad</label>
+                            <Label target="puestoSelect" htmlFor="puestoSelect">* Escolaridad</Label>
                             <Input type="select" name="select" id="puestoSelect" value={this.state.value} onChange={this.onChange}>
                             <option defaultValue="0">Selecciona una escolaridad...</option>
                             {this.state.scholarships.map((scholarship) => <option key={scholarship.value} value={scholarship.value}>{scholarship.label}</option>)}
                             </Input>
                           </FormGroup>
                         </Col>
-                        <Col md="6">
+                        <Col>
+                        <FormGroup>
+                            <Label htmlFor="NumInfonavit">Número de Infonavit</Label>
+                            <Input
+                              placeholder="92-91-90-8443-1"
+                              type="text"
+                              id="NumInfonavit"
+                            />
+                          </FormGroup>
+                        </Col>
+                        
+                    </Row>
+
+                      <Row>
+                      <Col className="pl-md-1"  md="6">
                           <FormGroup>
                           <Label for="Contrato">Copia de Contrato</Label>
                           <CustomInput type="file" name="customFile" id="Contraro" label="Selecciona un archivo"/>
                           </FormGroup>
                         </Col>
-                    </Row>
-
-                      <Row>
                         <Col className="pl-md-1" md="6">
                           <FormGroup>
                           <Label for="DocRFC">Carga de RFC</Label>
@@ -160,15 +244,15 @@ class RegisterEmployee extends React.Component {
                         </Col>
 
                       </Row>
-                    </Form>
+                    
                   </CardBody>
                 </Card>
                 <Col  md="12" align="right">
-                  <Link to='/admin/RE2'>
-                    <button className="btn btn-primary">Siguiente</button>
-                  </Link>
+                  {/* <Link to='/admin/RE2'> */}
+                    <Button className="btn btn-primary" onClick={this.onSubmit}>Siguiente</Button>
+                  {/* </Link> */}
                 </Col>
-
+                </Form>
         </div>
 
       </>

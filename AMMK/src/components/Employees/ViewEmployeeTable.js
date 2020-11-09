@@ -52,12 +52,13 @@ import {
 
 
     render() {
-      let action;
-      if (this.state.status == 1) {
-        action = <ModalExitEmployee buttonLabel={<FontAwesomeIcon icon={['fas', 'trash-alt']} />}/>;
-      } else {
-        action = <ReenterEmp></ReenterEmp>;
-      }
+      let puesto = ["No registrado", "Enfermera", "Director(a)", "Servicios Generales", "Lavanderia", "Mayordomo", "Hermana", "Dirección administrtiva"];
+      // let action;
+      // if (this.state.status == 1) {
+      //   action = }/>;
+      // } else {
+      //   action = <ReenterEmp></ReenterEmp>;
+      // }
         return (
           <Row>
             <Col md="12">
@@ -65,7 +66,7 @@ import {
                   <thead>
                       <tr>
                         <th>Nombre</th>
-                        <th>RFC</th>
+                        <th>Celular</th>
                         <th>Puesto</th>
                         <th>Acciones</th>
                       </tr>
@@ -75,8 +76,8 @@ import {
                     {this.state.employees.map((employee) => (
                       <tr key={employee.id}>
                         <td>{employee.nombreCompleto}</td>
-                        <td>{employee.RFC}</td>
-                        <td>{employee.puesto}</td>
+                        <td>{employee.celular}</td>
+                        <td>{puesto[employee.puesto]}</td>
                         <td>
                             <Row>
                                 <Link to='/admin/view-employee'>
@@ -84,7 +85,7 @@ import {
                                 <SimpleTooltip placement="top" target="verDetalle">Ver detalle</SimpleTooltip>
                                 </Link>
                                 &nbsp;&nbsp;&nbsp;&nbsp; 
-                                {action}
+                                <ModalExitEmployee id={employee.id}/>
                             </Row>
                         </td>
                       </tr>
