@@ -25,6 +25,20 @@ class EmployeesController extends Controller
     }
 
     /**
+     * Display inactive employees.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showInactive()
+    {
+
+        $employees = Employee::where('status_id', '2')->get();
+        
+        return response()->json($employees);
+        
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -102,6 +116,23 @@ class EmployeesController extends Controller
         $employees->status_id = $request->status_id;
         $employees->motivoEgreso = $request->motivoEgreso;
         $employees->fechaEgreso = $request->fechaEgreso;
+        $employees->update();
+    }
+
+    /**
+     * Changes status of employee to active
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function reenterEmployee(Request $request, $id)
+    {
+        $employees = Employee::find($id);
+
+        $employees->status_id = $request->status_id;
+        $employees->motivoReingreso = $request->motivoReingreso;
+        $employees->fechaReingreso = $request->fechaReingreso;
         $employees->update();
     }
 
