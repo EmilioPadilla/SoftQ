@@ -1,188 +1,263 @@
 /*!
-
 @Author: Emilio Padilla Miranda
 @Date: Sunday, October 11, 2020
-
 */
 import React from "react";
-
 import axios from 'axios';
-
+import { Link } from "react-router-dom";
+import Swal from 'sweetalert2';
+import EmployeeCalendarTable from "components/Employees/EmployeeCalendarTable.js";
+import SimpleTooltip from "../../views/General/SimpleTooltip";
 
 // reactstrap components
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  FormGroup,
-  Form,
-  Input,
-  Row,
-  Col,
-  Progress,
-  Label,
-  CustomInput
-} from "reactstrap";
-import EmployeeCalendarTable from "components/Employees/EmployeeCalendarTable.js";
+  import {
+    Card,
+    CardHeader,
+    CardBody,
+    FormGroup,
+    Form,
+    Input,
+    Row,
+    Col,
+    Progress,
+    Label,
+    CustomInput,
+    Button,
+  } from "reactstrap";
 
 
-class RegisterEmployee3 extends React.Component {
-  constructor(props){
-    super(props)
-    this.state = {
-      markedDays: []
-    }
-    this.onChange = this.onChange.bind(this);
-    this.handleCalendarChange = this.handleCalendarChange.bind(this);
+ function parseJobTitles(jobTitles){
+  return jobTitles.map((jobTitles) => {
+    return { label: jobTitles.nombre, value: jobTitles.id };
+  });
+}
+
+ class RegisterEmployee3 extends React.Component {
+   constructor(props){
+     super(props)
+     this.state = {
+       markedDays: [],
+       jobTitles: [],
+       fechaIngreso: null,
+       sede: null, 
+       salario: null,
+       puesto: null, 
+       diasLaborales: null,
+       monto: null,
+       numBenef: null,
+       selectedOption: null
+     }
+      this.onChange = this.onChange.bind(this);
+      this.handleCalendarChange = this.handleCalendarChange.bind(this);
+  }
+
+   onChange(e) {
+     this.setState({ value: e.value });
+     console.log('scholarship selected: ', e.value);
+   }
+
+   handleCalendarChange(e) {
+     this.setState({ markedDays: e });
+   }
+
+   componentDidMount() {
+     this.getJobTitles();
+   }
+
+   getJobTitles() {
+    axios.get('http://localhost:8000/api/employeeJobTitles')
+    .then(res => this.setState({ jobTitles: parseJobTitles(res.data) }));
+  }
+
+   onSubmit(e){
+    e.preventDefault()
+    //Agarrar los valores 
+    let fechaIngreso = document.getElementById("fechaIngreso").value;
+    let headquarter_id = document.getElementById("sede").value;
+    let frecuenciaSalario = document.getElementById("frecuenciaSalario").value;
+    let puesto = document.getElementById("puesto").value;
+    let turnosQuincena = document.getElementById("diasLaborales").value;
+    let salarioxhora = document.getElementById("monto").value;
+    let numBeneficiarios = document.getElementById("numBenef").value;
+
+    if (fechaIngreso !== '' && headquarter_id !== '' && frecuenciaSalario !== '' && puesto !== '' && salarioxhora !== '' && turnosQuincena !== '') {
+    const datosEmpleado = {
+      fechaIngreso: fechaIngreso,
+      headquarter_id: headquarter_id, 
+      frecuenciaSalario: frecuenciaSalario,
+      puesto: puesto, 
+      diasLaborales: turnosQuincena,
+      salarioxhora: salarioxhora,
+      numBeneficiarios: numBeneficiarios
+    };
+
+    localStorage.setItem("empleado", JSON.stringify(datosEmpleado));
+
+    let jsonPersonal = JSON.parse(localStorage.getItem("personal"));
+    let jsonContacto = JSON.parse(localStorage.getItem("contacto"));
+    let jsonEmpleado = JSON.parse(localStorage.getItem("empleado"));
     
-  }
+    const json = {...jsonPersonal, ...jsonContacto, ...jsonEmpleado};
+    console.log(json);
+    localStorage.clear();
 
-  onChange(e) {
-    this.setState({ value: e.value });
-  }
+    axios.post('http://localhost:8000/api/employee/', json).then(res => {console.log(res)});
 
-  handleCalendarChange(e) {
-    this.setState({ markedDays: e });
-  }
+    Swal.fire(
+      '¡Listo!',
+      'Empleado registrado de manera exitosa',
+      'success'
+      ).then(function() {
+          window.location = "http://localhost:3000/admin/search-employee";
+      });
+    } else{
+      Swal.fire( {
+        icon: 'error',
+        title: 'Oops...',
+        text: 'No se han llenado todos los campos obligatorios!',
+      })
+    }
+
+}
 
 
-  render() {
-    return (
-      <>
+   render() {
+     return (
+        <>
         <div className="content">
+        <h2 className="title">Registrar empleado</h2>
+        <Form >
           <Row>
             <Col md="12">
               <Card>
                 <CardHeader>
                   <Progress value="100" />
                   <br/>
-                  <h3 className="title">Registrar Empleado</h3>
+                  <h3 className="title">Datos de empleado</h3>
                 </CardHeader>
                 <CardBody>
-                  <Form>
+                  
                     <Row>
                     <Col className="pl-md-1" md="6">
                       <Col>
                         <FormGroup>
-                          <label>
-                            Fecha de ingreso
-                          </label>
-                          <Input type="date" />
+                          <Label htmlFor="fechaIngreso">
+                            * Fecha de ingreso
+                          </Label>
+                          <Input type="date" id="fechaIngreso"/>
                         </FormGroup>
                       </Col>
                       </Col>
                       <Col className="pl-md-1" md="6">
-                        <Label for="sedeCheckbox">Sede</Label>
                         <Row>
-                          <Col>
-                        <FormGroup check inline>
-                          <Label check>
-                            <Input id="MK" defaultValue="" name="sedeRadio" type="radio" />
-                          </Label>
-                        María Kolbe
-                        </FormGroup>
-                      </Col>
-                      <Col>
-                        <FormGroup check inline>
-                          <Label check>
-                             <Input id="GB" defaultValue="" name="sedeRadio" type="radio" />
-                          </Label>
-                          Granja Bretania
-                        </FormGroup>
-                      </Col>
-                    </Row>
+                        <Col>
+                        <Col>
+                          <FormGroup>
+                          <Label htmlFor="sede">* Sede</Label>
+                              <Input type="select" name="select" id="sede">
+                              <option defaultValue="0">Selecciona una sede...</option>
+                              <option value="1">Asoc. MMK</option>
+                              <option value="2">Granja Betanía</option>
+                              </Input>
+                          </FormGroup>
+                          </Col>
+                          </Col>  
+                           </Row>
                       </Col>
                       <Col className="pl-md-1" md="6">
                         <Col>
                         <FormGroup>
-                        <Label for="puestoSelect">Puesto</Label>
-                            <Input type="select" name="select" id="puestoSelect">
-                            <option defaultValue="1">Selecciona un puesto...</option>
-                            <option >Enfermera</option>
-                            <option>Servicios Generales</option>
-                            <option >Cocina</option>
-                            <option >Lavandería</option>
-                            <option >Mayordomo</option>
-                            <option >Hermana</option>
-                            <option >Dirección Administrativa</option>
-                            <option >Directora</option>
+                        <Label htmlFor="puesto">* Puesto</Label>
+                            <Input type="select" name="select" id="puesto">
+                            <option defaultValue="0">Selecciona un puesto...</option>
+                            {this.state.jobTitles.map((jobTitle) => <option key={jobTitle.value} value={jobTitle.value}>{jobTitle.label}</option>)}
                             </Input>
                         </FormGroup>
                       </Col>
                       </Col>
                       <Col className="pl-md-1" md="6">
-                        <Label for="sedeCheckbox">Salario</Label>
-                        <Row>
-                          <Col>
-                        <FormGroup check inline>
-                          <Label check>
-                            <Input id="MK" defaultValue="" name="salarioRadio" type="radio" />
-                          </Label>
-                        Fijo
-                        </FormGroup>
-                      </Col>
-                      <Col>
-                        <FormGroup check inline>
-                          <Label check>
-                             <Input id="GB" defaultValue="" name="salarioRadio" type="radio" />
-                          </Label>
-                          Variable
-                        </FormGroup>
-                      </Col>
-                    </Row>
+                        <Col>
+                         <FormGroup>
+                          <Label htmlFor="frecuenciaSalario">* Frecuencia de salario</Label>
+                              <Input type="select" name="select" id="frecuenciaSalario">
+                              <option defaultValue="0">Selecciona una frecuencia de salario...</option>
+                              <option value="1">Variable</option>
+                              <option value="2">Fijo</option>
+                              </Input>
+                          </FormGroup>
+                          </Col>
                        </Col>
                     </Row>
                     <Row>
                       <Col  md="6">
                         <Col className="pl-md-1">
                           <FormGroup>
-                            <label>Monto</label>
+                            <Label htmlFor="monto">* Monto</Label>
                             <Input
                               placeholder="1500"
                               type="text"
+                              id="monto"
                             />
                           </FormGroup>
                         </Col>
                       </Col>
                         <Col>
                           <FormGroup>
-                            <label>Turnos por quincena</label>
+                            <Label htmlFor="diasLaborales">* Dias Laborales</Label>
                             <Input
-                              placeholder="" type="number"
+                              placeholder="" type="number" id="diasLaborales"
                             />
-                          </FormGroup>
-                        </Col>
+                           </FormGroup>
+                         </Col>
+                     </Row>
+                     <Row>
+                         <Col md="6">
+                           <FormGroup>
+                           <Label for="Contrato">Copia de Contrato</Label>
+                           <CustomInput type="file" name="customFile" id="Contraro" label="Selecciona un archivo"/>
+                           </FormGroup>
+                         </Col>
+                         <Col md="6">
+                           <FormGroup>
+                           <Label for="numBenef">Número de beneficiarios</Label>
+                           <Input
+                              placeholder="2"
+                              type="number"
+                              id="numBenef"
+                            />
+                            <SimpleTooltip placement="top" target="numBenef">Beneficiarios a quienes se les puede otorgar porcion del salario del empleado</SimpleTooltip>
+                           </FormGroup>
+                         </Col>
+                         </Row>
+                    <Row>
+                      <Col>
+                        <h4 className="text-center">Calendario de empleado</h4>
+                        <EmployeeCalendarTable onChange={this.handleCalendarChange} />
+                      </Col>
                     </Row>
-
-                  <Row>
-                    <Col>
-                      <h4 className="text-center">Calendario de empleado</h4>
-                      <EmployeeCalendarTable onChange={this.handleCalendarChange} />
-                    </Col>
-                  </Row>
-
-
-                  </Form>
+                    
                 </CardBody>
               </Card>
               <Row>
                 <Col  md="6">
-                <a href="/admin/RE2">
-                  <button className="btn btn-primary" onClick={() => { this.handleClick() }}>Regresar</button>
-                </a>
+                {/* <a href="/admin/RE2"> */}
+                <Link to="/admin/RE2">
+                  <button className="btn btn-primary">Regresar</button>
+                  </Link>
+                {/* </a> */}
                 </Col>
                 <Col md="6" align="right">
                 <a href="/admin/RE3">
-                  <button  className="btn btn-primary" onClick={() => { this.handleClick() }}>Terminar</button>
+                  <button  className="btn btn-primary" onClick={this.onSubmit}>Terminar</button>
                 </a>
                 </Col>
               </Row>
             </Col>
           </Row>
+          </Form>
         </div>
       </>
     );
   }
 }
-
 export default RegisterEmployee3;
