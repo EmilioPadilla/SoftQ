@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import {Button, Modal, ModalBody, ModalHeader, FormGroup, Input, Label, Row, Col} from 'reactstrap';
 import SimpleTooltip from "../../views/General/SimpleTooltip";
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 //Importing Icon library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -16,6 +17,7 @@ function reEnterEmployee (id) {
   let motivoReingreso = document.getElementById("motivoReingreso").value;
   let fechaReingreso = document.getElementById("fechaReingreso").value;
   
+  if (fechaReingreso !== '' && motivoReingreso !== '') {
   const reingresarEmpleado = {
     status_id: 1,
     fechaReingreso: fechaReingreso,
@@ -23,7 +25,14 @@ function reEnterEmployee (id) {
   }
   axios.put('http://localhost:8000/api/employee/reenter/'+id, reingresarEmpleado).then(function() {
     window.location = "http://localhost:3000/admin/search-employee";
-});
+  });
+  } else {
+    Swal.fire( {
+      icon: 'error',
+      title: 'Oops...',
+      text: 'No se han llenado todos los campos obligatorios!',
+    })
+}
 }
 
 const ReenterEmp = (props) => {
@@ -55,7 +64,7 @@ const ReenterEmp = (props) => {
                         <FormGroup>
                             <FontAwesomeIcon icon={["fas", "comment"]} />
                             <Label for="motivo">&nbsp;Motivo de reingreso</Label>
-                            <Input type="textarea" name="motivo" id="motivoReingreso" />
+                            <textarea rows="3" cols="64" id="motivoReingreso"/>
                         </FormGroup>
                     </Col>
                 </Row>

@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, FormGroup, CustomInput, Label, Form } from 'reactstrap';
 import SimpleTooltip from "../../views/General/SimpleTooltip";
@@ -10,7 +11,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 function exitEmployee (id) {
   let motivoEgreso = document.getElementById("motivoEgreso").value;
   let fechaEgreso = document.getElementById("fechaEgreso").value;
-  
+
+  if (fechaEgreso !== '' && motivoEgreso !== '') {
   const egresarEmpleado = {
     status_id: 2,
     fechaEgreso: fechaEgreso,
@@ -18,8 +20,14 @@ function exitEmployee (id) {
   }
   axios.put('http://localhost:8000/api/employee/exit/'+id, egresarEmpleado).then(function() {
     window.location = "http://localhost:3000/admin/search-employee";
-});
-
+  });
+  } else {
+    Swal.fire( {
+      icon: 'error',
+      title: 'Oops...',
+      text: 'No se han llenado todos los campos obligatorios!',
+    })
+  }
 }
 
 const ModalExample = (props) => {
