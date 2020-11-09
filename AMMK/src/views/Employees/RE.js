@@ -81,7 +81,6 @@ class RegisterEmployee extends React.Component {
         infonavit: infonavit
       };
       localStorage.setItem("personal", JSON.stringify(datosPersonales));
-      console.log(JSON.parse(localStorage.getItem("personal")));
       window.location = "http://localhost:3000/admin/RE2";
     } else {
       Swal.fire( {
