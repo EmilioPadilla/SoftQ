@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 // reactstrap components
 import {Button, Modal, ModalBody, ModalHeader, FormGroup, Input, Label, Row, Col} from 'reactstrap';
 import SimpleTooltip from "../../views/General/SimpleTooltip";
+import axios from 'axios';
+import Swal from 'sweetalert2';
 
 //Importing Icon library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,15 +13,37 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 
 library.add(fas)
 
+function reEnterEmployee (id) {
+  let motivoReingreso = document.getElementById("motivoReingreso").value;
+  let fechaReingreso = document.getElementById("fechaReingreso").value;
+  
+  if (fechaReingreso !== '' && motivoReingreso !== '') {
+  const reingresarEmpleado = {
+    status_id: 1,
+    fechaReingreso: fechaReingreso,
+    motivoReingreso: motivoReingreso
+  }
+  axios.put('http://localhost:8000/api/employee/reenter/'+id, reingresarEmpleado).then(function() {
+    window.location = "http://localhost:3000/admin/search-employee";
+  });
+  } else {
+    Swal.fire( {
+      icon: 'error',
+      title: 'Oops...',
+      text: 'No se han llenado todos los campos obligatorios!',
+    })
+}
+}
+
 const ReenterEmp = (props) => {
   const {
-    className
+    className,
+    id
   } = props;
 
   const [modal, setModal] = useState(false);
 
   const toggle = () => setModal(!modal);
-
   return (
     <div className="content">
       <Button color="success" size="sm" id="reingresar" onClick={toggle}><FontAwesomeIcon icon={['fas', 'redo-alt']} /></Button>
@@ -35,18 +59,18 @@ const ReenterEmp = (props) => {
                         <FormGroup>
                             <FontAwesomeIcon icon={["fas", "calendar-alt"]} />
                             <Label for="fechaR">&nbsp;Fecha de reingreso:</Label>
-                            <Input type="date" id="fechaR"></Input>
+                            <Input type="date" id="fechaReingreso"></Input>
                         </FormGroup>
                         <FormGroup>
                             <FontAwesomeIcon icon={["fas", "comment"]} />
                             <Label for="motivo">&nbsp;Motivo de reingreso</Label>
-                            <Input type="textarea" name="motivo" id="motivo" />
+                            <textarea rows="3" cols="64" id="motivoReingreso"/>
                         </FormGroup>
                     </Col>
                 </Row>
                 <Row className="text-center">
                     <Col md="12">
-                        <Button color="success" onClick={toggle}>Reingresar</Button>
+                        <Button color="success" onClick={reEnterEmployee.bind("this", id)}>Reingresar</Button>
                     </Col>
                 </Row>
         </ModalBody>

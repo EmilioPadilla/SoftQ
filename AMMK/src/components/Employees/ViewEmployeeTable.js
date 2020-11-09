@@ -36,28 +36,35 @@ import {
 
   class ViewEmployeeTable extends React.Component {
     state = {
-      employees:[],
-      status:2,
+      employeesA:[],
+      employeesI:[],
+      action:''
     }
 
     componentDidMount() {
       let id = this.props.dataFromParent;
       console.log(id);
+      //Active employees
       axios.get(API_BASE_URL + 'employee/')
         .then(res => {
-          const employees = res.data;
-          this.setState({ employees });
-        })
+          const employeesA = res.data;
+          this.setState({ employeesA });
+        });
+      //Inactive employees
+      axios.get(API_BASE_URL + 'inactiveEmployee')
+      .then(res => {
+        const employeesI = res.data;
+        this.setState({ employeesI });
+      });
     }
 
 
+
     render() {
-      let action;
-      if (this.state.status == 1) {
-        action = <ModalExitEmployee buttonLabel={<FontAwesomeIcon icon={['fas', 'trash-alt']} />}/>;
-      } else {
-        action = <ReenterEmp></ReenterEmp>;
-      }
+      let puesto = ["No registrado", "Enfermera", "Director(a)", "Servicios Generales", "Lavanderia", "Mayordomo", "Hermana", "Dirección administrtiva"];
+      // if (this.state.employeesI.length === 0) {
+      //   this.state.action = "<tr> <td><h5>Inactivos</h5></td><td>Hola</td></tr>";
+      // }
         return (
           <Row>
             <Col md="12">
@@ -65,18 +72,18 @@ import {
                   <thead>
                       <tr>
                         <th>Nombre</th>
-                        <th>RFC</th>
+                        <th>Celular</th>
                         <th>Puesto</th>
                         <th>Acciones</th>
                       </tr>
                   </thead>
                   <tbody>
 
-                    {this.state.employees.map((employee) => (
-                      <tr key={employee.id}>
-                        <td>{employee.nombreCompleto}</td>
-                        <td>{employee.RFC}</td>
-                        <td>{employee.puesto}</td>
+                    {this.state.employeesA.map((employees) => (
+                      <tr key={employees.id}>
+                        <td>{employees.nombreCompleto}</td>
+                        <td>{employees.celular}</td>
+                        <td>{puesto[employees.puesto]}</td>
                         <td>
                             <Row>
                                 <Link to='/admin/view-employee'>
@@ -84,7 +91,27 @@ import {
                                 <SimpleTooltip placement="top" target="verDetalle">Ver detalle</SimpleTooltip>
                                 </Link>
                                 &nbsp;&nbsp;&nbsp;&nbsp; 
-                                {action}
+                                <ModalExitEmployee id={employees.id}/>
+                                
+                            </Row>
+                        </td>
+                      </tr>
+                    ))}
+                    {/* {this.state.action} */}
+                    {this.state.employeesI.map((employee) => (
+                      <tr key={employee.id}>
+                        <td>{employee.nombreCompleto}</td>
+                        <td>{employee.celular}</td>
+                        <td>{puesto[employee.puesto]}</td>
+                        <td>
+                            <Row>
+                                <Link to='/admin/view-employee'>
+                                <Button color="info" size="sm" id="verDetalle"><FontAwesomeIcon icon={['fas', 'eye']} /></Button>
+                                <SimpleTooltip placement="top" target="verDetalle">Ver detalle</SimpleTooltip>
+                                </Link>
+                                &nbsp;&nbsp;&nbsp;&nbsp; 
+                                <ReenterEmp id={employee.id}></ReenterEmp>;
+                                
                             </Row>
                         </td>
                       </tr>

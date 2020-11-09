@@ -112,7 +112,8 @@ function ax(idC){
 function eliminar(){
     var idD = document.getElementById("valorId").value;
     console.log(idD);
-        axios.delete('http://localhost:8000/api/donaciones/'+idD)
+        axios.delete('http://localhost:8000/api/donations/delete/'+idD)
+
               .then(function (resp){
                 console.log(resp.data);
               } );

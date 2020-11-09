@@ -75,7 +75,7 @@ class DonantesController extends Controller
         $donante->save();
 
     }
-
+    
     public function showTable(){
         $datos = DB::table('_donante')
                     ->join('tipo_donante', '_donante.idTipoDonante', '=', 'tipo_donante.id')
@@ -151,10 +151,53 @@ class DonantesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Donantes $donante)
+    public function update(Request $request, $id)
     {
-      
-    }  
+        $donante = Donantes::find($id);
+        $donante->nombreCompleto1 = $request -> nombreCompleto1;
+        $donante->fechaCumpleaños1 = $request -> fechaCumpleaños1;
+        $donante->RFC1 = $request -> RFC1;
+        $donante->correo1 = $request -> correo1;
+        $donante->telefono1 = $request -> telefono1;
+        $donante->celular1 = $request -> celular1;
+
+
+        $donante->RazonSocial = $request -> RazonSocial;
+        $donante->RFC = $request -> RFC;
+        $donante->calle = $request -> calle;
+        $donante->noInterior = $request -> noInterior;
+        $donante->noExterior = $request -> noExterior;
+        $donante->codigoPostal = $request -> codigoPostal;
+        $donante->colonia = $request -> colonia;
+        $donante->ciudad = $request -> ciudad;
+        $donante->municipio = $request -> municipio;
+        $donante->estado = $request -> estado;
+        $donante->pais = $request -> pais;
+        $donante->correo = $request -> correo;
+
+
+        $donante->update();
+    }
+    public function updateFacturacion(Request $request, $id)
+    {
+        $donante = Donantes::find($id);
+
+        $donante->RazonSocial = $request -> RazonSocial;
+        $donante->RFC = $request -> RFC;
+        $donante->calle = $request -> calle;
+        $donante->noInterior = $request -> noInterior;
+        $donante->noExterior = $request -> noExterior;
+        $donante->codigoPostal = $request -> codigoPostal;
+        $donante->colonia = $request -> colonia;
+        $donante->ciudad = $request -> ciudad;
+        $donante->municipio = $request -> municipio;
+        $donante->estado = $request -> estado;
+        $donante->pais = $request -> pais;
+        $donante->correo = $request -> correo;
+
+        
+        $donante->update();
+    }
 
     /**
      * Remove the specified resource from storage.

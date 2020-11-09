@@ -1,21 +1,20 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 
 //API CALLS
 import axios from 'axios';
 import { API_BASE_URL } from '../../index';
 
-//Components
-import { Link } from "react-router-dom";
-import {Table, Button, Row, ModalBody, ModalFooter, Modal} from 'reactstrap';
+//COMPONENTS
+import {Table, Button, Row, ModalBody, ModalFooter, Modal, Col} from 'reactstrap';
 import TakeOutB from '../../views/Beneficiarias/TakeOutB';
 import ReenterB from '../../views/Beneficiarias/ReenterB';
 import SimpleTooltip from '../../views/General/SimpleTooltip';
 
-//Importing Icon library
+//ICONS
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
-
 library.add(fas)
   
 export default class AdminTable extends React.Component {
@@ -56,14 +55,23 @@ export default class AdminTable extends React.Component {
                   <td>{beneficiary.headquarter_id}</td>
                   <td>
                       <Row>
-                          <Link to='/admin/Beneficiarias/SpecificView'>
+                      <Col md="4">
+                      <Link   to={{
+                        pathname: 'SpecificView/'+ beneficiary.id,
+                        state:beneficiary.id
+                      }}> 
                           <Button color="info" size="sm" id="verDetalle"><FontAwesomeIcon icon={['fas', 'eye']} /></Button>
                           <SimpleTooltip placement="top" target="verDetalle">Ver detalle</SimpleTooltip>
-                          </Link>
+                      </Link>
+                      </Col>
 
-                          <TakeOutB/>
+                          <Col md="4">
+                          <TakeOutB id={beneficiary.id}/>
+                          </Col>
 
-                          <ReenterB/>
+                          <Col md="4">
+                          <ReenterB name={beneficiary.id}/>
+                          </Col>
                       </Row>
                   </td>
                 </tr>

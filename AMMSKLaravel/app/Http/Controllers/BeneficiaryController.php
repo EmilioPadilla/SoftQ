@@ -99,7 +99,23 @@ class BeneficiaryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $beneficiary = Beneficiary::find($id);
+        $beneficiary->status_id = $request->status_id;
+        $beneficiary->headquarter_id = $request->headquarter_id;
+        $beneficiary->nombreCompleto = $request->nombreCompleto;
+        $beneficiary->apodo = $request->apodo;
+        $beneficiary->fechaNacimiento = $request->fechaNacimiento;
+        $beneficiary->numCurp = $request->numCurp;
+        $beneficiary->fechaIngreso = $request->fechaIngreso;
+        $beneficiary->motivoIngreso = $request->motivoIngreso;
+        $beneficiary->canalizador = $request->canalizador;
+        $beneficiary->edadMental = $request->edadMental;
+        $beneficiary->dxMedico = $request->dxMedico;
+        $beneficiary->vinculosFam = $request->vinculosFam;
+        $beneficiary->fechaEgreso = $request->fechaEgreso;
+        $beneficiary->motivoEgreso = $request->motivoEgreso;
+        $beneficiary->destino = $request->destino;
+        $beneficiary->update();
     }
 
     /**

@@ -1,28 +1,25 @@
 import React, { Component } from 'react';
 
-// reactstrap components
+//COMPONENTS
 import Form from "react-bootstrap/Form";
 import { Card, CardBody, Row, Alert, Col, FormGroup, Label, Input, InputGroup, InputGroupAddon, InputGroupText, Badge, Button} from 'reactstrap';
-
-//API calls
-import axios from 'axios';
-import { API_BASE_URL } from 'index';
 import Swal from 'sweetalert2';
 
-//Importing Icon library
+//API CALLS
+import axios from 'axios';
+import { API_BASE_URL } from 'index';
+
+//ICONS
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
-
 library.add(fas)
 
 // REGEX FOR VALIDATIONS
-
 const validAlphanumericInput = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ \0-9]+[\w]+$/);
 const validTextInput = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ ]+[\w]+$/);
 const validAge = RegExp(/^[0-9]{1,2}$/);
 const validDate = RegExp(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/);
-
 
 //FORM VALIDATION
 const validateForm = (errors) => {
@@ -45,7 +42,6 @@ export default class RegisterTreatment extends Component {
 
     crearSelect(){
         var sel='<option value="NA" disabled selected>Selecciona una opcion</option>';
-        const num=1;
         axios.get(API_BASE_URL + "modes").then(function(resp){
         console.log(resp.data);
         resp.data.forEach(element =>{
@@ -185,7 +181,7 @@ export default class RegisterTreatment extends Component {
             'Tratamiento registrado de manera exitosa',
             'success',
             ).then(function() {
-                window.location = "http://localhost:3000/admin/Beneficiarias/MedicalRecordView";
+                window.location = "http://localhost:3000/admin/Beneficiarias/MedicalRecordView/" + beneficiary_id;
             });
             }else{
                 Swal.fire(
@@ -200,6 +196,9 @@ export default class RegisterTreatment extends Component {
     render() {
         const {errors, formValid} = this.state;
         this.crearSelect();
+
+        let urlElements = window.location.href.split('/');
+      console.log(urlElements[6]);
         return (
             <div className="content">
                 <h1 className="title">REGISTRAR TRATAMIENTO</h1>
@@ -207,7 +206,7 @@ export default class RegisterTreatment extends Component {
                     <CardBody>
                         <Alert color="primary">Los campos marcados con un asterisco (*) son obligatorios.</Alert>
                         <Form onSubmit={this.onSubmit} autocomplete="off">
-                            <Input id="beneficiary_id" name="beneficiary_id" value="1" hidden></Input>
+                            <Input id="beneficiary_id" name="beneficiary_id" value={urlElements[6]} hidden></Input>
 
                             <div className='nombreMed'>
                             <FormGroup>

@@ -1,6 +1,8 @@
 import React from "react";
 import axios from 'axios';
 
+import { API_BASE_URL } from '../../index';
+
 // reactstrap components
 import {
     Table,
@@ -31,7 +33,7 @@ class IncomesTable extends React.Component {
         startDate: this.state.startDate,
         endDate: this.state.endDate
       }
-      axios.post('http://localhost:8000/api/incomes/search', params)
+      axios.post(API_BASE_URL + 'incomes/search', params)
       .then((res) => {
         this.setState({
           incomes: res.data,
@@ -48,6 +50,13 @@ class IncomesTable extends React.Component {
     componentDidMount() {
       if (this.props.startDate && this.props.endDate) {
         this.getIncomes();
+      }
+    }
+
+    componentDidUpdate(prevProps) {
+      if ((this.props.startDate != prevProps.startDate) ||
+          (this.props.endDate != prevProps.endDate)) {
+          this.getIncomes();
       }
     }
 

@@ -64,7 +64,7 @@ class MedicalAppointmentController extends Controller
      */
     public function show($id)
     {
-        $medicalAppointment = MedicalAppointment::find($id);
+        $medicalAppointment = MedicalAppointment::where('id', $id)->get();
         return response()->json($medicalAppointment);
     }
 
@@ -86,33 +86,18 @@ class MedicalAppointmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, MedicalAppointment $medicalAppointment)
+    public function update(Request $request, $id)
     {
-        $request->validate([
-            'beneficiary_id' => 'required',
-            'fechaConsulta' => 'required',
-            'horaConsulta' => 'required',
-            'direccion' => 'required',
-            'hospital' => 'required',
-            'specialty_id' => 'required',
-        ]);
-
-        $medicalAppointment->beneficiary_id = $request->beneficiary_id();
-        $medicalAppointment->fechaConsulta = $request->fechaConsulta();
-        $medicalAppointment->horaConsulta = $request->horaConsulta();
-        $medicalAppointment->diagnostico = $request->diagnostico();
-        $medicalAppointment->direccion = $request->direccion();
-        $medicalAppointment->hospital = $request->hospital();
-        $medicalAppointment->consultorio = $request->consultorio();
-        $medicalAppointment->specialty_id = $request->speacialty_id();
-        $medicalAppointment->comentario = $request->comentario();
-
-        $medicalAppointment->save();
-        
-        return response()->json([
-            'message' => 'Medical appointment updated!',
-            'medicalAppointment' => $medicalAppointment
-        ]);
+        $medicalAppointment = MedicalAppointment::find($id);
+        $medicalAppointment->fechaConsulta = $request->fechaConsulta;
+        $medicalAppointment->horaConsulta = $request->horaConsulta;
+        $medicalAppointment->diagnostico = $request->diagnostico;
+        $medicalAppointment->direccion = $request->direccion;
+        $medicalAppointment->hospital = $request->hospital;
+        $medicalAppointment->consultorio = $request->consultorio;
+        $medicalAppointment->specialty_id = $request->specialty_id;
+        $medicalAppointment->comentario = $request->comentario;
+        $medicalAppointment->update();
     }
 
     /**

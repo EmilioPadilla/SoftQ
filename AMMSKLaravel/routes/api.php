@@ -19,6 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
+
 /*DONANTES Y DONACIONES*/
 
 Route::resource('donantes', 'App\Http\Controllers\DonantesController');
@@ -43,24 +44,46 @@ Route::resource('scholarship', 'App\Http\Controllers\ScholarshipController');
 Route::resource('status', 'App\Http\Controllers\EmployeesShiftsController');
 Route::resource('employeesShifts', 'App\Http\Controllers\EmployeesShiftsController');
 Route::resource('employeeJobTitles', 'App\Http\Controllers\JobTitleController');
+Route::resource('employeeCivilStatus', 'App\Http\Controllers\CivilStatusController');
 Route::resource('employeeVacations', 'App\Http\Controllers\VacationsController');
 Route::post('employeesShifts/search', 'App\Http\Controllers\EmployeesShiftsController@filterByEmployee');
 Route::post('employeesShifts/delete', 'App\Http\Controllers\EmployeesShiftsController@deleteByEmployee');
+Route::get('inactiveEmployee', 'App\Http\Controllers\EmployeesController@showInactive');
 Route::get('employee/{id}', 'App\Http\Controllers\EmployeesController@show');
 Route::get('employeeVacations/{id}', 'App\Http\Controllers\VacationsController@show');
 Route::get('employeeFiles/{id}', 'App\Http\Controllers\Employee_FilesController@show');
+Route::any('employee/reenter/{id}', 'App\Http\Controllers\EmployeesController@reenterEmployee');
+Route::any('employee/exit/{id}', 'App\Http\Controllers\EmployeesController@exitEmployee');
 
 
 
 
 
+/*DONANTES Y DONACIONES*/
+Route::resource('donantes', 'App\Http\Controllers\DonantesController');
+Route::apiResource('donantes', 'App\Http\Controllers\DonantesController');
+Route::put('donantes/modificarFacturacion/{id}', 'App\Http\Controllers\DonantesController@updateFacturacion');
 
+Route::resource('tipodonante', 'App\Http\Controllers\TipoDonanteController');
+Route::resource('recurrencia', 'App\Http\Controllers\RecurrenciaController');
+Route::resource('tipodonacion', 'App\Http\Controllers\TipoDonacionController');
+Route::get('donors/table/all', 'App\Http\Controllers\DonantesController@showTable');
+Route::get('donations/table/all', 'App\Http\Controllers\DonacionController@showTable');
+Route::get('donors/contact/table/all', 'App\Http\Controllers\ContactoDonanteController@showTable');
+
+Route::get('donations/showAll/{id}', 'App\Http\Controllers\DonantesController@showDonaciones');
+Route::get('donorContacts/showAll/{id}', 'App\Http\Controllers\DonantesController@showContactos');
+Route::get('donations/delete/{id}', 'App\Http\Controllers\DonacionController@deleteD');
+Route::get('donorContacts/delete/{id}', 'App\Http\Controllers\ContactoDonanteController@deleteC');
+Route::resource('donaciones', 'App\Http\Controllers\DonacionController');
+Route::resource('contactoDonante', 'App\Http\Controllers\ContactoDonanteController');
 
 
 
 Route::post('incomes/search', 'App\Http\Controllers\IncomesController@filterByDate');
 //Rutas cuentas
 
+/*DONANTES Y DONACIONES END*/
 Route::resource('account', 'App\Http\Controllers\AccountController');
 Route::resource('accountRole', 'App\Http\Controllers\Account_RoleController');
 Route::get('account/find/{username}', 'App\Http\Controllers\AccountController@showId');
@@ -77,6 +100,7 @@ Route::resource('headquarters', 'App\Http\Controllers\HeadquarterController');
 
 /* EMPIEZA BENEFICIARIAS */
 Route::get('beneficiaries/{id}/status', 'App\Http\Controllers\BeneficiaryController@status');
+Route::post('beneficiaries/{id}/reingresar', 'App\Http\Controllers\BeneficiaryController@reingresar');
 Route::resource('beneficiaries', 'App\Http\Controllers\BeneficiaryController');
 
 Route::resource('treatments', 'App\Http\Controllers\TreatmentController');
@@ -92,6 +116,9 @@ Route::resource('modes', 'App\Http\Controllers\ModeController');
 
 /* EMPIEZA FINANZAS */
 Route::resource('categories', 'App\Http\Controllers\CategoryController');
-
+Route::post('incomes/search', 'App\Http\Controllers\IncomesController@filterByDate');
+Route::post('incomes/group', 'App\Http\Controllers\IncomesController@groupByMonth');
+Route::post('expenses/search', 'App\Http\Controllers\ExpenseController@filterByDate');
+Route::post('expenses/group', 'App\Http\Controllers\ExpenseController@groupByMonth');
 Route::resource('expenses', 'App\Http\Controllers\ExpenseController');
 /* TERMINA FINANZAS */

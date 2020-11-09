@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import ViewDonations from 'views/Donors/ViewDonations'
 import ViewContacts from 'views/Donors/ViewContacts'
+
 import Form from "react-bootstrap/Form";
 
 // reactstrap components
@@ -33,6 +34,7 @@ const ViewSpecificDonor = props =>{
         <h3 className="title" id="nombreDonante"></h3>
 
         <Badge color="primary">DATOS GENERALES</Badge>
+        <Link to={`/admin/ModificarGeneralDonante/${id}`}><button id="verDetalle" type="button" class="btn btn-info btn-sm" ><i class="fa fa-pencil-alt" ></i> </button></Link>
 
         <br></br>
         <br></br>
@@ -76,6 +78,8 @@ const ViewSpecificDonor = props =>{
             <br></br>
             <br></br>
             <Badge color="primary">DATOS FACTURACIÓN</Badge>
+            <Link to={`/admin/ModificarDFacturacion/${id}`}><button id="verDetalle" type="button" class="btn btn-info btn-sm" ><i class="fa fa-pencil-alt" ></i> </button></Link>
+
             <br></br>
             <br></br>
         <Form.Row>
@@ -180,6 +184,7 @@ const ViewSpecificDonor = props =>{
 <ViewDonations/>
 
 <br></br> 
+
 <div>
                                 <Input type="text" id="valorId" style={{display: "none"}}>
 
@@ -199,7 +204,7 @@ function ax(idD){
     .then(function (resp){
       console.log(resp.data);
      document.getElementById("nombreDonante").innerHTML = resp.data[0].nombreCompleto1;
-     document.getElementById("fechaCumple").innerHTML = resp.data[0].fechas;
+     document.getElementById("fechaCumple").innerHTML = resp.data[0].fechaCumpleaños1;
     document.getElementById("RFC1").innerHTML = resp.data[0].RFC1;
      document.getElementById("correo1").innerHTML = resp.data[0].correo1;
      document.getElementById("tel").innerHTML = resp.data[0].telefono1;
