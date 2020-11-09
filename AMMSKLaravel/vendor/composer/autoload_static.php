@@ -4,7 +4,8 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInite84ae9410f0428a1955ebabc6bf8dd08
+class ComposerStaticInit39dc638db35be6461bec22ce9d9eedd3
+
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -5122,17 +5123,11 @@ class ComposerStaticInite84ae9410f0428a1955ebabc6bf8dd08
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-<<<<<<< HEAD
-            $loader->prefixLengthsPsr4 = ComposerStaticInita2044c2b99ce5d1a5d0fe02def8d0f80::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInita2044c2b99ce5d1a5d0fe02def8d0f80::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInita2044c2b99ce5d1a5d0fe02def8d0f80::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInita2044c2b99ce5d1a5d0fe02def8d0f80::$classMap;
-=======
-            $loader->prefixLengthsPsr4 = ComposerStaticInite84ae9410f0428a1955ebabc6bf8dd08::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInite84ae9410f0428a1955ebabc6bf8dd08::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInite84ae9410f0428a1955ebabc6bf8dd08::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInite84ae9410f0428a1955ebabc6bf8dd08::$classMap;
->>>>>>> Angie/feat-editar
+            $loader->prefixLengthsPsr4 = ComposerStaticInit39dc638db35be6461bec22ce9d9eedd3::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit39dc638db35be6461bec22ce9d9eedd3::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit39dc638db35be6461bec22ce9d9eedd3::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit39dc638db35be6461bec22ce9d9eedd3::$classMap;
+
 
         }, null, ClassLoader::class);
     }

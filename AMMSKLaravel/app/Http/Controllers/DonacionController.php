@@ -32,7 +32,8 @@ class DonacionController extends Controller
                 ->where('donacion.id', $id)
                 ->join('tipo_donacion', 'donacion.idTipoDonacion', '=', 'tipo_donacion.id')
                 ->join('_donante', 'donacion.idDonante', '=', '_donante.id')
-                ->select( '_donante.id','tipo_donacion.nombre', 'donacion.fechaDonacion','donacion.descripcion','donacion.monto')
+                ->select( 'tipo_donacion.nombre', 'donacion.fechaDonacion','donacion.descripcion','donacion.monto')
+
                 ->get();
     }
 
@@ -60,7 +61,7 @@ class DonacionController extends Controller
         $datos = DB::table('donacion')
                     ->join('tipo_donacion', 'donacion.idTipoDonacion', '=', 'tipo_donacion.id')
                     ->join('_donante', 'donacion.idDonante', '=', '_donante.id')
-                    ->select( '_donante.id','tipo_donacion.nombre', 'donacion.fechaDonacion','donacion.descripcion','donacion.monto')
+                    ->select( 'donacion.id','tipo_donacion.nombre', 'donacion.fechaDonacion','donacion.descripcion','donacion.monto')
                     ->orderBy('id', 'DESC')
                     ->get();
         $respuesta = '<thead> <tr> <th> FECHA DE DONACIÓN </th> <th> TIPO </th> <th> MONTO</th> <th> DESCRIPCION </th> <th> ACCIONES </th>  </tr> </thead> <tbody>';
@@ -70,7 +71,8 @@ class DonacionController extends Controller
             $respuesta .= '<td>'.$res->nombre.'</td>';
             $respuesta .= '<td>'.$res->monto.'</td>';
             $respuesta .= '<td>'.$res->descripcion.'</td>';
-            $respuesta .= '<td>  <div class="col"> <a href="/admin/EliminarDonacion/'.$res->id.'"> <button id="verDetalle" type="button" class="btn btn-danger btn-sm" > <i class="fa fa-trash-alt"> </i></button> </a> </div> </td> </tr>';
+            $respuesta .= '<td> <div class="row"> <div class="col"> <a href="/admin/ModificarDonacion/'.$res->id.'"> <button id="verDetalle" type="button" class="btn btn-info btn-sm" > <i class="fa fa-pencil-alt" ></i> </button> ';
+            $respuesta .= ' </a></div><div class="col"> <a href="/admin/EliminarDonacion/'.$res->id.'"> <button id="verDetalle" type="button" class="btn btn-danger btn-sm" > <i class="fa fa-trash-alt"> </i></button> </a> </div> </td> </tr>';
 
         }
         $respuesta .= '</tbody>';
@@ -105,9 +107,15 @@ class DonacionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Donantes $donante)
+   
+    public function update(Request $request, $id)
     {
-      
+        $donacion = Donacion::find($id);
+        $donacion->idTipoDonacion= $request-> idTipoDonacion;
+        $donacion->fechaDonacion= $request-> fechaDonacion;
+        $donacion->descripcion= $request-> descripcion;
+        $donacion->monto= $request->monto;
+        $donacion->update();
     }
 
     /**

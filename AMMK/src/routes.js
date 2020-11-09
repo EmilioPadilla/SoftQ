@@ -70,6 +70,13 @@ import RegisterDonation from "views/Donors/RegisterDonation";
 import RegisterDonorContact from "views/Donors/RegisterDonorContact";
 import EliminarDonacion from "views/Donors/EliminarDonacion";
 import EliminarContacto from "views/Donors/EliminarContacto";
+import ModifyDonation from "views/Donors/ModifyDonation";
+import ModifyDonorContact from "views/Donors/ModifyDonorContact";
+import ModificarDGenerales from "views/Donors/ModificarDGenerales";
+import ModificarDF from "views/Donors/ModificarDF";
+
+
+
 
 //FINANZAS
 import MonthlyView from "views/Finanzas/MonthlyView.js";
@@ -383,6 +390,43 @@ var routes = [
     showInSidebar: false
   },
   {
+    path: "/ModificarDonacion/:id",
+    name: "Donantes",
+    rtlName: "قائمة الجدول",
+    icon: "tim-icons icon-heart-2",
+    component: ModifyDonation,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+    path: "/ModificarDFacturacion/:id",
+    name: "Donantes",
+    rtlName: "قائمة الجدول",
+    icon: "tim-icons icon-heart-2",
+    component: ModificarDF,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+    path: "/ModificarContactoDonante/:id",
+    name: "Donantes",
+    rtlName: "قائمة الجدول",
+    icon: "tim-icons icon-heart-2",
+    component: ModifyDonorContact,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+    path: "/ModificarGeneralDonante/:id",
+    name: "Donantes",
+    rtlName: "قائمة الجدول",
+    icon: "tim-icons icon-heart-2",
+    component: ModificarDGenerales,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+
     path: "/RegistroDonante1",
     name: "Donantes",
     rtlName: "قائمة الجدول",

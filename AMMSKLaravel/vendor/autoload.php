@@ -4,8 +4,5 @@
 
 require_once __DIR__ . '/composer/autoload_real.php';
 
-<<<<<<< HEAD
-return ComposerAutoloaderInita2044c2b99ce5d1a5d0fe02def8d0f80::getLoader();
-=======
-return ComposerAutoloaderInite84ae9410f0428a1955ebabc6bf8dd08::getLoader();
->>>>>>> Angie/feat-editar
+return ComposerAutoloaderInit39dc638db35be6461bec22ce9d9eedd3::getLoader();
+
