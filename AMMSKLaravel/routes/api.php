@@ -47,9 +47,11 @@ Route::resource('employeeCivilStatus', 'App\Http\Controllers\CivilStatusControll
 Route::resource('employeeVacations', 'App\Http\Controllers\VacationsController');
 Route::post('employeesShifts/search', 'App\Http\Controllers\EmployeesShiftsController@filterByEmployee');
 Route::post('employeesShifts/delete', 'App\Http\Controllers\EmployeesShiftsController@deleteByEmployee');
+Route::get('inactiveEmployee', 'App\Http\Controllers\EmployeesController@showInactive');
 Route::get('employee/{id}', 'App\Http\Controllers\EmployeesController@show');
 Route::get('employeeVacations/{id}', 'App\Http\Controllers\VacationsController@show');
 Route::get('employeeFiles/{id}', 'App\Http\Controllers\Employee_FilesController@show');
+Route::any('employee/reenter/{id}', 'App\Http\Controllers\EmployeesController@reenterEmployee');
 Route::any('employee/exit/{id}', 'App\Http\Controllers\EmployeesController@exitEmployee');
 
 
