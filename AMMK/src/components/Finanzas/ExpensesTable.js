@@ -5,9 +5,9 @@ import axios from 'axios';
 import { API_BASE_URL } from '../../index';
 
 //Components
-import { Link } from "react-router-dom";
 import {Table, Button, Col, Row, ModalBody, ModalFooter, Modal} from 'reactstrap';
 import SimpleTooltip from '../../views/General/SimpleTooltip';
+import Swal from 'sweetalert2';
 
 //Importing Icon library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -90,6 +90,11 @@ class ExpensesTable extends React.Component {
     axios.delete(API_BASE_URL + 'expenses/' + this.state.form.id).then(response=>{
       this.setState({modalEliminar: false});
     })
+    Swal.fire(
+      'LISTO!',
+      'El egreso fue eliminado de manera exitosa.',
+      'success'
+  )
   }
   
   modalInsertar=()=>{

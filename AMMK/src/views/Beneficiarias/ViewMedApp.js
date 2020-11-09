@@ -1,75 +1,95 @@
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 
-// reactstrap components
-import {Form, Button, Modal, ModalBody, ModalHeader, FormGroup, Label, Row, Col} from 'reactstrap';
+//COMPONENTS
+import { Input, Row, Col, Label} from 'reactstrap';
 import SimpleTooltip from "../General/SimpleTooltip";
 
-//Importing Icon library
+//API CALLS
+import axios from 'axios';
+import { API_BASE_URL } from '../../index';
+
+//ICONS
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
-
 library.add(fas)
 
-const ViewMedApp = (props) => {
-  const {
-    className
-  } = props;
-
-  const [modal, setModal] = useState(false);
-
-  const toggle = () => setModal(!modal);
-
-  return (
-    <div className="content">
+export default class ViewMedApp extends Component {
     
-    <Button onClick={toggle} size="sm" id="verDetalle" color="info"><FontAwesomeIcon icon={['fas', 'eye']} /></Button>
-    <SimpleTooltip placement="top" target="verDetalle" >Ver detalle</SimpleTooltip>
+  state = {
+    appointments: []
+  }
 
-      <Modal isOpen={modal} toggle={toggle} className={className}>
-        <ModalHeader toggle={toggle}>
-        <h3 className="title">CONSULTA MÉDICA</h3>
-        </ModalHeader>
-        <ModalBody>
-                        <Form>
-                            <FormGroup>
-                                <FontAwesomeIcon icon={['fas', 'calendar-alt']} />
-                                <Label htmlFor="fechaConsulta">&nbsp;Fecha de consulta médica:</Label>
-                                <p>08/09/2020</p>
-                            </FormGroup>
-                            
-                            <FormGroup>
-                                <FontAwesomeIcon icon={['fas', 'diagnoses']} />
-                                <Label htmlFor="diagnostico">&nbsp;Diagnóstico:</Label>
-                                <p>amigdalitis</p>                            
-                            </FormGroup>
+componentDidMount () {
+  const { id } = this.props.match.params;
+  console.log(id);
+    axios.get(API_BASE_URL + 'medical_appointments/' + id)
+    .then(res => {
+        const appointments = res.data;
+        this.setState({ appointments });
+        console.log(appointments);
+      })
+  }
 
-                            <FormGroup>
-                                <FontAwesomeIcon icon={['fas', 'comment']} />
-                                <Label htmlFor="comentarios">&nbsp;Comentarios:</Label>
-                                <p>asdfghjklssdfghjklcvbnmwertyuisdfghjk</p>
-                            </FormGroup>
-
-                            <FormGroup>
-                            <FontAwesomeIcon icon={['fas', 'file-prescription']} />
-                            <Label htmlFor="cargaReceta">&nbsp;Receta médica:</Label>
-                            <Row>
-                                <Col md="12">
-                                  {/*onError="this.onError=null; this.src='avatar.jpg';"*/}
-                                  <img src="archivosBeneficiarias/<?php echo obtenerImagen($idBeneficiaria.'_receta_')?>" width="500" className="img-fluid" alt="Imagen de receta médica" id="recetaMedica"></img>
-                                </Col>
-                            </Row>
-                            </FormGroup>
-                            </Form>
-                            <Row align="center">
-                                <Col md="12">
-                                    <Button color="primary" onClick={toggle}>Ok</Button>
-                                </Col>
-                            </Row>
-        </ModalBody>
-      </Modal>
-    </div>
-  );
+    render() {
+        return (
+            <div className="content">
+                <h3 className="title">DETALLE CONSULTA MÉDICA</h3>
+                {this.state.appointments.map((appointment) => (
+                <>
+                <Row>
+                  <Col md="3">
+                    <Row><Col>
+                    <p className="font-weight-bold">Fecha:&nbsp;</p>
+                    <p>{appointment.fechaConsulta}</p>
+                    </Col></Row>
+                  </Col>
+                  <Col md="3">
+                    <Row><Col>
+                    <p className="font-weight-bold">Hora:&nbsp;</p>
+                    <p>{appointment.horaConsulta}</p>
+                    </Col></Row>
+                  </Col>
+                  <Col md="6">
+                    <Row><Col>
+                    <p className="font-weight-bold">Especialidad:&nbsp;</p>
+                    <p>{appointment.specialty_id}</p>
+                    </Col></Row>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col md="3">
+                    <Row><Col>
+                    <p className="font-weight-bold">Hospital:&nbsp;</p>
+                    <p>{appointment.hospital}</p>
+                    </Col></Row>
+                  </Col>
+                  <Col md="3">
+                    <Row><Col>
+                    <p className="font-weight-bold">Consultorio:&nbsp;</p>
+                    <p>{appointment.consultorio}</p>
+                    </Col></Row>
+                  </Col>
+                  <Col md="6">
+                    <Row>
+                    <Col>
+                    <p className="font-weight-bold">Dirección:&nbsp;</p>
+                    <p>{appointment.direccion}</p>
+                    </Col>
+                    </Row>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col md="4">
+                    <p className="font-weight-bold">Comentario:&nbsp;</p>
+                    <Input type="textarea" value={appointment.comentario}></Input>
+                  </Col>
+                  <Col md="8">
+                    
+                  </Col>
+                </Row>
+                </>
+                ))}
+            </div>
+        )}  
 }
-
-export default ViewMedApp;

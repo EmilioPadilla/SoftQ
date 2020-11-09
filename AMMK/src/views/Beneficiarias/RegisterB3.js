@@ -1,19 +1,18 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
-// reactstrap components
+//COMPONENTS
 import { Button, Card, CardHeader, CardBody, Form, Row, Progress, Alert, Col, FormGroup, Label, CustomInput} from 'reactstrap';
-
-//API calls
-import axios from 'axios';
-import { API_BASE_URL } from 'index';
 import Swal from 'sweetalert2';
 
-//Importing Icon library
+//API CALLS
+import axios from 'axios';
+import { API_BASE_URL } from 'index';
+
+//ICONS
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
-
 library.add(fas)
 
 export default class RegisterB3 extends Component {

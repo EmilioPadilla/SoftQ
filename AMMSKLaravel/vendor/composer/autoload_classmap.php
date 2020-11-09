@@ -23,7 +23,7 @@ return array(
     'App\\Http\\Controllers\\EmployeesShiftsController' => $baseDir . '/app/Http/Controllers/EmployeesShiftsController.php',
     'App\\Http\\Controllers\\ExpenseController' => $baseDir . '/app/Http/Controllers/ExpenseController.php',
     'App\\Http\\Controllers\\HeadquarterController' => $baseDir . '/app/Http/Controllers/HeadquarterController.php',
-    'App\\Http\\Controllers\\IncomesController' => $baseDir . '/app/Http/Controllers/IncomesController 2.php',
+    'App\\Http\\Controllers\\IncomesController' => $baseDir . '/app/Http/Controllers/IncomesController.php',
     'App\\Http\\Controllers\\JobTitleController' => $baseDir . '/app/Http/Controllers/JobTitleController.php',
     'App\\Http\\Controllers\\MedicalAppointmentController' => $baseDir . '/app/Http/Controllers/MedicalAppointmentController.php',
     'App\\Http\\Controllers\\ModeController' => $baseDir . '/app/Http/Controllers/ModeController.php',
