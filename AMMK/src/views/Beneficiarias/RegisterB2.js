@@ -1,28 +1,25 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+
+//COMPONENTS
 import Form from "react-bootstrap/Form";
-
-// reactstrap components
 import { Badge, Button, Card, CardHeader, CardBody, Row, Progress, Alert, Col, FormGroup, Label, Input, CustomInput} from 'reactstrap';
+import Swal from 'sweetalert2';
 
-//Importing Icon library
+//API CALLS
+import Axios from 'axios';
+import { API_BASE_URL } from 'index';
+
+//ICONS
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
-import Axios from 'axios';
-import { API_BASE_URL } from 'index';
-import Swal from 'sweetalert2';
-
 library.add(fas)
 
 // REGEX FOR VALIDATIONS
-const validAlphanumericInput = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ \0-9]+[\w]+$/);
 const validTextInput = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ ]+[\w]+$/);
-const validName = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ]+(?:\s[A-Za-zÀ-ÖØ-öø-ÿ]+)+(?:\s[A-Za-zÀ-ÖØ-öø-ÿ]+)+[\w]+$/);
 const validAge = RegExp(/^[0-9]{1,2}$/);
-const validCurp = RegExp(/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/);
 const validTextArea = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ _:\0-9@]+$/);
-const validTime = RegExp(/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/);
 const validDate = RegExp(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/);
 
 //FORM VALIDATIONS
@@ -46,7 +43,7 @@ export default class RegisterB2 extends Component {
 
 
     crearSelect(){
-        var sel='<option value="NA" disabled selected>Selecciona una opcion</option>';
+        var sel='<option value="0">Selecciona una opción</option>';
         const num=1;
         Axios.get(API_BASE_URL + "headquarters").then(function(resp){
           
@@ -68,16 +65,19 @@ export default class RegisterB2 extends Component {
             canalizador: null,
             dxMedico: null,
             vinculosFam: null,
+            selectSede: null,
             errors: {
                 edadMental: '',
                 fechaIngreso: '',
                 canalizador: '',
                 dxMedico: '',
                 vinculosFam: '',
+                headquarter_id: '',
             }
           };
 
         this.handleChange = this.handleChange.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
         this.onSubmit= this.onSubmit.bind(this);
     }
 
@@ -87,6 +87,12 @@ export default class RegisterB2 extends Component {
         let errors = this.state.errors;
     
         switch (name) {
+            case 'selectSede':
+            errors.selectSede =
+            value.length < 1
+              ? "La fecha de ingreso de la beneficiaria es requerida"
+              : "";
+            break;
             case 'fechaIngreso': 
             errors.fechaIngreso =
             value.length < 1
@@ -153,8 +159,9 @@ export default class RegisterB2 extends Component {
     }
 
     render() {
-        const {errors, formValid} = this.state;
         this.crearSelect();
+        const {errors, formValid} = this.state;
+
         return (
             <div className="content">
                 <h2 className="title">Registrar Beneficiaria</h2>
@@ -169,7 +176,8 @@ export default class RegisterB2 extends Component {
                         <Form onClick={this.onSubmit} autocomplete="off">
                             <FormGroup>
                                 <label>* Seleccione la sede:</label>
-                                <Form.Control as="select" id="selectSede" required></Form.Control>
+                                <Form.Control as="select" id="selectSede" name="selectSede"></Form.Control>
+                                
                             </FormGroup>
                             <Row>
                                 <Col md="6">

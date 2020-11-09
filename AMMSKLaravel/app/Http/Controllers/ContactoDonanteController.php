@@ -71,6 +71,7 @@ class ContactoDonanteController extends Controller
             $respuesta .= '<td> <div class="row"> <div class="col"> <a href="/admin/ModificarContactoDonante/'.$res->id.'"> <button id="verDetalle" type="button" class="btn btn-info btn-sm" > <i class="fa fa-pencil-alt" ></i> </button> ';
             $respuesta .= ' </a></div><div class="col"> <a href="/admin/EliminarContactoDonante/'.$res->id.'"> <button id="verDetalle" type="button" class="btn btn-danger btn-sm" > <i class="fa fa-trash-alt"> </i></button> </a> </div> </td> </tr>';
 
+
         }
         $respuesta .= '</tbody>';
         return $respuesta;

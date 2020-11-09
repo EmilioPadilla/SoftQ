@@ -1,20 +1,19 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 
 //API CALLS
 import axios from 'axios';
 import { API_BASE_URL } from '../../index';
-import { Link } from "react-router-dom";
 
-//Components
-import {Table, Button, Row, Modal, ModalBody, ModalFooter} from 'reactstrap';
-import ViewMedApp from "../../views/Beneficiarias/ViewMedApp";
+//COMPONENTS
+import {Table, Button, Row, Modal, ModalBody, ModalFooter, Col} from 'reactstrap';
 import SimpleTooltip from '../../views/General/SimpleTooltip';
+import Swal from 'sweetalert2';
 
-//Importing Icon library
+//ICONS
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
-
 library.add(fas)
   
 export default class AppointmentTable extends React.Component {
@@ -42,6 +41,11 @@ export default class AppointmentTable extends React.Component {
         console.log(response);
         console.log(response.data);
       this.setState({modalEliminar: false});
+      Swal.fire(
+          'LISTO!',
+          'La consulta médica fue eliminada de manera exitosa.',
+          'success'
+      )
 
       const appointments = this.state.appointments.filter(item => item.id !== this.state.form.id);
     this.setState({ appointments });
@@ -82,18 +86,27 @@ export default class AppointmentTable extends React.Component {
                   <td>{appointment.specialty.nombre}</td>
                   <td>
                   <Row>
-                    <ViewMedApp/>
-                    
+                  <Col md="4">
+                  <Link   to={{
+                        pathname: '../ViewMedApp/'+ appointment.id,
+                        state:appointment.id
+                      }}> 
+                          <Button color="info" size="sm" id="verDetalle"><FontAwesomeIcon icon={['fas', 'eye']} /></Button>
+                          <SimpleTooltip placement="top" target="verDetalle">Ver detalle</SimpleTooltip>
+                  </Link>
+                  </Col>
+                  <Col md="4">
                     <Link to={"/admin/Beneficiarias/ModifyMedApp/" + appointment.id}>
                        <Button size="sm" id="editar" variant="info" onClick={()=>{this.seleccionarEmpresa(appointment);}}><FontAwesomeIcon icon={['fas', 'pencil-alt']} /></Button>
                        <SimpleTooltip placement="top" target="editar" >Editar</SimpleTooltip>
                     </Link>
-
+                    </Col>
+                    <Col md="4">
                     <Link>
                             <SimpleTooltip placement="top" target="eliminar">Eliminar</SimpleTooltip>
                             <Button size="sm" id="eliminar" color="danger" onClick={()=>{this.seleccionarEmpresa(appointment); this.setState({modalEliminar: true})}}><FontAwesomeIcon icon={['fas', 'trash-alt']}/></Button>
-
                     </Link>
+                    </Col>
                   </Row>
                   </td>
                 </tr>

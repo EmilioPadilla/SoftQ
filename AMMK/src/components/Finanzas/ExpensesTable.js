@@ -5,9 +5,9 @@ import axios from 'axios';
 import { API_BASE_URL } from '../../index';
 
 //Components
-import { Link } from "react-router-dom";
 import {Table, Button, Col, Row, ModalBody, ModalFooter, Modal} from 'reactstrap';
 import SimpleTooltip from '../../views/General/SimpleTooltip';
+import Swal from 'sweetalert2';
 
 //Importing Icon library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -22,6 +22,8 @@ class ExpensesTable extends React.Component {
     super(props);
     this.state = {
       expenses: [],
+      startDate: props.startDate,
+      endDate: props.endDate,
       expensesTotal: null,
       modalEliminar: false,
       form:{
@@ -41,11 +43,23 @@ class ExpensesTable extends React.Component {
     });
   }
   
-  
   componentDidMount() {
-    let id = this.props.dataFromParent;
-    console.log(id);
-    axios.get(API_BASE_URL + 'expenses/')
+    this.getExpenses();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.categoryId != prevProps.categoryId) {
+        this.getExpenses();
+    }
+  }
+
+  getExpenses() {
+    const params = {
+      startDate: this.props.startDate,
+      endDate: this.props.endDate,
+      categoryId: this.props.categoryId
+    }
+    axios.post(API_BASE_URL + 'expenses/search', params)
       .then(res => {
         const expenses = res.data;
         const expensesTotal = this.formatter.format(
@@ -55,6 +69,7 @@ class ExpensesTable extends React.Component {
         if (this.props.onChange) {
           this.props.onChange(this.state.expensesTotal);
         }
+        console.log(this.state);
       })
   }
 
@@ -71,20 +86,15 @@ class ExpensesTable extends React.Component {
     })
   }
 
-  peticionGet=()=>{
-    axios.get(API_BASE_URL + 'expenses').then(response=>{
-      this.setState({
-        data: response.data
-      });
-    }).catch(error=>{
-      console.log(error.message);
-    })
-  }
-
   peticionDelete=()=>{
     axios.delete(API_BASE_URL + 'expenses/' + this.state.form.id).then(response=>{
       this.setState({modalEliminar: false});
     })
+    Swal.fire(
+      'LISTO!',
+      'El egreso fue eliminado de manera exitosa.',
+      'success'
+  )
   }
   
   modalInsertar=()=>{
@@ -114,8 +124,8 @@ class ExpensesTable extends React.Component {
                   <td>{expense.fecha}</td>
                   <td>{expense.pagoA}</td>
                   <td>{expense.descripcion}</td>
-                  <td>{expense.monto}</td>
-                  <td>{expense.category_id}</td>
+                  <td>{this.formatter.format(expense.monto)}</td>
+                  <td>{expense.category.nombre}</td>
                   <td>
                       <Row>
                         <Button size="sm" id="eliminar" onClick={()=>{this.seleccionarEgreso(expense); this.setState({modalEliminar: true})}} color="danger"><FontAwesomeIcon icon={['fas', 'trash-alt']} /></Button>

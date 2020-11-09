@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 // reactstrap components
 import { Row, Col, Button, FormGroup, Card, CardHeader, CardTitle, CardBody} from 'reactstrap';
 import Form from "react-bootstrap/Form";
+
+// internal components
 import ExpensesTable from "../../components/Finanzas/ExpensesTable";
 import IncomesTable from "../../components/Finanzas/IncomesTable";
 import SimpleTooltip from "../General/SimpleTooltip";
@@ -19,31 +21,33 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 
 library.add(fas)
 
+const date = new Date();
+const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+
 export default class MonthlyView extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            incomesStartDate: null,
-            incomesEndDate: null,
+            startDate: firstDay.toISOString().split("T")[0],
+            endDate: lastDay.toISOString().split("T")[0],
+            selectedCategory: 0,
             incomesTotal: null,
             expensesTotal: null
         }
       this.onIncomesChange = this.onIncomesChange.bind(this);
       this.onExpensesChange = this.onExpensesChange.bind(this);
+      this.onCategoryChange = this.onCategoryChange.bind(this);
     }
 
-    setIncomesDates() {
-        var date = new Date();
-        var firstDay = new Date(date.getFullYear(), date.getMonth(), 1)
-            .toISOString().split('T')[0];
-        var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0)
-            .toISOString().split('T')[0];
-        this.setState({ incomesStartDate: firstDay, incomesEndDate: lastDay });
+    onCategoryChange(e) {
+        e.preventDefault();
+        this.setState({ selectedCategory: e.target.value });
     }
 
     crearSelect(){
-        var sel='<option value="NA" disabled selected>Selecciona una opcion</option>';
+        var sel='<option value=0 selected>Selecciona una opcion</option>';
         const num=1;
         axios.get(API_BASE_URL + "categories").then(function(resp){
         console.log(resp.data);
@@ -55,7 +59,7 @@ export default class MonthlyView extends Component {
     }
 
     crearSelect2(){
-        var sel='<option value="NA" disabled selected>Selecciona una opcion</option>';
+        var sel='<option value=0 selected>Selecciona una opcion</option>';
         const num=1;
         axios.get(API_BASE_URL + "headquarters").then(function(resp){
         console.log(resp.data);
@@ -77,12 +81,11 @@ export default class MonthlyView extends Component {
     }
 
     componentDidMount() {
-        this.setIncomesDates();
+        this.crearSelect();
+        this.crearSelect2();
     }
 
     render() {
-        this.crearSelect();
-        this.crearSelect2();
         return (
             <div className="content">
                 <h1 className="title">FINANZAS</h1>
@@ -118,8 +121,8 @@ export default class MonthlyView extends Component {
                                     </Col>
                                 </Row>
                                 <IncomesTable
-                                    startDate={"2020-11-01"}
-                                    endDate={"2020-11-30"}
+                                    startDate={this.state.startDate}
+                                    endDate={this.state.endDate}
                                     onChange={this.onIncomesChange} />
                             </CardBody>
                         </Card>
@@ -149,11 +152,15 @@ export default class MonthlyView extends Component {
                                     <Col md="12">
                                     <FormGroup>
                                         <label>Filtra por categoría...</label>
-                                        <Form.Control as="select" id="selectCategory"></Form.Control>
+                                        <Form.Control onChange={this.onCategoryChange} as="select" id="selectCategory"></Form.Control>
                                     </FormGroup>
                                     </Col>
                                 </Row>
-                                <ExpensesTable onChange={this.onExpensesChange} />
+                                <ExpensesTable 
+                                    startDate={this.state.startDate}
+                                    endDate={this.state.endDate}
+                                    categoryId={this.state.selectedCategory}
+                                    onChange={this.onExpensesChange} />
                             </CardBody>
                         </Card>
                         

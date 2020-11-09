@@ -5,8 +5,13 @@
 
 */
 import React from "react";
-//Importing Icon library
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+//IMPORTING ICONS FROM thenounproject.com
+import donantes1 from '../../images/donantes1.png';
+import beneficiarias from '../../images/beneficiarias.png';
+import employees from '../../images/employees.png';
+import finanzas from '../../images/finanzas.png';
+import reportes from '../../images/reportes.png';
+import cuentas from '../../images/cuentas.png'
 
 // reactstrap components
 import {
@@ -26,15 +31,13 @@ class GeneralIndex extends React.Component {
       <br/><br/><br/>
     <Col>
       <Row className="justify-content-md-center">
-        <div className="photo" >
-          <img
-            alt="..."
-            className="avatar"
-            src={require("assets/img/logoAMMK.png")}
-          />
-        </div>
+          <h1 style={{'font-size': '70px'}}>ASOCIACIÓN</h1>
+      </Row>
+      <Row className="justify-content-md-center">
+      <h1 style={{'font-size': '70px'}}>MAXIMILIANO MARÍA KOLBE</h1>
       </Row>
       <br/>
+      <div className="container">
       <Row>
         <Col lg="4">
           <Card className="card-chart text-center">
@@ -44,12 +47,12 @@ class GeneralIndex extends React.Component {
               </CardTitle>
             </CardHeader> */}
             <CardBody>
-              <h1>Beneficiarias</h1>
+              <h1>BENEFICIARIAS</h1>
               <div className="chart-area" style={{'font-size': '170px'}} onClick={(e) => {
                           e.preventDefault();
                           window.location.href='/admin/Beneficiarias/GeneralViewAdmin';
                         }}>
-                <FontAwesomeIcon icon={['fas', 'users']} color="#3388a7"/>
+                <img src={beneficiarias} alt="BENEFICIARIAS" width="260px" style={{'margin-bottom': '45px'}}></img>
               </div>
             </CardBody>
           </Card>
@@ -62,12 +65,12 @@ class GeneralIndex extends React.Component {
               </CardTitle>
             </CardHeader> */}
             <CardBody>
-              <h1>Empleados</h1>
-              <div className="chart-area" style={{'font-size': '170px'}} onClick={(e) => {
+              <h1>EMPLEADOS</h1>
+              <div className="chart-area" style={{'font-size': '170px', 'color': '#0474ac important!'}} onClick={(e) => {
                           e.preventDefault();
                           window.location.href='/admin/search-employee';
                         }}>
-                <FontAwesomeIcon icon={['fas', 'id-card']} color="#3388a7"/>
+                <img src={employees} alt="EMPLEADOS" height="200px" style={{'margin-bottom': '20px'}}></img>
               </div>
             </CardBody>
           </Card>
@@ -80,9 +83,12 @@ class GeneralIndex extends React.Component {
               </CardTitle>
             </CardHeader> */}
             <CardBody>
-              <h1>Donantes</h1>
-              <div className="chart-area" style={{'font-size': '170px'}}>
-                <FontAwesomeIcon icon={['fas', 'hand-holding-medical']} color="#3388a7"/>
+              <h1>DONANTES</h1>
+              <div className="chart-area" style={{'font-size': '170px'}} onClick={(e) => {
+                          e.preventDefault();
+                          window.location.href='/admin/ViewDonors';
+                        }}>
+                <img src={donantes1} alt="DONANTES" width="220px" style={{'margin-bottom': '40px'}}></img>
               </div>
             </CardBody>
           </Card>
@@ -97,9 +103,12 @@ class GeneralIndex extends React.Component {
               </CardTitle>
             </CardHeader> */}
             <CardBody>
-              <h1>Finanzas</h1>
-              <div className="chart-area" style={{'font-size': '170px'}}>
-                <FontAwesomeIcon icon={['fas', 'money-bill-wave']} color="#3388a7"/>
+              <h1>FINANZAS</h1>
+              <div className="chart-area" style={{'font-size': '170px'}} onClick={(e) => {
+                          e.preventDefault();
+                          window.location.href='/admin/Finanzas/MonthlyView';
+                        }}>
+                <img src={finanzas} alt="FINANZAS" height="220px" style={{'margin-bottom': '55px'}}></img>
               </div>
             </CardBody>
           </Card>
@@ -112,9 +121,9 @@ class GeneralIndex extends React.Component {
               </CardTitle>
             </CardHeader> */}
             <CardBody>
-              <h1>Reportes</h1>
+              <h1>REPORTES</h1>
               <div className="chart-area" style={{'font-size': '170px'}}>
-                <FontAwesomeIcon icon={['fas', 'file-export']} color="#3388a7"/>
+              <img src={reportes} alt="REPORTES" width="180px" style={{'margin-bottom': '55px'}}></img>
               </div>
             </CardBody>
           </Card>
@@ -127,25 +136,27 @@ class GeneralIndex extends React.Component {
               </CardTitle>
             </CardHeader> */}
             <CardBody>
-              <h1>Cuentas</h1>
+              <h1>CUENTAS</h1>
               <div className="chart-area" style={{'font-size': '170px'}} onClick={(e) => {
                           e.preventDefault();
                           window.location.href='/admin/Cuentas/principal';
                         }}>
-                <FontAwesomeIcon icon={['fas', 'user-circle']} color="#3388a7"/>
+                <img src={cuentas} alt="CUENTAS" width="350px" style={{'margin-bottom': '45px'}}></img>
               </div>
             </CardBody>
           </Card>
         </Col>
       </Row>
+      </div>
     </Col>
 <br/><br/>
+
     <Col>
       <Row>
         <Col>
         <Nav>
           <NavItem>
-            Desarrollado por SOFTQ {new Date().getFullYear()} {" "} <i className="tim-icons icon-heart-2" /> Bienvenidos
+            Desarrollado por SOFTQ {new Date().getFullYear()} {" "} <i className="tim-icons icon-heart-2" />
           </NavItem>
         </Nav>
         </Col>

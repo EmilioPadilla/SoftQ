@@ -60,7 +60,8 @@ class TreatmentController extends Controller
      */
     public function show($id)
     {
-        //
+        $treatment = Treatment::where('id', $id)->get();
+        return response()->json($treatment);
     }
 
     /**
@@ -81,32 +82,12 @@ class TreatmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Treatment $treatment)
+    public function update(Request $request, $id)
     {
-        $request->validate([
-            'nombreMed' => 'required',
-            'dosis' => 'required',
-            'mode_id' => 'required',
-            'lapso' => 'required',
-            'fechaInicio' => 'required',
-            'fechaTermino' => 'required'
-        ]);
-
-        $treatment->beneficiary_id = $request->beneficiary_id();
-        $treatment->nombreMed = $request->nombreMed();
-        $treatment->funcionMed = $request->funcionMed();
-        $treatment->dosis = $request->dosis();
-        $treatment->mode_id = $request->mode_id();
-        $treatment->lapso = $request->lapso();
-        $treatment->fechaInicio = $request->fechaInicio();
-        $treatment->fechaTermino = $request->fechaTermino();
-
-        $treatment->save();
-        
-        return response()->json([
-            'message' => 'treatment updated!',
-            'treatment' => $treatment
-        ]);
+        $treatment = Treatment::find($id);
+        $treatment->fechaInicio = $request->fechaInicio;
+        $treatment->fechaTermino = $request->fechaTermino;
+        $treatment->update();
     }
 
     /**

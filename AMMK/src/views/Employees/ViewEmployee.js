@@ -10,6 +10,7 @@ import React, { useState } from 'react';
 //API CALLS
 import axios from 'axios';
 import { API_BASE_URL } from '../../index';
+import { Link } from "react-router-dom";
 
 //Importing Icon library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -142,8 +143,10 @@ class ViewEmployee extends React.Component {
                             <Badge color="primary">Datos personales</Badge>
                           </Col>
                           <Col>
-                            <Button  className="float-right" size="sm" id="editarpers"><FontAwesomeIcon icon={['fas', 'pencil-alt']} /></Button>
-                            <SimpleTooltip placement="top" target="editarpers" >Editar datos personales</SimpleTooltip>
+                            <Link to='/admin/register-employee'>
+                              <Button  className="float-right" size="sm" id="editarpers"><FontAwesomeIcon icon={['fas', 'pencil-alt']} /></Button>
+                              <SimpleTooltip placement="top" target="editarpers" >Editar datos personales</SimpleTooltip>
+                            </Link>
                           </Col>
                         </Row>
                       </CardTitle>
@@ -296,8 +299,10 @@ class ViewEmployee extends React.Component {
                             <Badge color="primary">Datos de contacto</Badge>
                           </Col>
                           <Col>
-                            <Button  className="float-right" size="sm" id="editarpers"><FontAwesomeIcon icon={['fas', 'pencil-alt']} /></Button>
-                            <SimpleTooltip placement="top" target="editarpers" >Editar datos de contacto</SimpleTooltip>
+                             <Link to='/admin/RE2'>
+                              <Button  className="float-right" size="sm" id="editarpers"><FontAwesomeIcon icon={['fas', 'pencil-alt']} /></Button>
+                              <SimpleTooltip placement="top" target="editarpers" >Editar datos de contacto</SimpleTooltip>
+                              </Link>
                           </Col>
                         </Row>
                       </CardTitle>
@@ -416,8 +421,10 @@ class ViewEmployee extends React.Component {
                             <Badge color="primary">Datos de empleado</Badge>
                           </Col>
                           <Col>
-                            <Button  className="float-right" size="sm" id="editaremp"><FontAwesomeIcon icon={['fas', 'pencil-alt']} /></Button>
-                            <SimpleTooltip placement="top" target="editaremp" >Editar datos de empleado</SimpleTooltip>
+                            <Link to='/admin/RE3'>
+                              <Button  className="float-right" size="sm" id="editaremp"><FontAwesomeIcon icon={['fas', 'pencil-alt']} /></Button>
+                              <SimpleTooltip placement="top" target="editaremp" >Editar datos de empleado</SimpleTooltip>
+                            </Link>
                           </Col>
                         </Row>
                       </CardTitle>

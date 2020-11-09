@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
-// reactstrap components
+//COMPONENTS
 import { Row, Col, Button, FormGroup, Input, Label, InputGroup, InputGroupAddon, InputGroupText} from 'reactstrap';
 import AdminTable from "../../components/Beneficiarias/AdminTable";
 import StatusDrop from "../General/StatusDrop";
 import HeadquartersDrop from "../General/HeadquartersDrop";
 
-//Importing Icon library
+//ICONS
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
-
 library.add(fas)
 
 export default class GeneralViewAdmin extends Component {
