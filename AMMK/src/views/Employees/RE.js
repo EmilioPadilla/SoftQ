@@ -67,27 +67,28 @@ class RegisterEmployee extends React.Component {
     let civil_status_id = document.getElementById("civil_status").value;
     let infonavit = document.getElementById("NumInfonavit").value;
 
-    const datosPersonales = {
-      nombreCompleto: nombreCompleto,
-      fechaNac: fechaNac, 
-      RFC: RFC,
-      CURP: CURP, 
-      NumSeguroSocial: NumSeguroSocial,
-      scholarship_id: scholarship_id,
-      civil_status_id: civil_status_id,
-      infonavit: infonavit
-    };
 
-    if (nombreCompleto !== null && fechaNac !== null && civil_status_id !== null && scholarship_id !== null) {
+    if (nombreCompleto !== '' && fechaNac !== '' && civil_status_id !== '' && scholarship_id !== '') {
+      console.log(nombreCompleto);
+      const datosPersonales = {
+        nombreCompleto: nombreCompleto,
+        fechaNac: fechaNac, 
+        RFC: RFC,
+        CURP: CURP, 
+        NumSeguroSocial: NumSeguroSocial,
+        scholarship_id: scholarship_id,
+        civil_status_id: civil_status_id,
+        infonavit: infonavit
+      };
       localStorage.setItem("personal", JSON.stringify(datosPersonales));
+      console.log(JSON.parse(localStorage.getItem("personal")));
+      window.location = "http://localhost:3000/admin/RE2";
     } else {
-      Swal.fire(
-        'Error!',
-        'No se han llenado todos los campos obligatorios',
-        'error'
-        ).then(function() {
-            window.location = "http://localhost:3000/admin/RE";
-        })
+      Swal.fire( {
+        icon: 'error',
+        title: 'Oops...',
+        text: 'No se han llenado todos los campos obligatorios!',
+      })
     }
 
     // localStorage.setItem("personal", JSON.stringify(datosPersonales));
@@ -114,7 +115,7 @@ class RegisterEmployee extends React.Component {
       <>
         <div className="content">
           <h2 className="title">Registrar empleado</h2>
-          <Form onClick={this.onSubmit}>
+          <Form >
                 <Card>
                   <CardHeader>
                    
@@ -250,9 +251,9 @@ class RegisterEmployee extends React.Component {
                   </CardBody>
                 </Card>
                 <Col  md="12" align="right">
-                  <Link to='/admin/RE2'>
-                    <Button className="btn btn-primary" onClick="onSubmit()">Siguiente</Button>
-                  </Link>
+                  {/* <Link to='/admin/RE2'> */}
+                    <Button className="btn btn-primary" onClick={this.onSubmit}>Siguiente</Button>
+                  {/* </Link> */}
                 </Col>
                 </Form>
         </div>

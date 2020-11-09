@@ -5,7 +5,6 @@
 import React from "react";
 import axios from 'axios';
 import { Link } from "react-router-dom";
-import { API_BASE_URL } from 'index';
 import Swal from 'sweetalert2';
 import EmployeeCalendarTable from "components/Employees/EmployeeCalendarTable.js";
 import SimpleTooltip from "../../views/General/SimpleTooltip";
@@ -81,6 +80,7 @@ import SimpleTooltip from "../../views/General/SimpleTooltip";
     let salarioxhora = document.getElementById("monto").value;
     let numBeneficiarios = document.getElementById("numBenef").value;
 
+    if (fechaIngreso !== '' && headquarter_id !== '' && frecuenciaSalario !== '' && puesto !== '' && salarioxhora !== '' && turnosQuincena !== '') {
     const datosEmpleado = {
       fechaIngreso: fechaIngreso,
       headquarter_id: headquarter_id, 
@@ -109,8 +109,14 @@ import SimpleTooltip from "../../views/General/SimpleTooltip";
       'success'
       ).then(function() {
           window.location = "http://localhost:3000/admin/search-employee";
-      }
-  );
+      });
+    } else{
+      Swal.fire( {
+        icon: 'error',
+        title: 'Oops...',
+        text: 'No se han llenado todos los campos obligatorios!',
+      })
+    }
 
 }
 
@@ -120,7 +126,7 @@ import SimpleTooltip from "../../views/General/SimpleTooltip";
         <>
         <div className="content">
         <h2 className="title">Registrar empleado</h2>
-        <Form onSubmit={this.onSubmit}>
+        <Form >
           <Row>
             <Col md="12">
               <Card>
@@ -242,7 +248,7 @@ import SimpleTooltip from "../../views/General/SimpleTooltip";
                 </Col>
                 <Col md="6" align="right">
                 <a href="/admin/RE3">
-                  <button  className="btn btn-primary" onClick="onSubmit()">Terminar</button>
+                  <button  className="btn btn-primary" onClick={this.onSubmit}>Terminar</button>
                 </a>
                 </Col>
               </Row>

@@ -8,7 +8,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-
+import Swal from 'sweetalert2';
 
 
 // reactstrap components
@@ -62,6 +62,7 @@ class RegisterEmployee2 extends React.Component {
     let telefono = document.getElementById("telefono").value;
     let celular = document.getElementById("celular").value;
 
+    if (estado !== '' && ciudad !== '' && municipio !== '' && celular !== '') {
     const datosContacto = {
       estado: estado,
       ciudad: ciudad, 
@@ -76,7 +77,14 @@ class RegisterEmployee2 extends React.Component {
       celular: celular
     };
     localStorage.setItem("contacto", JSON.stringify(datosContacto));
-    // console.log(localStorage.getItem("contacto"));
+    window.location = "http://localhost:3000/admin/RE3";
+  } else{
+    Swal.fire( {
+      icon: 'error',
+      title: 'Oops...',
+      text: 'No se han llenado todos los campos obligatorios!',
+    })
+  }
 }
 
 
@@ -85,7 +93,7 @@ class RegisterEmployee2 extends React.Component {
       <>
         <div className="content">
           <h2 className="title">Registrar empleado</h2>
-          <Form onClick={this.onSubmit}>
+          <Form>
           <Row>
             <Col md="12">
               <Card>
@@ -237,7 +245,7 @@ class RegisterEmployee2 extends React.Component {
               </Col>
               <Col md="6" align="right">
               <Link to='/admin/RE3'>
-                <Button className="btn btn-primary" onClick="onSubmit()">Siguiente</Button>
+                <Button className="btn btn-primary" onClick={this.onSubmit}>Siguiente</Button>
                 {this.props.children}
               </Link>
               </Col>
