@@ -142,7 +142,7 @@ class EmployeesAccountView extends React.Component {
                 Registrar nueva cuenta
               </Button>
               </a>
-            </Col>
+         </Col>
         </Row>
         <Row>
          <Col>
@@ -157,12 +157,16 @@ class EmployeesAccountView extends React.Component {
            </FormGroup>
          </Col>
         </Row>
-        <Row>
+        <div >
+          <Row>
             <Col md="12">
+            <div class="overflow-auto" style={ { height: 400 } }>
               <Table hover id="tablaCE">
               </Table>
+              </div>
             </Col>
           </Row>
+        </div>
         </div>
   
     );

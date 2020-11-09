@@ -35,7 +35,7 @@ const ModifyAccountEmp = props =>{
                                 <div class="row justify-content-center">
                                     <div class="col-4">
                                         <FormGroup>
-                                            <label>Contraseña:</label>
+                                            <label>Nueva Contraseña:</label>
                                             <Input
                                                 id="passwordModify"
                                                 
@@ -88,10 +88,7 @@ const ModifyAccountEmp = props =>{
 function ax(idC){
     axios.get("http://localhost:8000/api/account/"+idC)
           .then(function (resp){
-            console.log(resp.data);
            document.getElementById("usernameModify").value = resp.data[0].username;
-           document.getElementById("passwordModify").value = resp.data[0].password;
-           document.getElementById("confpassModify").value = resp.data[0].password;
            document.getElementById("valorId").value = idC;
           } );
 }
@@ -99,15 +96,16 @@ function ax(idC){
 function guardar(){
     var user = document.getElementById("usernameModify").value;
     var passwrd = document.getElementById("passwordModify").value;
+    var confPass = document.getElementById("confpassModify").value;
     var idCuenta = document.getElementById("valorId").value;
-    if(user!="" && passwrd !=""){
+    var iguales = passwrd.localeCompare(confPass);
+    if(user!="" && iguales==0){
         const cuentaEditar = {
             username: user,
             password: passwrd,
         }
         axios.put('http://localhost:8000/api/account/'+idCuenta, cuentaEditar)
               .then(function (resp){
-                console.log(resp.data);
               } );
 
          Swal.fire(

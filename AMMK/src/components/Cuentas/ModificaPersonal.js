@@ -17,25 +17,22 @@ export class ModificaPersonal extends React.Component{
     }
 
     datos(){
-        const id = localStorage.getItem("idCuenta");
+        var id = localStorage.getItem("idCuenta");
         axios.get("http://localhost:8000/api/account/"+id)
           .then(function (resp){
-            console.log(resp.data);
            document.getElementById("usernamePersonal").value = resp.data[0].username;
-           document.getElementById("passwordPersonal").value = resp.data[0].password;
-           document.getElementById("confPassPersonal").value = resp.data[0].password;
           } );
     }
 
     onSubmit(e) {
         e.preventDefault()
-        var id=1;
+        var id = localStorage.getItem("idCuenta");
         var x = document.getElementById("passwordPersonal").value;
         var y = document.getElementById("usernamePersonal").value;
         var w = document.getElementById("confPassPersonal").value;
         var iguales = x.localeCompare(w);
  
-        if(iguales==0 && x!="" && y!=""){
+        if(iguales==0 && y!=""){
          const cuenta = {
           username: y,
           password: x,
@@ -55,7 +52,7 @@ export class ModificaPersonal extends React.Component{
         }else{
             Swal.fire(
                 'ERROR!',
-                'Las contraseñas no coinciden',
+                'Las contraseñas no coinciden o no el campo de nombre de usuario esta incompleto',
                 'error'
             )
         }
@@ -86,7 +83,7 @@ export class ModificaPersonal extends React.Component{
                                 <div class="row justify-content-center">
                                     <div class="col-4">
                                         <FormGroup>
-                                            <label>Contraseña:</label>
+                                            <label>Nueva Contraseña:</label>
                                             <Input
                                                 id="passwordPersonal"
                                                 type="password"
