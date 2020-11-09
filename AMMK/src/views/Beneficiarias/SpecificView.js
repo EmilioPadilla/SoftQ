@@ -41,8 +41,8 @@ export default class SpecificView extends Component {
                 <h3 className="title">DETALLE BENEFICIARIA</h3>
                 {this.state.beneficiaries.map((beneficiary) => (
                 <>
-                    <Alert color="light">BENEFICIARIA ACTIVA</Alert>
-                    <Alert color="light">BENEFICIARIA INACTIVA</Alert>
+                    <Alert color="primary">BENEFICIARIA ACTIVA</Alert>
+                    {/*<Alert color="light">BENEFICIARIA INACTIVA</Alert>*/}
 
                 <Row>
                     <Col md="4">
@@ -109,7 +109,7 @@ export default class SpecificView extends Component {
                 </CardBody>
                 </Card>
                 <br></br>
-                <Card>
+                {/*<Card>
                   <CardBody>
                 <Row>
                     <Col md="6">
@@ -131,7 +131,7 @@ export default class SpecificView extends Component {
                     </Col>
                 </Row>
                 </CardBody>
-                </Card>
+                </Card>*/}
                 <br></br>
                 </>
                 ))}
