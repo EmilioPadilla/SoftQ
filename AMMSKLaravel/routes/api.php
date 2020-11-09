@@ -50,15 +50,6 @@ Route::get('employee/{id}', 'App\Http\Controllers\EmployeesController@show');
 Route::get('employeeVacations/{id}', 'App\Http\Controllers\VacationsController@show');
 Route::get('employeeFiles/{id}', 'App\Http\Controllers\Employee_FilesController@show');
 
-
-
-
-
-
-
-
-
-Route::post('incomes/search', 'App\Http\Controllers\IncomesController@filterByDate');
 //Rutas cuentas
 
 Route::resource('account', 'App\Http\Controllers\AccountController');
@@ -91,6 +82,9 @@ Route::resource('modes', 'App\Http\Controllers\ModeController');
 
 /* EMPIEZA FINANZAS */
 Route::resource('categories', 'App\Http\Controllers\CategoryController');
-
+Route::post('incomes/search', 'App\Http\Controllers\IncomesController@filterByDate');
+Route::post('incomes/group', 'App\Http\Controllers\IncomesController@groupByMonth');
+Route::post('expenses/search', 'App\Http\Controllers\ExpenseController@filterByDate');
+Route::post('expenses/group', 'App\Http\Controllers\ExpenseController@groupByMonth');
 Route::resource('expenses', 'App\Http\Controllers\ExpenseController');
 /* TERMINA FINANZAS */

@@ -47,6 +47,26 @@ class IncomesController extends Controller
     }
 
     /**
+     * Group by month.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function groupByMonth(Request $request)
+    {
+        $incomes = Donacion::selectRaw(
+            'YEAR(fechaDonacion) as year, MONTH(fechaDonacion) as month, COUNT(*) as count, SUM(monto) as total'
+        )->whereBetween(
+            "fechaDonacion",
+            [$request->startDate, $request->endDate]
+        )->groupByRaw('YEAR(fechaDonacion), MONTH(fechaDonacion)')
+        ->orderByRaw('YEAR(fechaDonacion) DESC, MONTH(fechaDonacion) DESC')
+        ->get();
+
+        return $incomes;
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

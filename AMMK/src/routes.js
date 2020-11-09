@@ -75,6 +75,10 @@ import RegisterExpense from "views/Finanzas/RegisterExpense.js";
 import Record from "views/Finanzas/Record.js";
 //FIN FINANZAS
 
+//REPORTES
+import Reports from "views/Reports/Reports.js";
+//FIN REPORTES
+
 
 var routes = [
   {
@@ -456,11 +460,11 @@ var routes = [
   },
   //ENDS FINANZAS
   {
-    path: "/typography",
+    path: "/Reportes",
     name: "Reportes",
     rtlName: "طباعة",
     icon: "tim-icons icon-chart-bar-32",
-    component: Typography,
+    component: Reports,
     layout: "/admin",
     showInSidebar: true
   },

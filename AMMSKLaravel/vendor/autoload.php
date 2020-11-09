@@ -4,8 +4,4 @@
 
 require_once __DIR__ . '/composer/autoload_real.php';
 
-<<<<<<< HEAD
-return ComposerAutoloaderInitaac6a6eea364957abb5963a58dc1de5a::getLoader();
-=======
-return ComposerAutoloaderInitff5ddb180bd267cc1ca7225cfc958365::getLoader();
->>>>>>> Angie/Validations
+return ComposerAutoloaderInita2044c2b99ce5d1a5d0fe02def8d0f80::getLoader();
