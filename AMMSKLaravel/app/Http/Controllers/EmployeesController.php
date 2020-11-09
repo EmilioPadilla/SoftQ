@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+//importing model
 use App\Models\Employee;
 use Illuminate\Support\Facades\DB;
 
@@ -40,12 +41,35 @@ class EmployeesController extends Controller
     {
         $employee = new Employee;
 
-        // $employee->id = $request -> id;
+
         $employee->nombreCompleto = $request -> nombreCompleto;
-        $employee->fechaIngreso = $request -> fechaIngreso;
-        $employee->telefono = $request -> telefono;
-        $employee->diasLaborales = $request -> diasLaborales;
+        $employee->scholarship_id = $request -> scholarship_id;
+        $employee->status_id = '1';
+        $employee->voluntario = 0;
+        $employee->civil_status_id = $request -> civil_status_id;
+        $employee->scholarship_id = $request -> scholarship_id;
+        $employee->headquarter_id = $request -> headquarter_id;
+        $employee->fechaNac = $request -> fechaNac;
         $employee->salarioxhora = $request -> salarioxhora;
+        $employee->fechaIngreso = $request -> fechaIngreso;
+        $employee->RFC = $request -> RFC;
+        $employee->CURP = $request -> CURP;
+        $employee->infonavit = $request -> infonavit;
+        $employee->calle = $request -> calle;
+        $employee->numInterior = $request -> numInterior;
+        $employee->numExterior = $request -> numExterior;
+        $employee->colonia = $request -> colonia;
+        $employee->codigoPostal = $request -> codigoPostal;
+        $employee->estado = $request -> estado;
+        $employee->ciudad = $request -> ciudad;
+        $employee->telefono = $request -> telefono;
+        $employee->celular = $request -> celular;
+        $employee->correo = $request -> correo;
+        $employee->numBeneficiarios = $request -> numBeneficiarios;
+        $employee->frecuenciaSalario = $request -> frecuenciaSalario;
+        $employee->puesto = $request -> puesto;
+        $employee->diasLaborales = $request -> diasLaborales;
+        $employee->numSeguroSocial = $request -> numSeguroSocial;
 
         $employee->save();
     }
@@ -70,6 +94,18 @@ class EmployeesController extends Controller
     public function edit($id)
     {
         //
+    }
+
+        /**
+     * Display employees according to status value
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function status($id)
+    {
+        $employees = Employee::where('status_id', '=', $id)->get();
+        return response()->json ($employees);
     }
 
     /**
@@ -103,6 +139,17 @@ class EmployeesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $deleted = Employee::find($id);
+        $deleted->delete();
+
+        if ($deleted) {
+            return response()->json([
+                'message' => 'Employee deleted'
+            ]);
+        } else {
+            return response()->json([
+                'message' => 'error'
+            ]);
+        }
     }
 }

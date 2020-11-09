@@ -15,17 +15,17 @@ class VacationSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('vacations')->insert([
-            [
-                'employees_id' => '1',
-                'fechaSalida' => '2020-10-12',
-                'fechaRegreso' => '2020-10-14',
-            ],
-            [
-                'employees_id' => '1',
-                'fechaSalida' => '2020-10-16',
-                'fechaRegreso' => '2020-10-20',
-            ],
-         ]);
+        // DB::table('vacations')->insert([
+        //     [
+        //         'employees_id' => '1',
+        //         'fechaSalida' => '2020-10-12',
+        //         'fechaRegreso' => '2020-10-14',
+        //     ],
+        //     [
+        //         'employees_id' => '1',
+        //         'fechaSalida' => '2020-10-16',
+        //         'fechaRegreso' => '2020-10-20',
+        //     ],
+        //  ]);
     }
 }

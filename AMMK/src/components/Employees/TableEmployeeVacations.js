@@ -100,7 +100,7 @@ import {
                         <td>
                             <Row>
                             <a href="/admin/view-employee">
-                              <button id="editar" type="button" class="btn btn-info btn-sm">
+                              <button id="editar" type="button" className="btn btn-info btn-sm">
                                 <FontAwesomeIcon icon={['fas', 'edit']} />
                               </button>
                               <SimpleTooltip placement="top" target="editar">Editar registro</SimpleTooltip>

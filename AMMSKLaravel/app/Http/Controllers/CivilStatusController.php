@@ -3,21 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Vacations; 
 
-//http://localhost:8000/api/employeeVacations
+//importing model 
+use App\Models\CivilStatus;
 
-class VacationsController extends Controller
+class CivilStatusController extends Controller
 {
-     /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-       
-        return Vacations::all();
+        return CivilStatus::all();
     }
 
     /**
@@ -38,12 +37,7 @@ class VacationsController extends Controller
      */
     public function store(Request $request)
     {
-        $Vacations->fechaRegistro= $request-> fechaRegistro;
-        $Vacations->employees_id= $request-> employees_id;
-        $Vacations->fechaRegreso= $request-> fechaRegreso;
-        $Vacations->fechaSalida = $request -> fechaSalida;
-
-        $Vacations->save();  
+        //
     }
 
     /**
@@ -54,7 +48,7 @@ class VacationsController extends Controller
      */
     public function show($id)
     {
-        return Vacations::where('employees_id', $id)->get();;
+        //
     }
 
     /**
@@ -77,22 +71,7 @@ class VacationsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'employees_id' => 'required',
-            'fechaRegistro' => 'required',
-        ]);
-
-        $Vacations->fechaRegistro = $request->fechaRegistro();
-        $Vacations->employees_id = $request->employees_id();
-        $Vacations->fechaRegreso = $request->fechaRegreso();
-        $Vacations->fechaSalida = $request->fechaSalida();
-
-        $Vacations->save();
-        
-        return response()->json([
-            'message' => 'Vacations updated!',
-            'Vacations' => $Vacations
-        ]);
+        //
     }
 
     /**
@@ -103,17 +82,6 @@ class VacationsController extends Controller
      */
     public function destroy($id)
     {
-        $deleted = Vacations::find($id);
-        $deleted->delete();
-
-        if ($deleted) {
-            return response()->json([
-                'message' => 'Vacation deleted'
-            ]);
-        } else {
-            return response()->json([
-                'message' => 'error'
-            ]);
-        }
+        //
     }
 }

@@ -11,6 +11,6 @@ class Employee extends Model
     protected $table = 'employees';
     public $timestamps = false;
     //The data that we want to be uploaded in a massive way.
-    protected $fillable = ['nombreCompleto', 'fechaIngreso','telefono','diasLaborales', 'salarioxhora'];
+    // protected $fillable = ['nombreCompleto', 'fechaIngreso','telefono','diasLaborales', 'salarioxhora'];
 
 }
