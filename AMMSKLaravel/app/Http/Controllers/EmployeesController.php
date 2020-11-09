@@ -17,7 +17,10 @@ class EmployeesController extends Controller
      */
     public function index()
     {
-        return Employee::all();
+        // return Employee::all();
+        $employees = Employee::where('status_id', '1')->get();
+
+        return response()->json($employees);
         
     }
 
@@ -86,6 +89,23 @@ class EmployeesController extends Controller
     }
 
     /**
+     * Changes status of employee to inactive
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function exitEmployee(Request $request, $id)
+    {
+        $employees = Employee::find($id);
+
+        $employees->status_id = $request->status_id;
+        $employees->motivoEgreso = $request->motivoEgreso;
+        $employees->fechaEgreso = $request->fechaEgreso;
+        $employees->update();
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -96,7 +116,7 @@ class EmployeesController extends Controller
         //
     }
 
-        /**
+    /**
      * Display employees according to status value
      *
      * @param  int  $id
@@ -108,6 +128,8 @@ class EmployeesController extends Controller
         return response()->json ($employees);
     }
 
+    
+
     /**
      * Update the specified resource in storage.
      *
@@ -117,18 +139,18 @@ class EmployeesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'nombreCompleto' => 'required',
+        // $request->validate([
+        //     'nombreCompleto' => 'required',
 
-        ]);
-        $employee->nombreCompleto = $request->nombreCompleto();
+        // ]);
+        // $employee->nombreCompleto = $request->nombreCompleto();
 
-        $employee->save();
+        // $employee->save();
         
-        return response()->json([
-            'message' => 'pokemon updated!',
-            'pokemon' => $employee
-        ]);
+        // return response()->json([
+        //     'message' => 'pokemon updated!',
+        //     'pokemon' => $employee
+        // ]);
     }
 
     /**

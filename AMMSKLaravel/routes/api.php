@@ -50,7 +50,7 @@ Route::post('employeesShifts/delete', 'App\Http\Controllers\EmployeesShiftsContr
 Route::get('employee/{id}', 'App\Http\Controllers\EmployeesController@show');
 Route::get('employeeVacations/{id}', 'App\Http\Controllers\VacationsController@show');
 Route::get('employeeFiles/{id}', 'App\Http\Controllers\Employee_FilesController@show');
-
+Route::any('employee/exit/{id}', 'App\Http\Controllers\EmployeesController@exitEmployee');
 
 
 

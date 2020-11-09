@@ -13,4 +13,8 @@ class Employee extends Model
     //The data that we want to be uploaded in a massive way.
     // protected $fillable = ['nombreCompleto', 'fechaIngreso','telefono','diasLaborales', 'salarioxhora'];
 
+    //Get headquarter of the beneficiary 
+    // public function headquarter(){
+    //     return $this->belongsTo('App\Models\Headquarter', 'headquarter_id');
+    // }
 }
