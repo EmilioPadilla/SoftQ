@@ -1,11 +1,7 @@
 import React, { Component } from "react";
 import { Input} from "reactstrap"
 
-import { Row, Modal, Form, FormGroup,  Dropdown,Button, Col } from "react-bootstrap";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import SimpleTooltip from "../General/SimpleTooltip";
 import axios from "axios";
-import Swal from 'sweetalert2';
 import RegistroDonacion from './RegistroDonacion'
 
 const RegisterDonation = props =>{

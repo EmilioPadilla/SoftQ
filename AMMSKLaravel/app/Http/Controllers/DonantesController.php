@@ -105,22 +105,32 @@ class DonantesController extends Controller
      */
     public function show($id)
     {
-<<<<<<< HEAD
-        return Employee::where('id', $id)->get();
-=======
         return Donantes::where('id',$id)->get();
 
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     * @param  int  $id
+     */
     public function showDonaciones($id)
     {
         return Donacion::prueba($id);
 
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     * @param  int  $id
+     */
     public function showContactos($id)
     {
         return ContactoDonante::prueba($id);
 
->>>>>>> Mariana/feat-Donantes
     }
 
     /**
@@ -144,14 +154,7 @@ class DonantesController extends Controller
     public function update(Request $request, Donantes $donante)
     {
       
-    }
-/**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     * * @param  \Illuminate\Http\Request  $request
-     */
-  
+    }  
 
     /**
      * Remove the specified resource from storage.

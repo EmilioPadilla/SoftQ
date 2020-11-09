@@ -1,8 +1,6 @@
 /*!
-
 @Author: Emilio Padilla Miranda
 @Date: Sunday, October 11, 2020
-
 */
 
 import React from "react";

@@ -38,16 +38,13 @@ import ModifyPersonalAc from "views/Cuentas/ModifyPersonalAccount";
 import ModifyAccountEmp from "views/Cuentas/ModifyAccountEmployee";
 import CreateAccEmp from "views/Cuentas/CreateAccountEmployee";
 import EmployeesAccountView from "views/Cuentas/EmployeesAccountsView";
+import DeleteAccountEmployee from "views/Cuentas/DeleteAccountEmployee";
 
 //BENEFICIARIAS
 import RegisterB1 from "views/Beneficiarias/RegisterB1.js";
 import RegisterB2 from "views/Beneficiarias/RegisterB2.js";
 import RegisterB3 from "views/Beneficiarias/RegisterB3.js";
 import RegisterTreatment from "views/Beneficiarias/RegisterTreatment.js";
-
-
-
-
 import GeneralViewAdmin from "views/Beneficiarias/GeneralViewAdmin.js";
 import SpecificView from "views/Beneficiarias/SpecificView.js";
 //import GeneralViewNurse from "views/Beneficiarias/GeneralViewNurse.js";
@@ -69,12 +66,18 @@ import ViewDonors from "views/Donors/ViewDonors.js";
 import ViewSpecificDonor from "views/Donors/ViewSpecificDonor";
 import RegisterDonation from "views/Donors/RegisterDonation";
 import RegisterDonorContact from "views/Donors/RegisterDonorContact";
+import EliminarDonacion from "views/Donors/EliminarDonacion";
+import EliminarContacto from "views/Donors/EliminarContacto";
 
 //FINANZAS
 import MonthlyView from "views/Finanzas/MonthlyView.js";
 import RegisterExpense from "views/Finanzas/RegisterExpense.js";
 import Record from "views/Finanzas/Record.js";
 //FIN FINANZAS
+
+//REPORTES
+import Reports from "views/Reports/Reports.js";
+//FIN REPORTES
 
 
 var routes = [
@@ -126,8 +129,17 @@ var routes = [
     showInSidebar: false
   },
   {
+    path: "/Cuentas/DelCuentaEmp/:id",
+    name: "Eliminar Cuenta Empleado",
+    rtlName: "ملف تعريفي للمستخدم",
+    icon: "tim-icons icon-single-02",
+    component: DeleteAccountEmployee,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
     path: "/Cuentas/PrincipalEmp",
-    name: "Modificar Cuenta Empleado",
+    name: "Cuentas Empleado",
     rtlName: "ملف تعريفي للمستخدم",
     icon: "tim-icons icon-single-02",
     component: EmployeesAccountView,
@@ -341,6 +353,24 @@ var routes = [
     showInSidebar: true
   },
   {
+    path: "/EliminarDonacion/:id",
+    name: "Donantes",
+    rtlName: "قائمة الجدول",
+    icon: "tim-icons icon-heart-2",
+    component: EliminarDonacion,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+    path: "/EliminarContactoDonante/:id",
+    name: "Donantes",
+    rtlName: "قائمة الجدول",
+    icon: "tim-icons icon-heart-2",
+    component: EliminarContacto,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
     path: "/RegistroDonante1",
     name: "Donantes",
     rtlName: "قائمة الجدول",
@@ -430,11 +460,11 @@ var routes = [
   },
   //ENDS FINANZAS
   {
-    path: "/typography",
+    path: "/Reportes",
     name: "Reportes",
     rtlName: "طباعة",
     icon: "tim-icons icon-chart-bar-32",
-    component: Typography,
+    component: Reports,
     layout: "/admin",
     showInSidebar: true
   },

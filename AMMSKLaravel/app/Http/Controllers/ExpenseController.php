@@ -21,6 +21,52 @@ class ExpenseController extends Controller
     }
 
     /**
+     * Filter by date.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function filterByDate(Request $request)
+    {
+        if($request->categoryId != 0) {
+            $expenses = Expense::with('category')->select()
+            ->where("category_id", $request->categoryId)
+            ->whereBetween(
+                "fecha",
+                [$request->startDate, $request->endDate]
+            )->get();
+        } else {
+            $expenses = Expense::with('category')->select()
+            ->whereBetween(
+                "fecha",
+                [$request->startDate, $request->endDate]
+            )->get();
+        }
+        
+        return $expenses;
+    }
+
+    /**
+     * Group by month.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function groupByMonth(Request $request)
+    {
+        $expenses = Expense::selectRaw(
+            'YEAR(fecha) as year, MONTH(fecha) as month, COUNT(*) as count, SUM(monto) as total'
+        )->whereBetween(
+            "fecha",
+            [$request->startDate, $request->endDate]
+        )->groupByRaw('YEAR(fecha), MONTH(fecha)')
+        ->orderByRaw('YEAR(fecha) DESC, MONTH(fecha) DESC')
+        ->get();
+
+        return $expenses;
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response

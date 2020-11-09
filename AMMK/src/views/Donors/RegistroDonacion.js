@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Input} from "reactstrap"
+import { Link } from "react-router-dom";
 
 import { Row, Modal, Form, FormGroup,  Dropdown,Button, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -120,9 +121,11 @@ class RegistroDonacion extends Component {
               </Form.Row>
 
               <Form.Row>
+                <Link to='/admin/ViewDonors'>
               <Form.Group as={Col} controlId="descripcion">
               <Button type="submit" class="danger">Cancelar</Button>
               </Form.Group>
+              </Link>
               <Form.Group as={Col} controlId="descripcion">
               <Button type="submit">Registrar</Button>
               </Form.Group>
