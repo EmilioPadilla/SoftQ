@@ -206,7 +206,7 @@ class AdminNavbar extends React.Component {
                     </NavLink>
                     <DropdownItem divider tag="li" />
                     <NavLink tag="li">
-                      <DropdownItem className="nav-item" onClick={this.logoutFunc}>Salir</DropdownItem>
+                      <DropdownItem className="nav-item" onClick={this.logoutFunc}>Cerrar Sesión</DropdownItem>
                     </NavLink>
                   </DropdownMenu>
                 </UncontrolledDropdown>

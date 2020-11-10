@@ -19,7 +19,6 @@ export class LoginForm extends React.Component{
         };
         axios.post("http://localhost:8000/api/account/login/confirmation/",info)
         .then(function (resp){
-          console.log(resp.data);
           if(resp.data == -1){
             Swal.fire(
                 '¡Error!',
@@ -36,11 +35,14 @@ export class LoginForm extends React.Component{
             localStorage.setItem("idCuenta",resp.data[0]);
             localStorage.setItem("idRol",resp.data[1]);
             localStorage.setItem("isLoggedIn", true);
-            var idCuenta = localStorage.getItem("idCuenta");
             var idRol = localStorage.getItem("idRol");
-            console.log(idCuenta);
-            console.log(idRol);
-            window.location = "http://localhost:3000/general/GeneralIndex";
+            if(idRol==2){
+                window.location = "http://localhost:3000/general/NurseIndex";
+            }else if (idRol==1){
+                window.location = "http://localhost:3000/admin/Nomina/Nomina";
+            }else{
+                window.location = "http://localhost:3000/general/GeneralIndex";
+            }
           }
         } );
         

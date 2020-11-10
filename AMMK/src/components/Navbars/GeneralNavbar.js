@@ -34,6 +34,11 @@ class GeneralNavbar extends React.Component {
   componentWillUnmount() {
     window.removeEventListener("resize", this.updateColor);
   }
+  //function for the logout
+  logoutFunc(){
+    localStorage.clear();
+    window.location = "http://localhost:3000/login";
+  }
   // function that adds color white/transparent to the navbar on resize (this is for the collapse)
   updateColor = () => {
     if (window.innerWidth < 993 && this.state.collapseOpen) {
@@ -134,7 +139,7 @@ class GeneralNavbar extends React.Component {
                     </NavLink>
                     <DropdownItem divider tag="li" />
                     <NavLink tag="li">
-                      <DropdownItem className="nav-item">Salir</DropdownItem>
+                      <DropdownItem className="nav-item" onClick={this.logoutFunc}>Cerrar Sesión</DropdownItem>
                     </NavLink>
                   </DropdownMenu>
                 </UncontrolledDropdown>

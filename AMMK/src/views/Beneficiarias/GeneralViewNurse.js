@@ -14,6 +14,16 @@ library.add(fas)
 
 export default class GeneralViewNurse extends Component {
     render() {
+    const login = localStorage.getItem("isLoggedIn");
+    const idRol = localStorage.getItem("idRol");
+    //Redirect in case of wrong role or no login
+    if (!login ) {
+      window.location = "http://localhost:3000/login";
+    }else if(idRol==3){
+      window.location = "http://localhost:3000/general/GeneralIndex";
+    }else if (idRol==1){
+      window.location = "http://localhost:3000/admin/Nomina/Nomina";
+    }
         return (
             <div className="content">
                 <h1 className="title">BENEFICIARIAS</h1>

@@ -79,11 +79,12 @@ Route::resource('donaciones', 'App\Http\Controllers\DonacionController');
 Route::resource('contactoDonante', 'App\Http\Controllers\ContactoDonanteController');
 
 
-
+Route::get('donaciones/table/date/{fecha}', 'App\Http\Controllers\DonacionController@financesTable');
+Route::get('donaciones/table/getdates', 'App\Http\Controllers\DonacionController@getDateDonaciones');
 Route::post('incomes/search', 'App\Http\Controllers\IncomesController@filterByDate');
-//Rutas cuentas
-
 /*DONANTES Y DONACIONES END*/
+
+//Rutas cuentas
 Route::resource('account', 'App\Http\Controllers\AccountController');
 Route::resource('accountRole', 'App\Http\Controllers\Account_RoleController');
 Route::get('account/find/{username}', 'App\Http\Controllers\AccountController@showId');
