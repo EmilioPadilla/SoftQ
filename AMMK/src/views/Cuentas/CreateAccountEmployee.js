@@ -86,6 +86,16 @@ class CreateAccEmp extends React.Component{
 
 
     render(){
+        /*const login = localStorage.getItem("isLoggedIn");
+        const idRol = localStorage.getItem("idRol");
+        //Redirect in case of wrong role or no login
+        if (!login ) {
+            window.location = "http://localhost:3000/login";
+        }else if(idRol==2){
+            window.location = "http://localhost:3000/general/NurseIndex";
+        }else if (idRol==1){
+            window.location = "http://localhost:3000/admin/Nomina/Nomina";
+        }*/
         this.crearSelect();
         return(
             <div class="content">
@@ -148,11 +158,11 @@ class CreateAccEmp extends React.Component{
                                 <br/>
                                 <div class="row justify-content-center">
                                     <div class="col-4" align="center">
-                                        <Link to="/admin/Cuentas/PrincipalEmp">
+                                    <Link to="/admin/Cuentas/PrincipalEmp">
                                             <Button className="btn-fill" color="primary" >
                                                 Regresar
                                             </Button>
-                                        </Link>
+                                    </Link>
                                     </div>
                                     <div class="col-4" align="center">
                                         <Button className="btn-fill" color="info" type="submit">

@@ -54,7 +54,7 @@ class AccountController extends Controller
         $account = new Account;
         //Declaramos los datos con los enviado en el request
         $account->username = $request->user;
-        $account->password = $request->pass;
+        $account->password = password_hash($request->pass, PASSWORD_DEFAULT) ;
         $account->idEmployee = $request->idEmp;
         
         DB::beginTransaction();
@@ -87,7 +87,28 @@ class AccountController extends Controller
      */
     public function show($id)
     {
-        return Account::where('id', $id)->get();
+        return Account::where('id', $id)->select('accounts.username')->get();
+    }
+
+
+    public function loginInfo(Request $request)
+    {
+        $usernameStatus =  Account::where('username', $request->username)->get();
+
+        if(count($usernameStatus)!=0){
+            $passwordDb =  DB::table('accounts')
+                            ->join('accounts_roles','accounts.id','=','accounts_roles.idAccount')
+                            ->where('username', $request->username)
+                            ->select('accounts.password', 'accounts.id','accounts_roles.idRol')
+                            ->get();
+            if(password_verify($request->password,$passwordDb[0]->password )){
+                return [$passwordDb[0]->id,$passwordDb[0]->idRol];
+            }else{
+                return 0; 
+            }
+        }else{
+            return -1;
+        }
     }
 
     /**
@@ -189,7 +210,9 @@ class AccountController extends Controller
     {
         $account = Account::find($id);
         $account->username = $request->username;
-        $account->password = $request->password;
+        if($request->password !=""){
+            $account->password = password_hash($request->password, PASSWORD_DEFAULT) ;
+        }
         $account->update();
     }
 

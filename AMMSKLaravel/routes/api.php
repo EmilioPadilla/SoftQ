@@ -79,11 +79,12 @@ Route::resource('donaciones', 'App\Http\Controllers\DonacionController');
 Route::resource('contactoDonante', 'App\Http\Controllers\ContactoDonanteController');
 
 
-
+Route::get('donaciones/table/date/{fecha}', 'App\Http\Controllers\DonacionController@financesTable');
+Route::get('donaciones/table/getdates', 'App\Http\Controllers\DonacionController@getDateDonaciones');
 Route::post('incomes/search', 'App\Http\Controllers\IncomesController@filterByDate');
-//Rutas cuentas
-
 /*DONANTES Y DONACIONES END*/
+
+//Rutas cuentas
 Route::resource('account', 'App\Http\Controllers\AccountController');
 Route::resource('accountRole', 'App\Http\Controllers\Account_RoleController');
 Route::get('account/find/{username}', 'App\Http\Controllers\AccountController@showId');
@@ -91,6 +92,7 @@ Route::get('account/table/all', 'App\Http\Controllers\AccountController@showTabl
 Route::get('account/table/roles/{role}', 'App\Http\Controllers\AccountController@showByRole');
 Route::get('account/table/search/{keyWord}', 'App\Http\Controllers\AccountController@searchBar');
 Route::get('account/delete/information/{id}', 'App\Http\Controllers\AccountController@deleteInfo');
+Route::post('account/login/confirmation', 'App\Http\Controllers\AccountController@loginInfo');
 
 /* EMPIEZA GENERALES */
 Route::resource('status', 'App\Http\Controllers\StatusController');
