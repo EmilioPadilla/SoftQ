@@ -86,7 +86,11 @@ import {
                         <td>{puesto[employees.puesto]}</td>
                         <td>
                             <Row>
-                                <Link to='/admin/view-employee'>
+                                <Link to=
+                                {{
+                                  pathname: 'view-employee/'+ employees.id,
+                                  state:employees.id
+                                }}>
                                 <Button color="info" size="sm" id="verDetalle"><FontAwesomeIcon icon={['fas', 'eye']} /></Button>
                                 <SimpleTooltip placement="top" target="verDetalle">Ver detalle</SimpleTooltip>
                                 </Link>
@@ -105,9 +109,13 @@ import {
                         <td>{puesto[employee.puesto]}</td>
                         <td>
                             <Row>
-                                <Link to='/admin/view-employee'>
-                                <Button color="info" size="sm" id="verDetalle"><FontAwesomeIcon icon={['fas', 'eye']} /></Button>
-                                <SimpleTooltip placement="top" target="verDetalle">Ver detalle</SimpleTooltip>
+                                <Link to=
+                                {{
+                                  pathname: 'view-employee/'+ employee.id,
+                                  state:employee.id
+                                }}>
+                                  <Button color="info" size="sm" id="verDetalle"><FontAwesomeIcon icon={['fas', 'eye']} /></Button>
+                                  <SimpleTooltip placement="top" target="verDetalle">Ver detalle</SimpleTooltip>
                                 </Link>
                                 &nbsp;&nbsp;&nbsp;&nbsp; 
                                 <ReenterEmp id={employee.id}></ReenterEmp>;

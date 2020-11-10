@@ -170,18 +170,117 @@ class EmployeesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // $request->validate([
-        //     'nombreCompleto' => 'required',
+        $employee = Employee::find($id); 
+        $employee->nombreCompleto = $request -> nombreCompleto;
+        $employee->scholarship_id = $request -> scholarship_id;
+        $employee->status_id = '1';
+        $employee->voluntario = 0;
+        $employee->civil_status_id = $request -> civil_status_id;
+        $employee->headquarter_id = $request -> headquarter_id;
+        $employee->fechaNac = $request -> fechaNac;
+        $employee->salarioxhora = $request -> salarioxhora;
+        $employee->fechaIngreso = $request -> fechaIngreso;
+        $employee->RFC = $request -> RFC;
+        $employee->CURP = $request -> CURP;
+        $employee->infonavit = $request -> infonavit;
+        $employee->calle = $request -> calle;
+        $employee->numInterior = $request -> numInterior;
+        $employee->numExterior = $request -> numExterior;
+        $employee->colonia = $request -> colonia;
+        $employee->codigoPostal = $request -> codigoPostal;
+        $employee->estado = $request -> estado;
+        $employee->ciudad = $request -> ciudad;
+        $employee->telefono = $request -> telefono;
+        $employee->celular = $request -> celular;
+        $employee->correo = $request -> correo;
+        $employee->numBeneficiarios = $request -> numBeneficiarios;
+        $employee->frecuenciaSalario = $request -> frecuenciaSalario;
+        $employee->puesto = $request -> puesto;
+        $employee->diasLaborales = $request -> diasLaborales;
+        $employee->numSeguroSocial = $request -> numSeguroSocial;
 
-        // ]);
-        // $employee->nombreCompleto = $request->nombreCompleto();
+        $employee->puesto = $request -> puesto;
+        $employee->headquarters_id = $request -> headquarters_id;
+        $employee->fechaIngreso = $request -> fechaIngreso;
+        $employee->diasLaborales = $request -> diasLaborales;
+        $employee->numBeneficiarios = $request -> numBeneficiarios;
+        $employee->salarioxhora = $request -> salarioxhora;
+        $employee->frecuenciaSalario = $request -> frecuenciaSalario;
 
-        // $employee->save();
+
+
+        $employee->update();
         
-        // return response()->json([
-        //     'message' => 'pokemon updated!',
-        //     'pokemon' => $employee
-        // ]);
+    }
+
+       /**
+     * Update employee's personal data
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updatePersonal(Request $request, $id)
+    {
+        $employee = Employee::find($id); 
+        $employee->nombreCompleto = $request -> nombreCompleto;
+        $employee->scholarship_id = $request -> scholarship_id;
+        $employee->fechaNac = $request -> fechaNac;
+        $employee->RFC = $request -> RFC;
+        $employee->civil_status_id = $request -> civil_status_id;
+        $employee->CURP = $request -> CURP;
+        $employee->infonavit = $request -> infonavit;
+        $employee->numSeguroSocial = $request -> numSeguroSocial;
+
+        $employee->update();
+        
+    }
+
+    /**
+     * Update employee's contact data
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateContact(Request $request, $id)
+    {
+        $employee = Employee::find($id); 
+        $employee->estado = $request -> estado;
+        $employee->ciudad = $request -> ciudad;
+        $employee->calle = $request -> calle;
+        $employee->numInterior = $request -> numInterior;
+        $employee->numExterior = $request -> numExterior;
+        $employee->colonia = $request -> colonia;
+        $employee->codigoPostal = $request -> codigoPostal;
+        $employee->telefono = $request -> telefono;
+        $employee->celular = $request -> celular;
+        $employee->correo = $request -> correo;
+
+        $employee->update();
+        
+    }
+
+              /**
+     * Update employee's contact data
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateEmployee(Request $request, $id)
+    {
+        $employee = Employee::find($id); 
+        $employee->puesto = $request -> puesto;
+        $employee->headquarter_id = $request -> headquarter_id;
+        $employee->fechaIngreso = $request -> fechaIngreso;
+        $employee->diasLaborales = $request -> diasLaborales;
+        $employee->numBeneficiarios = $request -> numBeneficiarios;
+        $employee->salarioxhora = $request -> salarioxhora;
+        $employee->frecuenciaSalario = $request -> frecuenciaSalario;
+
+        $employee->update();
+        
     }
 
     /**
