@@ -178,8 +178,8 @@ fillData (id) {
                           <Label htmlFor="frecuenciaSalario">* Frecuencia de salario</Label>
                               <Input type="select" name="select" id="frecuenciaSalario">
                               <option defaultValue="0">Selecciona una frecuencia de salario...</option>
-                              <option value="1">Variable</option>
-                              <option value="2">Fijo</option>
+                              <option value="Variable">Variable</option>
+                              <option value="Fijo">Fijo</option>
                               </Input>
                           </FormGroup>
                           </Col>

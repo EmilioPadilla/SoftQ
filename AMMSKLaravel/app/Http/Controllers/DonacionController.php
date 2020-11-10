@@ -129,4 +129,20 @@ class DonacionController extends Controller
         DB::table('donacion')->where('id',$id)->delete();
 
     }
+
+    public function financesTable($fecha){
+        $datos = DB::table('donacion')
+                    ->join('_donante', '_donante.id','=' ,'donacion.idDonante')
+                    ->select('donacion.fechaDonacion', 'donacion.monto', 'donacion.folio', 'donacion.factura','_donante.nombreCompleto1')
+                    ->where('donacion.fechaDonacion', 'like', '%'.$fecha.'%' )
+                    ->get();
+        return $datos;
+    }
+
+    public function getDateDonaciones(){
+        $datos = DB::table('donacion')
+                    ->select('donacion.fechaDonacion')
+                    ->get();
+        return $datos;
+    }
 }

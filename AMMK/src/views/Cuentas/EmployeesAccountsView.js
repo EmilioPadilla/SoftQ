@@ -110,6 +110,18 @@ class EmployeesAccountView extends React.Component {
 
 
   render() {
+    /*const login = localStorage.getItem("isLoggedIn");
+    const idRol = localStorage.getItem("idRol");
+    //Redirect in case of wrong role or no login
+    if (!login ) {
+      window.location = "http://localhost:3000/login";
+    }else if(idRol==2){
+      window.location = "http://localhost:3000/general/NurseIndex";
+    }else if (idRol==1){
+      window.location = "http://localhost:3000/admin/Nomina/Nomina";
+    }*/
+
+
     this.crearTabla();
     return (
         <div className="content">
@@ -132,13 +144,13 @@ class EmployeesAccountView extends React.Component {
          </Col>
          <Col className="text-right">
               <br/>
-              <Link to='/admin/Cuentas/CrearCuentaEmp'>
+              <a href="/admin/Cuentas/CrearCuentaEmp">
               <Button className="btn btn-primary ">
                 <AccountPlusIcon/> &nbsp;
                 Registrar nueva cuenta
               </Button>
-            </Link>
-            </Col>
+              </a>
+         </Col>
         </Row>
         <Row>
          <Col>
@@ -153,12 +165,16 @@ class EmployeesAccountView extends React.Component {
            </FormGroup>
          </Col>
         </Row>
-        <Row>
+        <div >
+          <Row>
             <Col md="12">
+            <div class="overflow-auto" style={ { height: 400 } }>
               <Table hover id="tablaCE">
               </Table>
+              </div>
             </Col>
           </Row>
+        </div>
         </div>
   
     );

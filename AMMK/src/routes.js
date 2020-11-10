@@ -113,7 +113,6 @@ var routes = [
     layout: "/admin",
     showInSidebar: true
   },
-
   {
     path: "/Cuentas/CuentaPersonal/",
     name: "Cuenta Personal",

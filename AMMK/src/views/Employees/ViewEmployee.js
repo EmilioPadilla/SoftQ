@@ -99,8 +99,22 @@ class ViewEmployee extends React.Component {
     }
 
     render() {
+
+        const login = localStorage.getItem("isLoggedIn");
+        const idRol = localStorage.getItem("idRol");
+        //Redirect in case of wrong role or no login
+        if (!login ) {
+            window.location = "http://localhost:3000/login";
+        }else if(idRol==2){
+            window.location = "http://localhost:3000/general/NurseIndex";
+        }else if (idRol==1){
+            window.location = "http://localhost:3000/admin/Nomina/Nomina";
+        }
+
+
       let months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
       let sedes = ["No registrado", "Granja Betania", "Asoc. MMK"];
+      let puestos = ["No registrado", "Enfermera(o)", "Director(a)", "Servicios Generales", "Lavandería", "Mayordomo", "Hermana", "Dirección administrativa"];
         return (
             <div className="content">
               {this.state.employees.map((employee) => (
@@ -451,7 +465,7 @@ class ViewEmployee extends React.Component {
                         </Col>
                         <Col>
                           <Label>
-                            Chofer
+                          {puestos[employee.puesto]}
                           </Label>
                         </Col>
                       </Row>
@@ -463,7 +477,7 @@ class ViewEmployee extends React.Component {
                         </Col>
                         <Col>
                           <Label>
-                            Quincenal
+                            {employee.frecuenciaSalario}
                           </Label>
                         </Col>
                       </Row>
@@ -475,7 +489,7 @@ class ViewEmployee extends React.Component {
                         </Col>
                         <Col>
                           <Label>
-                            $ 800
+                            $ {employee.salarioxhora}
                           </Label>
                         </Col>
                       </Row>

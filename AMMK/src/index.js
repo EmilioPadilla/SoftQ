@@ -19,6 +19,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { createBrowserHistory } from "history";
 import { Router, Route, Switch, Redirect } from "react-router-dom";
+import Login from "views/Cuentas/Login";
 
 import AdminLayout from "layouts/Admin/Admin.js";
 import General from "layouts/Admin/General.js";
@@ -39,6 +40,7 @@ ReactDOM.render(
 
       <Route path="/admin" render={props => <AdminLayout {...props} />} />
       <Route path="/general" render={props => <General {...props} />} />
+      <Route path="/login" component={Login}/>
       {/*Rutas que salen de la aplicacion*/}
       {/* <Route path="/rtl" render={/props => <RTLLayout {...props} />} /> */}
       <Redirect from="/" to="/admin/dashboard" />

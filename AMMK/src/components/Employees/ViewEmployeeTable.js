@@ -95,7 +95,7 @@ import {
                                 <SimpleTooltip placement="top" target="verDetalle">Ver detalle</SimpleTooltip>
                                 </Link>
                                 &nbsp;&nbsp;&nbsp;&nbsp; 
-                                <ModalExitEmployee id={employees.id}/>
+                                <ModalExitEmployee id={employees.id} employee={employees}/>
                                 
                             </Row>
                         </td>
@@ -111,14 +111,14 @@ import {
                             <Row>
                                 <Link to=
                                 {{
-                                  pathname: 'view-employee/'+ employee.id,
+                                  pathname: '=view-employee/'+ employee.id,
                                   state:employee.id
                                 }}>
                                   <Button color="info" size="sm" id="verDetalle"><FontAwesomeIcon icon={['fas', 'eye']} /></Button>
                                   <SimpleTooltip placement="top" target="verDetalle">Ver detalle</SimpleTooltip>
                                 </Link>
                                 &nbsp;&nbsp;&nbsp;&nbsp; 
-                                <ReenterEmp id={employee.id}></ReenterEmp>;
+                                <ReenterEmp id={employee.id} employee={employee}></ReenterEmp>;
                                 
                             </Row>
                         </td>
