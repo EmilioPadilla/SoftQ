@@ -61,10 +61,7 @@ import {
 
 
     render() {
-      let puesto = ["No registrado", "Enfermera", "Director(a)", "Servicios Generales", "Lavanderia", "Mayordomo", "Hermana", "Dirección administrtiva"];
-      // if (this.state.employeesI.length === 0) {
-      //   this.state.action = "<tr> <td><h5>Inactivos</h5></td><td>Hola</td></tr>";
-      // }
+      let puesto = ["No registrado", "Enfermera", "Director(a)", "Servicios Generales", "Lavanderia", "Mayordomo", "Hermana", "Dirección administrativa"];
         return (
           <Row>
             <Col md="12">
