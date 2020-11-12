@@ -132,7 +132,7 @@ const chartOptions = {
 const doughnutOptions = {
   maintainAspectRatio: false,
   legend: {
-    display: false
+    display: true
   },
 
   tooltips: {

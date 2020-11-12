@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import ReactToPrint from "react-to-print";
 
+import axios from 'axios';
+import { API_BASE_URL } from 'index';
+
 // react plugin used to create charts
 import { Line, Bar } from "react-chartjs-2";
 
@@ -22,6 +25,7 @@ import {
     Row,
     Col
   } from "reactstrap";
+  import Form from "react-bootstrap/Form";
 import { createNoSubstitutionTemplateLiteral } from 'typescript';
 
 library.add(fas)
@@ -33,18 +37,43 @@ class Reports extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedType : "ingresos",
+            selectedType : "egresos",
+            selectedCategory: null,
+            categories: [],
             startDate: year + "-01-01",
             endDate: year + "-12-31",
-            expenses: []
+            expenses: [],
+            
         }
         this.onTypeChange = this.onTypeChange.bind(this);
         this.onCalendarChange = this.onCalendarChange.bind(this);
+        this.onCategoryChange = this.onCategoryChange.bind(this);
+        //this.clearSelect = this.clearSelect.bind(this);
+        this.catRef= React.createRef();
+        
+    }
+
+
+
+    // getCategories() {
+    //     axios.get(API_BASE_URL + "categories").then(function(resp){
+    //         console.log(resp.data);
+    //         resp.data.forEach(element =>{
+    //         sel = sel.concat('<option value='+ element.id + '>' + element.nombre +'</option>');
+    //         });
+    //         this.divRef.innerHTML=sel; 
+    //     });
+    // }
+    
+    onCategoryChange(e) {
+        e.preventDefault();
+        this.setState({ selectedCategory: e.target.value });
     }
 
     onTypeChange(e) {
         e.preventDefault();
         this.setState({ selectedType: e.target.value });
+        //this.clearSelect();
     }
 
     onCalendarChange(e) {
@@ -56,6 +85,10 @@ class Reports extends Component {
             this.setState({ endDate: e.target.value });
         }
         console.log(this.state);
+    }
+
+    componentDidMount() {
+        //this.clearSelect();
     }
 
     render() {
@@ -75,12 +108,12 @@ class Reports extends Component {
             <div className="content">
                 <FormGroup className="float-right">
                     <Input type="select" id="selectType" onChange={this.onTypeChange}>
-                        <option value="ingresos">Ingresos</option>
                         <option value="egresos">Egresos</option>
+                        <option value="ingresos">Ingresos</option>
                     </Input>
                 </FormGroup>
                 <h1 className="title">REPORTES</h1>
-                <Row className="mb-3 d-flex justify-content-center">
+                <Row className="mb-3 d-flex align-items-center justify-content-center">
                     
                     <Col lg="2" className="d-flex align-items-center  justify-content-center">
                         <FormGroup className="m-0">
