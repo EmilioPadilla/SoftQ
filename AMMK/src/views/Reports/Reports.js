@@ -33,7 +33,7 @@ class Reports extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedType : "egresos",
+            selectedType : "ingresos",
             startDate: year + "-01-01",
             endDate: year + "-12-31",
             chartIncomes: [60, 80, 65, 130, 80, 105, 90, 130, 70, 115, 60, 130],
@@ -76,8 +76,8 @@ class Reports extends Component {
             <div className="content">
                 <FormGroup className="float-right">
                     <Input type="select" id="selectType" onChange={this.onTypeChange}>
-                        <option value="egresos">Egresos</option>
                         <option value="ingresos">Ingresos</option>
+                        <option value="egresos">Egresos</option>
                     </Input>
                 </FormGroup>
                 <h1 className="title">REPORTES</h1>
