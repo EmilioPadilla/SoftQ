@@ -91,6 +91,15 @@ import Record from "views/Finanzas/Record.js";
 import Reports from "views/Reports/Reports.js";
 //FIN REPORTES
 
+// const login = localStorage.getItem("isLoggedIn");
+
+//     //Redirect in case of wrong role or no login
+//     if(idRol==2){
+//         window.location = "http://localhost:3000/general/NurseIndex";
+//     }else if (idRol==1){
+//         window.location = "http://localhost:3000/admin/Nomina/Nomina";
+//     }
+
 
 
 var routes = [
@@ -101,7 +110,8 @@ var routes = [
     icon: "tim-icons icon-chart-pie-36",
     component: Dashboard,
     layout: "/admin",
-    showInSidebar: false
+    showInSidebar: false,
+    rol: 'employee'
   },
   //Start Cuentas
   {
@@ -111,7 +121,8 @@ var routes = [
     icon: "tim-icons icon-single-02",
     component: MainAccount,
     layout: "/admin",
-    showInSidebar: true
+    showInSidebar: true ,
+    rol: 'admin'
   },
   {
     path: "/Cuentas/CuentaPersonal/",
@@ -120,7 +131,8 @@ var routes = [
     icon: "tim-icons icon-single-02",
     component: ModifyPersonalAc,
     layout: "/admin",
-    showInSidebar: false
+    showInSidebar: false,
+    rol: 'employee'
   },
   {
     path: "/Cuentas/CrearCuentaEmp",
@@ -129,7 +141,8 @@ var routes = [
     icon: "tim-icons icon-single-02",
     component: CreateAccEmp,
     layout: "/admin",
-    showInSidebar: false
+    showInSidebar: false,
+    rol: 'employee'
   },
   {
     path: "/Cuentas/ModCuentaEmp/:id",
@@ -138,7 +151,8 @@ var routes = [
     icon: "tim-icons icon-single-02",
     component: ModifyAccountEmp,
     layout: "/admin",
-    showInSidebar: false
+    showInSidebar: false,
+    rol: 'employee'
   },
   {
     path: "/Cuentas/DelCuentaEmp/:id",
@@ -147,7 +161,8 @@ var routes = [
     icon: "tim-icons icon-single-02",
     component: DeleteAccountEmployee,
     layout: "/admin",
-    showInSidebar: false
+    showInSidebar: false,
+    rol: 'employee'
   },
   {
     path: "/Cuentas/PrincipalEmp",
@@ -156,7 +171,8 @@ var routes = [
     icon: "tim-icons icon-single-02",
     component: EmployeesAccountView,
     layout: "/admin",
-    showInSidebar: false
+    showInSidebar: false,
+    rol: 'employee'
   },
   //End Cuentas
   {
@@ -166,7 +182,8 @@ var routes = [
     icon: "tim-icons icon-single-02",
     component: GeneralIndex,
     layout: "/general",
-    showInSidebar: false
+    showInSidebar: false,
+    rol: 'employee'
   },
   {
     path: "/NurseIndex",
@@ -175,7 +192,8 @@ var routes = [
     icon: "tim-icons icon-single-02",
     component: NurseIndex,
     layout: "/general",
-    showInSidebar: false
+    showInSidebar: false,
+    rol: 'employee'
   },
   /*  START BENEFICIARIAS */
   {
@@ -185,7 +203,8 @@ var routes = [
     icon: "tim-icons icon-single-02",
     component: GeneralViewAdmin,
     layout: "/admin",
-    showInSidebar: true
+    showInSidebar: true,
+    rol: 'admin'
   },
   {
     path: "/Beneficiarias/GeneralViewNurse",
@@ -194,7 +213,9 @@ var routes = [
     icon: "tim-icons icon-single-02",
     component: GeneralViewNurse,
     layout: "/admin",
-    showInSidebar: false
+    showInSidebar: true,
+    rol: 'enf',
+    onlyGen: false
   },
   {
     path: "/Beneficiarias/SpecificView/:id",
@@ -203,7 +224,7 @@ var routes = [
     icon: "tim-icons icon-single-02",
     component: SpecificView,
     layout: "/admin",
-    showInSidebar: false
+    showInSidebar: false,
   },
   {
     path: "/Beneficiarias/TakeOutB/:id",
@@ -212,7 +233,7 @@ var routes = [
     icon: "tim-icons icon-single-02",
     component: TakeOutB,
     layout: "/admin",
-    showInSidebar: false
+    showInSidebar: false,
   },
   {
     path: "/Beneficiarias/ReenterB/:id",
@@ -221,7 +242,7 @@ var routes = [
     icon: "tim-icons icon-single-02",
     component: ReenterB,
     layout: "/admin",
-    showInSidebar: false
+    showInSidebar: false,
   },
   {
     path: "/Beneficiarias/ModifyTreatment/:id",
@@ -230,7 +251,7 @@ var routes = [
     icon: "tim-icons icon-single-02",
     component: ModifyTreatment,
     layout: "/admin",
-    showInSidebar: false
+    showInSidebar: false,
   },
   {
     path: "/Beneficiarias/ViewMedApp/:id",
@@ -239,7 +260,7 @@ var routes = [
     icon: "tim-icons icon-single-02",
     component: ViewMedApp,
     layout: "/admin",
-    showInSidebar: false
+    showInSidebar: false,
   },
   {
     path: "/Beneficiarias/MedicalRecordView/:id",
@@ -248,7 +269,7 @@ var routes = [
     icon: "tim-icons icon-single-02",
     component: MedicalRecordView,
     layout: "/admin",
-    showInSidebar: false
+    showInSidebar: false,
   },
   {
     path: "/Beneficiarias/RegisterTreatment/:id",
@@ -257,7 +278,7 @@ var routes = [
     icon: "tim-icons icon-single-02",
     component: RegisterTreatment,
     layout: "/admin",
-    showInSidebar: false
+    showInSidebar: false,
   },
   {
     path: "/Beneficiarias/RegisterMedApp/:id",
@@ -266,7 +287,8 @@ var routes = [
     icon: "tim-icons icon-single-02",
     component: RegisterMedApp,
     layout: "/admin",
-    showInSidebar: false
+    showInSidebar: false,
+
   },
   {
     path: "/Beneficiarias/ModifyMedApp/:id",
@@ -275,7 +297,8 @@ var routes = [
     icon: "tim-icons icon-single-02",
     component: ModifyMedApp,
     layout: "/admin",
-    showInSidebar: false
+    showInSidebar: false,
+
   },
   {
     path: "/Beneficiarias/RegisterB1",
@@ -284,7 +307,7 @@ var routes = [
     icon: "tim-icons icon-single-02",
     component: RegisterB1,
     layout: "/admin",
-    showInSidebar: false
+    showInSidebar: false,
   },
   {
     path: "/Beneficiarias/RegisterB2",
@@ -293,7 +316,7 @@ var routes = [
     icon: "tim-icons icon-single-02",
     component: RegisterB2,
     layout: "/admin",
-    showInSidebar: false
+    showInSidebar: false,
   },
   {
     path: "/Beneficiarias/RegisterB3",
@@ -302,7 +325,7 @@ var routes = [
     icon: "tim-icons icon-single-02",
     component: RegisterB3,
     layout: "/admin",
-    showInSidebar: false
+    showInSidebar: false,
   },
   /* END BENEFICIARIAS */
   /*  START EMPLOYEES */
@@ -313,7 +336,8 @@ var routes = [
     icon: "tim-icons icon-badge",
     component: SearchEmployee,
     layout: "/admin",
-    showInSidebar: true
+    showInSidebar: true,
+    rol: 'admin'
   },
   {
     path: "/register-employee",
@@ -322,7 +346,8 @@ var routes = [
     icon: "tim-icons icon-badge",
     component: RegisterEmployee,
     layout: "/admin",
-    showInSidebar: false
+    showInSidebar: false,
+    rol: 'employee'
   },
   {
     path: "/RE2",
@@ -331,7 +356,8 @@ var routes = [
     icon: "tim-icons icon-single-02",
     component: RegisterEmployee2,
     layout: "/admin",
-    showInSidebar: false
+    showInSidebar: false,
+    rol: 'employee'
   },
   {
     path: "/RE3",
@@ -340,7 +366,8 @@ var routes = [
     icon: "tim-icons icon-single-02",
     component: RegisterEmployee3,
     layout: "/admin",
-    showInSidebar: false
+    showInSidebar: false,
+    rol: 'employee'
   },
   {
     path: "/view-employee/:id",
@@ -348,7 +375,8 @@ var routes = [
     icon: "tim-icons icon-single-02",
     component: ViewEmployee,
     layout: "/admin",
-    showInSidebar: false
+    showInSidebar: false,
+    rol: 'employee'
   },
   {
     path: "/ModifyE1/:id",
@@ -356,7 +384,8 @@ var routes = [
     icon: "tim-icons icon-single-02",
     component: ModifyEmployee,
     layout: "/admin",
-    showInSidebar: false
+    showInSidebar: false,
+    rol: 'employee'
   },
   {
     path: "/ModifyE2/:id",
@@ -364,7 +393,8 @@ var routes = [
     icon: "tim-icons icon-single-02",
     component: ModifyEmployee2,
     layout: "/admin",
-    showInSidebar: false
+    showInSidebar: false,
+    rol: 'employee'
   },
   {
     path: "/ModifyE3/:id",
@@ -372,7 +402,8 @@ var routes = [
     icon: "tim-icons icon-single-02",
     component: ModifyEmployee3,
     layout: "/admin",
-    showInSidebar: false
+    showInSidebar: false,
+    rol: 'employee'
   },
   {
     path: "/employee-calendar",
@@ -381,7 +412,8 @@ var routes = [
     icon: "tim-icons icon-single-02",
     component: EmployeeCalendar,
     layout: "/admin",
-    showInSidebar: false
+    showInSidebar: false,
+    rol: 'employee'
   },
   /*  END EMPLOYEES */
 
@@ -394,7 +426,8 @@ var routes = [
     icon: "tim-icons icon-heart-2",
     component: ViewDonors,
     layout: "/admin",
-    showInSidebar: true
+    showInSidebar: true,
+    rol: 'admin'
   },
   {
     path: "/EliminarDonacion/:id",
@@ -528,7 +561,8 @@ var routes = [
     icon: "tim-icons icon-money-coins",
     component: MonthlyView,
     layout: "/admin",
-    showInSidebar: true
+    showInSidebar: true,
+    rol: 'admin'
   },
   {
     path: "/Finanzas/Record",
@@ -547,7 +581,9 @@ var routes = [
     icon: "tim-icons icon-chart-bar-32",
     component: Nomina,
     layout: "/admin",
-    showInSidebar: false
+    showInSidebar: true,
+    rol: 'enf',
+    onlyGen: true
   },
   {
     path: "/Reportes",
@@ -556,7 +592,8 @@ var routes = [
     icon: "tim-icons icon-chart-bar-32",
     component: Reports,
     layout: "/admin",
-    showInSidebar: true
+    showInSidebar: true,
+    rol: 'admin'
   },
 
 
