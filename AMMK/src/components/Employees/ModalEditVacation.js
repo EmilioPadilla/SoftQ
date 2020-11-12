@@ -6,6 +6,7 @@ import axios from 'axios';
 import { API_BASE_URL } from '../../index';
 
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Col, Row, Input, FormGroup, CustomInput, Label, Form } from 'reactstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import SimpleTooltip from "../../views/General/SimpleTooltip";
 
 //  function   onSubmit(e) {
@@ -18,7 +19,7 @@ import SimpleTooltip from "../../views/General/SimpleTooltip";
 //   });
 // }
 
-const ModalExample = (props) => {
+const EditVacationModal = (props) => {
   const {
     buttonLabel,
     className
@@ -33,44 +34,32 @@ const ModalExample = (props) => {
 
   return (
     <div>
-      <Button id="egresar" color="danger" className="inline" size="sm" inline onClick={toggle}>{buttonLabel}</Button>
-      <SimpleTooltip placement="top" target="egresar">Egresar</SimpleTooltip>
+      <Button id="editar" color="gray" className="inline" size="sm" inline onClick={toggle}><FontAwesomeIcon icon={['fas', 'pencil-alt']} /></Button>
+      <SimpleTooltip placement="top" target="editar">Editar</SimpleTooltip>
       {/* <Form onSubmit={this.onSubmit}> */}
       <Modal isOpen={modal} toggle={toggle} className={className} color="primary">
-        <ModalHeader toggle={toggle}>Egresar empleado</ModalHeader>
+        <ModalHeader toggle={toggle}>Modificar vacaciones</ModalHeader>
         {/* <h3 color="primary">Egresar empleado</h3> */}
         <ModalBody>
 
               <FormGroup>
                 <Label>
-                  Fecha de nacimiento
+                  Fecha de salida
                 </Label>
                 <Input type="date" />
               </FormGroup>
               <FormGroup>
-                <Label for="motivoTextArea">
-                  Motivo:
-                  <br/>
-                  <textarea rows="3" cols="68" id="motivoTextArea"/>
+                <Label>
+                  Fecha de regreso
                 </Label>
+                <Input type="date" />
               </FormGroup>
-
-              <FormGroup>
-              <Label for="DocCurp">Carga de finiquito</Label>
-              <CustomInput type="file" name="customFile" id="DocFiniq" label="Selecciona un archivo"/>
-              </FormGroup>
-
-              <FormGroup>
-              <Label for="DocCurp">Carga de renuncia</Label>
-              <CustomInput type="file" name="customFile" id="DocRenuncia" label="Selecciona un archivo"/>
-              </FormGroup>
-
 
         </ModalBody>
 
         <ModalFooter>
           <Button color="info" visibility="none" onClick={toggle}>salir</Button>{' '}
-          <Button  onClick={toggle}>Egresar</Button>
+          <Button  onClick={toggle}>Modificar</Button>
         </ModalFooter>
       </Modal>
       {/* </Form> */}
@@ -78,4 +67,4 @@ const ModalExample = (props) => {
   );
 }
 
-export default ModalExample;
+export default EditVacationModal;

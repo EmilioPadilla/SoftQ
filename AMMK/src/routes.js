@@ -28,8 +28,11 @@ import Nomina from "views/Nomina/Nomina.js";
 import TableList from "views/TableList.js";
 import Typography from "views/Typography.js";
 import RegisterEmployee from "views/Employees/RE.js";
+import ModifyEmployee from "views/Employees/ModifyE1.js";
 import RegisterEmployee2 from "views/Employees/RE2emp.js";
+import ModifyEmployee2 from "views/Employees/ModifyE2mp.js";
 import RegisterEmployee3 from "views/Employees/RE3.js";
+import ModifyEmployee3 from "views/Employees/ModifyE3.js";
 import ViewEmployee from "views/Employees/ViewEmployee.js";
 import SearchEmployee from "views/Employees/SearchEmployee.js";
 import EmployeeCalendar from "views/Employees/EmployeeCalendar.js";
@@ -340,11 +343,34 @@ var routes = [
     showInSidebar: false
   },
   {
-    path: "/view-employee",
+    path: "/view-employee/:id",
     name: "Empleados",
-    rtlName: "طباعة",
     icon: "tim-icons icon-single-02",
     component: ViewEmployee,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+    path: "/ModifyE1/:id",
+    name: "Empleados",
+    icon: "tim-icons icon-single-02",
+    component: ModifyEmployee,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+    path: "/ModifyE2/:id",
+    name: "Empleados",
+    icon: "tim-icons icon-single-02",
+    component: ModifyEmployee2,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+    path: "/ModifyE3/:id",
+    name: "Empleados",
+    icon: "tim-icons icon-single-02",
+    component: ModifyEmployee3,
     layout: "/admin",
     showInSidebar: false
   },
