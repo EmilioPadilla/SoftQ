@@ -31,6 +31,7 @@
     "react-notification-alert": "0.0.12",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.4",
+    "react-to-print": "^2.11.0",
     "reactstrap": "8.4.1",
     "sweetalert2": "^10.6.1"
   },

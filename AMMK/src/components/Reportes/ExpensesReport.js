@@ -175,6 +175,7 @@ class ExpensesResport extends Component {
 
         return (
             <div>
+              
                 <Row>
                     <Col lg="12">
                         <Card className="card-chart">
