@@ -120,6 +120,7 @@ Route::resource('categories', 'App\Http\Controllers\CategoryController');
 Route::post('incomes/search', 'App\Http\Controllers\IncomesController@filterByDate');
 Route::post('incomes/group', 'App\Http\Controllers\IncomesController@groupByMonth');
 Route::post('expenses/search', 'App\Http\Controllers\ExpenseController@filterByDate');
-Route::post('expenses/group', 'App\Http\Controllers\ExpenseController@groupByMonth');
+Route::post('expenses/group/month', 'App\Http\Controllers\ExpenseController@groupByMonth');
+Route::post('expenses/group/category', 'App\Http\Controllers\ExpenseController@groupByCategory');
 Route::resource('expenses', 'App\Http\Controllers\ExpenseController');
 /* TERMINA FINANZAS */

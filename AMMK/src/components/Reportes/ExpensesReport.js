@@ -4,7 +4,7 @@ import axios from 'axios';
 import { API_BASE_URL } from '../../index';
 
 // react plugin used to create charts
-import { Line } from "react-chartjs-2";
+import { Line, Doughnut } from "react-chartjs-2";
 
 // reactstrap components
 import {
@@ -71,6 +71,25 @@ const chartOptions = {
     }
 };
 
+const doughnutOptions = {
+  maintainAspectRatio: false,
+  legend: {
+    display: false
+  },
+
+  tooltips: {
+    backgroundColor: "#f5f5f5",
+    titleFontColor: "#333",
+    bodyFontColor: "#666",
+    bodySpacing: 4,
+    xPadding: 12,
+    mode: "nearest",
+    intersect: 0,
+    position: "nearest"
+  },
+  responsive: true
+};
+
 const monthNames = {
     1: 'ENE',
     2: 'FEB',
@@ -86,6 +105,19 @@ const monthNames = {
     12: 'DEC',
 };
 
+const colors = [
+  '#586ba4',
+  '#f5dd90',
+  '#f68e5f',
+  '#f76c5e',
+  '#f0b67f',
+  '#519e8a',
+  '#854d27',
+  '#dd7230',
+  '#f4c95d',
+  '#007ea7',
+]
+
 const year = (new Date).getFullYear();
 
 class ExpensesResport extends Component {
@@ -94,8 +126,10 @@ class ExpensesResport extends Component {
         super(props);
         this.state = {
             expenses: [],
+            categoryExpenses: [],
             totalExpenses: null,
-            chartExpenses: null
+            chartExpenses: null,
+            doughnutColors: []
         }
         this.formatter = new Intl.NumberFormat('en-US', {
             style: 'currency',
@@ -109,7 +143,7 @@ class ExpensesResport extends Component {
           startDate: this.props.startDate,
           endDate: this.props.endDate
         }
-        axios.post(API_BASE_URL + 'expenses/group', params)
+        axios.post(API_BASE_URL + 'expenses/group/month', params)
         .then((res) => {
           this.setState({
             expenses: res.data,
@@ -121,11 +155,26 @@ class ExpensesResport extends Component {
             this.props.onChange(this.state.totalExpenses);
           }
         });
+    }
+
+    getCategoryExpenses() {
+      const params = {
+        startDate: this.props.startDate,
+        endDate: this.props.endDate
       }
+      axios.post(API_BASE_URL + 'expenses/group/category', params)
+      .then((res) => {
+        this.setState({
+          categoryExpenses: res.data
+        });
+        this.doughnutColors();
+      });
+    }
 
     componentDidMount() {
         if (this.props.startDate && this.props.endDate) {
             this.getExpenses();
+            this.getCategoryExpenses();
         }
     }
 
@@ -133,12 +182,18 @@ class ExpensesResport extends Component {
         if ((this.props.startDate != prevProps.startDate) ||
             (this.props.endDate != prevProps.endDate)) {
             this.getExpenses();
+            this.getCategoryExpenses();
         }
         
     }
 
+    doughnutColors() {
+      const chartColors = this.state.categoryExpenses.map((el) => colors[Math.floor(Math.random() * colors.length-1)]);
+      this.setState({doughnutColors: chartColors});
+    }
+
     render() {
-        let expensesChartData = {
+        let lineChartData = {
             data: canvas => {
               let ctx = canvas.getContext("2d");
           
@@ -173,10 +228,21 @@ class ExpensesResport extends Component {
             }
         };
 
+        let doughnutChartData = {
+          labels: this.state.categoryExpenses.map((el) => el.nombre),
+          datasets: [{
+            data: this.state.categoryExpenses.map((el) => el.total),
+            borderColor:  "rgba(255,255,255,0)",
+            borderWidth: 4,
+            backgroundColor: this.state.doughnutColors,
+            hoverBackgroundColor: this.state.doughnutColors,
+          }]
+        };
+
         return (
             <div>
                 <Row>
-                    <Col lg="12">
+                    <Col lg="6">
                         <Card className="card-chart">
                             <CardHeader>
                             <h5 className="card-category">Egresos</h5>
@@ -188,9 +254,27 @@ class ExpensesResport extends Component {
                             <CardBody>
                                 <div className="chart-area">
                                     <Line
-                                    data={expensesChartData.data}
+                                    data={lineChartData.data}
                                     options={chartOptions}
                                     />
+                                </div>
+                            </CardBody>
+                        </Card>
+                    </Col>
+                    <Col lg="6">
+                        <Card className="card-chart">
+                            <CardHeader>
+                            <h5 className="card-category">Egresos por Categoría</h5>
+                            <CardTitle tag="h3">
+                                <i className="tim-icons icon-money-coins text-info" />{" "}
+                                {this.state.totalExpenses}
+                            </CardTitle>
+                            </CardHeader>
+                            <CardBody>
+                                <div className="chart-area">
+                                  <Doughnut 
+                                  data={doughnutChartData}
+                                  options={doughnutOptions} />
                                 </div>
                             </CardBody>
                         </Card>

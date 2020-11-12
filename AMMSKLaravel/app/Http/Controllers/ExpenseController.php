@@ -51,6 +51,8 @@ class ExpenseController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
+     * 
+     * 
      */
     public function groupByMonth(Request $request)
     {
@@ -61,6 +63,31 @@ class ExpenseController extends Controller
             [$request->startDate, $request->endDate]
         )->groupByRaw('YEAR(fecha), MONTH(fecha)')
         ->orderByRaw('YEAR(fecha) DESC, MONTH(fecha) DESC')
+        ->get();
+
+        return $expenses;
+    }
+
+    /**
+     * Group by category.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function groupByCategory(Request $request)
+    {
+        $expenses = Expense::join(
+            "categories",
+            "categories.id",
+            "=",
+            "expenses.category_id"
+        )->selectRaw(
+            'categories.nombre, COUNT(*) as count, SUM(monto) as total'
+        )->whereBetween(
+            "fecha",
+            [$request->startDate, $request->endDate]
+        )->groupByRaw('categories.nombre')
+        ->orderByRaw('SUM(monto) DESC')
         ->get();
 
         return $expenses;
