@@ -43,6 +43,7 @@ class ViewEmployee extends React.Component {
         markedDays: [],
         statuses: [],
         employees: [],
+        id: '',
       }
       this.handleCalendarChange = this.handleCalendarChange.bind(this);
       this.onSaveCalendar = this.onSaveCalendar.bind(this);
@@ -55,9 +56,11 @@ class ViewEmployee extends React.Component {
     }
 
     componentDidMount() {
-      let id = this.props.dataFromParent;
+      const { id } = this.props.match.params;
+      this.state.id = id
       console.log(id);
-      axios.get(API_BASE_URL + 'employee/1')
+      console.log(this.state.id);
+      axios.get(API_BASE_URL + 'employee/'+id)
         .then(res => {
           const employees = res.data;
           this.setState({ employees });
@@ -73,12 +76,12 @@ class ViewEmployee extends React.Component {
       this.state.markedDays.forEach((element) => {
         const delParam = {
           //TODO Pasar id de empleado correcto
-          idEmployees: 1
+          idEmployees: this.state.id
         }
         const empShift = {
           nombreTurno: element.nombreTurno,
           //TODO Pasar id de empleado correcto
-          idEmployees: 1,
+          idEmployees: this.state.id,
           diaSemana: element.diaSemana
         }
         console.log(empShift);
@@ -111,6 +114,7 @@ class ViewEmployee extends React.Component {
 
       let months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
       let sedes = ["No registrado", "Granja Betania", "Asoc. MMK"];
+      let puestos = ["No registrado", "Enfermera(o)", "Director(a)", "Servicios Generales", "Lavandería", "Mayordomo", "Hermana", "Dirección administrativa"];
         return (
             <div className="content">
               {this.state.employees.map((employee) => (
@@ -156,10 +160,16 @@ class ViewEmployee extends React.Component {
                             <Badge color="primary">Datos personales</Badge>
                           </Col>
                           <Col>
-                            <Link to='/admin/register-employee'>
+                          {this.state.employees.map((employee) => (
+                            <Link to=
+                            {{
+                                  pathname: '/admin/ModifyE1/'+ employee.id,
+                                  state:employee.id
+                                }}>
                               <Button  className="float-right" size="sm" id="editarpers"><FontAwesomeIcon icon={['fas', 'pencil-alt']} /></Button>
                               <SimpleTooltip placement="top" target="editarpers" >Editar datos personales</SimpleTooltip>
                             </Link>
+                            ))}
                           </Col>
                         </Row>
                       </CardTitle>
@@ -201,16 +211,6 @@ class ViewEmployee extends React.Component {
                           {employee.scholarship_id}
                           </Label>
                         </Col>
-                        <Col>
-                          <Label>
-                            <strong>Archivo:</strong>
-                          </Label>
-                        </Col>
-                        <Col>
-                         <Label>
-                          certificadoSecu.pdf
-                          </Label>
-                        </Col>
                       </Row>
                       <Row>
                         <Col>
@@ -223,16 +223,7 @@ class ViewEmployee extends React.Component {
                           {employee.fechaNac.split("-")[2]} de {months[employee.fechaNac.split("-")[1] - 1]} 
                           </Label>
                         </Col>
-                        <Col>
-                          <Label>
-                            <strong>Archivo:</strong>
-                          </Label>
-                        </Col>
-                        <Col>
-                         <Label>
-                          INE.pdf
-                          </Label>
-                        </Col>
+
                       </Row>
                       <Row>
                         <Col>
@@ -243,16 +234,6 @@ class ViewEmployee extends React.Component {
                         <Col>
                           <Label>
                             {calculate_age(employee.fechaNac)} años
-                          </Label>
-                        </Col>
-                        <Col>
-                          <Label>
-                            <strong>Archivo:</strong>
-                          </Label>
-                        </Col>
-                        <Col>
-                         <Label>
-                          actaNac.pdf
                           </Label>
                         </Col>
                       </Row>
@@ -268,16 +249,6 @@ class ViewEmployee extends React.Component {
                           {employee.RFC}
                           </Label>
                         </Col>
-                        <Col>
-                          <Label>
-                            <strong>Archivo:</strong>
-                          </Label>
-                        </Col>
-                        <Col>
-                         <Label>
-                          RFC.pdf
-                          </Label>
-                        </Col>
                       </Row>
                       <Row>
                         <Col>
@@ -288,16 +259,6 @@ class ViewEmployee extends React.Component {
                         <Col>
                           <Label>
                           {employee.CURP}
-                          </Label>
-                        </Col>
-                        <Col>
-                          <Label>
-                            <strong>Archivo:</strong>
-                          </Label>
-                        </Col>
-                        <Col>
-                         <Label>
-                         CURP.pdf
                           </Label>
                         </Col>
                       </Row>
@@ -312,10 +273,16 @@ class ViewEmployee extends React.Component {
                             <Badge color="primary">Datos de contacto</Badge>
                           </Col>
                           <Col>
-                             <Link to='/admin/RE2'>
+                          {this.state.employees.map((employee) => (
+                            <Link to=
+                            {{
+                                  pathname: '/admin/ModifyE2/'+ employee.id,
+                                  state:employee.id
+                                }}>
                               <Button  className="float-right" size="sm" id="editarpers"><FontAwesomeIcon icon={['fas', 'pencil-alt']} /></Button>
                               <SimpleTooltip placement="top" target="editarpers" >Editar datos de contacto</SimpleTooltip>
                               </Link>
+                               ))}
                           </Col>
                         </Row>
                       </CardTitle>
@@ -366,7 +333,7 @@ class ViewEmployee extends React.Component {
                         </Col>
                         <Col>
                           <Label>
-                          {employee.nombreCompleto}
+                          {employee.estado}
                           </Label>
                         </Col>
                       </Row>
@@ -378,7 +345,7 @@ class ViewEmployee extends React.Component {
                         </Col>
                         <Col>
                           <Label>
-                          {employee.numInterior}
+                          {employee.ciudad}
                           </Label>
                         </Col>
                       </Row>
@@ -434,11 +401,18 @@ class ViewEmployee extends React.Component {
                             <Badge color="primary">Datos de empleado</Badge>
                           </Col>
                           <Col>
-                            <Link to='/admin/RE3'>
+                          {this.state.employees.map((employee) => (
+                          <Link to=
+                            {{
+                                  pathname: '/admin/ModifyE3/'+ employee.id,
+                                  state:employee.id
+                                }}>
                               <Button  className="float-right" size="sm" id="editaremp"><FontAwesomeIcon icon={['fas', 'pencil-alt']} /></Button>
                               <SimpleTooltip placement="top" target="editaremp" >Editar datos de empleado</SimpleTooltip>
                             </Link>
+                             ))}
                           </Col>
+
                         </Row>
                       </CardTitle>
                     </CardHeader>
@@ -491,7 +465,7 @@ class ViewEmployee extends React.Component {
                         </Col>
                         <Col>
                           <Label>
-                            Chofer
+                          {puestos[employee.puesto]}
                           </Label>
                         </Col>
                       </Row>
@@ -503,7 +477,7 @@ class ViewEmployee extends React.Component {
                         </Col>
                         <Col>
                           <Label>
-                            Quincenal
+                            {employee.frecuenciaSalario}
                           </Label>
                         </Col>
                       </Row>
@@ -515,7 +489,7 @@ class ViewEmployee extends React.Component {
                         </Col>
                         <Col>
                           <Label>
-                            $ 800
+                            $ {employee.salarioxhora}
                           </Label>
                         </Col>
                       </Row>
@@ -556,9 +530,13 @@ class ViewEmployee extends React.Component {
                     </CardTitle>
                   </CardHeader>
                   <CardBody>
-                    <EmployeeCalendarTable employeeId={1} onChange={this.handleCalendarChange} />
+                  {this.state.employees.map((employee) => (    
+                    <EmployeeCalendarTable employeeId={employee.id} onChange={this.handleCalendarChange} />
+                    ))}
                     <button className="btn btn-primary float-right"
-                      onClick={() => { this.onSaveCalendar() }}>Guardar Cambios</button>
+                      onClick={() => { this.onSaveCalendar() }}>Guardar Cambios
+                      </button>
+                     
                   </CardBody>
                 </Card>
               </Row>

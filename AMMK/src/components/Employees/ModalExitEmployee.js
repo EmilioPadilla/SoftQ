@@ -1,6 +1,6 @@
 /* eslint react/no-multi-comp: 0, react/prop-types: 0 */
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
@@ -30,12 +30,22 @@ function exitEmployee (id) {
   }
 }
 
+function getEmployee (id, employee) {
+  
+}
+
 const ModalExample = (props) => {
   const {
     buttonLabel,
     className,
-    id
+    id,
+    employee
   } = props;
+
+
+
+
+
 
 
   
@@ -57,13 +67,13 @@ const ModalExample = (props) => {
                 <Label htmlFor="fechaEgreso">
                   Fecha de egreso
                 </Label>
-                <Input type="date" id="fechaEgreso"/>
+                <Input type="date" id="fechaEgreso" value={employee.fechaEgreso}/>
               </FormGroup>
               <FormGroup>
                 <Label HtmlFor="motivoEgreso">
                   Motivo:
                   <br/>
-                  <textarea rows="3" cols="64" id="motivoEgreso"/>
+                  <textarea rows="3" cols="64" id="motivoEgreso" value={employee.motivoEgreso}/>
                 </Label>
               </FormGroup>
 

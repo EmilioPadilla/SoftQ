@@ -14,6 +14,7 @@ import SimpleTooltip from "../../views/General/SimpleTooltip";
 
 //Importing Icon library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import  EditVacationModal  from './ModalEditVacation';
 
 // reactstrap components
 import {
@@ -99,12 +100,13 @@ import {
                         <td>{vacation.fechaRegreso}</td>
                         <td>
                             <Row>
-                            <a href="/admin/view-employee">
+                            {/* <a href="/admin/view-employee">
                               <button id="editar" type="button" className="btn btn-info btn-sm">
                                 <FontAwesomeIcon icon={['fas', 'edit']} />
                               </button>
                               <SimpleTooltip placement="top" target="editar">Editar registro</SimpleTooltip>
-                            </a>
+                            </a> */}
+                            <EditVacationModal/>
                             &nbsp;&nbsp;&nbsp;&nbsp;
                               <Link>
                                 <SimpleTooltip placement="top" target="eliminar">Eliminar</SimpleTooltip>

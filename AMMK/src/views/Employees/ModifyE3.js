@@ -6,8 +6,8 @@ import React from "react";
 import axios from 'axios';
 import { Link } from "react-router-dom";
 import Swal from 'sweetalert2';
-import EmployeeCalendarTable from "components/Employees/EmployeeCalendarTable.js";
 import SimpleTooltip from "../../views/General/SimpleTooltip";
+import { API_BASE_URL } from '../../index';
 
 // reactstrap components
   import {
@@ -32,7 +32,7 @@ import SimpleTooltip from "../../views/General/SimpleTooltip";
   });
 }
 
- class RegisterEmployee3 extends React.Component {
+ class ModifyEmployee3 extends React.Component {
    constructor(props){
      super(props)
      this.state = {
@@ -47,19 +47,8 @@ import SimpleTooltip from "../../views/General/SimpleTooltip";
        numBenef: null,
        selectedOption: null
      }
-      this.onChange = this.onChange.bind(this);
-      this.handleCalendarChange = this.handleCalendarChange.bind(this);
+
   }
-
-   onChange(e) {
-     this.setState({ value: e.value });
-     console.log('scholarship selected: ', e.value);
-   }
-
-   handleCalendarChange(e) {
-     this.setState({ markedDays: e });
-   }
-
    componentDidMount() {
      this.getJobTitles();
    }
@@ -69,8 +58,8 @@ import SimpleTooltip from "../../views/General/SimpleTooltip";
     .then(res => this.setState({ jobTitles: parseJobTitles(res.data) }));
   }
 
-   onSubmit(e){
-    e.preventDefault()
+   onSubmit(e, id){
+    // e.preventDefault()
     //Agarrar los valores 
     let fechaIngreso = document.getElementById("fechaIngreso").value;
     let headquarter_id = document.getElementById("sede").value;
@@ -79,6 +68,7 @@ import SimpleTooltip from "../../views/General/SimpleTooltip";
     let turnosQuincena = document.getElementById("diasLaborales").value;
     let salarioxhora = document.getElementById("monto").value;
     let numBeneficiarios = document.getElementById("numBenef").value;
+    var idD= document.getElementById("valorId").value;
 
     if (fechaIngreso !== '' && headquarter_id !== '' && frecuenciaSalario !== '' && puesto !== '' && salarioxhora !== '' && turnosQuincena !== '') {
     const datosEmpleado = {
@@ -91,24 +81,17 @@ import SimpleTooltip from "../../views/General/SimpleTooltip";
       numBeneficiarios: numBeneficiarios
     };
 
-    localStorage.setItem("empleado", JSON.stringify(datosEmpleado));
-
-    let jsonPersonal = JSON.parse(localStorage.getItem("personal"));
-    let jsonContacto = JSON.parse(localStorage.getItem("contacto"));
-    let jsonEmpleado = JSON.parse(localStorage.getItem("empleado"));
-    
-    const json = {...jsonPersonal, ...jsonContacto, ...jsonEmpleado};
-    console.log(json);
-    localStorage.clear();
-
-    axios.post('http://localhost:8000/api/employee/', json).then(res => {console.log(res)});
-
+    axios.put("http://localhost:8000/api/employee/employee/" + idD, datosEmpleado)
+      .then(function (resp) {
+        console.log(resp.data);
+      });
     Swal.fire(
       '¡Listo!',
-      'Empleado registrado de manera exitosa',
+      'Empleado modificado de manera exitosa',
       'success'
       ).then(function() {
-          window.location = "http://localhost:3000/admin/search-employee";
+        let rouote = "http://localhost:3000/admin/view-employee/"+idD
+        window.location = rouote;
       });
     } else{
       Swal.fire( {
@@ -119,29 +102,33 @@ import SimpleTooltip from "../../views/General/SimpleTooltip";
     }
 
 }
+fillData (id) {
+    axios.get(API_BASE_URL + 'employee/' + id)
+        .then(function (res) {
+           document.getElementById("fechaIngreso").value = res.data[0].fechaIngreso;
+           document.getElementById("sede").value = res.data[0].headquarter_id;
+           document.getElementById("frecuenciaSalario").value = res.data[0].frecuenciaSalario;
+           document.getElementById("puesto").value = res.data[0].puesto;
+           document.getElementById("diasLaborales").value = res.data[0].diasLaborales;
+           document.getElementById("monto").value = res.data[0].salarioxhora;
+           document.getElementById("numBenef").value = res.data[0].numBeneficiarios; 
+           document.getElementById("valorId").value = id;
+          })
+  }
 
 
    render() {
-    const login = localStorage.getItem("isLoggedIn");
-    const idRol = localStorage.getItem("idRol");
-    //Redirect in case of wrong role or no login
-    if (!login ) {
-        window.location = "http://localhost:3000/login";
-    }else if(idRol==2){
-        window.location = "http://localhost:3000/general/NurseIndex";
-    }else if (idRol==1){
-        window.location = "http://localhost:3000/admin/Nomina/Nomina";
-    }
+    const { id } = this.props.match.params;
+    this.fillData(id);
      return (
         <>
         <div className="content">
-        <h2 className="title">Registrar empleado</h2>
+        <h2 className="title">Modificar empleado</h2>
         <Form >
           <Row>
             <Col md="12">
               <Card>
                 <CardHeader>
-                  <Progress value="100" />
                   <br/>
                   <h3 className="title">Datos de empleado</h3>
                 </CardHeader>
@@ -239,35 +226,26 @@ import SimpleTooltip from "../../views/General/SimpleTooltip";
                            </FormGroup>
                          </Col>
                          </Row>
-                    <Row>
-                      <Col>
-                        <h4 className="text-center">Calendario de empleado</h4>
-                        <EmployeeCalendarTable onChange={this.handleCalendarChange} />
-                      </Col>
-                    </Row>
                     
                 </CardBody>
               </Card>
               <Row>
-                <Col  md="6">
-                {/* <a href="/admin/RE2"> */}
-                <Link to="/admin/RE2">
-                  <button className="btn btn-primary">Regresar</button>
-                  </Link>
-                {/* </a> */}
-                </Col>
-                <Col md="6" align="right">
-                <a href="/admin/RE3">
-                  <button  className="btn btn-primary" onClick={this.onSubmit}>Terminar</button>
-                </a>
+                <Col  md="12" align="center">
+                 <Button className="btn btn-primary" onClick={this.onSubmit.bind("this", id)}>Modificar</Button>
+
                 </Col>
               </Row>
             </Col>
           </Row>
           </Form>
+          <div>
+                    <Input type="text" id="valorId" style={{display: "none"}}>
+
+                    </Input>
+                </div>
         </div>
       </>
     );
   }
 }
-export default RegisterEmployee3;
+export default ModifyEmployee3;

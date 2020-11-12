@@ -54,6 +54,9 @@ Route::get('employeeVacations/{id}', 'App\Http\Controllers\VacationsController@s
 Route::get('employeeFiles/{id}', 'App\Http\Controllers\Employee_FilesController@show');
 Route::any('employee/reenter/{id}', 'App\Http\Controllers\EmployeesController@reenterEmployee');
 Route::any('employee/exit/{id}', 'App\Http\Controllers\EmployeesController@exitEmployee');
+Route::put('employee/personal/{id}', 'App\Http\Controllers\EmployeesController@updatePersonal');
+Route::put('employee/contact/{id}', 'App\Http\Controllers\EmployeesController@updateContact');
+Route::put('employee/employee/{id}', 'App\Http\Controllers\EmployeesController@updateEmployee');
 
 
 

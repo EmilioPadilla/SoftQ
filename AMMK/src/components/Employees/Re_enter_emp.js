@@ -38,7 +38,8 @@ function reEnterEmployee (id) {
 const ReenterEmp = (props) => {
   const {
     className,
-    id
+    id,
+    employee
   } = props;
 
   const [modal, setModal] = useState(false);
@@ -59,12 +60,12 @@ const ReenterEmp = (props) => {
                         <FormGroup>
                             <FontAwesomeIcon icon={["fas", "calendar-alt"]} />
                             <Label for="fechaR">&nbsp;Fecha de reingreso:</Label>
-                            <Input type="date" id="fechaReingreso"></Input>
+                            <Input type="date" id="fechaReingreso" value={employee.fechaReingreso}></Input>
                         </FormGroup>
                         <FormGroup>
                             <FontAwesomeIcon icon={["fas", "comment"]} />
                             <Label for="motivo">&nbsp;Motivo de reingreso</Label>
-                            <textarea rows="3" cols="64" id="motivoReingreso"/>
+                            <textarea rows="3" cols="64" id="motivoReingreso" value={employee.motivoReingreso}/>
                         </FormGroup>
                     </Col>
                 </Row>
