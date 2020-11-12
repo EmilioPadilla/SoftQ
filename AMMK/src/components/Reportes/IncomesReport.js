@@ -13,11 +13,68 @@ import {
     CardBody,
     CardTitle,
     Row,
-    Col
+    Col,
+    Button
   } from "reactstrap";
 
 // internal components
 import GroupedIncomesTable from "../../components/Reportes/GroupedIncomesTable";
+
+function convertToCSV(objArray) {
+  var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
+  var str = '';
+
+  for (var i = 0; i < array.length; i++) {
+      var line = '';
+      for (var index in array[i]) {
+          if (line != '') line += ','
+
+          line += array[i][index];
+      }
+
+      str += line + '\r\n';
+  }
+
+  return str;
+}
+
+function exportCSVFile(headers, items, fileTitle) {
+  if (headers) {
+      items.unshift(headers);
+  }
+
+  // Convert Object to JSON
+  var jsonObject = JSON.stringify(items);
+  console.log(jsonObject);
+
+  var csv = convertToCSV(jsonObject);
+
+  var exportedFilenmae = fileTitle + '.csv' || 'export.csv';
+
+  var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  if (navigator.msSaveBlob) { // IE 10+
+      navigator.msSaveBlob(blob, exportedFilenmae);
+  } else {
+      var link = document.createElement("a");
+      if (link.download !== undefined) { // feature detection
+          // Browsers that support HTML5 download attribute
+          var url = URL.createObjectURL(blob);
+          link.setAttribute("href", url);
+          link.setAttribute("download", exportedFilenmae);
+          link.style.visibility = 'hidden';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+      }
+  }
+}
+
+const headers = {
+  year: 'Año',
+  month: "Mes",
+  count: "Ingresos",
+  total: "Total"
+};
 
 const chartOptions = {
     maintainAspectRatio: false,
@@ -100,6 +157,7 @@ class IncomesResport extends Component {
             currency: 'USD',
             minimumFractionDigits: 2
         });
+        this.exportIncomes = this.exportIncomes.bind(this);
     }
 
     getIncomes() {
@@ -119,7 +177,25 @@ class IncomesResport extends Component {
             this.props.onChange(this.state.totalIncomes);
           }
         });
-      }
+    }
+
+    exportIncomes() {
+      var incomesFormatted = [];
+
+      // format the data
+      this.state.incomes.forEach((item) => {
+          incomesFormatted.push({
+              year: item.year,
+              month: item.month,
+              count: item.count,
+              total: item.total
+          });
+      });
+
+      var fileTitle = 'ingresos';
+
+      exportCSVFile(headers, incomesFormatted, fileTitle);
+    }
 
     componentDidMount() {
         if (this.props.startDate && this.props.endDate) {
@@ -199,6 +275,7 @@ class IncomesResport extends Component {
                         </Card>
                     </Col>
                 </Row>
+                <Button onClick={this.exportIncomes} className="mb-3">Exportar</Button>
                 <Row className="d-flex justify-content-center">
                     <Col lg="11">
                         <GroupedIncomesTable

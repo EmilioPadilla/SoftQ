@@ -13,11 +13,69 @@ import {
     CardBody,
     CardTitle,
     Row,
-    Col
+    Col,
+    Button
   } from "reactstrap";
 
 // internal components
 import GroupedExpensesTable from "../../components/Reportes/GroupedExpensesTable";
+
+function convertToCSV(objArray) {
+  var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
+  var str = '';
+
+  for (var i = 0; i < array.length; i++) {
+      var line = '';
+      for (var index in array[i]) {
+          if (line != '') line += ','
+
+          line += array[i][index];
+      }
+
+      str += line + '\r\n';
+  }
+
+  return str;
+}
+
+function exportCSVFile(headers, items, fileTitle) {
+  if (headers) {
+      items.unshift(headers);
+  }
+
+  // Convert Object to JSON
+  var jsonObject = JSON.stringify(items);
+  console.log(jsonObject);
+
+  var csv = convertToCSV(jsonObject);
+
+  var exportedFilenmae = fileTitle + '.csv' || 'export.csv';
+
+  var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  if (navigator.msSaveBlob) { // IE 10+
+      navigator.msSaveBlob(blob, exportedFilenmae);
+  } else {
+      var link = document.createElement("a");
+      if (link.download !== undefined) { // feature detection
+          // Browsers that support HTML5 download attribute
+          var url = URL.createObjectURL(blob);
+          link.setAttribute("href", url);
+          link.setAttribute("download", exportedFilenmae);
+          link.style.visibility = 'hidden';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+      }
+  }
+}
+
+const headers = {
+  year: 'Año',
+  month: "Mes",
+  count: "Egresos",
+  total: "Total"
+};
+
 
 const chartOptions = {
     maintainAspectRatio: false,
@@ -102,6 +160,7 @@ class ExpensesResport extends Component {
             currency: 'USD',
             minimumFractionDigits: 2
         });
+        this.exportExpenses = this.exportExpenses.bind(this);
     }
 
     getExpenses() {
@@ -123,6 +182,24 @@ class ExpensesResport extends Component {
         });
       }
 
+    exportExpenses() {
+      var expensesFormatted = [];
+
+      // format the data
+      this.state.expenses.forEach((item) => {
+        expensesFormatted.push({
+              year: item.year,
+              month: item.month,
+              count: item.count,
+              total: item.total
+          });
+      });
+
+      var fileTitle = 'egresos';
+
+      exportCSVFile(headers, expensesFormatted, fileTitle);
+    }
+  
     componentDidMount() {
         if (this.props.startDate && this.props.endDate) {
             this.getExpenses();
@@ -175,6 +252,7 @@ class ExpensesResport extends Component {
 
         return (
             <div>
+              
                 <Row>
                     <Col lg="12">
                         <Card className="card-chart">
@@ -196,6 +274,7 @@ class ExpensesResport extends Component {
                         </Card>
                     </Col>
                 </Row>
+                <Button onClick={this.exportExpenses} className="mb-3">Exportar</Button>
                 <Row className="d-flex justify-content-center">
                     <Col lg="11">
                         <GroupedExpensesTable
