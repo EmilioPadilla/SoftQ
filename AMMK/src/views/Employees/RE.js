@@ -5,11 +5,10 @@
 
 */
 import React from "react";
+import { Prompt } from 'react-router'
 
 import axios from 'axios';
 import Swal from 'sweetalert2';
-
-import { Link } from "react-router-dom";
 
 // reactstrap components
 import {
@@ -89,9 +88,6 @@ class RegisterEmployee extends React.Component {
         text: 'No se han llenado todos los campos obligatorios!',
       })
     }
-
-    // localStorage.setItem("personal", JSON.stringify(datosPersonales));
-    // console.log(localStorage.getItem("personal"));
 }
 
   componentDidMount() {
@@ -123,6 +119,11 @@ class RegisterEmployee extends React.Component {
     return (
       <>
         <div className="content">
+
+          <Prompt
+            when={true}
+            message="Te encuentras en proceso de registro                                                ¿Estás seguro de querer salir?"
+          />
           <h2 className="title">Registrar empleado</h2>
           <Form >
                 <Card>
@@ -260,9 +261,7 @@ class RegisterEmployee extends React.Component {
                   </CardBody>
                 </Card>
                 <Col  md="12" align="right">
-                  {/* <Link to='/admin/RE2'> */}
                     <Button className="btn btn-primary" onClick={this.onSubmit}>Siguiente</Button>
-                  {/* </Link> */}
                 </Col>
                 </Form>
         </div>
