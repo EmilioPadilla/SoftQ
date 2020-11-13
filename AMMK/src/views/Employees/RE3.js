@@ -5,6 +5,7 @@
 import React from "react";
 import axios from 'axios';
 import { Link } from "react-router-dom";
+import { Prompt } from 'react-router'
 import Swal from 'sweetalert2';
 import EmployeeCalendarTable from "components/Employees/EmployeeCalendarTable.js";
 import SimpleTooltip from "../../views/General/SimpleTooltip";
@@ -135,6 +136,10 @@ import SimpleTooltip from "../../views/General/SimpleTooltip";
      return (
         <>
         <div className="content">
+        <Prompt
+            when={true}
+            message="Te encuentras en proceso de registro                                                ¿Estás seguro de querer salir?"
+          />
         <h2 className="title">Registrar empleado</h2>
         <Form >
           <Row>

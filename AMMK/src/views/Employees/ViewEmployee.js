@@ -67,6 +67,13 @@ class ViewEmployee extends React.Component {
         })
     }
 
+    renderBirthdate(employee, months){
+      if(employee.fechaNac !== null)
+         return employee.fechaNac.split("-")[2] + ' de ' + months[employee.fechaNac.split("-")[1] - 1];
+         ;
+      return null;
+   }
+
 
 
 
@@ -220,8 +227,8 @@ class ViewEmployee extends React.Component {
                         </Col>
                         <Col>
                           <Label>
-                          {employee.fechaNac.split("-")[2]} de {months[employee.fechaNac.split("-")[1] - 1]} 
-                          </Label>
+                          {this.renderBirthdate(employee, months)}
+                           </Label> 
                         </Col>
 
                       </Row>
