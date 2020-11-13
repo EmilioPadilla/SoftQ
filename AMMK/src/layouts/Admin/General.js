@@ -22,7 +22,7 @@ import PerfectScrollbar from "perfect-scrollbar";
 
 // core components
 import GeneralNavbar from "components/Navbars/GeneralNavbar.js";
-import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
+// import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
 
 import routes from "routes.js";
 
@@ -124,10 +124,10 @@ class General extends React.Component {
             )} */}
           </div>
         </div>
-        <FixedPlugin
+        {/* <FixedPlugin
           bgColor={this.state.backgroundColor}
           handleBgClick={this.handleBgClick}
-        />
+        /> */}
       </>
     );
   }
