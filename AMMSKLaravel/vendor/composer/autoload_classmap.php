@@ -183,6 +183,7 @@ return array(
     'Database\\Seeders\\CategorySeeder' => $baseDir . '/database/seeders/CategorySeeder.php',
     'Database\\Seeders\\CivilStatusSeeder' => $baseDir . '/database/seeders/CivilStatusSeeder.php',
     'Database\\Seeders\\DatabaseSeeder' => $baseDir . '/database/seeders/DatabaseSeeder.php',
+    'Database\\Seeders\\EmployeeSeeder' => $baseDir . '/database/seeders/EmployeeSeeder.php',
     'Database\\Seeders\\FilesSeeder' => $baseDir . '/database/seeders/FilesSeeder.php',
     'Database\\Seeders\\HeadquarterSeeder' => $baseDir . '/database/seeders/HeadquarterSeeder.php',
     'Database\\Seeders\\JobTitleSeeder' => $baseDir . '/database/seeders/JobTitleSeeder.php',

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import ReactToPrint from "react-to-print";
 
 // react plugin used to create charts
 import { Line, Bar } from "react-chartjs-2";
@@ -36,7 +36,6 @@ class Reports extends Component {
             selectedType : "ingresos",
             startDate: year + "-01-01",
             endDate: year + "-12-31",
-            chartIncomes: [60, 80, 65, 130, 80, 105, 90, 130, 70, 115, 60, 130],
             expenses: []
         }
         this.onTypeChange = this.onTypeChange.bind(this);
@@ -81,7 +80,8 @@ class Reports extends Component {
                     </Input>
                 </FormGroup>
                 <h1 className="title">REPORTES</h1>
-                <Row className="mb-3 d-flex justify-content-center justify-content-center">
+                <Row className="mb-3 d-flex justify-content-center">
+                    
                     <Col lg="2" className="d-flex align-items-center  justify-content-center">
                         <FormGroup className="m-0">
                             <Input type="date" id="startDate" value={this.state.startDate}
@@ -98,17 +98,24 @@ class Reports extends Component {
                         </FormGroup>
                     </Col>
                 </Row>
+                <ReactToPrint
+                        trigger={() => <Button className="mb-3" href="#">Imprimir</Button>}
+                        content={() => this.componentRef}
+                    />
                 {this.state.selectedType == "ingresos" && 
                 <IncomesReport
+                    ref={el => (this.componentRef = el)}
                     startDate={this.state.startDate}
                     endDate={this.state.endDate}
                 />
                 }
                 {this.state.selectedType == "egresos" && 
                 <ExpensesReport
+                    ref={el => (this.componentRef = el)}
                     startDate={this.state.startDate}
                     endDate={this.state.endDate}
                 />
+                
                 }
             </div>
         )

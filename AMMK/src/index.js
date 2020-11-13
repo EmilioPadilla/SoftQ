@@ -34,6 +34,10 @@ export const API_BASE_URL = 'http://localhost:8000/api/';
 
 const hist = createBrowserHistory();
 
+function activateWhite() {
+  document.body.classList.add("white-content");
+}
+
 ReactDOM.render(
   <Router history={hist}>
     <Switch>
@@ -46,5 +50,6 @@ ReactDOM.render(
       <Redirect from="/" to="/admin/dashboard" />
     </Switch>
   </Router>,
-  document.getElementById("root")
+  document.getElementById("root"),
+  document.body.classList.add("white-content")
 );

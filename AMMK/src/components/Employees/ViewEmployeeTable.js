@@ -61,10 +61,7 @@ import {
 
 
     render() {
-      let puesto = ["No registrado", "Enfermera", "Director(a)", "Servicios Generales", "Lavanderia", "Mayordomo", "Hermana", "Dirección administrtiva"];
-      // if (this.state.employeesI.length === 0) {
-      //   this.state.action = "<tr> <td><h5>Inactivos</h5></td><td>Hola</td></tr>";
-      // }
+      let puesto = ["No registrado", "Enfermera", "Director(a)", "Servicios Generales", "Lavanderia", "Mayordomo", "Hermana", "Dirección administrativa"];
         return (
           <Row>
             <Col md="12">
@@ -86,12 +83,16 @@ import {
                         <td>{puesto[employees.puesto]}</td>
                         <td>
                             <Row>
-                                <Link to='/admin/view-employee'>
+                                <Link to=
+                                {{
+                                  pathname: 'view-employee/'+ employees.id,
+                                  state:employees.id
+                                }}>
                                 <Button color="info" size="sm" id="verDetalle"><FontAwesomeIcon icon={['fas', 'eye']} /></Button>
                                 <SimpleTooltip placement="top" target="verDetalle">Ver detalle</SimpleTooltip>
                                 </Link>
                                 &nbsp;&nbsp;&nbsp;&nbsp; 
-                                <ModalExitEmployee id={employees.id}/>
+                                <ModalExitEmployee id={employees.id} employee={employees}/>
                                 
                             </Row>
                         </td>
@@ -105,12 +106,16 @@ import {
                         <td>{puesto[employee.puesto]}</td>
                         <td>
                             <Row>
-                                <Link to='/admin/view-employee'>
-                                <Button color="info" size="sm" id="verDetalle"><FontAwesomeIcon icon={['fas', 'eye']} /></Button>
-                                <SimpleTooltip placement="top" target="verDetalle">Ver detalle</SimpleTooltip>
+                                <Link to=
+                                {{
+                                  pathname: '=view-employee/'+ employee.id,
+                                  state:employee.id
+                                }}>
+                                  <Button color="info" size="sm" id="verDetalle"><FontAwesomeIcon icon={['fas', 'eye']} /></Button>
+                                  <SimpleTooltip placement="top" target="verDetalle">Ver detalle</SimpleTooltip>
                                 </Link>
                                 &nbsp;&nbsp;&nbsp;&nbsp; 
-                                <ReenterEmp id={employee.id}></ReenterEmp>;
+                                <ReenterEmp id={employee.id} employee={employee}></ReenterEmp>;
                                 
                             </Row>
                         </td>
