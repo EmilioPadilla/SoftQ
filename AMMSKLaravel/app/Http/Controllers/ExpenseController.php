@@ -28,10 +28,28 @@ class ExpenseController extends Controller
      */
     public function filterByDate(Request $request)
     {
-        if($request->categoryId != 0) {
+        if($request->categoryId != 0 && $request->headquarterId != 0) {
             $expenses = Expense::with('category')->select()
-            ->where("category_id", $request->categoryId)
-            ->whereBetween(
+            ->where([
+                ["category_id", $request->categoryId],
+                ["headquarter_id", $request->headquarterId]
+            ])->whereBetween(
+                "fecha",
+                [$request->startDate, $request->endDate]
+            )->get();
+        } else if ($request->categoryId != 0 && $request->headquarterId == 0) {
+            $expenses = Expense::with('category')->select()
+            ->where([
+                ["category_id", $request->categoryId]
+            ])->whereBetween(
+                "fecha",
+                [$request->startDate, $request->endDate]
+            )->get();
+        } else if ($request->categoryId == 0 && $request->headquarterId != 0) {
+            $expenses = Expense::with('category')->select()
+            ->where([
+                ["headquarter_id", $request->headquarterId]
+            ])->whereBetween(
                 "fecha",
                 [$request->startDate, $request->endDate]
             )->get();
@@ -87,6 +105,7 @@ class ExpenseController extends Controller
         $expense = new Expense;
 
         $expense->category_id= $request-> category_id;
+        $expense->headquarter_id= $request-> headquarter_id;
         $expense->fecha= $request-> fecha;
         $expense->pagoA= $request-> pagoA;
         $expense->monto = $request -> monto;
