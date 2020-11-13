@@ -7,6 +7,7 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
+import { Prompt } from 'react-router'
 
 import Swal from 'sweetalert2';
 
@@ -102,6 +103,10 @@ class RegisterEmployee2 extends React.Component {
     return (
       <>
         <div className="content">
+        <Prompt
+            when={true}
+            message="Te encuentras en proceso de registro                                                ¿Estás seguro de querer salir?"
+          />
           <h2 className="title">Registrar empleado</h2>
           <Form>
           <Row>
