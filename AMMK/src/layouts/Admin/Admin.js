@@ -24,7 +24,7 @@ import PerfectScrollbar from "perfect-scrollbar";
 import GeneralNavbar from "components/Navbars/AdminNavbar.js";
 import Footer from "components/Footer/Footer.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
-import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
+// import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
 
 import routes from "routes.js";
 
@@ -41,6 +41,7 @@ class Admin extends React.Component {
         document.documentElement.className.indexOf("nav-open") !== -1
     };
   }
+  
   componentDidMount() {
     if (navigator.platform.indexOf("Win") > -1) {
       document.documentElement.className += " perfect-scrollbar-on";
@@ -78,6 +79,18 @@ class Admin extends React.Component {
     this.setState({ sidebarOpened: !this.state.sidebarOpened });
   };
   getRoutes = routes => {
+    // const idRol = localStorage.getItem("idRol");
+    // for (let i in routes) {
+    //   if (routes[i].showInSidebar == true) {
+    //     console.log('Aqui estoy ' + routes[i].showInSidebar);
+    //     if (idRol === 3) {
+    //       routes[i].showInSidebar = true
+    //     } else {
+    //       routes[i].showInSidebar = false
+    //     }
+    //     console.log("Despues de" +routes[i].showInSidebar);
+    //   }
+    // }
     return routes.map((prop, key) => {
       if (prop.layout === "/admin") {
         return (
@@ -90,6 +103,8 @@ class Admin extends React.Component {
       } else {
         return null;
       }
+      
+      
     });
   };
   handleBgClick = color => {
@@ -107,13 +122,29 @@ class Admin extends React.Component {
     }
     return "Brand";
   };
+
+  filterRoutes(routes) {
+    const idRol = localStorage.getItem("idRol");
+    console.log(idRol);
+    routes=routes.filter(route => route.showInSidebar === true)
+    if (idRol == 3) {
+      routes=routes.filter(route => route.rol === 'admin')
+    } else if (idRol == 2) {
+      routes=routes.filter(route => route.rol === 'enf' )
+    } else if (idRol == 1) {
+      console.log("djflknasd");
+      routes=routes.filter(route => route.rol === 'enf' )
+      routes=routes.filter(route => route.onlyGen === true )
+    }
+    return routes
+  }
   render() {
     return (
       <>
         <div className="wrapper">
           <Sidebar
             {...this.props}
-            routes={routes.filter(route => route.showInSidebar === true)}
+            routes={this.filterRoutes(routes)}
             bgColor={this.state.backgroundColor}
             logo={{
               innerLink: "/general/GeneralIndex",
@@ -143,10 +174,10 @@ class Admin extends React.Component {
             )}
           </div>
         </div>
-        <FixedPlugin
+        {/* <FixedPlugin
           bgColor={this.state.backgroundColor}
           handleBgClick={this.handleBgClick}
-        />
+        /> */}
       </>
     );
   }

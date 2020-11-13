@@ -358,7 +358,7 @@ class ExpensesResport extends Component {
                         </Card>
                     </Col>
                 </Row>
-                <Button onClick={this.exportExpenses} className="mb-3">Exportar</Button>
+                <Button onClick={this.exportExpenses} className="mb-3 d-print-none">Exportar</Button>
                 <Row className="d-flex justify-content-center">
                     <Col lg="11">
                         <GroupedExpensesTable

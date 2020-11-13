@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactToPrint from "react-to-print";
 
 import axios from 'axios';
 import { API_BASE_URL } from 'index';
@@ -48,12 +47,15 @@ class Reports extends Component {
         this.onTypeChange = this.onTypeChange.bind(this);
         this.onCalendarChange = this.onCalendarChange.bind(this);
         this.onCategoryChange = this.onCategoryChange.bind(this);
+        this.printReport = this.printReport.bind(this);
         //this.clearSelect = this.clearSelect.bind(this);
         this.catRef= React.createRef();
         
     }
 
-
+    printReport() {
+        window.print()
+    }
 
     // getCategories() {
     //     axios.get(API_BASE_URL + "categories").then(function(resp){
@@ -106,14 +108,14 @@ class Reports extends Component {
 
         return (
             <div className="content">
-                <FormGroup className="float-right">
+                <FormGroup className="float-right d-print-none">
                     <Input type="select" id="selectType" onChange={this.onTypeChange}>
                         <option value="egresos">Egresos</option>
                         <option value="ingresos">Ingresos</option>
                     </Input>
                 </FormGroup>
                 <h1 className="title">REPORTES</h1>
-                <Row className="mb-3 d-flex align-items-center justify-content-center">
+                <Row className="mb-3 d-flex align-items-center justify-content-center d-print-none">
                     
                     <Col lg="2" className="d-flex align-items-center  justify-content-center">
                         <FormGroup className="m-0">
@@ -131,24 +133,22 @@ class Reports extends Component {
                         </FormGroup>
                     </Col>
                 </Row>
-                <ReactToPrint
-                        trigger={() => <Button className="mb-3" href="#">Imprimir</Button>}
-                        content={() => this.componentRef}
+                <Button className="mb-3" onClick={this.printReport}>Imprimir</Button>
+                {this.state.selectedType == "ingresos" &&
+                <div id="section-to-print">
+                    <IncomesReport
+                        startDate={this.state.startDate}
+                        endDate={this.state.endDate}
                     />
-                {this.state.selectedType == "ingresos" && 
-                <IncomesReport
-                    ref={el => (this.componentRef = el)}
-                    startDate={this.state.startDate}
-                    endDate={this.state.endDate}
-                />
+                </div>
                 }
-                {this.state.selectedType == "egresos" && 
-                <ExpensesReport
-                    ref={el => (this.componentRef = el)}
-                    startDate={this.state.startDate}
-                    endDate={this.state.endDate}
-                />
-                
+                {this.state.selectedType == "egresos" &&
+                <div id="section-to-print">
+                    <ExpensesReport
+                        startDate={this.state.startDate}
+                        endDate={this.state.endDate}
+                    />
+                </div>
                 }
             </div>
         )

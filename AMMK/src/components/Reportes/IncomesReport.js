@@ -275,7 +275,7 @@ class IncomesResport extends Component {
                         </Card>
                     </Col>
                 </Row>
-                <Button onClick={this.exportIncomes} className="mb-3">Exportar</Button>
+                <Button onClick={this.exportIncomes} className="mb-3 d-print-none">Exportar</Button>
                 <Row className="d-flex justify-content-center">
                     <Col lg="11">
                         <GroupedIncomesTable

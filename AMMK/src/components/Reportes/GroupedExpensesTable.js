@@ -40,7 +40,7 @@ class GroupedIncomesTable extends React.Component {
         return (
             <Row>
             <Col md="12">
-              <Table hover >
+              <Table class="print-black" data-show-print="true">
                   <thead>
                       <tr>
                         <th className="text-center">Año</th>
@@ -52,10 +52,10 @@ class GroupedIncomesTable extends React.Component {
                   <tbody>
                     {this.props.expenses.map((expense) => (
                       <tr key={expense.year * 100 + expense.month}>
-                        <td className="text-center">{expense.year}</td>
-                        <td className="text-center">{monthNames[expense.month]}</td>
-                        <td className="text-center">{expense.count}</td>
-                        <td className="text-center">{this.formatter.format(expense.total)}</td>
+                        <td class="print-black" className="text-center">{expense.year}</td>
+                        <td class="print-black" className="text-center">{monthNames[expense.month]}</td>
+                        <td class="print-black" className="text-center">{expense.count}</td>
+                        <td class="print-black" className="text-center">{this.formatter.format(expense.total)}</td>
                       </tr>
                     ))}
                 </tbody>
