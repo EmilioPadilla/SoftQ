@@ -77,6 +77,8 @@ import ModifyDonation from "views/Donors/ModifyDonation";
 import ModifyDonorContact from "views/Donors/ModifyDonorContact";
 import ModificarDGenerales from "views/Donors/ModificarDGenerales";
 import ModificarDF from "views/Donors/ModificarDF";
+import TakeOutD from "views/Donors/TakeOutD";
+import ReenterD from "views/Donors/ReenterD";
 
 
 
@@ -435,6 +437,24 @@ var routes = [
     rtlName: "قائمة الجدول",
     icon: "tim-icons icon-heart-2",
     component: EliminarDonacion,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+    path: "/egresarDonante/:id",
+    name: "Donantes",
+    rtlName: "قائمة الجدول",
+    icon: "tim-icons icon-heart-2",
+    component: TakeOutD,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+    path: "/re-ingresarDonante/:id",
+    name: "Donantes",
+    rtlName: "قائمة الجدول",
+    icon: "tim-icons icon-heart-2",
+    component: ReenterD,
     layout: "/admin",
     showInSidebar: false
   },

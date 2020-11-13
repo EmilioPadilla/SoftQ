@@ -3,18 +3,17 @@ import { FormGroup, Form, Input, Button } from "reactstrap";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
-
 const ModificarDGenerales = (props) => {
     const login = localStorage.getItem("isLoggedIn");
     const idRol = localStorage.getItem("idRol");
     //Redirect in case of wrong role or no login
-    if (!login ) {
+    /*if (!login ) {
         window.location = "http://localhost:3000/login";
     }else if(idRol==2){
         window.location = "http://localhost:3000/general/NurseIndex";
     }else if (idRol==1){
         window.location = "http://localhost:3000/admin/Nomina/Nomina";
-    }
+    }*/
   const { id } = props.match.params;
   ax(id);
   return (
@@ -22,8 +21,8 @@ const ModificarDGenerales = (props) => {
     <div class="container">
         <div class="row">
             <div class="col-12" >
-                <h2 align="center">Modificar Datos Generales del Donante</h2>
 
+                <h2 align="center">Modificar Datos Generales del Donante</h2>
                 <Form>
                 <div class="row justify-content-center">
                         <div class="col-4" >
