@@ -4,6 +4,7 @@
 
 namespace Composer\Autoload;
 
+
 class ComposerStaticInit8d1700ce5b218bdf294eb640a6734048
 {
     public static $files = array (
@@ -1835,6 +1836,7 @@ class ComposerStaticInit8d1700ce5b218bdf294eb640a6734048
         'Illuminate\\Contracts\\Queue\\Queue' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Contracts/Queue/Queue.php',
         'Illuminate\\Contracts\\Queue\\QueueableCollection' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Contracts/Queue/QueueableCollection.php',
         'Illuminate\\Contracts\\Queue\\QueueableEntity' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Contracts/Queue/QueueableEntity.php',
+
         'Illuminate\\Contracts\\Queue\\ShouldQueue' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Contracts/Queue/ShouldQueue.php',
         'Illuminate\\Contracts\\Redis\\Connection' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Contracts/Redis/Connection.php',
         'Illuminate\\Contracts\\Redis\\Connector' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Contracts/Redis/Connector.php',
@@ -5129,6 +5131,7 @@ class ComposerStaticInit8d1700ce5b218bdf294eb640a6734048
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
+
             $loader->prefixLengthsPsr4 = ComposerStaticInit8d1700ce5b218bdf294eb640a6734048::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit8d1700ce5b218bdf294eb640a6734048::$prefixDirsPsr4;
             $loader->prefixesPsr0 = ComposerStaticInit8d1700ce5b218bdf294eb640a6734048::$prefixesPsr0;
