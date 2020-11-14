@@ -15,52 +15,31 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 library.add(fas)
 
-// REGEX FOR VALIDATIONS
-const validTextInput = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ ]+[\w]+$/);
-const validDate = RegExp(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/);
-
-//FORM VALIDATION
-const validateForm = (errors) => {
-  let valid = true;
-  Object.values(errors).forEach(
-    (val) => val.length > 0 && (valid = false)
-  );
-  return valid;
-}
-
-const countErrors = (errors) => {
-  let count = 0;
-  Object.values(errors).forEach(
-    (val) => val.length > 0 && (count = count+1)
-  );
-  return count;
-}
-
-export default class ReenterB extends Component {
+export default class ModifyTreatment extends Component {
+  
   constructor(props){
     super(props);
     this.state = {
-        formValid: false,
-        form: {
-          fechaInicio: '',
-          fechaTermino: '',
-        },
-        errorCount: null,
-        fechaInicio: null,
-        fechaTermino: null,
+        fechaInicio: '',
+        fechaTermino: '',
         treatments: [],
-        errors: {
-            fechaInicio: '',
-            fechaTermino: '',
-        }
       };
 
-    this.handleChange = this.handleChange.bind(this);
+    this.onChangeFechaInicio = this.onChangeFechaInicio.bind(this);
+    this.onChangeFechaTermino = this.onChangeFechaTermino.bind(this);
     this.onSubmit= this.onSubmit.bind(this);
 }
+
   state={
     modalEditar: false,
-    treatments: [],
+  }
+
+  onChangeFechaInicio(e) {
+    this.setState({ fechaInicio: e.target.value })
+  }
+
+  onChangeFechaTermino(e) {
+    this.setState({ fechaTermino: e.target.value })
   }
 
   componentDidMount() {
@@ -68,61 +47,16 @@ export default class ReenterB extends Component {
     console.log(id);
     axios.get(API_BASE_URL + 'treatments/' + id)
     .then(res => {
+      this.setState({
+        fechaInicio: res.data.fechaInicio,
+        fechaTermino: res.data.fechaTermino,
+      });
         const treatments = res.data;
         this.setState({ treatments });
         console.log(treatments);
       })
   }
-  
-  handleChange = (event) => {
-    event.preventDefault();
-    const { name, value } = event.target;
-    let errors = this.state.errors;
-    this.setState({ name: event.target.value })
-
-    switch (name) {
-        case 'fechaInicio': 
-        errors.fechaInicio =
-        value.length < 1
-          ? "La fecha de reingreso es un campo obligatorio"
-          : "" ||
-        validDate.test(value)
-          ? "La fecha ingresada no es válida"
-          : "";
-        break;
-        case 'fechaTermino': 
-        errors.fechaTermino =
-        value.length < 1
-          ? "La fecha de fin del tratamiento es un campo obligatorio"
-          : "" ||
-        validDate.test(value)
-          ? "La fecha ingresada no es válida"
-          : "";
-        break;
-        default:
-            break;
-    }
-
-    this.setState({errors, [name]: value});
-  }
-
-  anotherChange=async e=>{
-    e.persist();
-    await this.setState({
-      form:{
-        ...this.state.form,
-        [e.target.name]: e.target.value
-      }
-    });
-    console.log(this.state.form);
-    }
-
-    twoCalls = e => {
-      this.anotherChange(e)
-      this.handleChange()
-    }
     
-
 onSubmit(e){
     
     e.preventDefault()
@@ -154,10 +88,10 @@ onSubmit(e){
     
     Swal.fire(
         '¡Listo!',
-        'Reingreso registrado de manera exitosa',
+        'Tratamiento modificado de manera exitosa',
         'success',
         ).then(function() {
-            window.location = "http://localhost:3000/admin/Beneficiarias/GeneralViewAdmin";
+            window.location = "http://localhost:3000/admin/Beneficiarias/MedicalRecordView/" + beneficiary_id;
         });
         }else{
             Swal.fire(
@@ -198,18 +132,12 @@ onSubmit(e){
                         <FormGroup>
                             <FontAwesomeIcon icon={["fas", "calendar-alt"]} />
                             <Label for="fechaInicio">&nbsp;Fecha de inicio:</Label>
-                            <Input type="date" id="fechaInicio" name="fechaTermino" onChange={this.twoCalls} value={treatment.fechaInicio}></Input>
-                            {errors.fechaInicio.length > 0 && <span className='error'>{errors.fechaInicio}</span> 
-                                || 
-                                 errors.fechaInicio.length == 0 && <span className='error'>{errors.fechaInicio}</span>}
+                            <Input type="date" id="fechaInicio" name="fechaInicio" value={treatment.fechaInicio} onChange={this.onChangeFechaInicio} ></Input>
                         </FormGroup>
                         <FormGroup>
                             <FontAwesomeIcon icon={["fas", "calendar-alt"]} />
                             <Label for="fechaTermino">&nbsp;Fecha de finalización:</Label>
-                            <Input type="date" id="fechaTermino" name="fechaTermino" onChange={this.handleChange} value={treatment?treatment.fechaTermino: ''}></Input>
-                            {errors.fechaTermino.length > 0 && <span className='error'>{errors.fechaTermino}</span> 
-                                || 
-                                 errors.fechaTermino.length == 0 && <span className='error'>{errors.fechaTermino}</span>}
+                            <Input type="date" id="fechaTermino" name="fechaTermino" value={this.state.fechaTermino} onChange={this.onChangeFechaTermino}></Input>
                         </FormGroup>
                         </>
                 ))}

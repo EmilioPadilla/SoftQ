@@ -24,36 +24,18 @@ const validTextArea = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ _:\0-9@]+$/);
 const validTime = RegExp(/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/);
 const validDate = RegExp(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/);
 
-//FORM VALIDATIONS
-const validateForm = (errors) => {
-    let valid = true;
-    Object.values(errors).forEach(
-      (val) => val.length > 0 && (valid = false)
-    );
-    return valid;
-  }
-  
-  const countErrors = (errors) => {
-    let count = 0;
-    Object.values(errors).forEach(
-      (val) => val.length > 0 && (count = count+1)
-    );
-    return count;
-  }
+function parseSpecialties(specialties){
+  return specialties.map((specialty) => {
+    return { label: specialty.nombre, value: specialty.id };
+  })
+}
 
 export default class RegisterMedApp extends Component {
 
-    crearSelect(){
-        var sel='<option value="NA" disabled selected>Selecciona una opcion</option>';
-        const num=1;
-        axios.get(API_BASE_URL + "specialties").then(function(resp){
-        console.log(resp.data);
-        resp.data.forEach(element =>{
-          sel = sel.concat('<option value='+ element.id + '>' + element.nombre +'</option>');
-        });
-        document.getElementById("selectSpecialty").innerHTML=sel; 
-      });
-    }
+  getSpecialty() {
+    axios.get( API_BASE_URL + 'specialties')
+    .then(res => this.setState({ specialties: parseSpecialties(res.data) }));
+  }
 
     constructor(props){
         super(props);
@@ -68,6 +50,7 @@ export default class RegisterMedApp extends Component {
             consultorio: null,
             dxMedico: null,
             comentario: null,
+            specialties: [],
             errors: {
                 fechaConsulta: '',
                 horaConsulta: '',
@@ -97,7 +80,7 @@ export default class RegisterMedApp extends Component {
               ? "La fecha de la consulta es requerida"
               : "" ||
             validDate.test(value)
-              ? "La fecha no es correcta"
+              ? "La fecha ingresada no es válida"
               : "";
             break;
             case 'horaConsulta': 
@@ -113,6 +96,8 @@ export default class RegisterMedApp extends Component {
             errors.diagnostico =
             value.length > 100
               ? "El campo permite máximo 100 caracteres"
+              : "" || value.length < 3
+              ? "El campo debe contener al menos 3 caracteres"
               : "" || validTextInput.test(value)
               ? ""
               : "El campo solo acepta letras.";
@@ -120,7 +105,7 @@ export default class RegisterMedApp extends Component {
             case 'direccion': 
             errors.direccion =
             value.length < 1
-              ? "La dirección es requerida"
+              ? "La dirección es requerida."
               : "" || value.length > 150
               ? "El campo permite máximo 150 caracteres"
               : "" || validAlphanumericInput.test(value)
@@ -142,7 +127,7 @@ export default class RegisterMedApp extends Component {
               : "" || 
             validAge.test(value)
               ? ""
-              : "El campo solo acepta numeros.";
+              : "El campo solo acepta números.";
             break;
             case 'comentario': 
             errors.comentario =
@@ -168,11 +153,11 @@ export default class RegisterMedApp extends Component {
         let direccion = document.getElementById("direccion").value;
         let hospital = document.getElementById("hospital").value;
         let consultorio = document.getElementById("consultorio").value;
-        let especialidad = document.getElementById("selectSpecialty").value;
+        let especialidad = document.getElementById("specialty").value;
         let comentario = document.getElementById("comentarios").value;
         let beneficiary_id = document.getElementById("beneficiary_id").value;
 
-        if(direccion != ''){
+        if (fechaConsulta !== '' && horaConsulta !== '' && direccion !== '' && especialidad !== '') {
         const consulta = {
             fechaConsulta: fechaConsulta,
             horaConsulta: horaConsulta,
@@ -203,12 +188,16 @@ export default class RegisterMedApp extends Component {
 
     }
 
+    componentDidMount() {
+      this.getSpecialty();
+    }
+
     render() {
       let urlElements = window.location.href.split('/');
       console.log(urlElements[6]);
 
-        const {errors, formValid} = this.state;
-        this.crearSelect();
+        const {errors} = this.state;
+
         return (
             <div className="content">
                 <h1 className="title">REGISTRAR CONSULTA MÉDICA</h1>
@@ -278,11 +267,12 @@ export default class RegisterMedApp extends Component {
                             </Row>
 
                             <FormGroup>
-                                <FormGroup>
-                                    <label>*&nbsp;Especialidad:</label>
-                                    <Form.Control as="select" id="selectSpecialty"></Form.Control>
-                                </FormGroup>
-                            </FormGroup>
+                            <Label htmlFor="specialty">* Especialidad: </Label>
+                            <Input type="select" name="specialty" id="specialty" value={this.state.value} onChange={this.onChange}>
+                            <option defaultValue="0">Selecciona una opción...</option>
+                            {this.state.specialties.map((specialty) => <option key={specialty.value} value={specialty.value}>{specialty.label}</option>)}
+                            </Input>
+                          </FormGroup>
 
                             <FormGroup>
                                 <Label for="comentarios"><FontAwesomeIcon icon={['fas', 'comment']} />&nbsp;Comentarios:</Label>

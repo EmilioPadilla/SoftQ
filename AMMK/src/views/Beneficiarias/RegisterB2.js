@@ -7,7 +7,7 @@ import { Badge, Button, Card, CardHeader, CardBody, Row, Progress, Alert, Col, F
 import Swal from 'sweetalert2';
 
 //API CALLS
-import Axios from 'axios';
+import axios from 'axios';
 import { API_BASE_URL } from 'index';
 
 //ICONS
@@ -17,80 +17,62 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 library.add(fas)
 
 // REGEX FOR VALIDATIONS
-const validTextInput = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ ]+[\w]+$/);
-const validAge = RegExp(/^[0-9]{1,2}$/);
-const validTextArea = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ _:\0-9@]+$/);
-const validDate = RegExp(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/);
+const validDate = RegExp(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/); //Fechas válidas
+const validTextInput = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ ]{3,}$/); //Solo letras al menos 3 caracteres
+const validAge = RegExp(/^[0-9]{1,2}$/); //edad valida del 0 99
 
-//FORM VALIDATIONS
-const validateForm = (errors) => {
-  let valid = true;
-  Object.values(errors).forEach(
-    (val) => val.length > 0 && (valid = false)
-  );
-  return valid;
-}
-
-const countErrors = (errors) => {
-  let count = 0;
-  Object.values(errors).forEach(
-    (val) => val.length > 0 && (count = count + 1)
-  );
-  return count;
+//SELECT FOR HEADQUARTERS
+function parseSede(sedes){
+  return sedes.map((sede) => {
+    return { label: sede.nombre, value: sede.id };
+  });
 }
 
 export default class RegisterB2 extends Component {
 
-
-  crearSelect() {
-    var sel = '<option value="0">Selecciona una opción</option>';
-    const num = 1;
-    Axios.get(API_BASE_URL + "headquarters").then(function (resp) {
-
-      console.log(resp.data);
-      resp.data.forEach(element => {
-        sel = sel.concat('<option value=' + element.id + '>' + element.nombre + '</option>');
-      });
-      document.getElementById("selectSede").innerHTML = sel;
-    });
+  //CALL PARA SELECT 
+  getSedes() {
+    axios.get(API_BASE_URL + 'headquarters')
+    .then(res => this.setState({ sedes: parseSede(res.data) }));
   }
 
   constructor(props) {
     super(props);
     this.state = {
-      formValid: false,
-      errorCount: null,
       edadMental: null,
       fechaIngreso: null,
       canalizador: null,
       dxMedico: null,
       vinculosFam: null,
-      selectSede: null,
+      sedes: [],
       errors: {
         edadMental: '',
         fechaIngreso: '',
         canalizador: '',
         dxMedico: '',
         vinculosFam: '',
-        headquarter_id: '',
+        sedes: '',
       }
     };
 
+    //FOR VALIDATIONS
     this.handleChange = this.handleChange.bind(this);
-    //this.handleInputChange = this.handleInputChange.bind(this);
+
+    //TO MAKE REGISTRATION
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+  //ERROR VALIDATION IN INPUTS
   handleChange = (event) => {
     event.preventDefault();
     const { name, value } = event.target;
     let errors = this.state.errors;
 
     switch (name) {
-      case 'selectSede':
-        errors.selectSede =
+      case 'sedes':
+        errors.sedes =
           value.length < 1
-            ? "La fecha de ingreso de la beneficiaria es requerida"
+            ? "La sede de la beneficiaria es requerida"
             : "";
         break;
       case 'fechaIngreso':
@@ -99,13 +81,15 @@ export default class RegisterB2 extends Component {
             ? "La fecha de ingreso de la beneficiaria es requerida"
             : "" ||
               validDate.test(value)
-              ? "La fecha no es correcta"
+              ? "La fecha ingresada es inválida."
               : "";
         break;
       case 'canalizador':
         errors.canalizador =
           value.length > 100
             ? "El campo permite máximo 100 caracteres"
+            : "" || value.length < 3
+            ? "El campo debe contener al menos 3 caracteres."
             : "" || validTextInput.test(value)
               ? ""
               : "El campo solo acepta letras.";
@@ -116,6 +100,8 @@ export default class RegisterB2 extends Component {
             ? "El diagnóstico médico de la beneficiaria es requerido."
             : "" || value.length > 125
               ? "El campo permite máximo 125 caracteres"
+              : "" || value.length < 3
+              ? "El campo debe contener al menos 3 caracteres."
               : "" || validTextInput.test(value)
                 ? ""
                 : "El campo solo acepta letras.";
@@ -145,9 +131,11 @@ export default class RegisterB2 extends Component {
     let canalizador = document.getElementById("canalizador").value;
     let vinculosFam = document.getElementById("vinculosFam").value;
     let dxMedico = document.getElementById("dxMedico").value;
-    let sede = document.getElementById("selectSede").value;
+    let sede = document.getElementById("sede").value;
 
-    const datosIngreso = {
+    if (fechaIngreso !== '' && dxMedico !== '' && sede !== '') {
+    
+     const datosIngreso = {
       fechaIngreso: fechaIngreso,
       edadMental: edadMental,
       canalizador: canalizador,
@@ -155,16 +143,44 @@ export default class RegisterB2 extends Component {
       dxMedico: dxMedico,
       headquarter_id: sede,
     };
+
     localStorage.setItem("ingreso", JSON.stringify(datosIngreso));
+    let jsonArray1 = JSON.parse(localStorage.getItem("personal"));
+    let jsonArray2 = JSON.parse(localStorage.getItem("ingreso"));
+
+    const jsonArray = {...jsonArray1, ...jsonArray2};
+    console.log(jsonArray);
+    localStorage.clear();
+
+    axios.post(API_BASE_URL + "beneficiaries/", jsonArray); 
+
+    Swal.fire(
+      '¡Listo!',
+      'Beneficiaria registrada de manera exitosa',
+      'success'
+      ).then(function() {
+        window.location = "http://localhost:3000/admin/Beneficiarias/GeneralViewAdmin";
+      });
+    } else{
+      Swal.fire( {
+        icon: 'error',
+        title: 'Oops...',
+        text: 'No se han llenado todos los campos obligatorios!',
+      })
+    }
+  }
+
+  componentDidMount() {
+    this.getSedes();
   }
 
   render() {
-    this.crearSelect();
-    const { errors, formValid } = this.state;
+    const { errors } = this.state;
 
     return (
       <div className="content">
         <h2 className="title">Registrar Beneficiaria</h2>
+        <Form onSubmit={this.onSubmit} autocomplete="off">
         <Card>
           <CardHeader>
             <h3 className="title">Datos de ingreso</h3>
@@ -173,12 +189,13 @@ export default class RegisterB2 extends Component {
             <Alert color="primary">Los campos marcados con un asterisco (*) son obligatorios.</Alert>
           </CardHeader>
           <CardBody>
-            <Form onClick={this.onSubmit} autocomplete="off">
               <FormGroup>
-                <label>* Seleccione la sede:</label>
-                <Form.Control as="select" id="selectSede" name="selectSede"></Form.Control>
-
-              </FormGroup>
+                            <Label htmlFor="sede">* Sede:</Label>
+                            <Input type="select" name="sede" id="sede" value={this.state.value} onChange={this.onChange}>
+                            <option defaultValue="0">Selecciona una opción...</option>
+                            {this.state.sedes.map((sede) => <option key={sede.value} value={sede.value}>{sede.label}</option>)}
+                            </Input>
+                          </FormGroup>
               <Row>
                 <Col md="6">
                   <FormGroup>
@@ -230,7 +247,6 @@ export default class RegisterB2 extends Component {
                   ||
                   errors.vinculosFam.length == 0 && <span className='error'>{errors.vinculosFam}</span>}
               </FormGroup>
-            </Form>
           </CardBody>
         </Card>
         <Row>
@@ -240,11 +256,10 @@ export default class RegisterB2 extends Component {
             </Link>
           </Col>
           <Col md="6" align="right">
-            <Link to='/admin/Beneficiarias/RegisterB3'>
-              <Button onClick="onSubmit()">Siguiente&nbsp;<FontAwesomeIcon icon={['fas', 'arrow-circle-right']} /></Button>
-            </Link>
+            <Button type="submit">Registrar</Button>
           </Col>
         </Row>
+        </Form>
       </div>
     );
   }

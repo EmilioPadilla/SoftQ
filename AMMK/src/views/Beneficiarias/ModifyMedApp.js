@@ -198,7 +198,7 @@ export default class ModifyMedApp extends Component {
         'Consulta médica modificada de manera exitosa',
         'success',
       ).then(function () {
-        window.location = "http://localhost:3000/admin/Beneficiarias/GeneralViewAdmin";
+        window.location = "http://localhost:3000/admin/Beneficiarias/MedicalRecordView" + beneficiary_id;
       });
     } else {
       Swal.fire(
