@@ -110,7 +110,7 @@ export default class MonthlyView extends Component {
                 <Row>
                     <Col md="6">
                         <FormGroup>
-                            <label>Selecciona la sede...</label>
+                            <label>Selecciona la sede de los ingresos...</label>
                             <Form.Control onChange={this.onCampusChange} as="select" id="selectSede"></Form.Control>
                         </FormGroup>
                     </Col>
@@ -178,6 +178,7 @@ export default class MonthlyView extends Component {
                                     startDate={this.state.startDate}
                                     endDate={this.state.endDate}
                                     categoryId={this.state.selectedCategory}
+                                    campusId={this.state.selectedCampus}
                                     onChange={this.onExpensesChange} />
                             </CardBody>
                         </Card>

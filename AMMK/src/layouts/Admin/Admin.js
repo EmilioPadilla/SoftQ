@@ -79,18 +79,6 @@ class Admin extends React.Component {
     this.setState({ sidebarOpened: !this.state.sidebarOpened });
   };
   getRoutes = routes => {
-    // const idRol = localStorage.getItem("idRol");
-    // for (let i in routes) {
-    //   if (routes[i].showInSidebar == true) {
-    //     console.log('Aqui estoy ' + routes[i].showInSidebar);
-    //     if (idRol === 3) {
-    //       routes[i].showInSidebar = true
-    //     } else {
-    //       routes[i].showInSidebar = false
-    //     }
-    //     console.log("Despues de" +routes[i].showInSidebar);
-    //   }
-    // }
     return routes.map((prop, key) => {
       if (prop.layout === "/admin") {
         return (

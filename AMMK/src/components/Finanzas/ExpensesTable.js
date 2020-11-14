@@ -48,7 +48,7 @@ class ExpensesTable extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.categoryId != prevProps.categoryId) {
+    if (this.props.categoryId != prevProps.categoryId || this.props.campusId != prevProps.campusId) {
         this.getExpenses();
     }
   }
@@ -57,7 +57,8 @@ class ExpensesTable extends React.Component {
     const params = {
       startDate: this.props.startDate,
       endDate: this.props.endDate,
-      categoryId: this.props.categoryId
+      categoryId: this.props.categoryId,
+      campusId: this.props.campusId
     }
     axios.post(API_BASE_URL + 'expenses/search', params)
       .then(res => {

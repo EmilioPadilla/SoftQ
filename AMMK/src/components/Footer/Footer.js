@@ -26,32 +26,6 @@ import { Container, Row, Nav, NavItem, NavLink } from "reactstrap";
 class Footer extends React.Component {
   render() {
     return (
-      // <footer className="footer">
-      //   <Container fluid>
-      //     <Nav>
-      //       <NavItem>
-      //         <NavLink href="https://www.creative-tim.com/?ref=bdr-user-archive-footer">Creative Tim</NavLink>
-      //       </NavItem>
-      //       <NavItem>
-      //         <NavLink href="https://www.creative-tim.com/presentation?ref=bdr-user-archive-footer">About Us</NavLink>
-      //       </NavItem>
-      //       <NavItem>
-      //         <NavLink href="https://www.creative-tim.com/blog?ref=bdr-user-archive-footer">Blog</NavLink>
-      //       </NavItem>
-      //     </Nav>
-      //     <div className="copyright">
-      //       © {new Date().getFullYear()} made with{" "}
-      //       <i className="tim-icons icon-heart-2" /> by{" "}
-      //       <a
-      //         href="https://www.creative-tim.com/?ref=bdr-user-archive-footer"
-      //         target="_blank"
-      //       >
-      //         Creative Tim
-      //       </a>{" "}
-      //       for a better web.
-      //     </div>
-      //   </Container>
-      // </footer>
       <footer className="footer">
         <Container fluid>
           <Nav>
@@ -59,9 +33,6 @@ class Footer extends React.Component {
               Desarrollado por SOFTQ {new Date().getFullYear()} {" "} <i className="tim-icons icon-heart-2" /> Bienvenidos
             </NavItem>
           </Nav>
-          <div className="copyright">
-            Link a recursos y documentación de Creative Tim -> <a href="https://demos.creative-tim.com/black-dashboard-react/?_ga=2.193242788.866508290.1601843490-753996812.1601843490#/documentation/tutorial" target="_blank">Creative Tim</a>
-          </div>
         </Container>
       </footer>
     );

@@ -16,6 +16,7 @@ class CreateExpensesTable extends Migration
         Schema::create('expenses', function (Blueprint $table) {
             $table->id()->from(1);
             $table->foreignId('category_id')->default(1)->constrained('categories');
+            $table->foreignId('headquarter_id')->constrained('headquarters');
             $table->date('fecha')->nullable();
             $table->string('pagoA', 70)->nullable();
             $table->string('monto', 25)->nullable();
