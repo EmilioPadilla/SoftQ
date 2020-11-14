@@ -2,10 +2,13 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
 //COMPONENTS
-import { Row, Col, Button, FormGroup, Input, Label, InputGroup, InputGroupAddon, InputGroupText} from 'reactstrap';
+import { Row, Col, Button, FormGroup, Input, Label, InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap';
 import AdminTable from "../../components/Beneficiarias/AdminTable";
-import StatusDrop from "../General/StatusDrop";
-import HeadquartersDrop from "../General/HeadquartersDrop";
+import Form from "react-bootstrap/Form";
+
+//API calls
+import axios from 'axios';
+import { API_BASE_URL } from 'index';
 
 //ICONS
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -14,19 +17,80 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 library.add(fas)
 
 export default class GeneralViewAdmin extends Component {
-    state = { data : "1" } 
+    constructor(props) {
+        super(props);
+        this.state = {
+            selectedStatus: 0,
+            selectedSede: 0,
+            inputValue:'',
+        }
+      this.onStatusChange = this.onStatusChange.bind(this);
+      this.onSedeChange = this.onSedeChange.bind(this);
+      this.onInputChange = this.onInputChange.bind(this);
+    }
+
+    onStatusChange(e) {
+        e.preventDefault();
+        this.setState({ selectedStatus: e.target.value });
+        console.log(this.state)
+    }
+
+    onInputChange(e) {
+        e.preventDefault();
+        this.setState({ inputValue: e.target.value });
+        console.log(e.target.value)
+    }
+
+    onSedeChange(e) {
+        e.preventDefault();
+        this.setState({ selectedSede: e.target.value });
+        console.log(this.state)
+    }
+
+    crearSelect(){
+        var sel='<option value=0 selected>Selecciona una opcion...</option>';
+        const num=1;
+        axios.get(API_BASE_URL + "headquarters").then(function(resp){
+        console.log(resp.data);
+        resp.data.forEach(element =>{
+          sel = sel.concat('<option value='+ element.id + '>' + element.nombre +'</option>');
+        });
+        document.getElementById("selectSede").innerHTML=sel; 
+      });
+    }
+
+    crearSelect2(){
+        var sel='<option value=0 selected>Selecciona una opcion...</option>';
+        const num=1;
+        axios.get(API_BASE_URL + "status").then(function(resp){
+        console.log(resp.data);
+        resp.data.forEach(element =>{
+          sel = sel.concat('<option value='+ element.id + '>' + element.nombre +'</option>');
+        });
+        document.getElementById("selectStatus").innerHTML=sel; 
+      });
+    }
+
+    componentDidMount() {
+        this.crearSelect();
+        this.crearSelect2();
+    }
+
     render() {
         return (
             <div className="content">
                 <h1 className="title">BENEFICIARIAS</h1>
                 <Row>
                     <Col md="6">
-                        <StatusDrop/>
+                    <FormGroup>
+                            <label>Filtrar por status: </label>
+                            <Form.Control onChange={this.onStatusChange} as="select" id="selectStatus"></Form.Control>
+                    </FormGroup>
                     </Col>
 
                     <Col md="6">
                         <Link to='/admin/Beneficiarias/RegisterB1'>
-                        <Button className="btn btn-primary float-right"><FontAwesomeIcon icon={['fas', 'user-plus']} /> Registrar beneficiaria</Button>
+                            <Button className="btn btn-primary float-right"><FontAwesomeIcon icon={['fas', 'user-plus']} /> Registrar beneficiaria</Button>
                         </Link>
                     </Col>
                 </Row>
@@ -39,19 +103,23 @@ export default class GeneralViewAdmin extends Component {
                             <Label>Búsqueda por nombre:</Label>
                             <InputGroup>
                                 <InputGroupAddon addonType="prepend">
-                                <InputGroupText><FontAwesomeIcon icon={['fas', 'search']} /></InputGroupText>
+                                    <InputGroupText><FontAwesomeIcon icon={['fas', 'search']} /></InputGroupText>
                                 </InputGroupAddon>
-                                <Input type="text" className="form-control" placeholder="Maria Sandoval Arrieta" aria-label="busquedaNombre" aria-describedby="magGlass"></Input>
+                                <Input onChange={this.onInputChange} type="text" className="form-control" placeholder="Maria Sandoval Arrieta" aria-label="busquedaNombre" aria-describedby="magGlass"></Input>
                             </InputGroup>
                         </FormGroup>
                     </Col>
 
                     <Col md="4">
-                        <HeadquartersDrop/>
+                        <FormGroup>
+                            <label>Filtrar por sede:</label>
+                            <Form.Control onChange={this.onSedeChange} as="select" id="selectSede"></Form.Control>
+                        </FormGroup>
                     </Col>
                 </Row>
-                
-                <AdminTable dataFromParent = {this.state.data}/>
+
+                <AdminTable statusId={this.state.selectedStatus} sedeId={this.state.selectedSede} inputValue={this.state.inputValue}
+                />
 
             </div>
         )

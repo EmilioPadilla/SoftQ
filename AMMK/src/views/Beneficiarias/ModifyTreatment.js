@@ -41,6 +41,10 @@ export default class ReenterB extends Component {
     super(props);
     this.state = {
         formValid: false,
+        form: {
+          fechaInicio: '',
+          fechaTermino: '',
+        },
         errorCount: null,
         fechaInicio: null,
         fechaTermino: null,
@@ -74,6 +78,7 @@ export default class ReenterB extends Component {
     event.preventDefault();
     const { name, value } = event.target;
     let errors = this.state.errors;
+    this.setState({ name: event.target.value })
 
     switch (name) {
         case 'fechaInicio': 
@@ -101,6 +106,23 @@ export default class ReenterB extends Component {
     this.setState({errors, [name]: value});
   }
 
+  anotherChange=async e=>{
+    e.persist();
+    await this.setState({
+      form:{
+        ...this.state.form,
+        [e.target.name]: e.target.value
+      }
+    });
+    console.log(this.state.form);
+    }
+
+    twoCalls = e => {
+      this.anotherChange(e)
+      this.handleChange()
+    }
+    
+
 onSubmit(e){
     
     e.preventDefault()
@@ -115,6 +137,7 @@ onSubmit(e){
     let lapso = document.getElementById("lapso").value;
     let fechaInicio = document.getElementById("fechaInicio").value;
     let fechaTermino = document.getElementById("fechaTermino").value;
+
     if(fechaInicio !== ''){
     const treatment = {
         id: id,
@@ -171,12 +194,11 @@ onSubmit(e){
                             <Input type="text" id="dosis" name="dosis" value={treatment.dosis} hidden></Input>
                             <Input type="text" id="mode_id" name="mode_id" value={treatment.mode_id} hidden></Input>
                             <Input type="text" id="lapso" name="lapso" value={treatment.lapso} hidden></Input>
-                            </>
-                ))}
+
                         <FormGroup>
                             <FontAwesomeIcon icon={["fas", "calendar-alt"]} />
                             <Label for="fechaInicio">&nbsp;Fecha de inicio:</Label>
-                            <Input type="date" id="fechaInicio" name="fechaTermino" onChange={this.handleChange}></Input>
+                            <Input type="date" id="fechaInicio" name="fechaTermino" onChange={this.twoCalls} value={treatment.fechaInicio}></Input>
                             {errors.fechaInicio.length > 0 && <span className='error'>{errors.fechaInicio}</span> 
                                 || 
                                  errors.fechaInicio.length == 0 && <span className='error'>{errors.fechaInicio}</span>}
@@ -184,11 +206,13 @@ onSubmit(e){
                         <FormGroup>
                             <FontAwesomeIcon icon={["fas", "calendar-alt"]} />
                             <Label for="fechaTermino">&nbsp;Fecha de finalización:</Label>
-                            <Input type="date" id="fechaTermino" name="fechaTermino" onChange={this.handleChange}></Input>
+                            <Input type="date" id="fechaTermino" name="fechaTermino" onChange={this.handleChange} value={treatment?treatment.fechaTermino: ''}></Input>
                             {errors.fechaTermino.length > 0 && <span className='error'>{errors.fechaTermino}</span> 
                                 || 
                                  errors.fechaTermino.length == 0 && <span className='error'>{errors.fechaTermino}</span>}
                         </FormGroup>
+                        </>
+                ))}
                     </Col>
                 </Row>
         </ModalBody>
