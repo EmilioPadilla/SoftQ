@@ -33,17 +33,25 @@ export default class MonthlyView extends Component {
             startDate: firstDay.toISOString().split("T")[0],
             endDate: lastDay.toISOString().split("T")[0],
             selectedCategory: 0,
+            selectedCampus: 0,
             incomesTotal: null,
             expensesTotal: null
         }
       this.onIncomesChange = this.onIncomesChange.bind(this);
       this.onExpensesChange = this.onExpensesChange.bind(this);
       this.onCategoryChange = this.onCategoryChange.bind(this);
+      this.onCampusChange = this.onCampusChange.bind(this);
     }
 
     onCategoryChange(e) {
         e.preventDefault();
         this.setState({ selectedCategory: e.target.value });
+    }
+
+    onCampusChange(e) {
+        e.preventDefault();
+        this.setState({ selectedCampus: e.target.value });
+        console.log(e.target.value);
     }
 
     crearSelect(){
@@ -59,7 +67,7 @@ export default class MonthlyView extends Component {
     }
 
     crearSelect2(){
-        var sel='<option value=0 selected>Selecciona una opcion</option>';
+        var sel='<option value="" selected>Selecciona una opcion</option>';
         const num=1;
         axios.get(API_BASE_URL + "headquarters").then(function(resp){
         console.log(resp.data);
@@ -102,8 +110,8 @@ export default class MonthlyView extends Component {
                 <Row>
                     <Col md="6">
                         <FormGroup>
-                            <label>Selecciona la sede...</label>
-                            <Form.Control as="select" id="selectSede"></Form.Control>
+                            <label>Selecciona la sede de los ingresos...</label>
+                            <Form.Control onChange={this.onCampusChange} as="select" id="selectSede"></Form.Control>
                         </FormGroup>
                     </Col>
                     
@@ -174,6 +182,7 @@ export default class MonthlyView extends Component {
                                     startDate={this.state.startDate}
                                     endDate={this.state.endDate}
                                     categoryId={this.state.selectedCategory}
+                                    campusId={this.state.selectedCampus}
                                     onChange={this.onExpensesChange} />
                                     </div>
                             </CardBody>

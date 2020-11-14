@@ -4,10 +4,10 @@ import { Button } from 'reactstrap';
 //API calls
 import axios from 'axios';
 
-const DropdownRecord = (props) => {
+const DropdownRecordExpenses = (props) => {
     var idT = props.id;
-    var idTable = "inc"+props.id;
-    var idDiv = "inc"+idT + idT;
+    var idTable = "exp"+props.id;
+    var idDiv = "exp"+idT + idT;
     getTable(idT,idTable);
   return (
     <div >
@@ -24,8 +24,9 @@ const DropdownRecord = (props) => {
 }
 
 function getTable(id,idTable){
-  axios.get(API_BASE_URL + 'donaciones/table/date/'+id)
+  axios.get(API_BASE_URL + 'expenses/table/date/'+id)
       .then(res => {
+          console.log(res.data);
         if(document.getElementById(idTable) != null){
           document.getElementById(idTable).innerHTML=res.data;
         }
@@ -41,4 +42,4 @@ function handleClick(id){
   }
 }
 
-export default DropdownRecord;
+export default DropdownRecordExpenses;

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 //importing model 
 use App\Models\Expense; 
+use Illuminate\Support\Facades\DB;
 
 class ExpenseController extends Controller
 {
@@ -28,16 +29,16 @@ class ExpenseController extends Controller
      */
     public function filterByDate(Request $request)
     {
-        if($request->categoryId != 0 && $request->headquarterId != 0) {
+        if($request->categoryId != 0 && $request->campusId != 0) {
             $expenses = Expense::with('category')->select()
             ->where([
                 ["category_id", $request->categoryId],
-                ["headquarter_id", $request->headquarterId]
+                ["headquarter_id", $request->campusId]
             ])->whereBetween(
                 "fecha",
                 [$request->startDate, $request->endDate]
             )->get();
-        } else if ($request->categoryId != 0 && $request->headquarterId == 0) {
+        } else if ($request->categoryId != 0 && $request->campusId == 0) {
             $expenses = Expense::with('category')->select()
             ->where([
                 ["category_id", $request->categoryId]
@@ -45,10 +46,10 @@ class ExpenseController extends Controller
                 "fecha",
                 [$request->startDate, $request->endDate]
             )->get();
-        } else if ($request->categoryId == 0 && $request->headquarterId != 0) {
+        } else if ($request->categoryId == 0 && $request->campusId != 0) {
             $expenses = Expense::with('category')->select()
             ->where([
-                ["headquarter_id", $request->headquarterId]
+                ["headquarter_id", $request->campusId]
             ])->whereBetween(
                 "fecha",
                 [$request->startDate, $request->endDate]
@@ -160,5 +161,34 @@ class ExpenseController extends Controller
         return response()->json([
             'message' => 'expense deleted'
         ]);
+    }
+
+    public function getDateExpenses(){
+        $datos = DB::table('expenses')
+                    ->select('expenses.fecha')
+                    ->orderBy('expenses.fecha', 'desc')
+                    ->get();
+        return $datos;
+    }
+
+    public function expensesTable($fecha){
+        $total=0;
+        $datos = DB::table('expenses')
+                    ->join('categories', 'categories.id','=' ,'expenses.category_id')
+                    ->select('expenses.fecha', 'expenses.pagoA', 'expenses.monto', 'expenses.descripcion','categories.nombre')
+                    ->where('expenses.fecha', 'like', '%'.$fecha.'%' )
+                    ->get();
+        $respuesta = '<table class="table" id="tablaExp'.$fecha.'"><thead> <tr> <th> Pago A </th> <th> Categoria </th> <th> Monto </th> <th> Fecha </th> <th> Desc. </th><th> Total </th> </tr> </thead> <tbody>';
+        foreach ($datos as $res){
+            $respuesta .= '<tr> <td >'. $res->pagoA. '</td>';
+            $respuesta .= '<td>'.$res->nombre.'</td>';
+            $respuesta .= '<td>'.$res->monto.'</td>';
+            $respuesta .= '<td>'.$res->fecha. '</td>';
+            $respuesta .= '<td>'.$res->descripcion.'</td> </tr> ';
+            $total = $total + $res->monto;
+        }
+        $respuesta .= '<tr><td></td><td></td><td></td><td></td><td></td><td>'.$total.'</td></tr>';
+        $respuesta .= '</tbody> </table>';
+        return $respuesta;
     }
 }
