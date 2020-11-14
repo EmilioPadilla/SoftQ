@@ -104,6 +104,7 @@ class ExpensesTable extends React.Component {
 
 
   render() {
+    let months = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"];
     return (
       <Row>
       <Col md="12">
@@ -122,7 +123,7 @@ class ExpensesTable extends React.Component {
             <tbody>
               {this.state.expenses.map((expense) => (
                 <tr key={expense.id}>
-                  <td>{expense.fecha}</td>
+                  <td>{expense.fecha.split("-")[2]}-{months[expense.fecha.split("-")[1] - 1]}-{expense.fecha.split("-")[0]}</td>
                   <td>{expense.pagoA}</td>
                   <td>{expense.descripcion}</td>
                   <td>{this.formatter.format(expense.monto)}</td>

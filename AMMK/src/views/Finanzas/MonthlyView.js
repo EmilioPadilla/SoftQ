@@ -174,12 +174,17 @@ export default class MonthlyView extends Component {
                                     </FormGroup>
                                     </Col>
                                 </Row>
+                                <div style={{
+            maxHeight: '300px',
+            overflowY: 'auto'
+          }}>
                                 <ExpensesTable 
                                     startDate={this.state.startDate}
                                     endDate={this.state.endDate}
                                     categoryId={this.state.selectedCategory}
                                     campusId={this.state.selectedCampus}
                                     onChange={this.onExpensesChange} />
+                                    </div>
                             </CardBody>
                         </Card>
                         

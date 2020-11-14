@@ -4,8 +4,12 @@
 
 namespace Composer\Autoload;
 
+<<<<<<< HEAD
 
 class ComposerStaticInit8d1700ce5b218bdf294eb640a6734048
+=======
+class ComposerStaticInit3169231e59a507f7c48437ef65ce590c
+>>>>>>> Angie/features
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -1835,7 +1839,10 @@ class ComposerStaticInit8d1700ce5b218bdf294eb640a6734048
         'Illuminate\\Contracts\\Queue\\Queue' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Contracts/Queue/Queue.php',
         'Illuminate\\Contracts\\Queue\\QueueableCollection' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Contracts/Queue/QueueableCollection.php',
         'Illuminate\\Contracts\\Queue\\QueueableEntity' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Contracts/Queue/QueueableEntity.php',
+<<<<<<< HEAD
 
+=======
+>>>>>>> Angie/features
         'Illuminate\\Contracts\\Queue\\ShouldQueue' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Contracts/Queue/ShouldQueue.php',
         'Illuminate\\Contracts\\Redis\\Connection' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Contracts/Redis/Connection.php',
         'Illuminate\\Contracts\\Redis\\Connector' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Contracts/Redis/Connector.php',
@@ -5132,11 +5139,18 @@ class ComposerStaticInit8d1700ce5b218bdf294eb640a6734048
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
+<<<<<<< HEAD
 
             $loader->prefixLengthsPsr4 = ComposerStaticInit8d1700ce5b218bdf294eb640a6734048::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit8d1700ce5b218bdf294eb640a6734048::$prefixDirsPsr4;
             $loader->prefixesPsr0 = ComposerStaticInit8d1700ce5b218bdf294eb640a6734048::$prefixesPsr0;
             $loader->classMap = ComposerStaticInit8d1700ce5b218bdf294eb640a6734048::$classMap;
+=======
+            $loader->prefixLengthsPsr4 = ComposerStaticInit3169231e59a507f7c48437ef65ce590c::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit3169231e59a507f7c48437ef65ce590c::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit3169231e59a507f7c48437ef65ce590c::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit3169231e59a507f7c48437ef65ce590c::$classMap;
+>>>>>>> Angie/features
 
         }, null, ClassLoader::class);
     }
