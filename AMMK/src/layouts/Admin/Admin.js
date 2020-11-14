@@ -113,14 +113,12 @@ class Admin extends React.Component {
 
   filterRoutes(routes) {
     const idRol = localStorage.getItem("idRol");
-    console.log(idRol);
     routes=routes.filter(route => route.showInSidebar === true)
     if (idRol == 3) {
       routes=routes.filter(route => route.rol === 'admin')
     } else if (idRol == 2) {
       routes=routes.filter(route => route.rol === 'enf' )
     } else if (idRol == 1) {
-      console.log("djflknasd");
       routes=routes.filter(route => route.rol === 'enf' )
       routes=routes.filter(route => route.onlyGen === true )
     }

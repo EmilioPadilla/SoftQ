@@ -37,7 +37,14 @@ class VacationsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $vacations = new Vacations;
+
+        $vacations->fechaRegistro = $request -> fechaRegistro;
+        $vacations->fechaSalida = $request -> fechaSalida;
+        $vacations->fechaRegreso = $request -> fechaRegreso;
+        $vacations->employees_id = $request -> employees_id;
+
+        $vacations->save();
     }
 
     /**
@@ -71,7 +78,13 @@ class VacationsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $vacations = Vacations::find($id);
+        $vacations->fechaRegistro = $request -> fechaRegistro;
+        $vacations->fechaSalida = $request -> fechaSalida;
+        $vacations->fechaRegreso = $request -> fechaRegreso;
+        $vacations->employees_id = $request -> employees_id;
+
+        $vacations->update();
     }
 
     /**

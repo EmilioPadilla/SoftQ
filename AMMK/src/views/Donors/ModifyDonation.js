@@ -85,7 +85,7 @@ const ModifyDonation = (props) => {
                         </Link>
                         </div>
                         <div class="col-4" align="center">
-                                <Button className="btn-fill" color="danger" onClick={modificar}>
+                                <Button className="btn-fill" color="success" onClick={modificar}>
                                     Modificar
                                 </Button>
                         </div>

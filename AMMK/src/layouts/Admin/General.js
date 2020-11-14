@@ -22,7 +22,7 @@ import PerfectScrollbar from "perfect-scrollbar";
 
 // core components
 import GeneralNavbar from "components/Navbars/GeneralNavbar.js";
-//import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
+// import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
 
 import routes from "routes.js";
 

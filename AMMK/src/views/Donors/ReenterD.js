@@ -1,69 +1,121 @@
-import React, { useState } from 'react';
-
-// reactstrap components
-import {Button, Modal, ModalBody, ModalHeader, FormGroup, Input, Label, Row, Col} from 'reactstrap';
-import SimpleTooltip from "../General/SimpleTooltip";
-
-//Importing Icon library
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { fas } from '@fortawesome/free-solid-svg-icons';
-
-library.add(fas)
-
+import React, { Component } from "react";
+import { FormGroup, Form, Input, Button } from "reactstrap";
+import axios from "axios";
+import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 const ReenterD = (props) => {
-  const login = localStorage.getItem("isLoggedIn");
-  const idRol = localStorage.getItem("idRol");
-  //Redirect in case of wrong role or no login
-  if (!login ) {
-      window.location = "http://localhost:3000/login";
-  }else if(idRol==2){
-      window.location = "http://localhost:3000/general/NurseIndex";
-  }else if (idRol==1){
-      window.location = "http://localhost:3000/admin/Nomina/Nomina";
-  }
-
-  const {
-    className
-  } = props;
-
-  const [modal, setModal] = useState(false);
-
-  const toggle = () => setModal(!modal);
-
+    const login = localStorage.getItem("isLoggedIn");
+    const idRol = localStorage.getItem("idRol");
+    //Redirect in case of wrong role or no login
+    /*if (!login ) {
+        window.location = "http://localhost:3000/login";
+    }else if(idRol==2){
+        window.location = "http://localhost:3000/general/NurseIndex";
+    }else if (idRol==1){
+        window.location = "http://localhost:3000/admin/Nomina/Nomina";
+    }*/
+  const { id } = props.match.params;
+  ax(id);
   return (
-    <div className="content">
-      <Button color="success" size="sm" id="reingresar" onClick={toggle}><FontAwesomeIcon icon={['fas', 'redo-alt']} /></Button>
-      <SimpleTooltip placement="top" target="reingresar">Reingresar</SimpleTooltip>
+    <div class="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-12" >
 
-      <Modal isOpen={modal} toggle={toggle} className={className}>
-        <ModalHeader toggle={toggle}>
-        <h3 className="title">REINGRESAR DONANTE</h3>
-        </ModalHeader>
-        <ModalBody>
-                <Row>
-                    <Col md="12">
-                        <FormGroup>
-                            <FontAwesomeIcon icon={["fas", "calendar-alt"]} />
-                            <Label for="fechaR">&nbsp;Fecha de reingreso:</Label>
-                            <Input type="date" id="fechaR"></Input>
-                        </FormGroup>
-                        <FormGroup>
-                            <FontAwesomeIcon icon={["fas", "comment"]} />
-                            <Label for="motivo">&nbsp;Motivo de reingreso</Label>
-                            <Input type="textarea" name="motivo" id="motivo" />
-                        </FormGroup>
-                    </Col>
-                </Row>
-                <Row className="text-center">
-                    <Col md="12">
-                        <Button color="success" onClick={toggle}>Reingresar</Button>
-                    </Col>
-                </Row>
-        </ModalBody>
-      </Modal>
+                <h2 align="center">Re-Ingresar Donante</h2>
+                <Form>
+                    <div class="row justify-content-center">
+                        <div class="col-4" >
+                            <FormGroup>
+                            <p className="font-weight-bold">FECHA DE Re-Ingreso: </p>
+                            <Input
+                                    id="fecha"
+                                    
+                                    type="date"
+                                />    
+                     </FormGroup>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-4">
+                            <FormGroup>
+                            <p className="font-weight-bold">MOTIVO DE Re-Ingreso: </p>
+                            <Input
+                                    id="motivo"
+                                    
+                                    type="text"
+                                /> 
+                            </FormGroup>
+                           
+                        </div>
+                    </div>
+                    
+                    <br/>
+                    <div class="row justify-content-center">
+                        <div class="col-4" align="center">
+                        <Link to={`/admin/ViewDonors`}>
+
+                                <Button className="btn-fill" color="primary" >
+                                    REGRESAR
+                                </Button>
+                        </Link>
+                        </div>
+                        <div class="col-4" align="center">
+                                <Button className="btn-fill" color="success" onClick={modificar}>
+                                    RE-INGRESAR
+                                </Button>
+                        </div>
+                    </div>
+                </Form>
+                <div>
+                    <Input type="text" id="valorId" style={{display: "none"}}>
+
+                    </Input>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
   );
+};
+
+function ax(idC) {
+  axios.get("http://localhost:8000/api/donantes/" + idC).then(function (resp) {
+    console.log(resp.data);
+           document.getElementById("motivo").value = resp.data[0].motivoIngreso;
+           document.getElementById("fecha").value = resp.data[0].fechaIngreso;
+           document.getElementById("valorId").value = idC;
+  });
+}
+
+
+function modificar() {
+            var motivo=document.getElementById("motivo").value ;
+            var fecha=  document.getElementById("fecha").value ;
+    var idD=document.getElementById("valorId").value;
+  if (motivo!= "" && fecha != "") {
+    const donante = {
+        motivoIngreso: motivo,
+        fechaIngreso: fecha,
+        status_id:1
+
+      };
+    axios
+      .put("http://localhost:8000/api/donantes/" + idD, donante)
+      .then(function (resp) {
+        console.log(resp.data);
+      });
+
+    Swal.fire("¡Listo!", "Donante Egresado de manera exitosa", "success").then(function () {
+      window.location = "http://localhost:3000/admin/ViewDonors";
+    });
+  } else {
+    Swal.fire(
+      "¡Error!",
+      "Alguno de los campos se encuentra vacio",
+      "error"
+    );
+  }
 }
 
 export default ReenterD;

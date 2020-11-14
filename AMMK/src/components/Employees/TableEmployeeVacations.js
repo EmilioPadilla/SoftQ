@@ -43,6 +43,7 @@ import {
     }
       }
     }
+   
 
     componentDidMount() {
       this.getVacations();
@@ -72,7 +73,7 @@ import {
   }
 
     getVacations() {
-      axios.get('http://localhost:8000/api/employeeVacations/1')
+      axios.get('http://localhost:8000/api/employeeVacations/'+this.props.idEmployee)
       .then(res => {
         const vacations = res.data;
         this.setState({ vacations })
@@ -93,7 +94,7 @@ import {
                       </tr>
                   </thead>
                   <tbody>
-                  {this.state.vacations.map((vacation) => (
+                  {this.state.vacations.map((vacation, i) => (
                       <tr key={vacation.id}>
                         <td>{vacation.fechaRegistro}</td>
                         <td>{vacation.fechaSalida}</td>
@@ -106,7 +107,7 @@ import {
                               </button>
                               <SimpleTooltip placement="top" target="editar">Editar registro</SimpleTooltip>
                             </a> */}
-                            <EditVacationModal/>
+                            <EditVacationModal id={this.props.idEmployee} vacations={this.state.vacations[i]}/>
                             &nbsp;&nbsp;&nbsp;&nbsp;
                               <Link>
                                 <SimpleTooltip placement="top" target="eliminar">Eliminar</SimpleTooltip>
@@ -126,7 +127,7 @@ import {
                   <Button color="primary"onClick={()=>this.setState({modalEliminar: false})}>No</Button>
                   <Button color="danger" onClick={()=>this.peticionDelete()}>Sí</Button>
                 </ModalFooter>
-        </Modal>
+              </Modal>
             </Col>
           </Row>
         );

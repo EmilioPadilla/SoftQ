@@ -9,4 +9,5 @@ class Vacations extends Model
 {
     //assigning db table model is associated with
     protected $table = 'vacations';
+    public $timestamps = false;
 }

@@ -19,6 +19,7 @@ import SimpleTooltip from "../General/SimpleTooltip";
 import EmployeeCalendarTable from "components/Employees/EmployeeCalendarTable.js"
 import TableEmployeeFiles from "components/Employees/TableEmployeeFiles.js"
 import TableEmployeeVacations from "components/Employees/TableEmployeeVacations.js"
+import ModalNewVacation from "components/Employees/ModalNewVacation";
 
 // reactstrap components
 import {
@@ -58,8 +59,6 @@ class ViewEmployee extends React.Component {
     componentDidMount() {
       const { id } = this.props.match.params;
       this.state.id = id
-      console.log(id);
-      console.log(this.state.id);
       axios.get(API_BASE_URL + 'employee/'+id)
         .then(res => {
           const employees = res.data;
@@ -572,21 +571,22 @@ class ViewEmployee extends React.Component {
                   <Card>
                     <CardHeader>
                       <CardTitle>
+                      {this.state.employees.map((employee) => ( 
                         <Row>
                           <Col>
                             <Badge color="primary">Vacaciones</Badge>
                           </Col>
                           <Col>
-                            <Button  className="float-right" size="sm" id="RegistrarVacaciones"><FontAwesomeIcon icon={['fas', 'plus-square']} /></Button>
-                            <SimpleTooltip placement="top" target="RegistrarVacaciones" >Registrar vacaciones</SimpleTooltip>
+                            <ModalNewVacation id={employee.id}/>
                           </Col>
-                          
                         </Row>
-
+                        ))}
                       </CardTitle>
                     </CardHeader>
                     <CardBody>
-                      <TableEmployeeVacations/>
+                    {this.state.employees.map((employee) => ( 
+                      <TableEmployeeVacations idEmployee={employee.id}/>
+                      ))}
                     </CardBody>
                   </Card>
                 </Col>
