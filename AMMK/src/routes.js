@@ -56,6 +56,8 @@ import SpecificView from "views/Beneficiarias/SpecificView.js";
 import MedicalRecordView from "views/Beneficiarias/MedicalRecordView";
 import RegisterMedApp from "views/Beneficiarias/RegisterMedApp";
 import ModifyMedApp from "views/Beneficiarias/ModifyMedApp";
+import ModifyPersonal from "views/Beneficiarias/ModifyPersonal";
+import ModifyEntry from "views/Beneficiarias/ModifyEntry";
 //modals
 import TakeOutB from "views/Beneficiarias/TakeOutB";
 import ReenterB from "views/Beneficiarias/ReenterB";
@@ -120,7 +122,7 @@ var routes = [
     path: "/Cuentas/principal",
     name: "Cuentas",
     rtlName: "ملف تعريفي للمستخدم",
-    icon: "tim-icons icon-single-02",
+    icon: "tim-icons icon-settings",
     component: MainAccount,
     layout: "/admin",
     showInSidebar: true ,
@@ -328,6 +330,24 @@ var routes = [
     component: RegisterB3,
     layout: "/admin",
     showInSidebar: false,
+  },
+  {
+    path: "/Beneficiarias/ModifyPersonal",
+    name: "Beneficiarias",
+    rtlName: "طباعة",
+    icon: "tim-icons icon-single-02",
+    component: ModifyPersonal,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+    path: "/Beneficiarias/ModifyEntry",
+    name: "Beneficiarias",
+    rtlName: "طباعة",
+    icon: "tim-icons icon-single-02",
+    component: ModifyEntry,
+    layout: "/admin",
+    showInSidebar: false
   },
   /* END BENEFICIARIAS */
   /*  START EMPLOYEES */
