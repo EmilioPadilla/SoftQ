@@ -117,10 +117,13 @@ export default class GeneralViewAdmin extends Component {
                         </FormGroup>
                     </Col>
                 </Row>
-
+                <div style={{
+            maxHeight: '400px',
+            overflowY: 'auto'
+          }}>
                 <AdminTable statusId={this.state.selectedStatus} sedeId={this.state.selectedSede} inputValue={this.state.inputValue}
                 />
-
+            </div>
             </div>
         )
     }

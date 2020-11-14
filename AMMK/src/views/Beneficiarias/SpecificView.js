@@ -176,6 +176,10 @@ export default class SpecificView extends Component {
                                 <SimpleTooltip placement="top" target="editar" >Editar</SimpleTooltip>
                             </Col>
                         </Row>
+                        <div style={{
+            maxHeight: '300px',
+            overflowY: 'auto'
+          }}>
                         <Table hover>
                             <thead>
                                 <tr>
@@ -209,6 +213,7 @@ export default class SpecificView extends Component {
                                 </td>
                             </tr>
                         </Table>
+                        </div>
                     </CardBody>
                 </Card>
             </div>

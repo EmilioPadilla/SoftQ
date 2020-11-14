@@ -107,7 +107,7 @@ var routes = [
     path: "/Cuentas/principal",
     name: "Cuentas",
     rtlName: "ملف تعريفي للمستخدم",
-    icon: "tim-icons icon-single-02",
+    icon: "tim-icons icon-settings",
     component: MainAccount,
     layout: "/admin",
     showInSidebar: true

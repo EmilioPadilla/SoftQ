@@ -38,11 +38,16 @@ export default class MedicalRecordView extends Component {
 
                 <Card>
                     <CardBody>
+                    <div style={{
+            maxHeight: '200px',
+            overflowY: 'auto'
+          }}>
                         <Row>
                             <Col md="12">
                                 <TreatmentTable id={this.props.match.params}/>
                             </Col>
                         </Row>
+                        </div>
                     </CardBody>
                 </Card>
 
@@ -64,11 +69,16 @@ export default class MedicalRecordView extends Component {
 
                 <Card>
                     <CardBody>
+                    <div style={{
+            maxHeight: '200px',
+            overflowY: 'auto'
+          }}>
                         <Row>
                             <Col md="12">
                                 <AppointmentsTable id={this.props.match.params}/>
                             </Col>
                         </Row>
+                        </div>
                     </CardBody>
                 </Card>
             </div>

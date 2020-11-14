@@ -84,7 +84,12 @@ export default class GeneralViewNurse extends Component {
 
                 <Card>
                     <CardBody>
+                    <div style={{
+            maxHeight: '400px',
+            overflowY: 'auto'
+          }}>
                         <NurseTable sedeId={this.state.selectedSede} inputValue={this.state.inputValue} />
+                        </div>
                     </CardBody>
                 </Card>
             </div>
