@@ -40,6 +40,31 @@ class  ViewDonors extends Component {
         
         
       } 
+      //filtro Activos e Inactivos
+      sortByStatus(){
+        var status = document.getElementById('statusSelect').value;
+        var numStatus;
+        if (status === "Activos"){
+         numStatus=1;
+        }else if (status ==="Inactivos"){
+         numStatus=2;
+        }
+        if(numStatus==1){
+            axios.get("http://localhost:8000/api/donors/table/all")
+            .then(function (resp){
+              respuesta = resp.data;
+              document.getElementById("tablaD").innerHTML = respuesta;
+            } );
+        }else if(numStatus==2){
+            axios.get("http://localhost:8000/api/donors/tableI/all")
+            .then(function (resp){
+              respuesta = resp.data;
+              document.getElementById("tablaD").innerHTML = respuesta;
+            } );
+        }
+       
+         
+       }
       
       //Busqueda tipo de donante
       sortByTipo(){
@@ -118,7 +143,7 @@ class  ViewDonors extends Component {
                     <Col md="6">
                         <FormGroup>
                             <Label for="statusSelect">Estatus</Label>
-                            <Input type="select" name="select"id="statusSelect" >
+                            <Input type="select" name="select"id="statusSelect"  onChange={this.sortByStatus} >
                             <option valaue={1}>Activos</option>
                             <option valaue={2}>Inactivos</option>
                             </Input>
