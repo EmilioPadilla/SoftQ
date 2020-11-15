@@ -35,6 +35,7 @@ const ViewSpecificDonor = props =>{
 
     const {id}= props.match.params;
     ax(id);
+    localStorage.setItem("idD",id);
  
     return(
 

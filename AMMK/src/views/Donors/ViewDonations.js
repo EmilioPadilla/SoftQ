@@ -12,26 +12,28 @@ function setValorId(params) {
 class ViewDonations extends Component {
     
     crearTabla(){
+      //const id=localStorage.getItem("idD");
         var tabla='<thead> <tr> <th>FECHA DE DONACIÓN: </th> <th> TIPO DE DONACIÓN: </th> <th> MONTO: </th> <th> DESCRIPCIÓN:</th> <th> ACCIONES </th></tr> </thead> <tbody>';
         const num=1;
-        axios.get("http://localhost:8000/api/donations/table/all")
+        axios.get("http://localhost:8000/api/donations/table/all/"+localStorage.getItem("idD"))
           .then(function (resp){
             respuesta = respuesta.concat(resp.data);
             document.getElementById("tablaD").innerHTML = respuesta;
           } );
+          localStorage.clear();
       }    
     render() { 
 
       const login = localStorage.getItem("isLoggedIn");
       const idRol = localStorage.getItem("idRol");
       //Redirect in case of wrong role or no login
-      if (!login ) {
+     /* if (!login ) {
           window.location = "http://localhost:3000/login";
       }else if(idRol==2){
           window.location = "http://localhost:3000/general/NurseIndex";
       }else if (idRol==1){
           window.location = "http://localhost:3000/admin/Nomina/Nomina";
-      }
+      }*/
 
         this.crearTabla();
 
@@ -42,7 +44,7 @@ class ViewDonations extends Component {
               <Table hover id="tablaD">
               </Table>
             </Col>
-               
+            
             </div>
 
 

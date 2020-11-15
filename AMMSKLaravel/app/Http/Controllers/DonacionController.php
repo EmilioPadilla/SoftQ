@@ -57,12 +57,13 @@ class DonacionController extends Controller
 
     }
 
-    public function showTable(){
+    public function showTable($donante){
         $datos = DB::table('donacion')
                     ->join('tipo_donacion', 'donacion.idTipoDonacion', '=', 'tipo_donacion.id')
                     ->join('_donante', 'donacion.idDonante', '=', '_donante.id')
                     ->select( 'donacion.id','tipo_donacion.nombre', 'donacion.fechaDonacion','donacion.descripcion','donacion.monto')
-                    ->orderBy('id', 'DESC')
+                    ->where('donacion.idDonante',$donante)
+                    ->orderBy('donacion.id', 'desc')
                     ->get();
         $respuesta = '<thead> <tr> <th> FECHA DE DONACIÓN </th> <th> TIPO </th> <th> MONTO</th> <th> DESCRIPCION </th> <th> ACCIONES </th>  </tr> </thead> <tbody>';
         foreach ($datos as $res){

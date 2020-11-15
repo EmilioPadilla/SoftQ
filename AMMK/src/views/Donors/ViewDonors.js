@@ -8,17 +8,6 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 
 
-import ViewEmployeeTable from "components/Employees/ViewEmployeeTable.js";
-
-// reactstrap components
-
-
-import Swal from 'sweetalert2';
-import {Redirect} from 'react-router-dom';
-import { func } from "prop-types";
-
-//Importing Icon library
-
 var respuesta = "";
 function setValorId(params) {
     console.log('Hola');
@@ -100,26 +89,7 @@ class  ViewDonors extends Component {
             document.getElementById("tablaD").innerHTML = respuesta;
           } );
         }
-      //sort where id sea igual al id que le mando
-      /*sortStatus(){
-
-         status= document.getElementById("selectStatus").value;
-        
-        if(status==1){
-            axios.get("http://localhost:8000/api/donors/table/all")
-            .then(function (resp){
-              respuesta = respuesta.concat(resp.data);
-              document.getElementById("tablaD").innerHTML = respuesta;
-            } );
-        }else if(status==2){
-            axios.get("http://localhost:8000/api/donors/table/all/inactive")
-            .then(function (resp){
-              respuesta = respuesta.concat(resp.data);
-              document.getElementById("tablaD").innerHTML = respuesta;
-            } );
-        }
-      }
-      */
+      
       
       
       render() { 
