@@ -63,6 +63,18 @@ class  ViewDonors extends Component {
              document.getElementById("tablaD").innerHTML = respuesta;
            } );
        }
+       //busqueda por el input
+       searchDonor(){
+        var palabra = document.getElementById('buscar').value;
+        if(palabra == ""){
+          palabra = "allOfEm";
+        }
+        axios.get("http://localhost:8000/api/donors/table/buscar/"+palabra)
+          .then(function (resp){
+            respuesta = resp.data;
+            document.getElementById("tablaD").innerHTML = respuesta;
+          } );
+        }
       //sort where id sea igual al id que le mando
       /*sortStatus(){
 
@@ -127,9 +139,9 @@ class  ViewDonors extends Component {
                             <Label>Búsqueda por nombre:</Label>
                             <InputGroup>
                                 <InputGroupAddon addonType="prepend">
-                                <InputGroupText><FontAwesomeIcon icon={['fas', 'search']} /></InputGroupText>
+                                <InputGroupText id="buscarDonante"><FontAwesomeIcon icon={['fas', 'search']} /></InputGroupText>
                                 </InputGroupAddon>
-                                <Input />
+                                <Input placeholder="Maria Sandoval"  id="buscar" onInput={this.searchDonor} />
                             </InputGroup>
                         </FormGroup>
                     </Col>

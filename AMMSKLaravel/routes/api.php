@@ -38,7 +38,7 @@ Route::resource('donaciones', 'App\Http\Controllers\DonacionController');
 Route::resource('contactoDonante', 'App\Http\Controllers\ContactoDonanteController');
 Route::get('donors/table/tipoDonante/{tipo}', 'App\Http\Controllers\DonantesController@showTipoDonante');
 //Route::get('account/find/{username}', 'App\Http\Controllers\AccountController@showId');
-//Route::get('account/table/search/{keyWord}', 'App\Http\Controllers\AccountController@searchBar');
+Route::get('donors/table/buscar/{palabra}', 'App\Http\Controllers\DonantesController@searchDonor');
 
 
 // Rutas empleados
