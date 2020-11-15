@@ -16,46 +16,28 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 library.add(fas)
 
 // REGEX FOR VALIDATIONS
-const validAlphanumericInput = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ \0-9]+[\w]+$/);
-const validTextInput = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ ]+[\w]+$/);
+const validAlphanumericInput = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ \0-9]+$/);
+const validTextInput = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ ]+$/);
 const validAge = RegExp(/^[0-9]{1,2}$/);
 const validDate = RegExp(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/);
 
-//FORM VALIDATION
-const validateForm = (errors) => {
-  let valid = true;
-  Object.values(errors).forEach(
-    (val) => val.length > 0 && (valid = false)
-  );
-  return valid;
-}
-
-const countErrors = (errors) => {
-  let count = 0;
-  Object.values(errors).forEach(
-    (val) => val.length > 0 && (count = count+1)
-  );
-  return count;
+function parseMode(modes){
+  return modes.map((mode) => {
+    return { label: mode.nombre, value: mode.id };
+  })
 }
 
 export default class RegisterTreatment extends Component {
 
-    crearSelect(){
-        var sel='<option value="NA" disabled selected>Selecciona una opcion</option>';
-        axios.get(API_BASE_URL + "modes").then(function(resp){
-        console.log(resp.data);
-        resp.data.forEach(element =>{
-          sel = sel.concat('<option value='+ element.id + '>' + element.nombre +'</option>');
-        });
-        document.getElementById("selectMode").innerHTML=sel; 
-      });
-    }
+  getModes() {
+    axios.get( API_BASE_URL + 'modes')
+    .then(res => this.setState({ modes: parseMode(res.data) }));
+  }
 
     constructor(props){
         super(props);
         this.state = {
-            formValid: false,
-            errorCount: null,
+            modes: [],
             nombreMed: null,
             funcionMed: null,
             dosis: null,
@@ -96,6 +78,8 @@ export default class RegisterTreatment extends Component {
             errors.funcionMed =
             value.length > 100
               ? "El campo permite máximo 100 caracteres"
+              : "" || value.length < 3
+              ? "El campo debe contener al menos 3 caracteres"
               : "" || validTextInput.test(value)
               ? ""
               : "El campo solo acepta letras.";
@@ -110,7 +94,7 @@ export default class RegisterTreatment extends Component {
               : "" || 
             validAge.test(value)
               ? ""
-              : "El campo solo acepta numeros.";
+              : "El campo solo acepta números.";
             break;
             case 'lapso': 
             errors.lapso =
@@ -130,16 +114,16 @@ export default class RegisterTreatment extends Component {
               ? "La fecha de inicio del tratamiento es requerida"
               : "" ||
             validDate.test(value)
-              ? "La fecha no es correcta"
+              ? "La fecha ingresada es inválida"
               : "";
             break;
             case 'fechaTermino': 
             errors.fechaTermino =
             value.length < 1
-              ? "La fecha de término del tratamiento es requerida"
+              ? "La fecha de termino del tratamiento es requerida"
               : "" ||
             validDate.test(value)
-              ? "La fecha no es correcta"
+              ? "La fecha ingresada es inválida"
               : "";
             break;
             default:
@@ -160,10 +144,10 @@ export default class RegisterTreatment extends Component {
         let lapso = document.getElementById("lapso").value;
         let fechaInicio = document.getElementById("fechaInicio").value;
         let fechaTermino = document.getElementById("fechaTermino").value;
-        let mode_id = document.getElementById("selectMode").value;
+        let mode_id = document.getElementById("mode").value;
         let beneficiary_id = document.getElementById("beneficiary_id").value;
 
-        if(nombreMed != ''){
+        if (nombreMed !== '' && dosis !== '' && lapso !== '' && fechaInicio !== '' && fechaTermino !== '' && mode_id !== '') {
         const tratamiento = {
             nombreMed: nombreMed,
             funcionMed: funcionMed,
@@ -193,6 +177,10 @@ export default class RegisterTreatment extends Component {
         
     }
 
+    componentDidMount() {
+      this.getModes();
+    }
+
     render() {
       const login = localStorage.getItem("isLoggedIn");
       const idRol = localStorage.getItem("idRol");
@@ -204,11 +192,11 @@ export default class RegisterTreatment extends Component {
       }else if (idRol==1){
           window.location = "http://localhost:3000/admin/Nomina/Nomina";
       }
-        const {errors, formValid} = this.state;
-        this.crearSelect();
-
+        const {errors} = this.state;
+        
         let urlElements = window.location.href.split('/');
-      console.log(urlElements[6]);
+        console.log(urlElements[6]);
+
         return (
             <div className="content">
                 <h1 className="title">REGISTRAR TRATAMIENTO</h1>
@@ -252,9 +240,12 @@ export default class RegisterTreatment extends Component {
                                         errors.dosis.length == 0 && <span className='error'>{errors.dosis}</span>}
                                     </FormGroup>
                                 </div>
-                                    <FormGroup> 
-                                    <Form.Control as="select" id="selectMode" required></Form.Control>
-                                    </FormGroup>
+                                    <FormGroup>
+                            <Input type="select" name="mode" id="mode" value={this.state.value} onChange={this.onChange}>
+                            <option defaultValue="0">Selecciona una opción...</option>
+                            {this.state.modes.map((mode) => <option key={mode.value} value={mode.value}>{mode.label}</option>)}
+                            </Input>
+                          </FormGroup>
 
                             <div className="lapso">
                             <FormGroup>

@@ -29,7 +29,7 @@ class  ViewDonors extends Component {
    
    
     crearTabla(){
-        var tabla='<thead> <tr> <th> Nombre </th> <th> Username </th> <th> Rol </th> <th> Acciones </th> </tr> </thead> <tbody>';
+        var tabla='<thead> <tr> <th> Nombre </th> <th> Tipo </th> <th> Recurrencia </th> <th> Acciones </th> </tr> </thead> <tbody> ';
         const num=1;
         axios.get("http://localhost:8000/api/donors/table/all")
           .then(function (resp){
@@ -44,13 +44,13 @@ class  ViewDonors extends Component {
         const login = localStorage.getItem("isLoggedIn");
         const idRol = localStorage.getItem("idRol");
         //Redirect in case of wrong role or no login
-        if (!login ) {
+        /*if (!login ) {
             window.location = "http://localhost:3000/login";
         }else if(idRol==2){
             window.location = "http://localhost:3000/general/NurseIndex";
         }else if (idRol==1){
             window.location = "http://localhost:3000/admin/Nomina/Nomina";
-        }
+        }*/
           this.crearTabla();
         return ( 
 
@@ -107,6 +107,7 @@ class  ViewDonors extends Component {
                 </Row>
                 <Col md="12">
               <Table hover id="tablaD">
+              
               </Table>
             </Col>
                

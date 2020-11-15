@@ -131,17 +131,30 @@ class DonacionController extends Controller
     }
 
     public function financesTable($fecha){
+        $total=0;
         $datos = DB::table('donacion')
                     ->join('_donante', '_donante.id','=' ,'donacion.idDonante')
                     ->select('donacion.fechaDonacion', 'donacion.monto', 'donacion.folio', 'donacion.factura','_donante.nombreCompleto1')
                     ->where('donacion.fechaDonacion', 'like', '%'.$fecha.'%' )
                     ->get();
-        return $datos;
+        $respuesta = '<table class="table" id="'.$fecha.'"><thead> <tr> <th> Nombre </th> <th> Fecha </th> <th> Monto </th> <th> Folio </th> <th> Factura </th><th> Total </th> </tr> </thead> <tbody>';
+        foreach ($datos as $res){
+            $respuesta .= '<tr> <td >'. $res->nombreCompleto1. '</td>';
+            $respuesta .= '<td>'.$res->fechaDonacion.'</td>';
+            $respuesta .= '<td>'.$res->monto.'</td>';
+            $respuesta .= '<td>'.$res->factura. '</td>';
+            $respuesta .= '<td>'.$res->folio.'</td> </tr> ';
+            $total = $total + $res->monto;
+        }
+        $respuesta .= '<tr><td></td><td></td><td></td><td></td><td></td><td>'.$total.'</td></tr>';
+        $respuesta .= '</tbody> </table>';
+        return $respuesta;
     }
 
     public function getDateDonaciones(){
         $datos = DB::table('donacion')
                     ->select('donacion.fechaDonacion')
+                    ->orderBy('donacion.fechaDonacion', 'desc')
                     ->get();
         return $datos;
     }

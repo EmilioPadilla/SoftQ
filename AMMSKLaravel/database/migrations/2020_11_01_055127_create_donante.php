@@ -15,6 +15,7 @@ class CreateDonante extends Migration
     {
         Schema::create('_donante', function (Blueprint $table) {
             $table->id()->from(1);
+            $table->foreignId('status_id')->default(1)->constrained('status');
             $table->foreignId('idRecurrencia')->references("id")->on("recurrencia")->onDelete("cascade")->onUpdate("cascade");
             $table->foreignId('idTipoDonante')->references("id")->on("tipo_donante")->onDelete("cascade")->onUpdate("cascade");
             $table->string('nombreCompleto1', 50)->nullable();
@@ -43,6 +44,12 @@ class CreateDonante extends Migration
             $table->string('estado', 50)->nullable();;  
             $table->string('pais', 50)->nullable();;  
             $table->string('correo', 50)->nullable();;
+
+            $table->date('fechaEgreso')->nullable();
+            $table->string('motivoEgreso', 100)->nullable();
+
+            $table->date('fechaIngreso')->nullable();
+            $table->string('motivoIngreso', 100)->nullable();
 
         });
     }

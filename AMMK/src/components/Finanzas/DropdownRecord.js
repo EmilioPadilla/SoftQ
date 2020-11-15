@@ -1,55 +1,44 @@
 import React, { useState } from 'react';
-import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { API_BASE_URL } from '../../index';
+import { Button } from 'reactstrap';
+//API calls
+import axios from 'axios';
 
 const DropdownRecord = (props) => {
-  const [dropdownOpen, setOpen] = useState(false);
     var idT = props.id;
-  const toggle = () => setOpen(!dropdownOpen);
+    var idTable = "inc"+props.id;
+    var idDiv = "inc"+idT + idT;
+    getTable(idT,idTable);
   return (
-    <ButtonDropdown isOpen={dropdownOpen} toggle={toggle} >
-      <DropdownToggle caret size="lg">
+    <div >
+      <Button onClick={() => handleClick(idDiv)}>
         {idT}
-      </DropdownToggle>
-      <DropdownMenu style={{backgroundColor: "red"}}>
-        <DropdownItem header>
-        <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>
-        </DropdownItem>
-      </DropdownMenu>
-    </ButtonDropdown>
+      </Button>
+      <div id={idDiv} style={{display: "none"}} >
+      <div id={idTable} class="overflow-auto" style={ { height: 150 } } >
+
+      </div>
+      </div>
+    </div>
   );
 }
 
-function getTable(){
+function getTable(id,idTable){
+  axios.get(API_BASE_URL + 'donaciones/table/date/'+id)
+      .then(res => {
+        if(document.getElementById(idTable) != null){
+          document.getElementById(idTable).innerHTML=res.data;
+        }
+      })
+}
 
+function handleClick(id){
+  var divTable = document.getElementById(id);
+  if (divTable.style.display === "none") {
+    divTable.style.display = "block";
+  } else {
+    divTable.style.display = "none";
+  }
 }
 
 export default DropdownRecord;

@@ -81,6 +81,7 @@ class DonantesController extends Controller
                     ->join('tipo_donante', '_donante.idTipoDonante', '=', 'tipo_donante.id')
                     ->join('recurrencia', '_donante.idRecurrencia', '=', 'recurrencia.id')
                     ->select('_donante.id', 'tipo_donante.nombre', '_donante.nombreCompleto1','recurrencia.nombreR')
+                    ->where('_donante.status_id','2')
                     ->get();
         $respuesta = '<thead> <tr> <th> Nombre </th> <th> Tipo </th> <th> Recurrencia </th> <th> Acciones </th> </tr> </thead> <tbody>';
         foreach ($datos as $res){
@@ -90,8 +91,30 @@ class DonantesController extends Controller
             $respuesta .= '<td> <div class="row"> <div class="col"> <a href="/admin/ViewSpecificDonor/'.$res->id.'"> <button id="verDetalle" type="button" class="btn btn-info btn-sm" > <i class="fa fa-eye"> </i></button> ';
            $respuesta .= '</a> </div> <div class="col" > <a href="/admin/donacion/'.$res->id.'"> <button id="registrarDonacion" type="button" class="btn btn-primary  btn-sm"> <i class="fa fa-plus" aria-hidden="true"></i></button> ';
            $respuesta .= '</a> </div> <div class="col" > <a href="/admin/contactoDonante/'.$res->id.'"> <button id="registrarContactoDonate" type="button"  class="btn btn-primary btn-sm"> <i class="fa fa-address-book" aria-hidden="true"></i> </button> ';
-           $respuesta .= '</a> </div> <div class="col" > <a href="/admin/contactoDonante/'.$res->id.'"> <button id="registrarContactoDonate" type="button"  class="btn btn-success btn-sm"> <i class="fa fa-repeat" aria-hidden="true"></i> </button>';
-           $respuesta .= '</a> </div> <div class="col" > <a href="/admin/contactoDonante/'.$res->id.'"> <button id="registrarContactoDonate" type="button"  class="btn btn-danger btn-sm"> <i class="fa fa-trash-alt"> </i> </button> </a> </div> </div> </td> </tr> ';
+           $respuesta .= '</a> </div> <div class="col" > <a href="/admin/egresarDonante/'.$res->id.'"> <button id="registrarContactoDonate" type="button"  class="btn btn-danger btn-sm"> <i class="fa fa-trash-alt"> </i> </button> </a> </div> </div> </td> </tr> ';
+
+
+        }
+        $respuesta .= '</tbody>';
+        return $respuesta;
+    }
+    public function showTableInactive(){
+        $datos = DB::table('_donante')
+                    ->join('tipo_donante', '_donante.idTipoDonante', '=', 'tipo_donante.id')
+                    ->join('status', '_donante.status_id', '=', 'status.id')
+                    ->join('recurrencia', '_donante.idRecurrencia', '=', 'recurrencia.id')
+                    ->select('_donante.id','status.id', 'tipo_donante.nombre', '_donante.nombreCompleto1','recurrencia.nombreR')
+                    ->where('_donante.status_id','2')
+                    ->get();
+        $respuesta = '<thead> <tr> <th> Nombre </th> <th> Tipo </th> <th> Recurrencia </th> <th> Acciones </th> </tr> </thead> <tbody>';
+        foreach ($datos as $res){
+            $respuesta .= '<tr> <td id="jkl">'. $res->nombreCompleto1. '</td>';
+            $respuesta .= '<td>'.$res->nombre.'</td>';
+            $respuesta .= '<td>'.$res->nombreR.'</td>';
+            $respuesta .= '<td> <div class="row"> <div class="col"> <a href="/admin/ViewSpecificDonor/'.$res->id.'"> <button id="verDetalle" type="button" class="btn btn-info btn-sm" > <i class="fa fa-eye"> </i></button> ';
+           $respuesta .= '</a> </div> <div class="col" > <a href="/admin/donacion/'.$res->id.'"> <button id="registrarDonacion" type="button" class="btn btn-primary  btn-sm"> <i class="fa fa-plus" aria-hidden="true"></i></button> ';
+           $respuesta .= '</a> </div> <div class="col" > <a href="/admin/contactoDonante/'.$res->id.'"> <button id="registrarContactoDonate" type="button"  class="btn btn-primary btn-sm"> <i class="fa fa-address-book" aria-hidden="true"></i> </button> ';
+           $respuesta .= '</a> </div> <div class="col" > <a href="/admin/re-ingresarDonante/'.$res->id.'"> <button id="registrarContactoDonate" type="button"  class="btn btn-success btn-sm"> <i class="fa fa-repeat" aria-hidden="true"></i> </button> </a> </div> </div> </td> </tr> ';
 
         }
         $respuesta .= '</tbody>';
@@ -175,7 +198,12 @@ class DonantesController extends Controller
         $donante->pais = $request -> pais;
         $donante->correo = $request -> correo;
 
+ $donante->status_id = $request -> status_id;
+        $donante->fechaEgreso = $request -> fechaEgreso;
+        $donante->motivoEgreso = $request -> motivoEgreso;
 
+        $donante->fechaIngreso = $request -> fechaIngreso;
+        $donante->motivoIngreso = $request -> motivoIngreso;
         $donante->update();
     }
     public function updateFacturacion(Request $request, $id)
@@ -198,6 +226,8 @@ class DonantesController extends Controller
         
         $donante->update();
     }
+
+   
 
     /**
      * Remove the specified resource from storage.
