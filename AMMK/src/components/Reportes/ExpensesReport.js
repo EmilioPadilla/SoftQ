@@ -200,7 +200,9 @@ class ExpensesResport extends Component {
     getExpenses() {
         const params = {
           startDate: this.props.startDate,
-          endDate: this.props.endDate
+          endDate: this.props.endDate,
+          categoryId: this.props.categoryId,
+          headquarterId: this.props.headquarterId
         }
         axios.post(API_BASE_URL + 'expenses/group/month', params)
         .then((res) => {
@@ -219,7 +221,9 @@ class ExpensesResport extends Component {
     getCategoryExpenses() {
       const params = {
         startDate: this.props.startDate,
-        endDate: this.props.endDate
+        endDate: this.props.endDate,
+        categoryId: this.props.categoryId,
+        headquarterId: this.props.headquarterId
       }
       axios.post(API_BASE_URL + 'expenses/group/category', params)
       .then((res) => {
@@ -257,7 +261,9 @@ class ExpensesResport extends Component {
 
     componentDidUpdate(prevProps) {
         if ((this.props.startDate != prevProps.startDate) ||
-            (this.props.endDate != prevProps.endDate)) {
+            (this.props.endDate != prevProps.endDate) ||
+            (this.props.categoryId != prevProps.categoryId) ||
+            (this.props.headquarterId != prevProps.headquarterId)) {
             this.getExpenses();
             this.getCategoryExpenses();
         }

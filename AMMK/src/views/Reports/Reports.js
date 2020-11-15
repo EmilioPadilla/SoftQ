@@ -37,8 +37,10 @@ class Reports extends Component {
         super(props);
         this.state = {
             selectedType : "egresos",
-            selectedCategory: null,
+            selectedCategory: 0,
+            selectedheadquarter: 0,
             categories: [],
+            headquarters: [],
             startDate: year + "-01-01",
             endDate: year + "-12-31",
             expenses: [],
@@ -47,9 +49,10 @@ class Reports extends Component {
         this.onTypeChange = this.onTypeChange.bind(this);
         this.onCalendarChange = this.onCalendarChange.bind(this);
         this.onCategoryChange = this.onCategoryChange.bind(this);
+        this.onHeadquarterChange = this.onHeadquarterChange.bind(this);
         this.printReport = this.printReport.bind(this);
-        //this.clearSelect = this.clearSelect.bind(this);
-        this.catRef= React.createRef();
+        this.getCategories = this.getCategories.bind(this);
+        this.getHeadquarters = this.getHeadquarters.bind(this);
         
     }
 
@@ -57,25 +60,33 @@ class Reports extends Component {
         window.print()
     }
 
-    // getCategories() {
-    //     axios.get(API_BASE_URL + "categories").then(function(resp){
-    //         console.log(resp.data);
-    //         resp.data.forEach(element =>{
-    //         sel = sel.concat('<option value='+ element.id + '>' + element.nombre +'</option>');
-    //         });
-    //         this.divRef.innerHTML=sel; 
-    //     });
-    // }
+    getCategories() {
+        axios.get(API_BASE_URL + "categories").then((resp) => {
+            console.log(resp.data);
+            this.setState({categories: resp.data});
+        });
+    }
+
+    getHeadquarters() {
+        axios.get(API_BASE_URL + "headquarters").then((resp) => {
+            console.log(resp.data);
+            this.setState({headquarters: resp.data});
+        });
+    }
     
     onCategoryChange(e) {
         e.preventDefault();
         this.setState({ selectedCategory: e.target.value });
     }
 
+    onHeadquarterChange(e) {
+        e.preventDefault();
+        this.setState({ selectedHeadquarter: e.target.value });
+    }
+
     onTypeChange(e) {
         e.preventDefault();
         this.setState({ selectedType: e.target.value });
-        //this.clearSelect();
     }
 
     onCalendarChange(e) {
@@ -90,7 +101,8 @@ class Reports extends Component {
     }
 
     componentDidMount() {
-        //this.clearSelect();
+        this.getCategories();
+        this.getHeadquarters();
     }
 
     render() {
@@ -115,23 +127,44 @@ class Reports extends Component {
                     </Input>
                 </FormGroup>
                 <h1 className="title">REPORTES</h1>
-                <Row className="mb-3 d-flex align-items-center justify-content-center d-print-none">
+                <Row className="mb-3 d-flex align-items-center justify-content-center">
                     
-                    <Col lg="2" className="d-flex align-items-center  justify-content-center">
+                    <Col lg="2" className="d-flex align-items-center justify-content-center mr-4">
                         <FormGroup className="m-0">
                             <Input type="date" id="startDate" value={this.state.startDate}
                                 name="startDate" onChange={this.onCalendarChange}></Input>
                         </FormGroup>
                     </Col>
-                    <Col lg="1" className="d-flex align-items-center justify-content-center">
-                        <p className="m-0 text-center">-</p>
-                    </Col>
-                    <Col lg="2" className="d-flex align-items-center  justify-content-center">
+                    <Col lg="2" className="d-flex align-items-center justify-content-center mr-5">
                         <FormGroup className="m-0">
                             <Input type="date" id="endDate" value={this.state.endDate}
                                 name="endDate" onChange={this.onCalendarChange}></Input>
                         </FormGroup>
                     </Col>
+                    {this.state.selectedType == "egresos" &&
+                    <Col lg="2">
+                        <FormGroup className="m-0">
+                            <Input type="select" id="selectType" defaultValue={0} onChange={this.onCategoryChange}>
+                                <option value={0} key={0}>Categoría</option>
+                                {this.state.categories.map((el) => {
+                                    return <option value={el.id} key={el.id}>{el.nombre}</option>;
+                                })}
+                            </Input>
+                        </FormGroup>
+                    </Col>
+                    }
+                    {this.state.selectedType == "egresos" &&
+                    <Col lg="2">
+                        <FormGroup className="m-0">
+                            <Input type="select" id="selectType" defaultValue={0} onChange={this.onHeadquarterChange}>
+                                <option value={0} key={0}>Sede</option>
+                                {this.state.headquarters.map((el) => {
+                                    return <option value={el.id} key={el.id}>{el.nombre}</option>;
+                                })}
+                            </Input>
+                        </FormGroup>
+                    </Col>
+                    }
                 </Row>
                 <Button className="mb-3" onClick={this.printReport}>Imprimir</Button>
                 {this.state.selectedType == "ingresos" &&
@@ -145,6 +178,8 @@ class Reports extends Component {
                 {this.state.selectedType == "egresos" &&
                 <div id="section-to-print">
                     <ExpensesReport
+                        categoryId={this.state.selectedCategory}
+                        headquarterId={this.state.selectedHeadquarter}
                         startDate={this.state.startDate}
                         endDate={this.state.endDate}
                     />

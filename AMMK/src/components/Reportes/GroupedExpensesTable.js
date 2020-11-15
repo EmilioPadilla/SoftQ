@@ -40,7 +40,7 @@ class GroupedIncomesTable extends React.Component {
         return (
             <Row>
             <Col md="12">
-              <Table class="print-black" data-show-print="true">
+              <Table>
                   <thead>
                       <tr>
                         <th className="text-center">Año</th>
