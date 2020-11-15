@@ -20,7 +20,7 @@ class ViewDonations extends Component {
             respuesta = respuesta.concat(resp.data);
             document.getElementById("tablaD").innerHTML = respuesta;
           } );
-          localStorage.clear();
+          //localStorage.clear();
       }    
     render() { 
 

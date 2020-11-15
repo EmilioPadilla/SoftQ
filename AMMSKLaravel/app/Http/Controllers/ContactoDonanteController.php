@@ -56,9 +56,11 @@ class ContactoDonanteController extends Controller
 
     }
 
-    public function showTable(){
+    public function showTable($donante){
         $datos = DB::table('contacto_donante')
+                    ->join('_donante', 'contacto_donante.idDonante', '=', '_donante.id')
                     ->select('contacto_donante.id','contacto_donante.nombreCompleto','contacto_donante.fechaCumpleaño','contacto_donante.cargo','contacto_donante.correo1','contacto_donante.telefono1','contacto_donante.celular1')
+                    ->where('contacto_donante.idDonante',$donante)
                     ->get();
         $respuesta = '<thead> <tr> <th> Nombre </th> <th> Cargo </th> <th> Fecha de Cumpleaños </th> <th> Correo </th> <th> Telefono </th> <th> Celular </th> <th>ACCIONES </th></tr> </thead> <tbody>';
         foreach ($datos as $res){

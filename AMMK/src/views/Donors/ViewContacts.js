@@ -15,11 +15,13 @@ class ViewContacts extends Component {
     crearTabla(){
         var tabla='<thead> <tr> <th>NOMBRE: </th> <th> CARGO: </th> <th> CUMPLEAÑOS: </th> <th> CORREO:</th> <th> TELEFONO:</th> <th> CELULAR:</th> <th> ACCIONES </th></tr> </thead> <tbody>';
         const num=1;
-        axios.get("http://localhost:8000/api/donors/contact/table/all")
+        axios.get("http://localhost:8000/api/donors/contact/table/all/"+localStorage.getItem("idD"))
           .then(function (resp){
             respuesta = respuesta.concat(resp.data);
             document.getElementById("tablaC").innerHTML = respuesta;
           } );
+         // localStorage.clear();
+
       }    
     
     

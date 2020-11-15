@@ -31,7 +31,7 @@ Route::get('donors/table/all', 'App\Http\Controllers\DonantesController@showTabl
 Route::get('donors/tableI/all', 'App\Http\Controllers\DonantesController@showTableI');
 
 Route::get('donations/table/all/{donante}', 'App\Http\Controllers\DonacionController@showTable');
-Route::get('donors/contact/table/all', 'App\Http\Controllers\ContactoDonanteController@showTable');
+Route::get('donors/contact/table/all/{donante}', 'App\Http\Controllers\ContactoDonanteController@showTable');
 Route::get('donations/showAll/{id}', 'App\Http\Controllers\DonantesController@showDonaciones');
 Route::get('donorContacts/showAll/{id}', 'App\Http\Controllers\DonantesController@showContactos');
 Route::get('donations/delete/{id}', 'App\Http\Controllers\DonacionController@deleteD');
