@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import ReactToPrint from "react-to-print";
+
+import axios from 'axios';
+import { API_BASE_URL } from 'index';
 
 // react plugin used to create charts
 import { Line, Bar } from "react-chartjs-2";
@@ -22,6 +24,7 @@ import {
     Row,
     Col
   } from "reactstrap";
+  import Form from "react-bootstrap/Form";
 import { createNoSubstitutionTemplateLiteral } from 'typescript';
 
 library.add(fas)
@@ -33,13 +36,52 @@ class Reports extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedType : "ingresos",
+            selectedType : "egresos",
+            selectedCategory: 0,
+            selectedheadquarter: 0,
+            categories: [],
+            headquarters: [],
             startDate: year + "-01-01",
             endDate: year + "-12-31",
-            expenses: []
+            expenses: [],
+            
         }
         this.onTypeChange = this.onTypeChange.bind(this);
         this.onCalendarChange = this.onCalendarChange.bind(this);
+        this.onCategoryChange = this.onCategoryChange.bind(this);
+        this.onHeadquarterChange = this.onHeadquarterChange.bind(this);
+        this.printReport = this.printReport.bind(this);
+        this.getCategories = this.getCategories.bind(this);
+        this.getHeadquarters = this.getHeadquarters.bind(this);
+        
+    }
+
+    printReport() {
+        window.print()
+    }
+
+    getCategories() {
+        axios.get(API_BASE_URL + "categories").then((resp) => {
+            console.log(resp.data);
+            this.setState({categories: resp.data});
+        });
+    }
+
+    getHeadquarters() {
+        axios.get(API_BASE_URL + "headquarters").then((resp) => {
+            console.log(resp.data);
+            this.setState({headquarters: resp.data});
+        });
+    }
+    
+    onCategoryChange(e) {
+        e.preventDefault();
+        this.setState({ selectedCategory: e.target.value });
+    }
+
+    onHeadquarterChange(e) {
+        e.preventDefault();
+        this.setState({ selectedHeadquarter: e.target.value });
     }
 
     onTypeChange(e) {
@@ -58,6 +100,11 @@ class Reports extends Component {
         console.log(this.state);
     }
 
+    componentDidMount() {
+        this.getCategories();
+        this.getHeadquarters();
+    }
+
     render() {
 
         const login = localStorage.getItem("isLoggedIn");
@@ -73,49 +120,70 @@ class Reports extends Component {
 
         return (
             <div className="content">
-                <FormGroup className="float-right">
+                <FormGroup className="float-right d-print-none">
                     <Input type="select" id="selectType" onChange={this.onTypeChange}>
-                        <option value="ingresos">Ingresos</option>
                         <option value="egresos">Egresos</option>
+                        <option value="ingresos">Ingresos</option>
                     </Input>
                 </FormGroup>
                 <h1 className="title">REPORTES</h1>
-                <Row className="mb-3 d-flex justify-content-center">
+                <Row className="mb-3 d-flex align-items-center justify-content-center">
                     
-                    <Col lg="2" className="d-flex align-items-center  justify-content-center">
+                    <Col lg="2" className="d-flex align-items-center justify-content-center mr-4">
                         <FormGroup className="m-0">
                             <Input type="date" id="startDate" value={this.state.startDate}
                                 name="startDate" onChange={this.onCalendarChange}></Input>
                         </FormGroup>
                     </Col>
-                    <Col lg="1" className="d-flex align-items-center justify-content-center">
-                        <p className="m-0 text-center">-</p>
-                    </Col>
-                    <Col lg="2" className="d-flex align-items-center  justify-content-center">
+                    <Col lg="2" className="d-flex align-items-center justify-content-center mr-5">
                         <FormGroup className="m-0">
                             <Input type="date" id="endDate" value={this.state.endDate}
                                 name="endDate" onChange={this.onCalendarChange}></Input>
                         </FormGroup>
                     </Col>
+                    {this.state.selectedType == "egresos" &&
+                    <Col lg="2">
+                        <FormGroup className="m-0">
+                            <Input type="select" id="selectType" defaultValue={0} onChange={this.onCategoryChange}>
+                                <option value={0} key={0}>Categoría</option>
+                                {this.state.categories.map((el) => {
+                                    return <option value={el.id} key={el.id}>{el.nombre}</option>;
+                                })}
+                            </Input>
+                        </FormGroup>
+                    </Col>
+                    }
+                    {this.state.selectedType == "egresos" &&
+                    <Col lg="2">
+                        <FormGroup className="m-0">
+                            <Input type="select" id="selectType" defaultValue={0} onChange={this.onHeadquarterChange}>
+                                <option value={0} key={0}>Sede</option>
+                                {this.state.headquarters.map((el) => {
+                                    return <option value={el.id} key={el.id}>{el.nombre}</option>;
+                                })}
+                            </Input>
+                        </FormGroup>
+                    </Col>
+                    }
                 </Row>
-                <ReactToPrint
-                        trigger={() => <Button className="mb-3" href="#">Imprimir</Button>}
-                        content={() => this.componentRef}
+                <Button className="mb-3" onClick={this.printReport}>Imprimir</Button>
+                {this.state.selectedType == "ingresos" &&
+                <div id="section-to-print">
+                    <IncomesReport
+                        startDate={this.state.startDate}
+                        endDate={this.state.endDate}
                     />
-                {this.state.selectedType == "ingresos" && 
-                <IncomesReport
-                    ref={el => (this.componentRef = el)}
-                    startDate={this.state.startDate}
-                    endDate={this.state.endDate}
-                />
+                </div>
                 }
-                {this.state.selectedType == "egresos" && 
-                <ExpensesReport
-                    ref={el => (this.componentRef = el)}
-                    startDate={this.state.startDate}
-                    endDate={this.state.endDate}
-                />
-                
+                {this.state.selectedType == "egresos" &&
+                <div id="section-to-print">
+                    <ExpensesReport
+                        categoryId={this.state.selectedCategory}
+                        headquarterId={this.state.selectedHeadquarter}
+                        startDate={this.state.startDate}
+                        endDate={this.state.endDate}
+                    />
+                </div>
                 }
             </div>
         )

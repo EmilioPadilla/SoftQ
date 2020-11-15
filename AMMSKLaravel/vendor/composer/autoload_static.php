@@ -4,12 +4,7 @@
 
 namespace Composer\Autoload;
 
-<<<<<<< HEAD
-
-class ComposerStaticInit8d1700ce5b218bdf294eb640a6734048
-=======
-class ComposerStaticInit3169231e59a507f7c48437ef65ce590c
->>>>>>> Angie/features
+class ComposerStaticInite215d6c11ade66e0121ba34db49354b1
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -670,6 +665,7 @@ class ComposerStaticInit3169231e59a507f7c48437ef65ce590c
         'Carbon\\Traits\\Units' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Traits/Units.php',
         'Carbon\\Traits\\Week' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Traits/Week.php',
         'Carbon\\Translator' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Translator.php',
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Cron\\AbstractField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/AbstractField.php',
         'Cron\\CronExpression' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/CronExpression.php',
         'Cron\\DayOfMonthField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/DayOfMonthField.php',
@@ -1839,10 +1835,7 @@ class ComposerStaticInit3169231e59a507f7c48437ef65ce590c
         'Illuminate\\Contracts\\Queue\\Queue' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Contracts/Queue/Queue.php',
         'Illuminate\\Contracts\\Queue\\QueueableCollection' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Contracts/Queue/QueueableCollection.php',
         'Illuminate\\Contracts\\Queue\\QueueableEntity' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Contracts/Queue/QueueableEntity.php',
-<<<<<<< HEAD
-
-=======
->>>>>>> Angie/features
+        'Illuminate\\Contracts\\Queue\\ShouldBeUnique' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Contracts/Queue/ShouldBeUnique.php',
         'Illuminate\\Contracts\\Queue\\ShouldQueue' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Contracts/Queue/ShouldQueue.php',
         'Illuminate\\Contracts\\Redis\\Connection' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Contracts/Redis/Connection.php',
         'Illuminate\\Contracts\\Redis\\Connector' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Contracts/Redis/Connector.php',
@@ -4446,7 +4439,6 @@ class ComposerStaticInit3169231e59a507f7c48437ef65ce590c
         'Symfony\\Component\\EventDispatcher\\Debug\\TraceableEventDispatcher' => __DIR__ . '/..' . '/symfony/event-dispatcher/Debug/TraceableEventDispatcher.php',
         'Symfony\\Component\\EventDispatcher\\Debug\\WrappedListener' => __DIR__ . '/..' . '/symfony/event-dispatcher/Debug/WrappedListener.php',
         'Symfony\\Component\\EventDispatcher\\DependencyInjection\\AddEventAliasesPass' => __DIR__ . '/..' . '/symfony/event-dispatcher/DependencyInjection/AddEventAliasesPass.php',
-        'Symfony\\Component\\EventDispatcher\\DependencyInjection\\ExtractingEventDispatcher' => __DIR__ . '/..' . '/symfony/event-dispatcher/DependencyInjection/RegisterListenersPass.php',
         'Symfony\\Component\\EventDispatcher\\DependencyInjection\\RegisterListenersPass' => __DIR__ . '/..' . '/symfony/event-dispatcher/DependencyInjection/RegisterListenersPass.php',
         'Symfony\\Component\\EventDispatcher\\EventDispatcher' => __DIR__ . '/..' . '/symfony/event-dispatcher/EventDispatcher.php',
         'Symfony\\Component\\EventDispatcher\\EventDispatcherInterface' => __DIR__ . '/..' . '/symfony/event-dispatcher/EventDispatcherInterface.php',
@@ -4808,7 +4800,6 @@ class ComposerStaticInit3169231e59a507f7c48437ef65ce590c
         'Symfony\\Component\\Routing\\Loader\\GlobFileLoader' => __DIR__ . '/..' . '/symfony/routing/Loader/GlobFileLoader.php',
         'Symfony\\Component\\Routing\\Loader\\ObjectLoader' => __DIR__ . '/..' . '/symfony/routing/Loader/ObjectLoader.php',
         'Symfony\\Component\\Routing\\Loader\\PhpFileLoader' => __DIR__ . '/..' . '/symfony/routing/Loader/PhpFileLoader.php',
-        'Symfony\\Component\\Routing\\Loader\\ProtectedPhpFileLoader' => __DIR__ . '/..' . '/symfony/routing/Loader/PhpFileLoader.php',
         'Symfony\\Component\\Routing\\Loader\\XmlFileLoader' => __DIR__ . '/..' . '/symfony/routing/Loader/XmlFileLoader.php',
         'Symfony\\Component\\Routing\\Loader\\YamlFileLoader' => __DIR__ . '/..' . '/symfony/routing/Loader/YamlFileLoader.php',
         'Symfony\\Component\\Routing\\Matcher\\CompiledUrlMatcher' => __DIR__ . '/..' . '/symfony/routing/Matcher/CompiledUrlMatcher.php',
@@ -5139,18 +5130,10 @@ class ComposerStaticInit3169231e59a507f7c48437ef65ce590c
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-<<<<<<< HEAD
-
-            $loader->prefixLengthsPsr4 = ComposerStaticInit8d1700ce5b218bdf294eb640a6734048::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit8d1700ce5b218bdf294eb640a6734048::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit8d1700ce5b218bdf294eb640a6734048::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit8d1700ce5b218bdf294eb640a6734048::$classMap;
-=======
-            $loader->prefixLengthsPsr4 = ComposerStaticInit3169231e59a507f7c48437ef65ce590c::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit3169231e59a507f7c48437ef65ce590c::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit3169231e59a507f7c48437ef65ce590c::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit3169231e59a507f7c48437ef65ce590c::$classMap;
->>>>>>> Angie/features
+            $loader->prefixLengthsPsr4 = ComposerStaticInite215d6c11ade66e0121ba34db49354b1::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInite215d6c11ade66e0121ba34db49354b1::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInite215d6c11ade66e0121ba34db49354b1::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInite215d6c11ade66e0121ba34db49354b1::$classMap;
 
         }, null, ClassLoader::class);
     }
