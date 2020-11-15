@@ -36,6 +36,10 @@ Route::get('donations/delete/{id}', 'App\Http\Controllers\DonacionController@del
 Route::get('donorContacts/delete/{id}', 'App\Http\Controllers\ContactoDonanteController@deleteC');
 Route::resource('donaciones', 'App\Http\Controllers\DonacionController');
 Route::resource('contactoDonante', 'App\Http\Controllers\ContactoDonanteController');
+Route::get('donors/table/tipoDonante/{tipo}', 'App\Http\Controllers\DonantesController@showTipoDonante');
+//Route::get('account/find/{username}', 'App\Http\Controllers\AccountController@showId');
+//Route::get('account/table/search/{keyWord}', 'App\Http\Controllers\AccountController@searchBar');
+
 
 // Rutas empleados
 Route::resource('employee', 'App\Http\Controllers\EmployeesController');
@@ -70,6 +74,8 @@ Route::resource('tipodonante', 'App\Http\Controllers\TipoDonanteController');
 Route::resource('recurrencia', 'App\Http\Controllers\RecurrenciaController');
 Route::resource('tipodonacion', 'App\Http\Controllers\TipoDonacionController');
 Route::get('donors/table/all', 'App\Http\Controllers\DonantesController@showTable');
+
+
 Route::get('donations/table/all', 'App\Http\Controllers\DonacionController@showTable');
 Route::get('donors/contact/table/all', 'App\Http\Controllers\ContactoDonanteController@showTable');
 

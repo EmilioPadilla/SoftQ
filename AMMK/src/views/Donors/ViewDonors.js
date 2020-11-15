@@ -24,20 +24,65 @@ function setValorId(params) {
     console.log('Hola');
 }
 
-
+var status=1;
 class  ViewDonors extends Component {
    
    
     crearTabla(){
-        var tabla='<thead> <tr> <th> Nombre </th> <th> Tipo </th> <th> Recurrencia </th> <th> Acciones </th> </tr> </thead> <tbody> ';
-        const num=1;
-        axios.get("http://localhost:8000/api/donors/table/all")
-          .then(function (resp){
-            respuesta = respuesta.concat(resp.data);
-            document.getElementById("tablaD").innerHTML = respuesta;
-          } );
-      }    
+       
+            axios.get("http://localhost:8000/api/donors/table/all")
+            .then(function (resp){
+              respuesta = respuesta.concat(resp.data);
+              document.getElementById("tablaD").innerHTML = respuesta;
+            } );
+        
+           
+        
+        
+      } 
       
+      //Busqueda tipo de donante
+      sortByTipo(){
+        var tipo = document.getElementById('tipoSelect').value;
+        var numTipo;
+        if (tipo === "Particular"){
+         numTipo=1;
+        }else if (tipo ==="Patronato"){
+         numTipo=2;
+        }else if (tipo ==="Gobierno"){
+         numTipo=3;
+        }else if (tipo ==="Empresa"){
+            numTipo=4;
+        }else if (tipo ==="Fundación"){
+            numTipo=5;
+        }
+       
+         axios.get("http://localhost:8000/api/donors/table/tipoDonante/"+numTipo)
+           .then(function (resp){
+             respuesta = resp.data;
+             document.getElementById("tablaD").innerHTML = respuesta;
+           } );
+       }
+      //sort where id sea igual al id que le mando
+      /*sortStatus(){
+
+         status= document.getElementById("selectStatus").value;
+        
+        if(status==1){
+            axios.get("http://localhost:8000/api/donors/table/all")
+            .then(function (resp){
+              respuesta = respuesta.concat(resp.data);
+              document.getElementById("tablaD").innerHTML = respuesta;
+            } );
+        }else if(status==2){
+            axios.get("http://localhost:8000/api/donors/table/all/inactive")
+            .then(function (resp){
+              respuesta = respuesta.concat(resp.data);
+              document.getElementById("tablaD").innerHTML = respuesta;
+            } );
+        }
+      }
+      */
       
       
       render() { 
@@ -52,6 +97,7 @@ class  ViewDonors extends Component {
             window.location = "http://localhost:3000/admin/Nomina/Nomina";
         }*/
           this.crearTabla();
+          
         return ( 
 
 <div className="content">
@@ -60,10 +106,9 @@ class  ViewDonors extends Component {
                     <Col md="6">
                         <FormGroup>
                             <Label for="statusSelect">Estatus</Label>
-                            <Input type="select">
-                            <option> Estatus...</option>
-                            <option >Activos</option>
-                            <option>Inactivos</option>
+                            <Input type="select" name="select"id="statusSelect" >
+                            <option valaue={1}>Activos</option>
+                            <option valaue={2}>Inactivos</option>
                             </Input>
                         </FormGroup>
                     </Col>
@@ -91,14 +136,14 @@ class  ViewDonors extends Component {
 
                     <Col md="4">
                         <FormGroup>
-                            <Label>Filtrar por Tipo:</Label>
-                            <Input type="select">
-                            <option>Tipo de Donante...</option>
-                            <option>Particular</option>
-                            <option >Patronato</option>
-                            <option>Gobierno</option>
-                            <option>Empresa</option>
-                            <option>Fundación</option>
+                            <Label for="tipoSelect" >Filtrar por Tipo:</Label>
+                            <Input type="select" name="select" id="tipoSelect" onChange={this.sortByTipo}>
+                            <option disabled selected>Tipo de Donante...</option>
+                            <option valaue={1}>Particular</option>
+                            <option valaue={2}>Patronato</option>
+                            <option valaue={3}>Gobierno</option>
+                            <option valaue={4}>Empresa</option>
+                            <option valaue={5}>Fundación</option>
 
 
                             </Input>
