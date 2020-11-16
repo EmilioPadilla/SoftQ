@@ -16,19 +16,42 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 library.add(fas)
   
 export default class NurseTable extends React.Component {
-  state = {
-    beneficiaries: [],
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      beneficiaries: [],
+    }
   }
   
   componentDidMount() {
-    axios.get(API_BASE_URL + 'beneficiaries/1/status')
+    this.getBeneficiaries();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.inputValue != prevProps.inputValue || this.props.sedeId != prevProps.sedeId){
+      this.getBeneficiaries();
+    }
+  }
+
+  getBeneficiaries() {
+    const params = {
+      sedeId: this.props.sedeId,
+      inputValue: this.props.inputValue
+    }
+    axios.post(API_BASE_URL + 'beneficiaries/filterActive', params)
       .then(res => {
         const beneficiaries = res.data;
+        
         this.setState({ beneficiaries });
+
+        console.log(this.state);
       })
   }
 
   render() {
+    let sedes = ["", "Asoc. MMK", "Granja Betanía"];
+    let months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
     return (
       <div>
         <Table hover>
@@ -46,19 +69,13 @@ export default class NurseTable extends React.Component {
               {this.state.beneficiaries.map((beneficiary) => (
                 <tr key={beneficiary.id}>
                   <td>{beneficiary.nombreCompleto}</td>
-                  <td>{beneficiary.fechaNacimiento}</td>
+                  <td>{beneficiary.fechaNacimiento.split("-")[2]} de {months[beneficiary.fechaNacimiento.split("-")[1] - 1]} del {beneficiary.fechaNacimiento.split("-")[0]}</td>
                   <td>{beneficiary.dxMedico}</td>
-                  <td>{beneficiary.headquarter_id}</td>
+                  <td>{sedes[beneficiary.headquarter_id]}</td>
                   <td>
                   <Row>
-                                          <Col md="4">
-                                                <Link to='/admin/Beneficiarias/RegisterTreatment'>
-                                                <Button color="primary" size="sm" id="registrarTratamiento"><FontAwesomeIcon icon={['fas', 'plus']} /></Button>
-                                                <SimpleTooltip placement="top" target="registrarTratamiento">Registrar tratamiento</SimpleTooltip>
-                                                </Link>
-                                            </Col>
 
-                                            <Col md="4">
+                                            <Col md="6">
                                             <Link   to={{
                                                     pathname: 'MedicalRecordView/'+ beneficiary.id,
                                                     state:beneficiary.id
@@ -68,7 +85,7 @@ export default class NurseTable extends React.Component {
                                                 </Link>
                                             </Col>
 
-                                            <Col md="4">
+                                            <Col md="6">
                                             <Link   to={{
                                                     pathname: 'SpecificView/'+ beneficiary.id,
                                                     state:beneficiary.id

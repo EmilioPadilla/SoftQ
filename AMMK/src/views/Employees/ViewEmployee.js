@@ -15,10 +15,12 @@ import { Link } from "react-router-dom";
 //Importing Icon library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import Swal from 'sweetalert2';
 import SimpleTooltip from "../General/SimpleTooltip";
 import EmployeeCalendarTable from "components/Employees/EmployeeCalendarTable.js"
 import TableEmployeeFiles from "components/Employees/TableEmployeeFiles.js"
 import TableEmployeeVacations from "components/Employees/TableEmployeeVacations.js"
+import ModalNewVacation from "components/Employees/ModalNewVacation";
 
 // reactstrap components
 import {
@@ -49,7 +51,6 @@ class ViewEmployee extends React.Component {
       this.onSaveCalendar = this.onSaveCalendar.bind(this);
     }
 
-
     handleCalendarChange(e) {
       this.setState({ markedDays: e });
       console.log(this.state.markedDays);
@@ -58,8 +59,6 @@ class ViewEmployee extends React.Component {
     componentDidMount() {
       const { id } = this.props.match.params;
       this.state.id = id
-      console.log(id);
-      console.log(this.state.id);
       axios.get(API_BASE_URL + 'employee/'+id)
         .then(res => {
           const employees = res.data;
@@ -67,34 +66,43 @@ class ViewEmployee extends React.Component {
         })
     }
 
-
-
-
+    renderBirthdate(employee, months){
+      if(employee.fechaNac !== null)
+         return employee.fechaNac.split("-")[2] + ' de ' + months[employee.fechaNac.split("-")[1] - 1];
+         ;
+      return null;
+   }
 
     onSaveCalendar() {
-      console.log('here');
-      this.state.markedDays.forEach((element) => {
-        const delParam = {
-          //TODO Pasar id de empleado correcto
-          idEmployees: this.state.id
-        }
-        const empShift = {
-          nombreTurno: element.nombreTurno,
-          //TODO Pasar id de empleado correcto
-          idEmployees: this.state.id,
-          diaSemana: element.diaSemana
-        }
-        console.log(empShift);
-        // Delete old shifts
-        axios.post('http://localhost:8000/api/employeesShifts/delete', delParam)
-        .then(res => {
-            console.log(res)
-            // Insert new shifts
-            axios.post('http://localhost:8000/api/employeesShifts', empShift)
-            .then(res => console.log(res));
+      let failed = false;
+      const delParam = {
+        idEmployees: this.state.id
+      }
+      // Delete old shifts
+      axios.post('http://localhost:8000/api/employeesShifts/delete', delParam)
+      .then(res => {
+        console.log(res);
+        this.state.markedDays.forEach((element) => {
+          const empShift = {
+            nombreTurno: element.nombreTurno,
+            idEmployees: this.state.id,
+            diaSemana: element.diaSemana
           }
-        )
-        
+          console.log(empShift);
+          // Insert new shifts
+          axios.post('http://localhost:8000/api/employeesShifts', empShift)
+          .then((res) => {
+            console.log(res);
+            // Show success modal if the last modification was successful
+            if (element.label == this.state.markedDays.slice(-1)[0].label) {
+              Swal.fire(
+                '¡Listo!',
+                'Calendario modificado de manera exitosa',
+                'success'
+              )
+            }
+          })
+        });
       });
     }
 
@@ -220,8 +228,8 @@ class ViewEmployee extends React.Component {
                         </Col>
                         <Col>
                           <Label>
-                          {employee.fechaNac.split("-")[2]} de {months[employee.fechaNac.split("-")[1] - 1]} 
-                          </Label>
+                          {this.renderBirthdate(employee, months)}
+                           </Label> 
                         </Col>
 
                       </Row>
@@ -426,7 +434,7 @@ class ViewEmployee extends React.Component {
                         </Col>
                         <Col>
 
-                          <Label style={{'font-size': '25px', 'color':'#3272a7'}} >
+                          <Label style={{'fontSize': '25px', 'color':'#3272a7'}} >
                             {sedes[employee.headquarter_id]}
                           </Label>
                         </Col>
@@ -438,7 +446,7 @@ class ViewEmployee extends React.Component {
                           </Label>
                         </Col>
                         <Col>
-                          <Label style={{'font-size': '20px'}} >
+                          <Label style={{'fontSize': '20px'}} >
                             <FontAwesomeIcon icon={['fas', 'check-circle']} color="green"/>
 
                             
@@ -530,13 +538,10 @@ class ViewEmployee extends React.Component {
                     </CardTitle>
                   </CardHeader>
                   <CardBody>
-                  {this.state.employees.map((employee) => (    
-                    <EmployeeCalendarTable employeeId={employee.id} onChange={this.handleCalendarChange} />
-                    ))}
+                    <EmployeeCalendarTable employeeId={this.state.id} onChange={this.handleCalendarChange} />
                     <button className="btn btn-primary float-right"
                       onClick={() => { this.onSaveCalendar() }}>Guardar Cambios
                       </button>
-                     
                   </CardBody>
                 </Card>
               </Row>
@@ -565,21 +570,22 @@ class ViewEmployee extends React.Component {
                   <Card>
                     <CardHeader>
                       <CardTitle>
+                      {this.state.employees.map((employee) => ( 
                         <Row>
                           <Col>
                             <Badge color="primary">Vacaciones</Badge>
                           </Col>
                           <Col>
-                            <Button  className="float-right" size="sm" id="RegistrarVacaciones"><FontAwesomeIcon icon={['fas', 'plus-square']} /></Button>
-                            <SimpleTooltip placement="top" target="RegistrarVacaciones" >Registrar vacaciones</SimpleTooltip>
+                            <ModalNewVacation id={employee.id}/>
                           </Col>
-                          
                         </Row>
-
+                        ))}
                       </CardTitle>
                     </CardHeader>
                     <CardBody>
-                      <TableEmployeeVacations/>
+                    {this.state.employees.map((employee) => ( 
+                      <TableEmployeeVacations idEmployee={employee.id}/>
+                      ))}
                     </CardBody>
                   </Card>
                 </Col>

@@ -12,27 +12,10 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 library.add(fas)
 
 // REGEX FOR VALIDATIONS
-const validTextInput = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ ]+[\w]+$/);
-const validName = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ]+(?:\s[A-Za-zÀ-ÖØ-öø-ÿ]+)+(?:\s[A-Za-zÀ-ÖØ-öø-ÿ]+)+[\w]+$/);
+const validTextInput = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ ]{3,}$/);
+const validName = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ]+(?:\s[A-Za-zÀ-ÖØ-öø-ÿ]+)+(?:\s[A-Za-zÀ-ÖØ-öø-ÿ]+)+$/);
 const validCurp = RegExp(/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/);
 const validDate = RegExp(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/);
-
-//FORM VALIDATIONS
-const validateForm = (errors) => {
-    let valid = true;
-    Object.values(errors).forEach(
-      (val) => val.length > 0 && (valid = false)
-    );
-    return valid;
-  }
-  
-  const countErrors = (errors) => {
-    let count = 0;
-    Object.values(errors).forEach(
-      (val) => val.length > 0 && (count = count+1)
-    );
-    return count;
-  }
 
 export default class RegisterB1 extends Component {
 
@@ -71,12 +54,14 @@ export default class RegisterB1 extends Component {
               ? "El campo permite máximo 50 caracteres"
               : "" || validName.test(value)
               ? ""
-              : "El campo solo acepta letras y debe ser llenado con nombre y ambos apellidos";
+              : "El campo solo acepta letras y debe ser llenado de la forma: nombre apPaterno apMaterno";
             break;
             case 'apodo': 
             errors.apodo =
             value.length > 50
               ? "El campo permite máximo 50 caracteres"
+              : "" || value.length < 3
+              ? "El campo debe contener al menos 3 caracteres"
               : "" || validTextInput.test(value)
               ? ""
               : "El campo solo acepta letras.";
@@ -112,6 +97,7 @@ export default class RegisterB1 extends Component {
         let fechaNacimiento = document.getElementById("fechaNacimiento").value;
         let curp = document.getElementById("curp").value;
 
+        if (nombre !== '' && fechaNacimiento !== '') {
         const datosPersonales = {
             nombreCompleto: nombre,
             apodo: apodo,
@@ -119,10 +105,18 @@ export default class RegisterB1 extends Component {
             numCurp: curp,
         };
         localStorage.setItem("personal", JSON.stringify(datosPersonales));
+        window.location = "http://localhost:3000/admin/Beneficiarias/RegisterB2";
+      } else {
+        Swal.fire( {
+          icon: 'error',
+          title: 'Oops...',
+          text: 'No se han llenado todos los campos obligatorios!',
+        })
+      }
     }
 
     render() {
-      const login = localStorage.getItem("isLoggedIn");
+        const login = localStorage.getItem("isLoggedIn");
       const idRol = localStorage.getItem("idRol");
       //Redirect in case of wrong role or no login
       if (!login ) {
@@ -132,11 +126,11 @@ export default class RegisterB1 extends Component {
       }else if (idRol==1){
           window.location = "http://localhost:3000/admin/Nomina/Nomina";
       }
-        const {errors, formValid} = this.state;
+        const {errors} = this.state;
         return (
             <div className="content">
                 <h2 className="title">Registrar Beneficiaria</h2>
-                <Form onClick={this.onSubmit} autocomplete="off">
+                <Form autocomplete="off">
                 <Card>
                     <CardHeader>
                         <h3 className="title">Datos personales</h3>
@@ -212,9 +206,9 @@ export default class RegisterB1 extends Component {
                     </CardBody>
                 </Card>
                 <Col  md="12" align="right">
-                  <Link to='/admin/Beneficiarias/RegisterB2'>
-                  <Button onClick="onSubmit()">Siguiente&nbsp;<FontAwesomeIcon icon={['fas', 'arrow-circle-right']} /></Button>
-                  </Link>
+                  {/*<Link to='/admin/Beneficiarias/RegisterB2'>*/}
+                  <Button onClick={this.onSubmit}>Siguiente&nbsp;<FontAwesomeIcon icon={['fas', 'arrow-circle-right']} /></Button>
+                  {/*</Link>*/}
                   
                 </Col>
                 </Form>

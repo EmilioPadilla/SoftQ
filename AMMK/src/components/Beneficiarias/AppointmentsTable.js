@@ -29,7 +29,8 @@ export default class AppointmentTable extends React.Component {
   }
   
   componentDidMount() {
-    axios.get(API_BASE_URL + 'medical_appointments')
+    const {id} = this.props.id;
+    axios.get(API_BASE_URL + 'medical_appointments/' + id + '/med' )
       .then(res => {
         const appointments = res.data;
         this.setState({ appointments });
@@ -64,6 +65,7 @@ export default class AppointmentTable extends React.Component {
   }
 
   render() {
+    let months = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"];
     return (
       <div>
         <Table hover>
@@ -80,8 +82,8 @@ export default class AppointmentTable extends React.Component {
             <tbody>
               {this.state.appointments.map((appointment) => (
                 <tr key={appointment.id}>
-                  <td>{appointment.fechaConsulta}</td>
-                  <td>{appointment.horaConsulta}</td>
+                  <td>{appointment.fechaConsulta.split("-")[2]}-{months[appointment.fechaConsulta.split("-")[1] - 1]}-{appointment.fechaConsulta.split("-")[0]}</td>
+                  <td>{appointment.horaConsulta.split(":")[0]}:{appointment.horaConsulta.split(":")[1]}</td>
                   <td>{appointment.hospital} Cons. #{appointment.consultorio}</td>
                   <td>{appointment.specialty.nombre}</td>
                   <td>

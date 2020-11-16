@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 //importing model 
 use App\Models\Expense; 
+use Illuminate\Support\Facades\DB;
 
 class ExpenseController extends Controller
 {
@@ -28,10 +29,28 @@ class ExpenseController extends Controller
      */
     public function filterByDate(Request $request)
     {
-        if($request->categoryId != 0) {
+        if($request->categoryId != 0 && $request->campusId != 0) {
             $expenses = Expense::with('category')->select()
-            ->where("category_id", $request->categoryId)
-            ->whereBetween(
+            ->where([
+                ["category_id", $request->categoryId],
+                ["headquarter_id", $request->campusId]
+            ])->whereBetween(
+                "fecha",
+                [$request->startDate, $request->endDate]
+            )->get();
+        } else if ($request->categoryId != 0 && $request->campusId == 0) {
+            $expenses = Expense::with('category')->select()
+            ->where([
+                ["category_id", $request->categoryId]
+            ])->whereBetween(
+                "fecha",
+                [$request->startDate, $request->endDate]
+            )->get();
+        } else if ($request->categoryId == 0 && $request->campusId != 0) {
+            $expenses = Expense::with('category')->select()
+            ->where([
+                ["headquarter_id", $request->campusId]
+            ])->whereBetween(
                 "fecha",
                 [$request->startDate, $request->endDate]
             )->get();
@@ -51,17 +70,133 @@ class ExpenseController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
+     * 
+     * 
      */
     public function groupByMonth(Request $request)
     {
-        $expenses = Expense::selectRaw(
-            'YEAR(fecha) as year, MONTH(fecha) as month, COUNT(*) as count, SUM(monto) as total'
-        )->whereBetween(
-            "fecha",
-            [$request->startDate, $request->endDate]
-        )->groupByRaw('YEAR(fecha), MONTH(fecha)')
-        ->orderByRaw('YEAR(fecha) DESC, MONTH(fecha) DESC')
-        ->get();
+        if($request->categoryId != 0 && $request->headquarterId != 0) {
+            $expenses = Expense::selectRaw(
+                'YEAR(fecha) as year, MONTH(fecha) as month, COUNT(*) as count, SUM(monto) as total'
+            )->where([
+                ["category_id", $request->categoryId],
+                ["headquarter_id", $request->headquarterId]
+            ])->whereBetween(
+                "fecha",
+                [$request->startDate, $request->endDate]
+            )->groupByRaw('YEAR(fecha), MONTH(fecha)')
+            ->orderByRaw('YEAR(fecha) DESC, MONTH(fecha) DESC')
+            ->get();
+        } else if($request->categoryId != 0 && $request->headquarterId == 0) {
+            $expenses = Expense::selectRaw(
+                'YEAR(fecha) as year, MONTH(fecha) as month, COUNT(*) as count, SUM(monto) as total'
+            )->where([
+                ["category_id", $request->categoryId]
+            ])->whereBetween(
+                "fecha",
+                [$request->startDate, $request->endDate]
+            )->groupByRaw('YEAR(fecha), MONTH(fecha)')
+            ->orderByRaw('YEAR(fecha) DESC, MONTH(fecha) DESC')
+            ->get();
+        } else if($request->categoryId == 0 && $request->headquarterId != 0) {
+            $expenses = Expense::selectRaw(
+                'YEAR(fecha) as year, MONTH(fecha) as month, COUNT(*) as count, SUM(monto) as total'
+            )->where([
+                ["headquarter_id", $request->headquarterId]
+            ])->whereBetween(
+                "fecha",
+                [$request->startDate, $request->endDate]
+            )->groupByRaw('YEAR(fecha), MONTH(fecha)')
+            ->orderByRaw('YEAR(fecha) DESC, MONTH(fecha) DESC')
+            ->get();
+        } else {
+            $expenses = Expense::selectRaw(
+                'YEAR(fecha) as year, MONTH(fecha) as month, COUNT(*) as count, SUM(monto) as total'
+            )->whereBetween(
+                "fecha",
+                [$request->startDate, $request->endDate]
+            )->groupByRaw('YEAR(fecha), MONTH(fecha)')
+            ->orderByRaw('YEAR(fecha) DESC, MONTH(fecha) DESC')
+            ->get();
+        }
+        
+
+        return $expenses;
+    }
+
+    /**
+     * Group by category.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function groupByCategory(Request $request)
+    {
+        if($request->categoryId != 0 && $request->headquarterId != 0) {
+            $expenses = Expense::join(
+                "categories",
+                "categories.id",
+                "=",
+                "expenses.category_id"
+            )->selectRaw(
+                'categories.nombre, COUNT(*) as count, SUM(monto) as total'
+            )->where([
+                ["category_id", $request->categoryId],
+                ["headquarter_id", $request->headquarterId]
+            ])->whereBetween(
+                "fecha",
+                [$request->startDate, $request->endDate]
+            )->groupByRaw('categories.nombre')
+            ->orderByRaw('SUM(monto) DESC')
+            ->get();
+        } else if($request->categoryId != 0 && $request->headquarterId == 0) {
+            $expenses = Expense::join(
+                "categories",
+                "categories.id",
+                "=",
+                "expenses.category_id"
+            )->selectRaw(
+                'categories.nombre, COUNT(*) as count, SUM(monto) as total'
+            )->where([
+                ["category_id", $request->categoryId]
+            ])->whereBetween(
+                "fecha",
+                [$request->startDate, $request->endDate]
+            )->groupByRaw('categories.nombre')
+            ->orderByRaw('SUM(monto) DESC')
+            ->get();
+        } else if($request->categoryId == 0 && $request->headquarterId != 0) {
+            $expenses = Expense::join(
+                "categories",
+                "categories.id",
+                "=",
+                "expenses.category_id"
+            )->selectRaw(
+                'categories.nombre, COUNT(*) as count, SUM(monto) as total'
+            )->where([
+                ["headquarter_id", $request->headquarterId]
+            ])->whereBetween(
+                "fecha",
+                [$request->startDate, $request->endDate]
+            )->groupByRaw('categories.nombre')
+            ->orderByRaw('SUM(monto) DESC')
+            ->get();
+        } else {
+            $expenses = Expense::join(
+                "categories",
+                "categories.id",
+                "=",
+                "expenses.category_id"
+            )->selectRaw(
+                'categories.nombre, COUNT(*) as count, SUM(monto) as total'
+            )->whereBetween(
+                "fecha",
+                [$request->startDate, $request->endDate]
+            )->groupByRaw('categories.nombre')
+            ->orderByRaw('SUM(monto) DESC')
+            ->get();
+        }
+        
 
         return $expenses;
     }
@@ -87,6 +222,7 @@ class ExpenseController extends Controller
         $expense = new Expense;
 
         $expense->category_id= $request-> category_id;
+        $expense->headquarter_id= $request-> headquarter_id;
         $expense->fecha= $request-> fecha;
         $expense->pagoA= $request-> pagoA;
         $expense->monto = $request -> monto;
@@ -141,5 +277,34 @@ class ExpenseController extends Controller
         return response()->json([
             'message' => 'expense deleted'
         ]);
+    }
+
+    public function getDateExpenses(){
+        $datos = DB::table('expenses')
+                    ->select('expenses.fecha')
+                    ->orderBy('expenses.fecha', 'desc')
+                    ->get();
+        return $datos;
+    }
+
+    public function expensesTable($fecha){
+        $total=0;
+        $datos = DB::table('expenses')
+                    ->join('categories', 'categories.id','=' ,'expenses.category_id')
+                    ->select('expenses.fecha', 'expenses.pagoA', 'expenses.monto', 'expenses.descripcion','categories.nombre')
+                    ->where('expenses.fecha', 'like', '%'.$fecha.'%' )
+                    ->get();
+        $respuesta = '<table class="table" id="tablaExp'.$fecha.'"><thead> <tr> <th> Pago A </th> <th> Categoria </th> <th> Monto </th> <th> Fecha </th> <th> Desc. </th><th> Total </th> </tr> </thead> <tbody>';
+        foreach ($datos as $res){
+            $respuesta .= '<tr> <td >'. $res->pagoA. '</td>';
+            $respuesta .= '<td>'.$res->nombre.'</td>';
+            $respuesta .= '<td>'.$res->monto.'</td>';
+            $respuesta .= '<td>'.$res->fecha. '</td>';
+            $respuesta .= '<td>'.$res->descripcion.'</td> </tr> ';
+            $total = $total + $res->monto;
+        }
+        $respuesta .= '<tr><td></td><td></td><td></td><td></td><td></td><td>'.$total.'</td></tr>';
+        $respuesta .= '</tbody> </table>';
+        return $respuesta;
     }
 }

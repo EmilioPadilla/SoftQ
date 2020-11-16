@@ -8,27 +8,25 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, FormGroup, C
 import SimpleTooltip from "../../views/General/SimpleTooltip";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-function editVacation (idEmployee, idVacation) {
+function newVacation (id) {
   let fechaSalida = document.getElementById("fechaSalida").value;
   let fechaRegreso = document.getElementById("fechaRegreso").value;
-  console.log('employee: ', idEmployee);
-  console.log('vacation: ', idVacation);
 
   if (fechaSalida !== '' && fechaRegreso !== '') {
     var today = new Date();
     var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
   const registrarVacacion = {
-    employees_id : idEmployee,
+    employees_id : id,
     fechaRegistro : date,
     fechaSalida: fechaSalida,
     fechaRegreso: fechaRegreso
   }
-  const link = "http://localhost:3000/admin/view-employee/"+idEmployee
-  axios.put('http://localhost:8000/api/employeeVacations/'+idVacation,registrarVacacion).then(res => {console.log(res)});
+  const link = "http://localhost:3000/admin/view-employee/"+id
+  axios.post('http://localhost:8000/api/employeeVacations/',registrarVacacion).then(res => {console.log(res)});
 
   Swal.fire(
     '¡Listo!',
-    'Vacaciones modificadas de manera exitosa',
+    'Vacaciones registradas de manera exitosa',
     'success'
     ).then(function() {
         window.location = link;
@@ -43,13 +41,12 @@ function editVacation (idEmployee, idVacation) {
 }
 
 
-
-const ModalEditVacation = (props) => {
+const ModalNewVacation = (props) => {
   const {
     buttonLabel,
     className,
     id,
-    vacations
+    employee
   } = props;
 
   const [modal, setModal] = useState(false);
@@ -58,24 +55,25 @@ const ModalEditVacation = (props) => {
 
   return (
     <div>
-      <Button id="registrarVacaciones" className="inline float-right" size="sm" inline onClick={toggle}><FontAwesomeIcon icon={['fas', 'pencil-alt']} /></Button>
+      <Button id="registrarVacaciones" className="inline float-right" size="sm" inline onClick={toggle}><FontAwesomeIcon icon={['fas', 'plus-square']} /></Button>
       <SimpleTooltip placement="top" target="registrarVacaciones">Registrar Vacaciones</SimpleTooltip>
       <Form>
       <Modal isOpen={modal} toggle={toggle} className={className} color="primary">
-        <ModalHeader toggle={toggle}>Editar vacaciones</ModalHeader>
+        <ModalHeader toggle={toggle}>Agregar vacaciones</ModalHeader>
+        {/* <h3 color="primary">Egresar empleado</h3> */}
         <ModalBody>
 
               <FormGroup>
                 <Label htmlFor="fechaSalida">
                   Fecha de salida
                 </Label>
-                <Input type="date" id="fechaSalida" defaultValue={vacations.fechaSalida}/>
+                <Input type="date" id="fechaSalida" />
               </FormGroup>
               <FormGroup>
                 <Label htmlFor="fechaRegreso">
                   Fecha de regreso
                 </Label>
-                <Input type="date" id="fechaRegreso" defaultValue={vacations.fechaRegreso}/>
+                <Input type="date" id="fechaRegreso" />
               </FormGroup>
 
 
@@ -83,7 +81,7 @@ const ModalEditVacation = (props) => {
 
         <ModalFooter>
           <Button color="info" visibility="none" onClick={toggle}>Salir</Button>{' '}
-          <Button  onClick={editVacation.bind("this", id, vacations.id)}>Modificar</Button>
+          <Button  onClick={newVacation.bind("this", id)}>Agregar</Button>
         </ModalFooter>
       </Modal>
       </Form>
@@ -91,4 +89,4 @@ const ModalEditVacation = (props) => {
   );
 }
 
-export default ModalEditVacation;
+export default ModalNewVacation;

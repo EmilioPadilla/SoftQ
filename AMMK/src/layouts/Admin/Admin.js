@@ -79,18 +79,6 @@ class Admin extends React.Component {
     this.setState({ sidebarOpened: !this.state.sidebarOpened });
   };
   getRoutes = routes => {
-    // const idRol = localStorage.getItem("idRol");
-    // for (let i in routes) {
-    //   if (routes[i].showInSidebar == true) {
-    //     console.log('Aqui estoy ' + routes[i].showInSidebar);
-    //     if (idRol === 3) {
-    //       routes[i].showInSidebar = true
-    //     } else {
-    //       routes[i].showInSidebar = false
-    //     }
-    //     console.log("Despues de" +routes[i].showInSidebar);
-    //   }
-    // }
     return routes.map((prop, key) => {
       if (prop.layout === "/admin") {
         return (
@@ -125,14 +113,12 @@ class Admin extends React.Component {
 
   filterRoutes(routes) {
     const idRol = localStorage.getItem("idRol");
-    console.log(idRol);
     routes=routes.filter(route => route.showInSidebar === true)
     if (idRol == 3) {
       routes=routes.filter(route => route.rol === 'admin')
     } else if (idRol == 2) {
       routes=routes.filter(route => route.rol === 'enf' )
     } else if (idRol == 1) {
-      console.log("djflknasd");
       routes=routes.filter(route => route.rol === 'enf' )
       routes=routes.filter(route => route.onlyGen === true )
     }

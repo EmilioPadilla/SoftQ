@@ -69,6 +69,23 @@ class MedicalAppointmentController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function forBeneficiary($id)
+    {
+        $medicalAppointments = MedicalAppointment::with('specialty')
+        ->where("beneficiary_id", $id)
+        ->orderBy('fechaConsulta', 'desc')
+        ->orderBy('horaConsulta', 'desc')
+        ->get();
+
+        return $medicalAppointments;
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id

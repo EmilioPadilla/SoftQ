@@ -110,13 +110,17 @@ Route::resource('headquarters', 'App\Http\Controllers\HeadquarterController');
 /* TERMINA GENERALES */
 
 /* EMPIEZA BENEFICIARIAS */
-Route::get('beneficiaries/{id}/status', 'App\Http\Controllers\BeneficiaryController@status');
+Route::post('beneficiaries/filter', 'App\Http\Controllers\BeneficiaryController@filter');
+Route::post('beneficiaries/filterActive', 'App\Http\Controllers\BeneficiaryController@filterActive');
+
 Route::post('beneficiaries/{id}/reingresar', 'App\Http\Controllers\BeneficiaryController@reingresar');
 Route::resource('beneficiaries', 'App\Http\Controllers\BeneficiaryController');
 
 Route::resource('treatments', 'App\Http\Controllers\TreatmentController');
+Route::get('treatments/{id}/med', 'App\Http\Controllers\TreatmentController@forBeneficiary');
 
 Route::resource('medical_appointments', 'App\Http\Controllers\MedicalAppointmentController');
+Route::get('medical_appointments/{id}/med', 'App\Http\Controllers\MedicalAppointmentController@forBeneficiary');
 
 Route::resource('benef_files', 'App\Http\Controllers\BenefFileController');
 
@@ -130,6 +134,9 @@ Route::resource('categories', 'App\Http\Controllers\CategoryController');
 Route::post('incomes/search', 'App\Http\Controllers\IncomesController@filterByDate');
 Route::post('incomes/group', 'App\Http\Controllers\IncomesController@groupByMonth');
 Route::post('expenses/search', 'App\Http\Controllers\ExpenseController@filterByDate');
-Route::post('expenses/group', 'App\Http\Controllers\ExpenseController@groupByMonth');
+Route::post('expenses/group/month', 'App\Http\Controllers\ExpenseController@groupByMonth');
+Route::post('expenses/group/category', 'App\Http\Controllers\ExpenseController@groupByCategory');
+Route::get('expenses/table/getdates', 'App\Http\Controllers\ExpenseController@getDateExpenses');
+Route::get('expenses/table/date/{fecha}', 'App\Http\Controllers\ExpenseController@expensesTable');
 Route::resource('expenses', 'App\Http\Controllers\ExpenseController');
 /* TERMINA FINANZAS */

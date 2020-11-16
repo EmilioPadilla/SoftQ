@@ -93,4 +93,35 @@
 #43 /Users/marianafavaronyavila/Desktop/nuevo/SoftQ/AMMSKLaravel/public/index.php(52): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #44 /Users/marianafavaronyavila/Desktop/nuevo/SoftQ/AMMSKLaravel/server.php(21): require_once('/Users/marianaf...')
 #45 {main}
+=======
+[2020-11-15 23:14:26] local.ERROR: syntax error, unexpected '<<' (T_SL), expecting end of file {"exception":"[object] (ParseError(code: 0): syntax error, unexpected '<<' (T_SL), expecting end of file at C:\\Users\\sebas\\Documents\\SoftQ\\AMMSKLaravel\
+outes\\api.php:129)
+[stacktrace]
+#0 C:\\Users\\sebas\\Documents\\SoftQ\\AMMSKLaravel\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(423): Illuminate\\Routing\\RouteFileRegistrar->register('C:\\\\Users\\\\sebas\\\\...')
+#1 C:\\Users\\sebas\\Documents\\SoftQ\\AMMSKLaravel\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(380): Illuminate\\Routing\\Router->loadRoutes('C:\\\\Users\\\\sebas\\\\...')
+#2 C:\\Users\\sebas\\Documents\\SoftQ\\AMMSKLaravel\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\RouteRegistrar.php(135): Illuminate\\Routing\\Router->group(Array, 'C:\\\\Users\\\\sebas\\\\...')
+#3 C:\\Users\\sebas\\Documents\\SoftQ\\AMMSKLaravel\\app\\Providers\\RouteServiceProvider.php(44): Illuminate\\Routing\\RouteRegistrar->group('C:\\\\Users\\\\sebas\\\\...')
+#4 C:\\Users\\sebas\\Documents\\SoftQ\\AMMSKLaravel\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(36): App\\Providers\\RouteServiceProvider->App\\Providers\\{closure}()
+#5 C:\\Users\\sebas\\Documents\\SoftQ\\AMMSKLaravel\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php(40): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#6 C:\\Users\\sebas\\Documents\\SoftQ\\AMMSKLaravel\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(81): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#7 C:\\Users\\sebas\\Documents\\SoftQ\\AMMSKLaravel\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(37): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Object(Closure), Object(Closure))
+#8 C:\\Users\\sebas\\Documents\\SoftQ\\AMMSKLaravel\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(596): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Object(Closure), Array, NULL)
+#9 C:\\Users\\sebas\\Documents\\SoftQ\\AMMSKLaravel\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Support\\Providers\\RouteServiceProvider.php(120): Illuminate\\Container\\Container->call(Object(Closure))
+#10 C:\\Users\\sebas\\Documents\\SoftQ\\AMMSKLaravel\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Support\\Providers\\RouteServiceProvider.php(45): Illuminate\\Foundation\\Support\\Providers\\RouteServiceProvider->loadRoutes()
+#11 C:\\Users\\sebas\\Documents\\SoftQ\\AMMSKLaravel\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(36): Illuminate\\Foundation\\Support\\Providers\\RouteServiceProvider->Illuminate\\Foundation\\Support\\Providers\\{closure}()
+#12 C:\\Users\\sebas\\Documents\\SoftQ\\AMMSKLaravel\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php(40): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#13 C:\\Users\\sebas\\Documents\\SoftQ\\AMMSKLaravel\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(81): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#14 C:\\Users\\sebas\\Documents\\SoftQ\\AMMSKLaravel\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(37): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Object(Closure), Object(Closure))
+#15 C:\\Users\\sebas\\Documents\\SoftQ\\AMMSKLaravel\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(596): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Object(Closure), Array, NULL)
+#16 C:\\Users\\sebas\\Documents\\SoftQ\\AMMSKLaravel\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\ServiceProvider.php(113): Illuminate\\Container\\Container->call(Object(Closure))
+#17 C:\\Users\\sebas\\Documents\\SoftQ\\AMMSKLaravel\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(872): Illuminate\\Support\\ServiceProvider->callBootedCallbacks()
+#18 C:\\Users\\sebas\\Documents\\SoftQ\\AMMSKLaravel\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(850): Illuminate\\Foundation\\Application->bootProvider(Object(App\\Providers\\RouteServiceProvider))
+#19 [internal function]: Illuminate\\Foundation\\Application->Illuminate\\Foundation\\{closure}(Object(App\\Providers\\RouteServiceProvider), 22)
+#20 C:\\Users\\sebas\\Documents\\SoftQ\\AMMSKLaravel\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(851): array_walk(Array, Object(Closure))
+#21 C:\\Users\\sebas\\Documents\\SoftQ\\AMMSKLaravel\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\BootProviders.php(17): Illuminate\\Foundation\\Application->boot()
+#22 C:\\Users\\sebas\\Documents\\SoftQ\\AMMSKLaravel\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(230): Illuminate\\Foundation\\Bootstrap\\BootProviders->bootstrap(Object(Illuminate\\Foundation\\Application))
+#23 C:\\Users\\sebas\\Documents\\SoftQ\\AMMSKLaravel\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(310): Illuminate\\Foundation\\Application->bootstrapWith(Array)
+#24 C:\\Users\\sebas\\Documents\\SoftQ\\AMMSKLaravel\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(127): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
+#25 C:\\Users\\sebas\\Documents\\SoftQ\\AMMSKLaravel\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#26 {main}
 "} 
