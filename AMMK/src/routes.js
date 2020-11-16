@@ -79,6 +79,7 @@ import ModificarDGenerales from "views/Donors/ModificarDGenerales";
 import ModificarDF from "views/Donors/ModificarDF";
 import TakeOutD from "views/Donors/TakeOutD";
 import ReenterD from "views/Donors/ReenterD";
+import Email from "views/Donors/Email";
 
 
 
@@ -510,6 +511,16 @@ var routes = [
     rtlName: "قائمة الجدول",
     icon: "tim-icons icon-heart-2",
     component: RDonantePatronato,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+
+    path: "/Email",
+    name: "Donantes",
+    rtlName: "قائمة الجدول",
+    icon: "tim-icons icon-heart-2",
+    component: Email,
     layout: "/admin",
     showInSidebar: false
   },
