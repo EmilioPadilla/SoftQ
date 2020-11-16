@@ -8,35 +8,87 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 
 
-import ViewEmployeeTable from "components/Employees/ViewEmployeeTable.js";
-
-// reactstrap components
-
-
-import Swal from 'sweetalert2';
-import {Redirect} from 'react-router-dom';
-import { func } from "prop-types";
-
-//Importing Icon library
-
 var respuesta = "";
 function setValorId(params) {
     console.log('Hola');
 }
 
-
+var status=1;
 class  ViewDonors extends Component {
    
    
     crearTabla(){
-        var tabla='<thead> <tr> <th> Nombre </th> <th> Tipo </th> <th> Recurrencia </th> <th> Acciones </th> </tr> </thead> <tbody> ';
-        const num=1;
-        axios.get("http://localhost:8000/api/donors/table/all")
+       
+            axios.get("http://localhost:8000/api/donors/table/all")
+            .then(function (resp){
+              respuesta = respuesta.concat(resp.data);
+              document.getElementById("tablaD").innerHTML = respuesta;
+            } );
+        
+           
+        
+        
+      } 
+      //filtro Activos e Inactivos
+      sortByStatus(){
+        var status = document.getElementById('statusSelect').value;
+        var numStatus;
+        if (status === "Activos"){
+         numStatus=1;
+        }else if (status ==="Inactivos"){
+         numStatus=2;
+        }
+        if(numStatus==1){
+            axios.get("http://localhost:8000/api/donors/table/all")
+            .then(function (resp){
+              respuesta = resp.data;
+              document.getElementById("tablaD").innerHTML = respuesta;
+            } );
+        }else if(numStatus==2){
+            axios.get("http://localhost:8000/api/donors/tableI/all")
+            .then(function (resp){
+              respuesta = resp.data;
+              document.getElementById("tablaD").innerHTML = respuesta;
+            } );
+        }
+       
+         
+       }
+      
+      //Busqueda tipo de donante
+      sortByTipo(){
+        var tipo = document.getElementById('tipoSelect').value;
+        var numTipo;
+        if (tipo === "Particular"){
+         numTipo=1;
+        }else if (tipo ==="Patronato"){
+         numTipo=2;
+        }else if (tipo ==="Gobierno"){
+         numTipo=3;
+        }else if (tipo ==="Empresa"){
+            numTipo=4;
+        }else if (tipo ==="Fundación"){
+            numTipo=5;
+        }
+       
+         axios.get("http://localhost:8000/api/donors/table/tipoDonante/"+numTipo)
+           .then(function (resp){
+             respuesta = resp.data;
+             document.getElementById("tablaD").innerHTML = respuesta;
+           } );
+       }
+       //busqueda por el input
+       searchDonor(){
+        var palabra = document.getElementById('buscar').value;
+        if(palabra == ""){
+          palabra = "allOfEm";
+        }
+        axios.get("http://localhost:8000/api/donors/table/buscar/"+palabra)
           .then(function (resp){
-            respuesta = respuesta.concat(resp.data);
+            respuesta = resp.data;
             document.getElementById("tablaD").innerHTML = respuesta;
           } );
-      }    
+        }
       
       
       
@@ -52,6 +104,7 @@ class  ViewDonors extends Component {
             window.location = "http://localhost:3000/admin/Nomina/Nomina";
         }*/
           this.crearTabla();
+          
         return ( 
 
 <div className="content">
@@ -60,10 +113,9 @@ class  ViewDonors extends Component {
                     <Col md="6">
                         <FormGroup>
                             <Label for="statusSelect">Estatus</Label>
-                            <Input type="select">
-                            <option> Estatus...</option>
-                            <option >Activos</option>
-                            <option>Inactivos</option>
+                            <Input type="select" name="select"id="statusSelect"  onChange={this.sortByStatus} >
+                            <option valaue={1}>Activos</option>
+                            <option valaue={2}>Inactivos</option>
                             </Input>
                         </FormGroup>
                     </Col>
@@ -82,23 +134,23 @@ class  ViewDonors extends Component {
                             <Label>Búsqueda por nombre:</Label>
                             <InputGroup>
                                 <InputGroupAddon addonType="prepend">
-                                <InputGroupText><FontAwesomeIcon icon={['fas', 'search']} /></InputGroupText>
+                                <InputGroupText id="buscarDonante"><FontAwesomeIcon icon={['fas', 'search']} /></InputGroupText>
                                 </InputGroupAddon>
-                                <Input />
+                                <Input placeholder="Maria Sandoval"  id="buscar" onInput={this.searchDonor} />
                             </InputGroup>
                         </FormGroup>
                     </Col>
 
                     <Col md="4">
                         <FormGroup>
-                            <Label>Filtrar por Tipo:</Label>
-                            <Input type="select">
-                            <option>Tipo de Donante...</option>
-                            <option>Particular</option>
-                            <option >Patronato</option>
-                            <option>Gobierno</option>
-                            <option>Empresa</option>
-                            <option>Fundación</option>
+                            <Label for="tipoSelect" >Filtrar por Tipo:</Label>
+                            <Input type="select" name="select" id="tipoSelect" onChange={this.sortByTipo}>
+                            <option disabled selected>Tipo de Donante...</option>
+                            <option valaue={1}>Particular</option>
+                            <option valaue={2}>Patronato</option>
+                            <option valaue={3}>Gobierno</option>
+                            <option valaue={4}>Empresa</option>
+                            <option valaue={5}>Fundación</option>
 
 
                             </Input>

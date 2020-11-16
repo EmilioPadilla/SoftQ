@@ -27,7 +27,7 @@ const ReenterD = (props) => {
                     <div class="row justify-content-center">
                         <div class="col-4" >
                             <FormGroup>
-                            <p className="font-weight-bold">FECHA DE Re-Ingreso: </p>
+                            <p className="font-weight-bold">FECHA DE RE-INGRESO: </p>
                             <Input
                                     id="fecha"
                                     
@@ -39,7 +39,7 @@ const ReenterD = (props) => {
                     <div class="row justify-content-center">
                         <div class="col-4">
                             <FormGroup>
-                            <p className="font-weight-bold">MOTIVO DE Re-Ingreso: </p>
+                            <p className="font-weight-bold">MOTIVO DE RE-INGRESO: </p>
                             <Input
                                     id="motivo"
                                     
@@ -106,7 +106,7 @@ function modificar() {
         console.log(resp.data);
       });
 
-    Swal.fire("¡Listo!", "Donante Egresado de manera exitosa", "success").then(function () {
+    Swal.fire("¡Listo!", "Donante Re-Ingresado de manera exitosa", "success").then(function () {
       window.location = "http://localhost:3000/admin/ViewDonors";
     });
   } else {
