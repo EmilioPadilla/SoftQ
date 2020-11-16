@@ -50,6 +50,7 @@ import SimpleTooltip from "../../views/General/SimpleTooltip";
      }
       this.onChange = this.onChange.bind(this);
       this.handleCalendarChange = this.handleCalendarChange.bind(this);
+      this.onSubmit = this.onSubmit.bind(this);
   }
 
    onChange(e) {
@@ -102,7 +103,23 @@ import SimpleTooltip from "../../views/General/SimpleTooltip";
     console.log(json);
     localStorage.clear();
 
-    axios.post('http://localhost:8000/api/employee/', json).then(res => {console.log(res)});
+    axios.post('http://localhost:8000/api/employee/', json).then(res => {
+      console.log(res);
+      const employeeId = res.data.id;
+      this.state.markedDays.forEach((element) => {
+        const empShift = {
+          nombreTurno: element.nombreTurno,
+          idEmployees: employeeId,
+          diaSemana: element.diaSemana
+        }
+        console.log(empShift);
+        // Insert new shifts
+        axios.post('http://localhost:8000/api/employeesShifts', empShift)
+        .then((res) => {
+          console.log(res);
+        })
+      });
+    });
 
     Swal.fire(
       '¡Listo!',
