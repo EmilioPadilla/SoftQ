@@ -1,41 +1,110 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from "react";
+import axios from 'axios';
+import { FormGroup, Form, Input, Button } from "reactstrap";
+import { Link } from "react-router-dom";
 
- //Requerimos el paquete
- var nodemailer = require('nodemailer');
 
- //Creamos el objeto de transporte
- var transporter = nodemailer.createTransport({
-   service: 'gmail',
-   auth: {
-     user: 'bloqueprueba5@gmail.com',
-     pass: 'Prueba123'
-   }
- });
+class Email extends Component {
  
- var mensaje = "Hola desde nodejs...";
  
- var mailOptions = {
-   from: 'bloqueprueba5@gmail.com',
-   to: 'mfa482@live.com',
-   subject: 'Asunto Del Correo',
-   text: mensaje
- };
- 
- transporter.sendMail(mailOptions, function(error, info){
-   if (error) {
-     console.log(error);
-   } else {
-     console.log('Email enviado: ' + info.response);
-   }
- });
- class Email extends Component {
-     render() { 
-         return ( 
-<div>
-    <p>hola</p>
-</div>
-          );
-     }
- }
+  /*email = React.createRef();
+  asunto = React.createRef();
+  mensaje = React/createRef();
   
- export default Email;
+  state = { 
+    email:" ",
+    asunto: " ",
+    mensaje: " "
+
+   };*/
+   
+  /* comprobarCambios = () =>{
+    var email = this.email.current.value;
+    var asunto = this.asunto.current.value;
+    var mensaje = this.mensaje.current.value;
+    this.setState({
+        email: email,
+        asunto: asunto,
+        mensaje: mensaje
+    });
+   };*/
+
+   constructor(){
+     super();
+     this.enviarEmail = this.enviarEmail.bind(this);
+   }
+
+   async enviarEmail(e) {
+     e.preventDefault();
+     var email = document.getElementById("email").value;
+   var asunto = document.getElementById("asunto").value;
+   var mensaje = document.getElementById("mensaje").value;
+     //const{ email, asunto, mensaje } = this.state;
+     const form = await axios.post("/api/form",{
+       email,
+       asunto,
+       mensaje
+     });
+   }
+
+  render() { 
+    return ( 
+      <div>
+         <div class="content">
+    <div class="container">
+        <div class="row">
+        <div class="col-12" >
+        <form className="formulario" onSubmit={this.enviarEmail}>
+          <h1>Enviando Emails en react</h1>
+          <div>
+            <label htmlFor="email">Email:</label>
+            <input 
+            type="email"
+            name="email"
+            id="email"
+           // onChange={this.comprobarCambios}
+            className="form-control"
+           // ref={this.email}
+            />
+          </div>
+          <div>
+            <label htmlFor="asunto">Asunto:</label>
+              <input 
+              id="asunto"
+              type="text"
+              name="asunto"
+             // onChange={this.comprobarCambios}
+              className="form-control"
+              //ref={this.asunto}
+              />
+          </div>
+          <div>
+            <label htmlFor="mensaje">Mensaje:</label>
+              <textarea 
+              rows="4"
+              id="mensaje"
+              name="mensaje"
+             // onChange={this.comprobarCambios}
+              className="form-control"
+             // ref={this.mensaje}
+              />
+          </div>
+          <div>
+            <br />
+            <button type="submit" className="btn btn-primary">
+              Enviar email
+            </button>
+          </div>
+        </form>
+      </div>
+      </div>
+      </div>
+      </div>
+      </div>
+
+
+     );
+  }
+}
+ 
+export default Email;
