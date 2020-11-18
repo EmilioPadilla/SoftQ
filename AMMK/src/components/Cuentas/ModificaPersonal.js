@@ -49,6 +49,12 @@ export class ModificaPersonal extends React.Component{
         ).then(function() {
             window.location = "http://localhost:3000/admin/Cuentas/CuentaPersonal";
         });
+        }else if(y.length < 8){
+            Swal.fire(
+                'ERROR!',
+                'La contraseña debe tener al menos 8 caracteres',
+                'error'
+            )
         }else{
             Swal.fire(
                 'ERROR!',

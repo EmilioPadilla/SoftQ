@@ -74,6 +74,12 @@ class CreateAccEmp extends React.Component{
        
         
         
+        }else if(y.length < 8){
+            Swal.fire(
+                'ERROR!',
+                'La contraseña debe tener al menos 8 caracteres',
+                'error'
+            )
         }else{
             Swal.fire(
                 'ERROR!',
