@@ -12,13 +12,14 @@ import { API_BASE_URL } from '../../index';
 
 //ICONS
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faRedoAlt } from '@fortawesome/free-solid-svg-icons';
+import {faEye } from '@fortawesome/free-solid-svg-icons';
 
-export default class ReenterB extends Component {
+export default class ViewMedApp extends Component {
+
   constructor(props){
     super(props);
     this.state = {
-        beneficiaries1: [],
+        appointments: [],
       };
 }
   state={
@@ -29,11 +30,11 @@ export default class ReenterB extends Component {
   componentDidMount() {
     let id = this.props.name;
     console.log(id);
-    axios.get(API_BASE_URL + 'beneficiaries/' + id)
+    axios.get(API_BASE_URL + 'medical_appointments/' + id)
     .then(res => {
-        const beneficiaries1 = res.data;
-        this.setState({ beneficiaries1 });
-        console.log(beneficiaries1);
+        const appointments = res.data;
+        this.setState({ appointments });
+        console.log(appointments);
       })
   }
   
@@ -48,65 +49,64 @@ export default class ReenterB extends Component {
       }else if (idRol==1){
           window.location = "http://localhost:3000/admin/Nomina/Nomina";
       }
-    const {errors, formValid} = this.state;
+
     return (
       <div className="content">
-          <h3 className="title">DETALLE CONSULTA MÉDICA</h3>
+        <Button color="info" size="sm" id="ver" onClick={()=>{this.setState({modalReingresar: true})}}><FontAwesomeIcon icon={faEye}/></Button>
+        <SimpleTooltip placement="top" target="ver">Ver consulta</SimpleTooltip>
+
+        <Modal isOpen={this.state.modalReingresar}>
+          <ModalHeader>
+          <p style={{ 'font-size': '30px', 'font-weight': 'bold' }}> Ver consulta</p>
+          </ModalHeader>
+          <ModalBody>
           {this.state.appointments.map((appointment) => (
           <>
           <Row>
             <Col md="3">
-              <Row><Col>
               <p className="font-weight-bold">Fecha:&nbsp;</p>
               <p>{appointment.fechaConsulta}</p>
-              </Col></Row>
             </Col>
             <Col md="3">
-              <Row><Col>
               <p className="font-weight-bold">Hora:&nbsp;</p>
               <p>{appointment.horaConsulta}</p>
-              </Col></Row>
             </Col>
             <Col md="6">
-              <Row><Col>
               <p className="font-weight-bold">Especialidad:&nbsp;</p>
               <p>{appointment.specialty_id}</p>
-              </Col></Row>
             </Col>
           </Row>
           <Row>
             <Col md="3">
-              <Row><Col>
               <p className="font-weight-bold">Hospital:&nbsp;</p>
               <p>{appointment.hospital}</p>
-              </Col></Row>
             </Col>
             <Col md="3">
-              <Row><Col>
               <p className="font-weight-bold">Consultorio:&nbsp;</p>
               <p>{appointment.consultorio}</p>
-              </Col></Row>
             </Col>
             <Col md="6">
-              <Row>
-              <Col>
               <p className="font-weight-bold">Dirección:&nbsp;</p>
               <p>{appointment.direccion}</p>
-              </Col>
-              </Row>
             </Col>
           </Row>
           <Row>
-            <Col md="4">
+          <Col md="12">
               <p className="font-weight-bold">Comentario:&nbsp;</p>
               <Input type="textarea" value={appointment.comentario}></Input>
-            </Col>
-            <Col md="8">
-              
-            </Col>
+              </Col>
           </Row>
           </>
           ))}
+          </ModalBody>
+          <ModalFooter>
+            <Row className="text-center">
+            <Col md="12">
+              <Button color="primary" onClick={()=>this.setState({modalReingresar: false})}>Okay</Button>
+              </Col>
+            </Row>
+            </ModalFooter>
+          </Modal>
       </div>
     )
 }

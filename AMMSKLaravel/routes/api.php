@@ -123,6 +123,7 @@ Route::resource('medical_appointments', 'App\Http\Controllers\MedicalAppointment
 Route::get('medical_appointments/{id}/med', 'App\Http\Controllers\MedicalAppointmentController@forBeneficiary');
 
 Route::resource('benef_files', 'App\Http\Controllers\BenefFileController');
+Route::get('benef_files/downloadFile/{id}', 'App\Http\Controllers\BenefFileController@downloadFile');
 
 Route::resource('specialties', 'App\Http\Controllers\SpecialtyController');
 

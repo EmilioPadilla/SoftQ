@@ -21,30 +21,33 @@ const validName = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ]+(?:\s[A-Za-zÀ-ÖØ-öø-ÿ]+
 const validCurp = RegExp(/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/);
 const validDate = RegExp(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/);
 
-//FORM VALIDATIONS
-const validateForm = (errors) => {
-    let valid = true;
-    Object.values(errors).forEach(
-      (val) => val.length > 0 && (valid = false)
-    );
-    return valid;
-  }
-  
-  const countErrors = (errors) => {
-    let count = 0;
-    Object.values(errors).forEach(
-      (val) => val.length > 0 && (count = count+1)
-    );
-    return count;
-  }
+export default class ModifyPersonal extends Component {
 
-export default class RegisterB1 extends Component {
+  fillData () {
+    let urlElements = window.location.href.split('/');
+    console.log(API_BASE_URL + 'beneficiaries/' + urlElements[6] );
+    axios.get(API_BASE_URL + 'beneficiaries/' + urlElements[6])
+        .then(function (res) {
+           document.getElementById("nombreCompleto").value = res.data[0].nombreCompleto;
+           document.getElementById("apodo").value = res.data[0].apodo;
+           document.getElementById("fechaNacimiento").value = res.data[0].fechaNacimiento;
+           document.getElementById("numCurp").value = res.data[0].numCurp;
+           document.getElementById("fechaIngreso").value = res.data[0].fechaIngreso;
+           document.getElementById("edadMental").value = res.data[0].edadMental;
+           document.getElementById("motivoIngreso").value = res.data[0].motivoIngreso;
+           document.getElementById("canalizador").value = res.data[0].canalizador;
+           document.getElementById("dxMedico").value = res.data[0].dxMedico;
+           document.getElementById("vinculosFam").value = res.data[0].vinculosFam;
+           document.getElementById("headquarter_id").value = res.data[0].headquarter_id;
+          })
+  }
 
     constructor(props){
         super(props);
         this.state = {
             formValid: false,
             errorCount: null,
+            id: '',
             nombreCompleto: null,
             apodo: null,
             fechaNacimiento: null,
@@ -63,22 +66,6 @@ export default class RegisterB1 extends Component {
 
         //ACTUALIZAR LA INFO MODIFICADA
         this.onSubmit= this.onSubmit.bind(this);
-    }
-
-    state = {
-      beneficiaries: [],
-    }
-
-  //REALIZAR PETICIÓN GET PARA OBTENER LOS VALORES ACTUALES
-    componentDidMount() {
-      let urlElements = window.location.href.split('/');
-    console.log(urlElements[6]);
-      axios.get(API_BASE_URL + 'beneficiaries/' + urlElements[6])
-      .then(res => {
-          const beneficiaries = res.data;
-          this.setState({ beneficiaries });
-          console.log(beneficiaries);
-        })
     }
 
     handleChange = (event) => {
@@ -145,7 +132,7 @@ export default class RegisterB1 extends Component {
       let dxMedico = document.getElementById("dxMedico").value;
       let vinculosFam = document.getElementById("vinculosFam").value;
   
-      if(nombreCompleto !== ''){
+      if(nombreCompleto !== '' && fechaNacimiento !== ''){
       const beneficiary = {
           id: id,
           status_id: 1,
@@ -168,10 +155,10 @@ export default class RegisterB1 extends Component {
       
       Swal.fire(
           '¡Listo!',
-          'Egreso registrado de manera exitosa',
+          'Datos personales modificados de manera exitosa',
           'success',
           ).then(function() {
-              window.location = "http://localhost:3000/admin/Beneficiarias/GeneralViewAdmin";
+              window.location = "http://localhost:3000/admin/Beneficiarias/SpecificView/" + id;
           });
           }else{
               Swal.fire(
@@ -194,31 +181,33 @@ export default class RegisterB1 extends Component {
     }else if (idRol==1){
         window.location = "http://localhost:3000/admin/Nomina/Nomina";
     }
+
+    let urlElements = window.location.href.split('/');
+    this.fillData();
+
         const {errors, formValid} = this.state;
         return (
             <div className="content">
                 <h2 className="title">Modificar datos personales</h2>
-                <Form onClick={this.onSubmit} autocomplete="off">
+                <Form onSubmit={this.onSubmit} autocomplete="off">
                 <Card>
                     <CardHeader>
                         <Alert color="primary">Los campos marcados con un asterisco (*) son obligatorios.</Alert>
                     </CardHeader>
                     <CardBody>
-                    <FormGroup>
-                            <Input type="text" id="id" name="id" value={this.props.id} hidden></Input>
-                        </FormGroup>
-                    {this.state.beneficiaries.map((beneficiary) => (
-                <>
-                            <Input type="text" id="headquarter_id" name="headquarter_id" value={beneficiary.headquarter_id} hidden></Input>
-                            <Input type="text" id="edadMental" name="edadMental" value={beneficiary.edadMental} hidden></Input>
-                            <Input type="text" id="fechaIngreso" name="fechaIngreso" value={beneficiary.fechaIngreso} hidden></Input>
-                            <Input type="text" id="motivoIngreso" name="motivoIngreso" value={beneficiary.motivoIngreso} hidden></Input>                            <Input type="text" id="canalizador" name="canalizador" value={beneficiary.canalizador} hidden></Input>
-                            <Input type="text" id="dxMedico" name="dxMedico" value={beneficiary.dxMedico} hidden></Input>
-                            <Input type="text" id="vinculosFam" name="vinculosFam" value={beneficiary.vinculosFam} hidden></Input>
+                            <Input type="text" id="id" name="id" value={urlElements[6]}></Input>
+  
+                            <Input type="text" id="headquarter_id" name="headquarter_id" hidden></Input>
+                            <Input type="text" id="edadMental" name="edadMental" hidden></Input>
+                            <Input type="text" id="fechaIngreso" name="fechaIngreso" hidden></Input>
+                            <Input type="text" id="motivoIngreso" name="motivoIngreso" hidden></Input>                            
+                            <Input type="text" id="canalizador" name="canalizador" hidden></Input>
+                            <Input type="text" id="dxMedico" name="dxMedico" hidden></Input>
+                            <Input type="text" id="vinculosFam" name="vinculosFam" hidden></Input>
 
                         <FormGroup>
                             <Label htmlFor="nombreCompleto">*&nbsp;<FontAwesomeIcon icon={['fas', 'user']} />&nbsp;Nombre completo:</Label>
-                            <Input id="nombreCompleto" placeholder="Maria Sandoval Arrieta" name="nombreCompleto" onChange={this.handleChange} value={beneficiary.nombreCompleto}></Input>
+                            <Input id="nombreCompleto" placeholder="Maria Sandoval Arrieta" name="nombreCompleto" ></Input>
                             {errors.nombreCompleto.length > 0 && <span className='error'>{errors.nombreCompleto}</span> 
                                 || 
                                  errors.nombreCompleto.length == 0 && <span className='error'>{errors.nombreCompleto}</span>}
@@ -226,7 +215,7 @@ export default class RegisterB1 extends Component {
 
                         <FormGroup>
                             <Label htmlFor="apodo">Apodo:</Label>
-                            <Input id="apodo" placeholder="Mary" name="apodo" onChange={this.handleChange} value={beneficiary.apodo}></Input>
+                            <Input id="apodo" placeholder="Mary" name="apodo"></Input>
                             {errors.apodo.length > 0 && <span className='error'>{errors.apodo}</span> 
                                 || 
                                  errors.apodo.length == 0 && <span className='error'>{errors.apodo}</span>}
@@ -236,7 +225,7 @@ export default class RegisterB1 extends Component {
                         <Col md="6">
                         <FormGroup>
                             <Label htmlFor="fechaNacimiento">*&nbsp;<FontAwesomeIcon icon={['fas', 'calendar-alt']} />&nbsp;Fecha de nacimiento:</Label>
-                            <Input type="date" id="fechaNacimiento" name="fechaNacimiento" onChange={this.handleChange} value={beneficiary.fechaNacimiento}></Input>
+                            <Input type="date" id="fechaNacimiento" name="fechaNacimiento"></Input>
                             {errors.fechaNacimiento.length > 0 && <span className='error'>{errors.fechaNacimiento}</span> 
                                 || 
                                  errors.fechaNacimiento.length == 0 && <span className='error'>{errors.fechaNacimiento}</span>}
@@ -257,7 +246,7 @@ export default class RegisterB1 extends Component {
                         <Col md="6">
                         <FormGroup>
                             <Label htmlFor="curp">CURP:</Label>
-                            <Input id="numCurp" name="numCurp" placeholder="XEXX010101HNEXXXA4" onChange={this.handleChange} value={beneficiary.curp}></Input>
+                            <Input id="numCurp" name="numCurp" placeholder="XEXX010101HNEXXXA4"></Input>
                             {errors.curp.length > 0 && <span className='error'>{errors.curp}</span> 
                                 || 
                             errors.curp.length == 0 && <span className='error'>{errors.curp}</span>}
@@ -287,14 +276,11 @@ export default class RegisterB1 extends Component {
                             </CustomInput>
                             <Badge id="cargaFoto" color="light">* Recuerda subir un archivo .pdf, .doc/x, .xls/x or .ppt/x</Badge>
                         </FormGroup>
-                        </>
-                ))}
+
                     </CardBody>
                 </Card>
                 <Col  md="12" align="center">
-                  <Link to='/admin/Beneficiarias/RegisterB2'>
-                  <Button onClick="onSubmit()">Modificar</Button>
-                  </Link>
+                  <Button type="submit">Modificar</Button>
                   
                 </Col>
                 </Form>

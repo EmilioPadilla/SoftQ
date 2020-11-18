@@ -16,10 +16,10 @@ class StatusSeeder extends Seeder
     {
         DB::table('status')->insert([
             [
-                'nombre' => 'Activos',
+                'nombre' => 'Activas',
             ],
             [
-                'nombre' => 'Inactivos',
+                'nombre' => 'Inactivas',
             ],
          ]);
     }

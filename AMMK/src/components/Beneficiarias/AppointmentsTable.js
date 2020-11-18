@@ -14,6 +14,7 @@ import Swal from 'sweetalert2';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
+import ViewMedApp from 'views/Beneficiarias/ViewMedApp';
 library.add(fas)
   
 export default class AppointmentTable extends React.Component {
@@ -89,13 +90,7 @@ export default class AppointmentTable extends React.Component {
                   <td>
                   <Row>
                   <Col md="4">
-                  <Link   to={{
-                        pathname: '../ViewMedApp/'+ appointment.id,
-                        state:appointment.id
-                      }}> 
-                          <Button color="info" size="sm" id="verDetalle"><FontAwesomeIcon icon={['fas', 'eye']} /></Button>
-                          <SimpleTooltip placement="top" target="verDetalle">Ver detalle</SimpleTooltip>
-                  </Link>
+                      <ViewMedApp name={appointment.id}/>
                   </Col>
                   <Col md="4">
                     <Link to={"/admin/Beneficiarias/ModifyMedApp/" + appointment.id}>
