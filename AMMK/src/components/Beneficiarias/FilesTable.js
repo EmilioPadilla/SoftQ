@@ -22,6 +22,7 @@ export default class FilesTable extends React.Component {
     super(props);
     this.state = {
         modalEliminar: false,
+        modalDescargar: false,
         form:{
             id: '',
             categoria: '',
@@ -76,6 +77,22 @@ export default class FilesTable extends React.Component {
     })
   }
 
+peticionDownload=()=>{
+  axios({
+    url: API_BASE_URL + 'benef_files/downloadFile/' + this.state.form.id,
+    method: 'GET',
+    responseType: 'blob',
+  }).then((response) => {
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', this.state.form.path);
+    document.body.appendChild(link);
+    link.click();
+  });
+  this.setState({modalDescargar: false});
+}
+
   render() {
     return (
       <div>
@@ -100,12 +117,7 @@ export default class FilesTable extends React.Component {
                   <td>
                   <Row>
                                         <Col md="4">
-                                            <Button color="info" size="sm" id="verArchivo"><FontAwesomeIcon icon={['fas', 'eye']} /></Button>
-                                            <SimpleTooltip placement="top" target="verArchivo" >Ver archivo</SimpleTooltip>
-                                        </Col>
-
-                                        <Col md="4">
-                                            <Button color="primary" size="sm" id="descargar"><FontAwesomeIcon icon={['fas', 'download']} /></Button>
+                                            <Button color="primary" size="sm" id="descargar" onClick={()=>{this.selectFile(file); this.setState({modalDescargar: true})}}><FontAwesomeIcon icon={['fas', 'download']} /></Button>
                                             <SimpleTooltip placement="top" target="descargar" >Descargar</SimpleTooltip>
                                         </Col>
 
@@ -128,6 +140,16 @@ export default class FilesTable extends React.Component {
                 <ModalFooter>
                   <Button color="primary"onClick={()=>this.setState({modalEliminar: false})}>No</Button>
                   <Button color="danger" onClick={()=>this.peticionDelete()}>Sí</Button>
+                </ModalFooter>
+        </Modal>
+
+        <Modal isOpen={this.state.modalDescargar}>
+                <ModalBody>
+                   ¿Estás segur@ que deseas descargar el archivo?
+                </ModalBody>
+                <ModalFooter>
+                  <Button color="primary"onClick={()=>this.setState({modalDescargar: false})}>No</Button>
+                  <Button color="success" onClick={()=>this.peticionDownload(this.state.form)}>Sí</Button>
                 </ModalFooter>
         </Modal>
 

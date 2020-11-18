@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 //importing model 
 use App\Models\BenefFile; 
 use App\Models\Beneficiary; 
+use Response;
 
 class BenefFileController extends Controller
 {
@@ -39,14 +40,17 @@ class BenefFileController extends Controller
      */
     public function store(Request $request)
     {
-      //check file
-      if ($request->hasFile('file'))
+        //MAX_FILESIZE -> 18 MB -- 18432 KB
+
+        if ($request->validate([
+            'file' => 'required|mimes:pdf,jpg,jpeg,png,doc,xls,ppt,docx,xlsx,pptx|max:18432'
+        ])){
+            if ($request->hasFile('file'))
       {
             $file      = $request->file('file');
             $filename  = $file->getClientOriginalName();
             $extension = $file->getClientOriginalExtension();
             $picture   = time().'-'.$filename;
-            //move image to public/img folder
             $file->move(public_path('benef_files'), $picture);
             $benefFile = new BenefFile;
             $benefFile->path = $picture;
@@ -55,11 +59,13 @@ class BenefFileController extends Controller
                 $benefFile->categoria = $request->input("categoria");;
                 $benefFile->save();
                 return response()->json('File added succesfully');
-      } 
-      else
+      } else
       {
-            return response()->json(["message" => "Select image first."]);
+            return response()->json(["message" => "Select file first."]);
       }
+        } else {
+            return response()->json(["message" => "There has been an error, check size and type of file are valid."]);
+        }
     }
 
     /**
@@ -121,10 +127,12 @@ class BenefFileController extends Controller
         ]);
     } 
 
-    public function downloadFile(BenefFile $benefFile){
-
-        $file = $benefFile->path;
-        $route = public_path().'/benef_files/'.$file;
-        return response()->download($route, $benefFile);
+    public function downloadFile($id){
+        $benefFile = BenefFile::where('id', '=', $id)->pluck('path');
+        $path1 = str_replace('["', '', $benefFile);
+        $path2 = str_replace('"]', '', $path1);
+        $route = public_path().'/benef_files/'.$path2;
+        $headers = array('Content-Type: application/pdf',);
+        return Response::download($route, $path2, $headers);
     }
 }

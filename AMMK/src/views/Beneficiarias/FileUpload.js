@@ -50,21 +50,46 @@ export default class FileUpload extends Component
     fd.append('comentario', comentario);
     fd.append('categoria', categoria);
     fd.append('file', this.state.fileData);
-    console.log(fd.get('id'));
-    console.log(fd.get('comentario'));
-    console.log(fd.get('file'));
-      axios.post(API_BASE_URL + 'benef_files', fd
-      ).then(res=>{
-        this.setState.modalReingresar = false;
+
+    //GET FILE TYPE
+    let splitName = (fd.get('file').name).split(".");
+    let type = splitName[1];
+    console.log(type);
+    
+    //GET SIZE
+    let size = (fd.get('file').size);
+    console.log(size);
+
+    if(size <= 18874368){
+      if (type === "jpg" || type === "jpeg" || type === "png" || 
+          type === "pdf" || type === "doc" || type === "docx" || 
+          type === "xls" || type === "xlsx" || type === "ppt" || type === "pptx") { 
+            axios.post(API_BASE_URL + 'benef_files', fd
+            ).then(res=>{
+              this.setState.modalReingresar = false;
+              Swal.fire(
+                '¡Listo!',
+                'Documento cargado de manera exitosa',
+                'success',
+                ).then(function() {
+                    window.location = ("http://localhost:3000/admin/Beneficiarias/SpecificView/" + id);
+                });
+            }
+            );
+      } else {
         Swal.fire(
-          '¡Listo!',
-          'Documento cargado de manera exitosa',
-          'success',
-          ).then(function() {
-              window.location = ("http://localhost:3000/admin/Beneficiarias/SpecificView/" + id);
-          });
+          'ERROR!',
+          'Sólo se permiten archivos .pdf, doc/x, xls/x, ppt/x o imágenes .png, .jpg y .jpeg',
+          'error'
+        );
       }
+    } else {
+      Swal.fire(
+        'ERROR!',
+        'El archivo debe ser menor a 18 MB',
+        'error'
       );
+    }
   }
   
   render(){
