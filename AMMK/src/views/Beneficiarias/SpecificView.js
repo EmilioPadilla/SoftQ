@@ -7,6 +7,8 @@ import SimpleTooltip from "../General/SimpleTooltip";
 import ModifyTakeOut from './ModifyTakeOut';
 import ModifyEntry from './ModifyEntry';
 import ModifyPersonal from './ModifyPersonal';
+import FileUpload from './FileUpload';
+import FilesTable from 'components/Beneficiarias/FilesTable';
 
 //API CALLS
 import axios from 'axios';
@@ -59,8 +61,8 @@ export default class SpecificView extends Component {
                     <>
                         {(() => {
         switch (beneficiary.status_id) {
-          case 1:   return <Alert color="primary" style={{ 'font-size': '15px', 'font-weight': 'bold' }}>{status[beneficiary.status_id]}</Alert>;
-          case 2:   return <Alert color="danger" style={{ 'font-size': '18px', 'font-weight': 'bold' }}>{status[beneficiary.status_id]}</Alert>;
+          case 1:   return <Alert color="primary" style={{ 'fontSize': '15px', 'fontWeight': 'bold' }}>{status[beneficiary.status_id]}</Alert>;
+          case 2:   return <Alert color="danger" style={{ 'fontSize': '18px', 'fontWeight': 'bold' }}>{status[beneficiary.status_id]}</Alert>;
           default:return '';
         }
       })()}
@@ -173,8 +175,6 @@ export default class SpecificView extends Component {
         }
       })()}
                         <br></br>
-                    </>
-                ))}
                 <Card>
                     <CardBody>
                         <Row>
@@ -182,50 +182,19 @@ export default class SpecificView extends Component {
                                 <Badge color="primary">ARCHIVOS DE REGISTRO</Badge>
                             </Col>
                             <Col md="6">
-                                <Button className="float-right" size="sm" id="editar"><FontAwesomeIcon icon={['fas', 'pencil-alt']} /></Button>
-                                <SimpleTooltip placement="top" target="editar" >Editar</SimpleTooltip>
+                                <FileUpload id={beneficiary.id}/>
                             </Col>
                         </Row>
                         <div style={{
             maxHeight: '300px',
             overflowY: 'auto'
           }}>
-                        <Table hover>
-                            <thead>
-                                <tr>
-                                    <th>Nombre de archivo</th>
-                                    <th>Descripción</th>
-                                    <th>Fecha</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <Row>
-                                        <Col md="4">
-                                            <Button color="info" size="sm" id="verArchivo"><FontAwesomeIcon icon={['fas', 'eye']} /></Button>
-                                            <SimpleTooltip placement="top" target="verArchivo" >Ver archivo</SimpleTooltip>
-                                        </Col>
-
-                                        <Col md="4">
-                                            <Button color="primary" size="sm" id="descargar"><FontAwesomeIcon icon={['fas', 'download']} /></Button>
-                                            <SimpleTooltip placement="top" target="descargar" >Descargar</SimpleTooltip>
-                                        </Col>
-
-                                        <Col md="4">
-                                            <Button color="danger" size="sm" id="eliminar"><FontAwesomeIcon icon={['fas', 'trash-alt']} /></Button>
-                                            <SimpleTooltip placement="top" target="eliminar" >Eliminar</SimpleTooltip>
-                                        </Col>
-                                    </Row>
-                                </td>
-                            </tr>
-                        </Table>
+              <FilesTable id={beneficiary.id}/>
                         </div>
                     </CardBody>
                 </Card>
+                </>
+                ))}
             </div>
         )
     }

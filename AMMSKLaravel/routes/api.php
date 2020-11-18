@@ -115,6 +115,7 @@ Route::resource('medical_appointments', 'App\Http\Controllers\MedicalAppointment
 Route::get('medical_appointments/{id}/med', 'App\Http\Controllers\MedicalAppointmentController@forBeneficiary');
 
 Route::resource('benef_files', 'App\Http\Controllers\BenefFileController');
+Route::post('benef_files/fileUpload', 'App\Http\Controllers\BenefFileController@fileUpload');
 
 Route::resource('specialties', 'App\Http\Controllers\SpecialtyController');
 

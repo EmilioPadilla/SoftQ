@@ -39,7 +39,28 @@ class BenefFileController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      //check file
+      if ($request->hasFile('file'))
+      {
+            $file      = $request->file('file');
+            $filename  = $file->getClientOriginalName();
+            $extension = $file->getClientOriginalExtension();
+            $picture   = time().'-'.$filename;
+            //move image to public/img folder
+            $file->move(public_path('benef_files'), $picture);
+            $benefFile = new BenefFile;
+            $benefFile->path = 'benef_files/' . $picture;
+                //$benefFile->comentario= $request-> comentario;
+                $benefFile->beneficiary_id=8;
+                $benefFile->comentario='';
+                $benefFile->categoria='ingreso';
+                $benefFile->save();
+                return response()->json('File added succesfully');
+      } 
+      else
+      {
+            return response()->json(["message" => "Select image first."]);
+      }
     }
 
     /**
@@ -85,6 +106,14 @@ class BenefFileController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $file = BenefFile::find($request->id);
+        $file_path = $file->file_path;
+        if(file_exists($file_path))
+   {        
+      unlink($file_path);
+      BenefFile::destroy($request->id);
+   }
+   return response()->json('File deleted succesfully');
     }
+    
 }
