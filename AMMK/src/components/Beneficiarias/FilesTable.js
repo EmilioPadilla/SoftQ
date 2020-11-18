@@ -21,7 +21,15 @@ export default class FilesTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-    modalEliminar: false,
+        modalEliminar: false,
+        form:{
+            id: '',
+            categoria: '',
+            comentario: '',
+            beneficiary_id: '',
+            created_at:'',
+            path: '',
+        },
       files: [],
     }
   }
@@ -29,11 +37,9 @@ export default class FilesTable extends React.Component {
   componentDidMount() {
     this.getFiles();
   }
-
-
+  
   getFiles() {
     let urlElements = window.location.href.split('/');
-    console.log(API_BASE_URL + 'benef_files/' + urlElements[6]);
     axios.get(API_BASE_URL + 'benef_files/' + urlElements[6])
       .then(res => {
         const files = res.data;
@@ -42,17 +48,30 @@ export default class FilesTable extends React.Component {
       })
   }
 
+  selectFile=(file)=>{
+    this.setState({
+      form: {
+        id: file.id,
+        beneficiary_id: file.beneficiary_id,
+        categoria: file.categoria,
+        comentario: file.comentario,
+        path: file.path,
+        created_at: file.created_at,
+      }
+    })
+  }
+
   peticionDelete=()=>{
-    axios.delete(API_BASE_URL + 'benef_files/' + 11).then(response=>{
+    axios.delete(API_BASE_URL + 'benef_files/' + this.state.form.id).then(response=>{
         console.log(response);
         console.log(response.data);
       this.setState({modalEliminar: false});
       Swal.fire(
         'LISTO!',
-        'El tratamiento fue eliminado de manera exitosa.',
+        'El archivo fue eliminado de manera exitosa.',
         'success'
     )
-    const files = this.state.files.filter(item => item.id !== this.state.form.id);
+      const files = this.state.files.filter(item => item.id !== this.state.form.id);
     this.setState({ files });
     })
   }
@@ -91,9 +110,9 @@ export default class FilesTable extends React.Component {
                                         </Col>
 
                                         <Col md="4">
-                        <Button size="sm" id="eliminar" onClick={()=>{this.setState({modalEliminar: true})}} color="danger"><FontAwesomeIcon icon={['fas', 'trash-alt']} /></Button>
-                        <SimpleTooltip placement="top" target="eliminar" >Eliminar</SimpleTooltip>
-                        </Col>
+                                            <Button onClick={()=>{this.selectFile(file); this.setState({modalEliminar: true})}} size="sm" id="eliminar" color="danger"><FontAwesomeIcon icon={['fas', 'trash-alt']} /></Button>
+                                            <SimpleTooltip placement="top" target="eliminar" >Eliminar</SimpleTooltip>
+                                        </Col>
                                     </Row>
                   </td>
                 </tr>

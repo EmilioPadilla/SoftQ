@@ -13,6 +13,7 @@ import SimpleTooltip from "../General/SimpleTooltip";
 //ICONS
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faPlus } from '@fortawesome/free-solid-svg-icons';
+import { idText } from 'typescript';
 
 export default class FileUpload extends Component
 {
@@ -40,19 +41,30 @@ export default class FileUpload extends Component
   addFormData(e){
     
     e.preventDefault();
-    
+
+    let id = document.getElementById("id").value;
+    let comentario = document.getElementById("comentario").value;
+    let categoria = document.getElementById("categoria").value;
     const fd = new FormData();
+    fd.append('id', id);
+    fd.append('comentario', comentario);
+    fd.append('categoria', categoria);
     fd.append('file', this.state.fileData);
+    console.log(fd.get('id'));
+    console.log(fd.get('comentario'));
+    console.log(fd.get('file'));
       axios.post(API_BASE_URL + 'benef_files', fd
       ).then(res=>{
-    Swal.fire(
-      '¡Listo!',
-      'Archivo cargado de manera exitosa',
-      'success'
-      );
+        this.setState.modalReingresar = false;
+        Swal.fire(
+          '¡Listo!',
+          'Documento cargado de manera exitosa',
+          'success',
+          ).then(function() {
+              window.location = ("http://localhost:3000/admin/Beneficiarias/SpecificView/" + id);
+          });
       }
       );
-      this.setState.modalReingresar = false;
   }
   
   render(){
@@ -78,6 +90,10 @@ export default class FileUpload extends Component
                <input onChange={ (e) => this.handleChange(e.target.files) } type="file" id="file"/>
                 </Col>
                </Row>
+               <FormGroup>
+                  <Label for="categoria">Categoria:</Label>
+                  <Input type="text" name="categoria" id="categoria" placeholder="Ingreso"></Input>
+                </FormGroup>
 
                 <FormGroup>
                   <Label for="comentario">Descripción:</Label>

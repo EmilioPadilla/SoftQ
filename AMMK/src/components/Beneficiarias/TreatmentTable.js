@@ -57,7 +57,7 @@ export default class TreatmentTable extends React.Component {
     })
   }
 
-  seleccionarEmpresa=(treatment)=>{
+  selectTreatment=(treatment)=>{
     this.setState({
       form: {
         id: treatment.id,
@@ -103,7 +103,7 @@ export default class TreatmentTable extends React.Component {
                         </Col>
 
                         <Col md="4">
-                        <Button size="sm" id="eliminar" onClick={()=>{this.seleccionarEmpresa(treatment); this.setState({modalEliminar: true})}} color="danger"><FontAwesomeIcon icon={['fas', 'trash-alt']} /></Button>
+                        <Button size="sm" id="eliminar" onClick={()=>{this.selectTreatment(treatment); this.setState({modalEliminar: true})}} color="danger"><FontAwesomeIcon icon={['fas', 'trash-alt']} /></Button>
                         <SimpleTooltip placement="top" target="eliminar" >Eliminar</SimpleTooltip>
                         </Col>
                     </Row>

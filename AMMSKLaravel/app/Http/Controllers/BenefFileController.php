@@ -49,11 +49,10 @@ class BenefFileController extends Controller
             //move image to public/img folder
             $file->move(public_path('benef_files'), $picture);
             $benefFile = new BenefFile;
-            $benefFile->path = 'benef_files/' . $picture;
-                //$benefFile->comentario= $request-> comentario;
-                $benefFile->beneficiary_id=8;
-                $benefFile->comentario='';
-                $benefFile->categoria='ingreso';
+            $benefFile->path = $picture;
+                $benefFile->beneficiary_id = $request->input("id");
+                $benefFile->comentario = $request->input("comentario");
+                $benefFile->categoria = $request->input("categoria");;
                 $benefFile->save();
                 return response()->json('File added succesfully');
       } 
@@ -71,7 +70,9 @@ class BenefFileController extends Controller
      */
     public function show($id)
     {
-        $benefFiles = BenefFile::where('beneficiary_id', '=', $id)->get();
+        $benefFiles = BenefFile::where('beneficiary_id', '=', $id)
+        ->orderBy('created_at', 'desc')
+        ->get();
         return response()->json ($benefFiles);
     }
 
@@ -104,16 +105,26 @@ class BenefFileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(BenefFile $benefFile)
     {
-        $file = BenefFile::find($request->id);
-        $file_path = $file->file_path;
-        if(file_exists($file_path))
-   {        
-      unlink($file_path);
-      BenefFile::destroy($request->id);
-   }
-   return response()->json('File deleted succesfully');
+        $file = $benefFile->path;
+        $route = public_path().'/benef_files/'.$file;
+        if($route){
+            $benefFile->delete();
+            unlink($route);
+        } else {
+            return response()->json([
+                'error'=>'File not exist!']);
+        }
+        return response()->json([
+            'message' => $benefFile
+        ]);
+    } 
+
+    public function downloadFile(BenefFile $benefFile){
+
+        $file = $benefFile->path;
+        $route = public_path().'/benef_files/'.$file;
+        return response()->download($route, $benefFile);
     }
-    
 }
