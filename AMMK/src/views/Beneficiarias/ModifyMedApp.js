@@ -128,8 +128,6 @@ export default class RegisterMedApp extends Component {
       }
     
       let urlElements = window.location.href.split('/');
-      const{id} = urlElements[6];
-
       this.fillData();
 
         return (
