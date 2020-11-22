@@ -1,4 +1,5 @@
-[2020-11-15 23:14:26] local.ERROR: syntax error, unexpected '<<' (T_SL), expecting end of file {"exception":"[object] (ParseError(code: 0): syntax error, unexpected '<<' (T_SL), expecting end of file at C:\\Users\\sebas\\Documents\\SoftQ\\AMMSKLaravel\outes\\api.php:129)
+[2020-11-15 23:14:26] local.ERROR: syntax error, unexpected '<<' (T_SL), expecting end of file {"exception":"[object] (ParseError(code: 0): syntax error, unexpected '<<' (T_SL), expecting end of file at C:\\Users\\sebas\\Documents\\SoftQ\\AMMSKLaravel\
+outes\\api.php:129)
 [stacktrace]
 #0 C:\\Users\\sebas\\Documents\\SoftQ\\AMMSKLaravel\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(423): Illuminate\\Routing\\RouteFileRegistrar->register('C:\\\\Users\\\\sebas\\\\...')
 #1 C:\\Users\\sebas\\Documents\\SoftQ\\AMMSKLaravel\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(380): Illuminate\\Routing\\Router->loadRoutes('C:\\\\Users\\\\sebas\\\\...')

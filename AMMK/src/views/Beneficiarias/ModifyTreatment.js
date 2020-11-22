@@ -16,47 +16,40 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 library.add(fas)
 
 export default class ModifyTreatment extends Component {
-  
+
   constructor(props){
     super(props);
     this.state = {
-        fechaInicio: '',
-        fechaTermino: '',
-        treatments: [],
-      };
-
-    this.onChangeFechaInicio = this.onChangeFechaInicio.bind(this);
-    this.onChangeFechaTermino = this.onChangeFechaTermino.bind(this);
+    id: '',
+    nombreMed: null,
+    funcionMed: null,
+    dosis: null,
+    mode_id: null,
+    lapso: null,
+    fechaInicio: null,
+    fechaTermino: null,
+    treatments: [],
+    };
     this.onSubmit= this.onSubmit.bind(this);
+}
+
+fillData () {
+  axios.get(API_BASE_URL + 'treatments/' + 2)
+      .then(function (res) {
+         document.getElementById("nombreMed").value = res.data[0].nombreMed;
+         document.getElementById("funcionMed").value = res.data[0].funcionMed;
+         document.getElementById("dosis").value = res.data[0].dosis;
+         document.getElementById("lapso").value = res.data[0].lapso;
+         document.getElementById("mode_id").value = res.data[0].specialty_id; 
+         document.getElementById("fechaInicio").value = res.data[0].fechaInicio;
+         document.getElementById("fechaTermino").value = res.data[0].fechaTermino;
+        })
 }
 
   state={
     modalEditar: false,
   }
 
-  onChangeFechaInicio(e) {
-    this.setState({ fechaInicio: e.target.value })
-  }
-
-  onChangeFechaTermino(e) {
-    this.setState({ fechaTermino: e.target.value })
-  }
-
-  componentDidMount() {
-    let id = this.props.id;
-    console.log(id);
-    axios.get(API_BASE_URL + 'treatments/' + id)
-    .then(res => {
-      this.setState({
-        fechaInicio: res.data.fechaInicio,
-        fechaTermino: res.data.fechaTermino,
-      });
-        const treatments = res.data;
-        this.setState({ treatments });
-        console.log(treatments);
-      })
-  }
-    
 onSubmit(e){
     
     e.preventDefault()
@@ -72,7 +65,7 @@ onSubmit(e){
     let fechaInicio = document.getElementById("fechaInicio").value;
     let fechaTermino = document.getElementById("fechaTermino").value;
 
-    if(fechaInicio !== ''){
+    if(fechaInicio !== '' && fechaTermino !== ''){
     const treatment = {
         id: id,
         beneficiary_id: beneficiary_id,
@@ -115,7 +108,9 @@ onSubmit(e){
     }else if (idRol==1){
         window.location = "http://localhost:3000/admin/Nomina/Nomina";
     }
-    const {errors, formValid} = this.state;
+
+    //this.fillData();
+
   return (
     <div className="content">
       <Button color="secondary" size="sm" onClick={()=>{this.setState({modalEditar: true})}}><FontAwesomeIcon icon={['fas', 'pencil-alt']} /></Button>
@@ -129,28 +124,24 @@ onSubmit(e){
           <ModalBody>
                   <Row>
                     <Col md="12">
-                    {this.state.treatments.map((treatment) => (
-                <>
-                            <Input type="text" id="id" name="id" value={treatment.id} ></Input>
-                            <Input type="text" id="beneficiary_id" name="beneficiary_id" value={treatment.beneficiary_id} ></Input>
-                            <Input type="text" id="nombreMed" name="nombreMed" value={treatment.nombreMed} hidden></Input>
-                            <Input type="text" id="funcionMed" name="funcionMed" value={treatment.funcionMed} hidden></Input>
-                            <Input type="text" id="dosis" name="dosis" value={treatment.dosis} hidden></Input>
-                            <Input type="text" id="mode_id" name="mode_id" value={treatment.mode_id} hidden></Input>
-                            <Input type="text" id="lapso" name="lapso" value={treatment.lapso} hidden></Input>
+                            <Input type="text" id="id" name="id" value={this.props.name}></Input>
+                            <Input type="text" id="beneficiary_id" name="beneficiary_id"></Input>
+                            <Input type="text" id="nombreMed" name="nombreMed"></Input>
+                            <Input type="text" id="funcionMed" name="funcionMed" ></Input>
+                            <Input type="text" id="dosis" name="dosis" ></Input>
+                            <Input type="text" id="mode_id" name="mode_id" ></Input>
+                            <Input type="text" id="lapso" name="lapso"></Input>
 
                         <FormGroup>
                             <FontAwesomeIcon icon={["fas", "calendar-alt"]} />
                             <Label for="fechaInicio">&nbsp;Fecha de inicio:</Label>
-                            <Input type="date" id="fechaInicio" name="fechaInicio" value={treatment.fechaInicio} onChange={this.onChangeFechaInicio} ></Input>
+                            <Input type="date" id="fechaInicio" name="fechaInicio" ></Input>
                         </FormGroup>
                         <FormGroup>
                             <FontAwesomeIcon icon={["fas", "calendar-alt"]} />
                             <Label for="fechaTermino">&nbsp;Fecha de finalización:</Label>
-                            <Input type="date" id="fechaTermino" name="fechaTermino" value={this.state.fechaTermino} onChange={this.onChangeFechaTermino}></Input>
+                            <Input type="date" id="fechaTermino" name="fechaTermino"></Input>
                         </FormGroup>
-                        </>
-                ))}
                     </Col>
                 </Row>
         </ModalBody>

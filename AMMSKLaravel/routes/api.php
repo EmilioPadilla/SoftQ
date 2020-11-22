@@ -28,14 +28,20 @@ Route::resource('tipodonante', 'App\Http\Controllers\TipoDonanteController');
 Route::resource('recurrencia', 'App\Http\Controllers\RecurrenciaController');
 Route::resource('tipodonacion', 'App\Http\Controllers\TipoDonacionController');
 Route::get('donors/table/all', 'App\Http\Controllers\DonantesController@showTable');
-Route::get('donations/table/all', 'App\Http\Controllers\DonacionController@showTable');
-Route::get('donors/contact/table/all', 'App\Http\Controllers\ContactoDonanteController@showTable');
+Route::get('donors/tableI/all', 'App\Http\Controllers\DonantesController@showTableI');
+
+Route::get('donations/table/all/{donante}', 'App\Http\Controllers\DonacionController@showTable');
+Route::get('donors/contact/table/all/{donante}', 'App\Http\Controllers\ContactoDonanteController@showTable');
 Route::get('donations/showAll/{id}', 'App\Http\Controllers\DonantesController@showDonaciones');
 Route::get('donorContacts/showAll/{id}', 'App\Http\Controllers\DonantesController@showContactos');
 Route::get('donations/delete/{id}', 'App\Http\Controllers\DonacionController@deleteD');
 Route::get('donorContacts/delete/{id}', 'App\Http\Controllers\ContactoDonanteController@deleteC');
 Route::resource('donaciones', 'App\Http\Controllers\DonacionController');
 Route::resource('contactoDonante', 'App\Http\Controllers\ContactoDonanteController');
+Route::get('donors/table/tipoDonante/{tipo}', 'App\Http\Controllers\DonantesController@showTipoDonante');
+//Route::get('account/find/{username}', 'App\Http\Controllers\AccountController@showId');
+Route::get('donors/table/buscar/{palabra}', 'App\Http\Controllers\DonantesController@searchDonor');
+
 
 // Rutas empleados
 Route::resource('employee', 'App\Http\Controllers\EmployeesController');
@@ -70,6 +76,8 @@ Route::resource('tipodonante', 'App\Http\Controllers\TipoDonanteController');
 Route::resource('recurrencia', 'App\Http\Controllers\RecurrenciaController');
 Route::resource('tipodonacion', 'App\Http\Controllers\TipoDonacionController');
 Route::get('donors/table/all', 'App\Http\Controllers\DonantesController@showTable');
+
+
 Route::get('donations/table/all', 'App\Http\Controllers\DonacionController@showTable');
 Route::get('donors/contact/table/all', 'App\Http\Controllers\ContactoDonanteController@showTable');
 
@@ -115,6 +123,7 @@ Route::resource('medical_appointments', 'App\Http\Controllers\MedicalAppointment
 Route::get('medical_appointments/{id}/med', 'App\Http\Controllers\MedicalAppointmentController@forBeneficiary');
 
 Route::resource('benef_files', 'App\Http\Controllers\BenefFileController');
+Route::get('benef_files/downloadFile/{id}', 'App\Http\Controllers\BenefFileController@downloadFile');
 
 Route::resource('specialties', 'App\Http\Controllers\SpecialtyController');
 
