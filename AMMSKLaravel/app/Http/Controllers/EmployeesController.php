@@ -89,6 +89,8 @@ class EmployeesController extends Controller
         $employee->numSeguroSocial = $request -> numSeguroSocial;
 
         $employee->save();
+
+        return $employee;
     }
 
     /**
