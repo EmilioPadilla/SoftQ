@@ -65,6 +65,22 @@ class TreatmentController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function forBeneficiary($id)
+    {
+        $treatments = Treatment::with('mode')
+        ->where("beneficiary_id", $id)
+        ->orderBy('fechaInicio', 'desc')
+        ->get();
+
+        return $treatments;
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id

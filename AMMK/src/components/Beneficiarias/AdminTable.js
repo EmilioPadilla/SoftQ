@@ -18,21 +18,43 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 library.add(fas)
   
 export default class AdminTable extends React.Component {
-  state = {
-    beneficiaries: [],
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      beneficiaries: [],
+    }
   }
   
   componentDidMount() {
-    let id = this.props.dataFromParent;
-    console.log(id);
-    axios.get(API_BASE_URL + 'beneficiaries/' + id + '/status')
+    this.getBeneficiaries();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.statusId != prevProps.statusId || this.props.sedeId != prevProps.sedeId || this.props.inputValue != prevProps.inputValue) {
+      this.getBeneficiaries();
+    }
+  }
+
+  getBeneficiaries() {
+    const params = {
+      statusId: this.props.statusId,
+      sedeId: this.props.sedeId,
+      inputValue: this.props.inputValue
+    }
+    axios.post(API_BASE_URL + 'beneficiaries/filter', params)
       .then(res => {
         const beneficiaries = res.data;
+        
         this.setState({ beneficiaries });
+
+        console.log(this.state);
       })
   }
 
   render() {
+    let sedes = ["", "Asoc. MMK", "Granja Betanía"];
+    let months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
     return (
       <div>
         <Table hover>
@@ -50,28 +72,30 @@ export default class AdminTable extends React.Component {
               {this.state.beneficiaries.map((beneficiary) => (
                 <tr key={beneficiary.id}>
                   <td>{beneficiary.nombreCompleto}</td>
-                  <td>{beneficiary.fechaNacimiento}</td>
+                  <td>{beneficiary.fechaNacimiento.split("-")[2]} de {months[beneficiary.fechaNacimiento.split("-")[1] - 1]} del {beneficiary.fechaNacimiento.split("-")[0]}</td>
                   <td>{beneficiary.dxMedico}</td>
-                  <td>{beneficiary.headquarter_id}</td>
+                  <td>{sedes[beneficiary.headquarter_id]}</td>
                   <td>
                       <Row>
                       <Col md="4">
                       <Link   to={{
                         pathname: 'SpecificView/'+ beneficiary.id,
                         state:beneficiary.id
-                      }}> 
+                      }}>
+
                           <Button color="info" size="sm" id="verDetalle"><FontAwesomeIcon icon={['fas', 'eye']} /></Button>
                           <SimpleTooltip placement="top" target="verDetalle">Ver detalle</SimpleTooltip>
                       </Link>
                       </Col>
-
-                          <Col md="4">
-                          <TakeOutB id={beneficiary.id}/>
-                          </Col>
-
-                          <Col md="4">
-                          <ReenterB name={beneficiary.id}/>
-                          </Col>
+                      <Col md="4">
+      {(() => {
+        switch (beneficiary.status_id) {
+          case 1:   return <TakeOutB id={beneficiary.id}/>
+          case 2: return <ReenterB name={beneficiary.id}/>
+          default:return<TakeOutB id={beneficiary.id}/>
+        }
+      })()}
+    </Col>
                       </Row>
                   </td>
                 </tr>

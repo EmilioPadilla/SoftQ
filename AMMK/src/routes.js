@@ -56,6 +56,8 @@ import SpecificView from "views/Beneficiarias/SpecificView.js";
 import MedicalRecordView from "views/Beneficiarias/MedicalRecordView";
 import RegisterMedApp from "views/Beneficiarias/RegisterMedApp";
 import ModifyMedApp from "views/Beneficiarias/ModifyMedApp";
+import ModifyPersonal from "views/Beneficiarias/ModifyPersonal";
+import ModifyEntry from "views/Beneficiarias/ModifyEntry";
 //modals
 import TakeOutB from "views/Beneficiarias/TakeOutB";
 import ReenterB from "views/Beneficiarias/ReenterB";
@@ -77,6 +79,9 @@ import ModifyDonation from "views/Donors/ModifyDonation";
 import ModifyDonorContact from "views/Donors/ModifyDonorContact";
 import ModificarDGenerales from "views/Donors/ModificarDGenerales";
 import ModificarDF from "views/Donors/ModificarDF";
+import TakeOutD from "views/Donors/TakeOutD";
+import ReenterD from "views/Donors/ReenterD";
+import Email from "views/Donors/Email";
 
 
 
@@ -118,7 +123,7 @@ var routes = [
     path: "/Cuentas/principal",
     name: "Cuentas",
     rtlName: "ملف تعريفي للمستخدم",
-    icon: "tim-icons icon-single-02",
+    icon: "tim-icons icon-settings",
     component: MainAccount,
     layout: "/admin",
     showInSidebar: true ,
@@ -327,6 +332,24 @@ var routes = [
     layout: "/admin",
     showInSidebar: false,
   },
+  {
+    path: "/Beneficiarias/ModifyPersonal",
+    name: "Beneficiarias",
+    rtlName: "طباعة",
+    icon: "tim-icons icon-single-02",
+    component: ModifyPersonal,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+    path: "/Beneficiarias/ModifyEntry",
+    name: "Beneficiarias",
+    rtlName: "طباعة",
+    icon: "tim-icons icon-single-02",
+    component: ModifyEntry,
+    layout: "/admin",
+    showInSidebar: false
+  },
   /* END BENEFICIARIAS */
   /*  START EMPLOYEES */
   {
@@ -439,6 +462,24 @@ var routes = [
     showInSidebar: false
   },
   {
+    path: "/egresarDonante/:id",
+    name: "Donantes",
+    rtlName: "قائمة الجدول",
+    icon: "tim-icons icon-heart-2",
+    component: TakeOutD,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+    path: "/re-ingresarDonante/:id",
+    name: "Donantes",
+    rtlName: "قائمة الجدول",
+    icon: "tim-icons icon-heart-2",
+    component: ReenterD,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
     path: "/EliminarContactoDonante/:id",
     name: "Donantes",
     rtlName: "قائمة الجدول",
@@ -490,6 +531,16 @@ var routes = [
     rtlName: "قائمة الجدول",
     icon: "tim-icons icon-heart-2",
     component: RDonantePatronato,
+    layout: "/admin",
+    showInSidebar: false
+  },
+  {
+
+    path: "/Email",
+    name: "Donantes",
+    rtlName: "قائمة الجدول",
+    icon: "tim-icons icon-heart-2",
+    component: Email,
     layout: "/admin",
     showInSidebar: false
   },

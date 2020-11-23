@@ -33,9 +33,11 @@ export default class TreatmentTable extends React.Component {
   }
   
   componentDidMount() {
-    axios.get(API_BASE_URL + 'treatments')
+    const {id} = this.props.id;
+    axios.get(API_BASE_URL + 'treatments/' + id + '/med')
       .then(res => {
         const treatments = res.data;
+        console.log(treatments);
         this.setState({ treatments });
       })
   }
@@ -55,7 +57,7 @@ export default class TreatmentTable extends React.Component {
     })
   }
 
-  seleccionarEmpresa=(treatment)=>{
+  selectTreatment=(treatment)=>{
     this.setState({
       form: {
         id: treatment.id,
@@ -71,13 +73,15 @@ export default class TreatmentTable extends React.Component {
   }
 
   render() {
+    let months = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"];
     return (
       <div>
         <Table hover>
             <thead>
               <tr>
                   <th>Nombre medicamento</th>
-                  <th>función</th>
+                  <th>Inicio</th>
+                  <th>Fin</th>
                   <th>dosis</th>
                   <th>lapso</th>
                   <th>acciones</th>
@@ -88,17 +92,18 @@ export default class TreatmentTable extends React.Component {
               {this.state.treatments.map((treatment) => (
                 <tr key={treatment.id}>
                   <td>{treatment.nombreMed}</td>
-                  <td>{treatment.funcionMed}</td>
+                  <td>{treatment.fechaInicio.split("-")[2]}-{months[treatment.fechaInicio.split("-")[1] - 1]}-{treatment.fechaInicio.split("-")[0]}</td>
+                  <td>{treatment.fechaTermino.split("-")[2]}-{months[treatment.fechaTermino.split("-")[1] - 1]}-{treatment.fechaTermino.split("-")[0]}</td>
                   <td>{treatment.dosis} {treatment.mode.nombre}</td>
                   <td>Cada {treatment.lapso} hrs</td>
                   <td>
                     <Row>
                         <Col md="4">
-                        <ModifyTreatment id={treatment.id}/>
+                        <ModifyTreatment name={treatment.id}/>
                         </Col>
 
                         <Col md="4">
-                        <Button size="sm" id="eliminar" onClick={()=>{this.seleccionarEmpresa(treatment); this.setState({modalEliminar: true})}} color="danger"><FontAwesomeIcon icon={['fas', 'trash-alt']} /></Button>
+                        <Button size="sm" id="eliminar" onClick={()=>{this.selectTreatment(treatment); this.setState({modalEliminar: true})}} color="danger"><FontAwesomeIcon icon={['fas', 'trash-alt']} /></Button>
                         <SimpleTooltip placement="top" target="eliminar" >Eliminar</SimpleTooltip>
                         </Col>
                     </Row>

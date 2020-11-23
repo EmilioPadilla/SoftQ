@@ -28,14 +28,20 @@ Route::resource('tipodonante', 'App\Http\Controllers\TipoDonanteController');
 Route::resource('recurrencia', 'App\Http\Controllers\RecurrenciaController');
 Route::resource('tipodonacion', 'App\Http\Controllers\TipoDonacionController');
 Route::get('donors/table/all', 'App\Http\Controllers\DonantesController@showTable');
-Route::get('donations/table/all', 'App\Http\Controllers\DonacionController@showTable');
-Route::get('donors/contact/table/all', 'App\Http\Controllers\ContactoDonanteController@showTable');
+Route::get('donors/tableI/all', 'App\Http\Controllers\DonantesController@showTableI');
+
+Route::get('donations/table/all/{donante}', 'App\Http\Controllers\DonacionController@showTable');
+Route::get('donors/contact/table/all/{donante}', 'App\Http\Controllers\ContactoDonanteController@showTable');
 Route::get('donations/showAll/{id}', 'App\Http\Controllers\DonantesController@showDonaciones');
 Route::get('donorContacts/showAll/{id}', 'App\Http\Controllers\DonantesController@showContactos');
 Route::get('donations/delete/{id}', 'App\Http\Controllers\DonacionController@deleteD');
 Route::get('donorContacts/delete/{id}', 'App\Http\Controllers\ContactoDonanteController@deleteC');
 Route::resource('donaciones', 'App\Http\Controllers\DonacionController');
 Route::resource('contactoDonante', 'App\Http\Controllers\ContactoDonanteController');
+Route::get('donors/table/tipoDonante/{tipo}', 'App\Http\Controllers\DonantesController@showTipoDonante');
+//Route::get('account/find/{username}', 'App\Http\Controllers\AccountController@showId');
+Route::get('donors/table/buscar/{palabra}', 'App\Http\Controllers\DonantesController@searchDonor');
+
 
 // Rutas empleados
 Route::resource('employee', 'App\Http\Controllers\EmployeesController');
@@ -46,6 +52,10 @@ Route::resource('employeesShifts', 'App\Http\Controllers\EmployeesShiftsControll
 Route::resource('employeeJobTitles', 'App\Http\Controllers\JobTitleController');
 Route::resource('employeeCivilStatus', 'App\Http\Controllers\CivilStatusController');
 Route::resource('employeeVacations', 'App\Http\Controllers\VacationsController');
+
+Route::resource('WorkedHours', 'App\Http\Controllers\WorkedHoursController');
+Route::get('WorkedHours/idEmployee/{employees_id}', 'App\Http\Controllers\WorkedHoursController@showByEmployee');
+
 Route::post('employeesShifts/search', 'App\Http\Controllers\EmployeesShiftsController@filterByEmployee');
 Route::post('employeesShifts/delete', 'App\Http\Controllers\EmployeesShiftsController@deleteByEmployee');
 Route::get('inactiveEmployee', 'App\Http\Controllers\EmployeesController@showInactive');
@@ -66,11 +76,12 @@ Route::put('employee/employee/{id}', 'App\Http\Controllers\EmployeesController@u
 Route::resource('donantes', 'App\Http\Controllers\DonantesController');
 Route::apiResource('donantes', 'App\Http\Controllers\DonantesController');
 Route::put('donantes/modificarFacturacion/{id}', 'App\Http\Controllers\DonantesController@updateFacturacion');
-
 Route::resource('tipodonante', 'App\Http\Controllers\TipoDonanteController');
 Route::resource('recurrencia', 'App\Http\Controllers\RecurrenciaController');
 Route::resource('tipodonacion', 'App\Http\Controllers\TipoDonacionController');
 Route::get('donors/table/all', 'App\Http\Controllers\DonantesController@showTable');
+
+
 Route::get('donations/table/all', 'App\Http\Controllers\DonacionController@showTable');
 Route::get('donors/contact/table/all', 'App\Http\Controllers\ContactoDonanteController@showTable');
 
@@ -103,15 +114,20 @@ Route::resource('headquarters', 'App\Http\Controllers\HeadquarterController');
 /* TERMINA GENERALES */
 
 /* EMPIEZA BENEFICIARIAS */
-Route::get('beneficiaries/{id}/status', 'App\Http\Controllers\BeneficiaryController@status');
+Route::post('beneficiaries/filter', 'App\Http\Controllers\BeneficiaryController@filter');
+Route::post('beneficiaries/filterActive', 'App\Http\Controllers\BeneficiaryController@filterActive');
+
 Route::post('beneficiaries/{id}/reingresar', 'App\Http\Controllers\BeneficiaryController@reingresar');
 Route::resource('beneficiaries', 'App\Http\Controllers\BeneficiaryController');
 
 Route::resource('treatments', 'App\Http\Controllers\TreatmentController');
+Route::get('treatments/{id}/med', 'App\Http\Controllers\TreatmentController@forBeneficiary');
 
 Route::resource('medical_appointments', 'App\Http\Controllers\MedicalAppointmentController');
+Route::get('medical_appointments/{id}/med', 'App\Http\Controllers\MedicalAppointmentController@forBeneficiary');
 
 Route::resource('benef_files', 'App\Http\Controllers\BenefFileController');
+Route::get('benef_files/downloadFile/{id}', 'App\Http\Controllers\BenefFileController@downloadFile');
 
 Route::resource('specialties', 'App\Http\Controllers\SpecialtyController');
 
@@ -123,6 +139,9 @@ Route::resource('categories', 'App\Http\Controllers\CategoryController');
 Route::post('incomes/search', 'App\Http\Controllers\IncomesController@filterByDate');
 Route::post('incomes/group', 'App\Http\Controllers\IncomesController@groupByMonth');
 Route::post('expenses/search', 'App\Http\Controllers\ExpenseController@filterByDate');
-Route::post('expenses/group', 'App\Http\Controllers\ExpenseController@groupByMonth');
+Route::post('expenses/group/month', 'App\Http\Controllers\ExpenseController@groupByMonth');
+Route::post('expenses/group/category', 'App\Http\Controllers\ExpenseController@groupByCategory');
+Route::get('expenses/table/getdates', 'App\Http\Controllers\ExpenseController@getDateExpenses');
+Route::get('expenses/table/date/{fecha}', 'App\Http\Controllers\ExpenseController@expensesTable');
 Route::resource('expenses', 'App\Http\Controllers\ExpenseController');
 /* TERMINA FINANZAS */

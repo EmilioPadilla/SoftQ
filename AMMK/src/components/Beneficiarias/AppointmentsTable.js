@@ -14,6 +14,7 @@ import Swal from 'sweetalert2';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
+import ViewMedApp from 'views/Beneficiarias/ViewMedApp';
 library.add(fas)
   
 export default class AppointmentTable extends React.Component {
@@ -29,7 +30,8 @@ export default class AppointmentTable extends React.Component {
   }
   
   componentDidMount() {
-    axios.get(API_BASE_URL + 'medical_appointments')
+    const {id} = this.props.id;
+    axios.get(API_BASE_URL + 'medical_appointments/' + id + '/med' )
       .then(res => {
         const appointments = res.data;
         this.setState({ appointments });
@@ -64,6 +66,7 @@ export default class AppointmentTable extends React.Component {
   }
 
   render() {
+    let months = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"];
     return (
       <div>
         <Table hover>
@@ -80,20 +83,14 @@ export default class AppointmentTable extends React.Component {
             <tbody>
               {this.state.appointments.map((appointment) => (
                 <tr key={appointment.id}>
-                  <td>{appointment.fechaConsulta}</td>
-                  <td>{appointment.horaConsulta}</td>
+                  <td>{appointment.fechaConsulta.split("-")[2]}-{months[appointment.fechaConsulta.split("-")[1] - 1]}-{appointment.fechaConsulta.split("-")[0]}</td>
+                  <td>{appointment.horaConsulta.split(":")[0]}:{appointment.horaConsulta.split(":")[1]}</td>
                   <td>{appointment.hospital} Cons. #{appointment.consultorio}</td>
                   <td>{appointment.specialty.nombre}</td>
                   <td>
                   <Row>
                   <Col md="4">
-                  <Link   to={{
-                        pathname: '../ViewMedApp/'+ appointment.id,
-                        state:appointment.id
-                      }}> 
-                          <Button color="info" size="sm" id="verDetalle"><FontAwesomeIcon icon={['fas', 'eye']} /></Button>
-                          <SimpleTooltip placement="top" target="verDetalle">Ver detalle</SimpleTooltip>
-                  </Link>
+                      <ViewMedApp name={appointment.id}/>
                   </Col>
                   <Col md="4">
                     <Link to={"/admin/Beneficiarias/ModifyMedApp/" + appointment.id}>

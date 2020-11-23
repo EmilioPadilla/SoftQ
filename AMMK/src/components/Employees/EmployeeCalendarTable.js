@@ -1,6 +1,8 @@
 import React from "react";
 import axios from 'axios';
 
+import { API_BASE_URL } from '../../index';
+
 import {Table, Input, FormGroup, Label} from "reactstrap";
 
 class EmployeeCalendarTable extends React.Component {
@@ -9,7 +11,6 @@ class EmployeeCalendarTable extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleCheck = this.handleCheck.bind(this);
         this.state = {
-            employeeId: props.employeeId,
             markedDays: [],
         }
     }
@@ -31,12 +32,17 @@ class EmployeeCalendarTable extends React.Component {
         }
     }
 
+    componentDidUpdate(prevProps) {
+        if (this.props.employeeId != prevProps.employeeId) {
+            this.getShifts();
+        }
+    }
+
     getShifts() {
         var params = {
-            //TODO Pasar id de empleado correcto
-            idEmployees: 1
+            idEmployees: this.props.employeeId
         }
-        axios.post('http://localhost:8000/api/employeesShifts/search', params)
+        axios.post(API_BASE_URL + 'employeesShifts/search', params)
         .then(res => this.setState({ markedDays: this.parseMarkedDays(res.data) }));
     }
 

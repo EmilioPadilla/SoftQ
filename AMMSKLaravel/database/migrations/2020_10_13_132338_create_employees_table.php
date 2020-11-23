@@ -13,9 +13,11 @@ class CreateEmployeesTable extends Migration
      */
     public function up()
     {
-        Schema::create('employees', function (Blueprint $table) {
+        Schema::create('employees', function (Blueprint $table) { 
             $table->id()->from(1);
             $table->foreignId('status_id')->default(1)->constrained('status_emp');
+                       
+
             $table->foreignId('civil_status_id')->constrained('civil_status')->nullable();
     		$table->foreignId('scholarship_id')->constrained('scholarship')->nullable();
             $table->foreignId('headquarter_id')->constrained('headquarters')->nullable();

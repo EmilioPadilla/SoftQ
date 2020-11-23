@@ -15,90 +15,39 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 library.add(fas)
 
-// REGEX FOR VALIDATIONS
-const validTextInput = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ ]+[\w]+$/);
-const validDate = RegExp(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/);
+export default class ModifyTreatment extends Component {
 
-//FORM VALIDATION
-const validateForm = (errors) => {
-  let valid = true;
-  Object.values(errors).forEach(
-    (val) => val.length > 0 && (valid = false)
-  );
-  return valid;
-}
-
-const countErrors = (errors) => {
-  let count = 0;
-  Object.values(errors).forEach(
-    (val) => val.length > 0 && (count = count+1)
-  );
-  return count;
-}
-
-export default class ReenterB extends Component {
   constructor(props){
     super(props);
     this.state = {
-        formValid: false,
-        errorCount: null,
-        fechaInicio: null,
-        fechaTermino: null,
-        treatments: [],
-        errors: {
-            fechaInicio: '',
-            fechaTermino: '',
-        }
-      };
-
-    this.handleChange = this.handleChange.bind(this);
+    id: '',
+    nombreMed: null,
+    funcionMed: null,
+    dosis: null,
+    mode_id: null,
+    lapso: null,
+    fechaInicio: null,
+    fechaTermino: null,
+    treatments: [],
+    };
     this.onSubmit= this.onSubmit.bind(this);
 }
+
+fillData () {
+  axios.get(API_BASE_URL + 'treatments/' + 2)
+      .then(function (res) {
+         document.getElementById("nombreMed").value = res.data[0].nombreMed;
+         document.getElementById("funcionMed").value = res.data[0].funcionMed;
+         document.getElementById("dosis").value = res.data[0].dosis;
+         document.getElementById("lapso").value = res.data[0].lapso;
+         document.getElementById("mode_id").value = res.data[0].specialty_id; 
+         document.getElementById("fechaInicio").value = res.data[0].fechaInicio;
+         document.getElementById("fechaTermino").value = res.data[0].fechaTermino;
+        })
+}
+
   state={
     modalEditar: false,
-    treatments: [],
-  }
-
-  componentDidMount() {
-    let id = this.props.id;
-    console.log(id);
-    axios.get(API_BASE_URL + 'treatments/' + id)
-    .then(res => {
-        const treatments = res.data;
-        this.setState({ treatments });
-        console.log(treatments);
-      })
-  }
-  
-  handleChange = (event) => {
-    event.preventDefault();
-    const { name, value } = event.target;
-    let errors = this.state.errors;
-
-    switch (name) {
-        case 'fechaInicio': 
-        errors.fechaInicio =
-        value.length < 1
-          ? "La fecha de reingreso es un campo obligatorio"
-          : "" ||
-        validDate.test(value)
-          ? "La fecha ingresada no es válida"
-          : "";
-        break;
-        case 'fechaTermino': 
-        errors.fechaTermino =
-        value.length < 1
-          ? "La fecha de fin del tratamiento es un campo obligatorio"
-          : "" ||
-        validDate.test(value)
-          ? "La fecha ingresada no es válida"
-          : "";
-        break;
-        default:
-            break;
-    }
-
-    this.setState({errors, [name]: value});
   }
 
 onSubmit(e){
@@ -115,7 +64,8 @@ onSubmit(e){
     let lapso = document.getElementById("lapso").value;
     let fechaInicio = document.getElementById("fechaInicio").value;
     let fechaTermino = document.getElementById("fechaTermino").value;
-    if(fechaInicio !== ''){
+
+    if(fechaInicio !== '' && fechaTermino !== ''){
     const treatment = {
         id: id,
         beneficiary_id: beneficiary_id,
@@ -131,10 +81,10 @@ onSubmit(e){
     
     Swal.fire(
         '¡Listo!',
-        'Reingreso registrado de manera exitosa',
+        'Tratamiento modificado de manera exitosa',
         'success',
         ).then(function() {
-            window.location = "http://localhost:3000/admin/Beneficiarias/GeneralViewAdmin";
+            window.location = "http://localhost:3000/admin/Beneficiarias/MedicalRecordView/" + beneficiary_id;
         });
         }else{
             Swal.fire(
@@ -158,7 +108,9 @@ onSubmit(e){
     }else if (idRol==1){
         window.location = "http://localhost:3000/admin/Nomina/Nomina";
     }
-    const {errors, formValid} = this.state;
+
+    //this.fillData();
+
   return (
     <div className="content">
       <Button color="secondary" size="sm" onClick={()=>{this.setState({modalEditar: true})}}><FontAwesomeIcon icon={['fas', 'pencil-alt']} /></Button>
@@ -172,32 +124,23 @@ onSubmit(e){
           <ModalBody>
                   <Row>
                     <Col md="12">
-                    {this.state.treatments.map((treatment) => (
-                <>
-                            <Input type="text" id="id" name="id" value={treatment.id} ></Input>
-                            <Input type="text" id="beneficiary_id" name="beneficiary_id" value={treatment.beneficiary_id} ></Input>
-                            <Input type="text" id="nombreMed" name="nombreMed" value={treatment.nombreMed} hidden></Input>
-                            <Input type="text" id="funcionMed" name="funcionMed" value={treatment.funcionMed} hidden></Input>
-                            <Input type="text" id="dosis" name="dosis" value={treatment.dosis} hidden></Input>
-                            <Input type="text" id="mode_id" name="mode_id" value={treatment.mode_id} hidden></Input>
-                            <Input type="text" id="lapso" name="lapso" value={treatment.lapso} hidden></Input>
-                            </>
-                ))}
+                            <Input type="text" id="id" name="id" value={this.props.name}></Input>
+                            <Input type="text" id="beneficiary_id" name="beneficiary_id"></Input>
+                            <Input type="text" id="nombreMed" name="nombreMed"></Input>
+                            <Input type="text" id="funcionMed" name="funcionMed" ></Input>
+                            <Input type="text" id="dosis" name="dosis" ></Input>
+                            <Input type="text" id="mode_id" name="mode_id" ></Input>
+                            <Input type="text" id="lapso" name="lapso"></Input>
+
                         <FormGroup>
                             <FontAwesomeIcon icon={["fas", "calendar-alt"]} />
                             <Label for="fechaInicio">&nbsp;Fecha de inicio:</Label>
-                            <Input type="date" id="fechaInicio" name="fechaTermino" onChange={this.handleChange}></Input>
-                            {errors.fechaInicio.length > 0 && <span className='error'>{errors.fechaInicio}</span> 
-                                || 
-                                 errors.fechaInicio.length == 0 && <span className='error'>{errors.fechaInicio}</span>}
+                            <Input type="date" id="fechaInicio" name="fechaInicio" ></Input>
                         </FormGroup>
                         <FormGroup>
                             <FontAwesomeIcon icon={["fas", "calendar-alt"]} />
                             <Label for="fechaTermino">&nbsp;Fecha de finalización:</Label>
-                            <Input type="date" id="fechaTermino" name="fechaTermino" onChange={this.handleChange}></Input>
-                            {errors.fechaTermino.length > 0 && <span className='error'>{errors.fechaTermino}</span> 
-                                || 
-                                 errors.fechaTermino.length == 0 && <span className='error'>{errors.fechaTermino}</span>}
+                            <Input type="date" id="fechaTermino" name="fechaTermino"></Input>
                         </FormGroup>
                     </Col>
                 </Row>

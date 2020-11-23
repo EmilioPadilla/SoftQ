@@ -16,7 +16,9 @@ class BeneficiaryController extends Controller
      */
     public function index()
     {
-        $beneficiaries = Beneficiary::with('status', 'headquarter')->get();
+        $beneficiaries = Beneficiary::with('status')
+        ->orderBy('status_id', 'asc')
+        ->get();
         return response()->json($beneficiaries);
     }
 
@@ -68,15 +70,111 @@ class BeneficiaryController extends Controller
     }
 
     /**
-     * Display beneficiaries according to status value
+     * Filter by date.
      *
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function status($id)
+    public function filter(Request $request)
     {
-        $beneficiaries = Beneficiary::where('status_id', '=', $id)->get();
-        return response()->json ($beneficiaries);
+        if($request->statusId != 0) {
+            $beneficiaries = Beneficiary::with('status')->select()
+            ->where("status_id", $request->statusId)
+            ->get();
+            if($request->sedeId != 0) {
+                $beneficiaries = Beneficiary::with('status')->select()
+                ->where("status_id", $request->statusId)
+                ->where("headquarter_id", $request->sedeId)
+                ->get();
+
+                if($request->inputValue != '') {
+                    $beneficiaries = Beneficiary::with('status')->select()
+                    ->where("status_id", $request->statusId)
+                    ->where("headquarter_id", $request->sedeId)
+                    ->where('nombreCompleto', 'LIKE', '%'. $request->inputValue .'%')
+                    ->get();
+                }
+            }
+            if($request->inputValue != '') {
+                $beneficiaries = Beneficiary::with('status')->select()
+                ->where("status_id", $request->statusId)
+                ->where('nombreCompleto', 'LIKE', '%'. $request->inputValue .'%')
+                ->get();
+
+                if($request->sedeId != 0) {
+                    $beneficiaries = Beneficiary::with('status')->select()
+                    ->where("status_id", $request->statusId)
+                    ->where('nombreCompleto', 'LIKE', '%'. $request->inputValue .'%')
+                    ->where("headquarter_id", $request->sedeId)
+                    ->get();
+                }
+            }
+        } else if($request->sedeId != 0) {
+            $beneficiaries = Beneficiary::with('status')->select()
+            ->where("headquarter_id", $request->sedeId)
+            ->get();
+
+            if($request->inputValue != '') {
+                $beneficiaries = Beneficiary::with('status')->select()
+                ->where("headquarter_id", $request->sedeId)
+                ->where('nombreCompleto', 'LIKE', '%'. $request->inputValue .'%')
+                ->get();
+            }
+
+        } else if($request->inputValue != '') {
+            $beneficiaries = Beneficiary::with('status')->select()
+            ->where('nombreCompleto', 'LIKE', '%'. $request->inputValue .'%')
+            ->get();
+
+            if($request->sedeId != 0) {
+                $beneficiaries = Beneficiary::with('status')->select()
+                ->where('nombreCompleto', 'LIKE', '%'. $request->inputValue .'%')
+                ->where("headquarter_id", $request->sedeId)
+                ->get();
+            }
+        } else {
+            $beneficiaries = Beneficiary::with('status')->select()
+            ->orderBy('status_id', 'asc')
+            ->get();
+        }
+        
+        return $beneficiaries;
+    }
+
+        /**
+     * Filter by date.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function filterActive(Request $request)
+    {
+        if($request->sedeId != 0) {
+            $beneficiaries = Beneficiary::with('status')->select()
+            ->where("status_id", "1")
+            ->where("headquarter_id", $request->sedeId)
+            ->orderBy('nombreCompleto', 'asc')
+            ->get();
+            if($request->inputValue != '') {
+                $beneficiaries = Beneficiary::with('status')->select()
+                ->where("status_id", "1")
+                ->where("headquarter_id", $request->sedeId)
+                ->where('nombreCompleto', 'LIKE', '%'. $request->inputValue .'%')
+                ->get();
+            }
+        } else if($request->inputValue != '') {
+            $beneficiaries = Beneficiary::with('status')->select()
+            ->where("status_id", "1")
+            ->where('nombreCompleto', 'LIKE', '%'. $request->inputValue .'%')
+            ->get();
+        } else {
+            $beneficiaries = Beneficiary::with('status')->select()
+            ->where("status_id", "1")
+            ->orderBy('nombreCompleto', 'asc')
+            ->get();
+        }
+        
+        return $beneficiaries;
     }
 
     /**
