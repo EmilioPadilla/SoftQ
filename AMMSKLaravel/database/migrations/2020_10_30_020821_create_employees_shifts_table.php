@@ -13,11 +13,11 @@ class CreateEmployeesShiftsTable extends Migration
      */
     public function up()
     {
-        Schema::create('employees_shifts', function (Blueprint $table) {
+        Schema::create('shifts_worked', function (Blueprint $table) {
             $table->id();
             $table->foreignId('idEmployees')->constrained('employees');
-            $table->foreignId('idShifts')->constrained('shifts');
-            $table->string('diaSemana');
+            $table->date('horaEntrada')->constrained('shifts');
+            $table->date('horaSalida');
         });
     }
 
@@ -28,6 +28,6 @@ class CreateEmployeesShiftsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('employees_shifts');
+        Schema::dropIfExists('shifts_worked');
     }
 }
