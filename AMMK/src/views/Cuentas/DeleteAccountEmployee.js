@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-import {FormGroup, Form, Input, Button} from "reactstrap"
+import {FormGroup, Form, Input, Button, Alert} from "reactstrap"
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
@@ -24,7 +24,7 @@ const DeleteAccountEmp = props =>{
                     <div class="row">
                         <div class="col-12" >
                             <h2 align="center">Eliminar Cuenta de Empleado</h2>
-                            <h4 align="center">ATENCIÓN: ELIMINAR UNA CUENTA ES UNA ACCIÓN PERMANENTE</h4>
+                            <Alert align="center" color="danger">ATENCIÓN: ELIMINAR UNA CUENTA ES UNA ACCIÓN PERMANENTE</Alert>
                             <Form>
                                 <div class="row justify-content-center">
                                     <div class="col-4" >
@@ -42,7 +42,7 @@ const DeleteAccountEmp = props =>{
                                 <div class="row justify-content-center">
                                     <div class="col-4">
                                         <FormGroup>
-                                            <label>Nombre Completo:</label>
+                                            <label>Nombre completo:</label>
                                             <Input
                                                 id="nombreModify"
                                                 disabled

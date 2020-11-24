@@ -125,9 +125,7 @@ class EmployeesAccountView extends React.Component {
     this.crearTabla();
     return (
         <div className="content">
-          <h2>
-            Cuentas de Empleados
-          </h2>
+          <h1 className="title">CUENTAS DE EMPLEADOS</h1>
         <Row>
           <Col>
             <FormGroup>
@@ -138,7 +136,7 @@ class EmployeesAccountView extends React.Component {
                      <FontAwesomeIcon icon={['fas', 'search']} />
                    </InputGroupText>
                  </InputGroupAddon>
-                 <Input placeholder="Juan Artal Gonzalez"  id="busq" onInput={this.searchBar}/>
+                 <Input placeholder="Juan Artal González"  id="busq" onInput={this.searchBar}/>
              </InputGroup>      
            </FormGroup>
          </Col>
@@ -155,9 +153,9 @@ class EmployeesAccountView extends React.Component {
         <Row>
          <Col>
            <FormGroup>
-           <Label for="roleSelect">Búsqueda por rol</Label>
+           <Label for="roleSelect">Búsqueda por rol:</Label>
                <Input type="select" name="select" id="roleSelect" onChange={this.sortByRole}>
-               <option disabled selected >Rol...</option>
+               <option selected >Selecciona una opción...</option>
                <option valaue={1}>Empleado General</option>
                <option valaue={2}>Enfermera</option>
                <option valaue={3}>Administrador</option>
