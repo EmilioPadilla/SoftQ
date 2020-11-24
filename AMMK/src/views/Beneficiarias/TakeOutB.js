@@ -172,7 +172,7 @@ onSubmit(e){
           <Modal isOpen={this.state.modalEgresar}>
           <Form onSubmit={this.onSubmit} autocomplete="off">
           <ModalHeader>
-            <h3 className="title">EGRESAR</h3>
+            <h3 className="title" align="center">Egresar</h3>
             <Badge color="primary"><p style={{'font-size': '15px'}} >Los campos marcados con un asterisco (*) son obligatorios.</p></Badge>
           </ModalHeader>
           <ModalBody>

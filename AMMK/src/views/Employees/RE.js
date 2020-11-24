@@ -122,7 +122,7 @@ class RegisterEmployee extends React.Component {
 
           <Prompt
             when={true}
-            message="Te encuentras en proceso de registro                                                ¿Estás seguro de querer salir?"
+            message="Te encuentras en proceso de registro...                                                ¿Estás segur@ de querer salir?"
           />
           <h2 className="title">Registrar empleado</h2>
           <Form >
