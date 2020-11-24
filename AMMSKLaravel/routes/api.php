@@ -56,8 +56,11 @@ Route::resource('employeeVacations', 'App\Http\Controllers\VacationsController')
 Route::resource('WorkedHours', 'App\Http\Controllers\WorkedHoursController');
 Route::get('WorkedHours/idEmployee/{employees_id}', 'App\Http\Controllers\WorkedHoursController@showByEmployee');
 
+Route::resource('Absences', 'App\Http\Controllers\AbsencesController');
+
 Route::post('employeesShifts/search', 'App\Http\Controllers\EmployeesShiftsController@filterByEmployee');
 Route::post('employeesShifts/delete', 'App\Http\Controllers\EmployeesShiftsController@deleteByEmployee');
+
 Route::get('inactiveEmployee', 'App\Http\Controllers\EmployeesController@showInactive');
 Route::get('employee/{id}', 'App\Http\Controllers\EmployeesController@show');
 Route::get('employeeVacations/{id}', 'App\Http\Controllers\VacationsController@show');
