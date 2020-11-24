@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
+    'App\\Http\\Controllers\\AbsencesController' => $baseDir . '/app/Http/Controllers/AbsencesController.php',
     'App\\Http\\Controllers\\AccountController' => $baseDir . '/app/Http/Controllers/AccountController.php',
     'App\\Http\\Controllers\\Account_RoleController' => $baseDir . '/app/Http/Controllers/Account_RoleController.php',
     'App\\Http\\Controllers\\BenefFileController' => $baseDir . '/app/Http/Controllers/BenefFileController.php',
@@ -46,6 +47,7 @@ return array(
     'App\\Http\\Middleware\\TrustHosts' => $baseDir . '/app/Http/Middleware/TrustHosts.php',
     'App\\Http\\Middleware\\TrustProxies' => $baseDir . '/app/Http/Middleware/TrustProxies.php',
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
+    'App\\Models\\Absences' => $baseDir . '/app/Models/Absences.php',
     'App\\Models\\Account' => $baseDir . '/app/Models/Account.php',
     'App\\Models\\Account_Role' => $baseDir . '/app/Models/Account_Role.php',
     'App\\Models\\BenefFile' => $baseDir . '/app/Models/BenefFile.php',

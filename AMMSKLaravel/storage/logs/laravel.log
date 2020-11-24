@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [2020-11-19 17:22:25] local.ERROR: SQLSTATE[HY000] [2002] Connection refused (SQL: select * from `civil_status`) {"exception":"[object] (Illuminate\\Database\\QueryException(code: 2002): SQLSTATE[HY000] [2002] Connection refused (SQL: select * from `civil_status`) at /Users/Emirock/Documents/Tec/5to_Semestre/SoftQ/AMMSKLaravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:671)
 [stacktrace]
 #0 /Users/Emirock/Documents/Tec/5to_Semestre/SoftQ/AMMSKLaravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php(745): Illuminate\\Database\\Connection->runQueryCallback('select * from `...', Array, Object(Closure))
@@ -3786,3 +3787,5 @@
 #46 /Users/Emirock/Documents/Tec/5to_Semestre/SoftQ/AMMSKLaravel/server.php(21): require_once('/Users/Emirock/...')
 #47 {main}
 "} 
+=======
+>>>>>>> 1e60f8a5fa972187aeeccfe02ab1af63a1f9e68b

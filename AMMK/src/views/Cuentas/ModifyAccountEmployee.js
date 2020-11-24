@@ -43,7 +43,7 @@ const ModifyAccountEmp = props =>{
                                 <div class="row justify-content-center">
                                     <div class="col-4">
                                         <FormGroup>
-                                            <label>Nueva Contraseña:</label>
+                                            <label>Contraseña:</label>
                                             <Input
                                                 id="passwordModify"
                                                 

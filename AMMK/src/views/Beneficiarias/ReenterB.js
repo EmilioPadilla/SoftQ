@@ -177,7 +177,7 @@ onSubmit(e){
           <Modal isOpen={this.state.modalReingresar}>
           <Form onSubmit={this.onSubmit} autocomplete="off">
           <ModalHeader>
-            <h3 className="title">REINGRESAR</h3>
+            <h3 className="title" align="center">Reingresar</h3>
             <Badge color="primary"><p style={{'font-size': '15px'}} >Los campos marcados con un asterisco (*) son obligatorios.</p></Badge>
           </ModalHeader>
           <ModalBody>

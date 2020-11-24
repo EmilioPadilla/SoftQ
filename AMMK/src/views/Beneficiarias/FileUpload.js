@@ -6,7 +6,7 @@ import { API_BASE_URL } from '../../index';
 
 //COMPONENTS
 import "bootstrap/dist/css/bootstrap.min.css";
-import { ModalBody, ModalFooter, ModalHeader, Button, Modal, Label, Input, FormGroup, CustomInput, Form, Row, Col} from 'reactstrap';
+import { Alert, Badge, ModalBody, ModalFooter, ModalHeader, Button, Modal, Label, Input, FormGroup, CustomInput, Form, Row, Col} from 'reactstrap';
 import Swal from 'sweetalert2';
 import SimpleTooltip from "../General/SimpleTooltip";
 
@@ -96,11 +96,11 @@ export default class FileUpload extends Component
     return (
       <div className="content">
         <Button color="primary" size="sm" id="subir" className="float-right" onClick={()=>{this.setState({modalReingresar: true})}}><FontAwesomeIcon icon={faPlus}/></Button>
-        <SimpleTooltip placement="top" target="subir">Subir archivos</SimpleTooltip>
-
+        <SimpleTooltip placement="top" target="subir">Añadir archivos</SimpleTooltip>
         <Modal isOpen={this.state.modalReingresar}>
-        <ModalHeader>
-        <h3 className="title">SUBIR ARCHIVOS</h3>
+        <ModalHeader align="center">
+        <h3 className="title">Añadir archivos</h3>
+        <Alert color="primary" style={{'font-size': '15px', 'color': 'white'}}>Todos los campos son obligatorios.</Alert>
         </ModalHeader>
         <Form onSubmit={this.onSubmit} autoComplete="off">
                 <ModalBody> 
@@ -116,7 +116,7 @@ export default class FileUpload extends Component
                 </Col>
                </Row>
                <FormGroup>
-                  <Label for="categoria">Categoria:</Label>
+                  <Label for="categoria">Categoría:</Label>
                   <Input type="text" name="categoria" id="categoria" placeholder="Ingreso"></Input>
                 </FormGroup>
 

@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit367bf0e8934cb2e8acbbc14c2d31bdb9
+class ComposerStaticInit5537cbafb05957664f802d7990f8aacf
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -509,6 +509,7 @@ class ComposerStaticInit367bf0e8934cb2e8acbbc14c2d31bdb9
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\Http\\Controllers\\AbsencesController' => __DIR__ . '/../..' . '/app/Http/Controllers/AbsencesController.php',
         'App\\Http\\Controllers\\AccountController' => __DIR__ . '/../..' . '/app/Http/Controllers/AccountController.php',
         'App\\Http\\Controllers\\Account_RoleController' => __DIR__ . '/../..' . '/app/Http/Controllers/Account_RoleController.php',
         'App\\Http\\Controllers\\BenefFileController' => __DIR__ . '/../..' . '/app/Http/Controllers/BenefFileController.php',
@@ -547,6 +548,7 @@ class ComposerStaticInit367bf0e8934cb2e8acbbc14c2d31bdb9
         'App\\Http\\Middleware\\TrustHosts' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustHosts.php',
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
+        'App\\Models\\Absences' => __DIR__ . '/../..' . '/app/Models/Absences.php',
         'App\\Models\\Account' => __DIR__ . '/../..' . '/app/Models/Account.php',
         'App\\Models\\Account_Role' => __DIR__ . '/../..' . '/app/Models/Account_Role.php',
         'App\\Models\\BenefFile' => __DIR__ . '/../..' . '/app/Models/BenefFile.php',
@@ -5257,10 +5259,10 @@ class ComposerStaticInit367bf0e8934cb2e8acbbc14c2d31bdb9
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit367bf0e8934cb2e8acbbc14c2d31bdb9::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit367bf0e8934cb2e8acbbc14c2d31bdb9::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit367bf0e8934cb2e8acbbc14c2d31bdb9::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit367bf0e8934cb2e8acbbc14c2d31bdb9::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit5537cbafb05957664f802d7990f8aacf::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit5537cbafb05957664f802d7990f8aacf::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit5537cbafb05957664f802d7990f8aacf::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit5537cbafb05957664f802d7990f8aacf::$classMap;
 
         }, null, ClassLoader::class);
     }

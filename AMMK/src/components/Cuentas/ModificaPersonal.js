@@ -115,7 +115,7 @@ export class ModificaPersonal extends React.Component{
                                     </div>
                                     <div class="col-4" align="center">
                                         <Button className="btn-fill" color="primary" type="submit">
-                                            Guardar Cambios
+                                            Modificar
                                         </Button>
                                     </div>
                                 </div>

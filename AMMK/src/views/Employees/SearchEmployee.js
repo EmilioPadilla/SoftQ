@@ -88,9 +88,9 @@ class SearchEmployee extends React.Component {
           <Row>
             <Col>
               <FormGroup>
-              <Label for="statusSelect">Estatus</Label>
+                  <Label forHTML="estatus">Filtrar por estatus: </Label>
                   <Input type="select" name="select" id="statusSelect">
-                  <option defaultValue="0">Estatus...</option>
+                  <option defaultValue="0">Selecciona una opción...</option>
                   {this.state.statuses.map((status) => <option key={status.value} value={status.value}>{status.label}</option>)}
                   </Input>
               </FormGroup>
@@ -108,22 +108,22 @@ class SearchEmployee extends React.Component {
         <Row>
           <Col>
             <FormGroup>
-             <Label for="exampleSearch">Búsqueda por nombre</Label>
+             <Label for="exampleSearch">Búsqueda por nombre:</Label>
              <InputGroup>
                  <InputGroupAddon addonType="prepend">
                    <InputGroupText>
                      <FontAwesomeIcon icon={['fas', 'search']} />
                    </InputGroupText>
                  </InputGroupAddon>
-                 <Input placeholder="Juan Artal Gonzalez"/>
+                 <Input placeholder="Juan Artal González"/>
              </InputGroup>
            </FormGroup>
          </Col>
          <Col>
            <FormGroup>
-           <Label for="puestoSelect">Búsqueda por puesto</Label>
+           <Label for="puestoSelect">Filtrar por puesto:</Label>
                <Input type="select" name="select" id="puestoSelect">
-               <option defaultValue="0">Puesto...</option>
+               <option defaultValue="0">Selecciona una opción...</option>
                   {this.state.jobTitles.map((jobTitle) => <option key={jobTitle.value} value={jobTitle.value}>{jobTitle.label}</option>)}
                </Input>
            </FormGroup>
