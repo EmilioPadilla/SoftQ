@@ -9,6 +9,7 @@ import { Prompt } from 'react-router'
 
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { API_BASE_URL, FRONT_BASE_URL } from 'index';
 
 // reactstrap components
 import {
@@ -80,12 +81,12 @@ class RegisterEmployee extends React.Component {
         infonavit: infonavit
       };
       localStorage.setItem("personal", JSON.stringify(datosPersonales));
-      window.location = "http://localhost:3000/admin/RE2";
+      window.location = FRONT_BASE_URL+"admin/RE2";
     } else {
       Swal.fire( {
         icon: 'error',
-        title: 'Oops...',
-        text: 'No se han llenado todos los campos obligatorios!',
+        title: '¡Error!',
+        text: 'Verifica que todos los campos obligatorios estén completos.',
       })
     }
 }
@@ -96,12 +97,12 @@ class RegisterEmployee extends React.Component {
   }
 
   getScholarships() {
-    axios.get('http://localhost:8000/api/scholarship')
+    axios.get(API_BASE_URL+'scholarship')
     .then(res => this.setState({ scholarships: parseScholarships(res.data) }));
   }
 
   getCivilStatus() {
-    axios.get('http://localhost:8000/api/employeeCivilStatus')
+    axios.get(API_BASE_URL+'employeeCivilStatus')
     .then(res => this.setState({ civilStatus: parseCivilStatus(res.data) }));
   }
 
@@ -110,11 +111,11 @@ class RegisterEmployee extends React.Component {
     const idRol = localStorage.getItem("idRol");
     //Redirect in case of wrong role or no login
     if (!login ) {
-        window.location = "http://localhost:3000/login";
+      window.location = FRONT_BASE_URL+"login";
     }else if(idRol==2){
-        window.location = "http://localhost:3000/general/NurseIndex";
+        window.location = FRONT_BASE_URL+"general/NurseIndex";
     }else if (idRol==1){
-        window.location = "http://localhost:3000/admin/Nomina/Nomina";
+        window.location = FRONT_BASE_URL+"admin/Nomina/Nomina";
     }
     return (
       <>

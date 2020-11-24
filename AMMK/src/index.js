@@ -31,6 +31,7 @@ import "assets/css/black-dashboard-react.css";
 import "assets/css/nucleo-icons.css";
 
 export const API_BASE_URL = 'http://localhost:8000/api/';
+export const FRONT_BASE_URL = 'http://localhost:3000/';
 
 const hist = createBrowserHistory();
 

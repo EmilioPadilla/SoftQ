@@ -9,6 +9,7 @@ import { Prompt } from 'react-router'
 import Swal from 'sweetalert2';
 import EmployeeCalendarTable from "components/Employees/EmployeeCalendarTable.js";
 import SimpleTooltip from "../../views/General/SimpleTooltip";
+import { API_BASE_URL, FRONT_BASE_URL } from 'index';
 
 // reactstrap components
   import {
@@ -67,7 +68,7 @@ import SimpleTooltip from "../../views/General/SimpleTooltip";
    }
 
    getJobTitles() {
-    axios.get('http://localhost:8000/api/employeeJobTitles')
+    axios.get(API_BASE_URL+'employeeJobTitles')
     .then(res => this.setState({ jobTitles: parseJobTitles(res.data) }));
   }
 
@@ -103,7 +104,7 @@ import SimpleTooltip from "../../views/General/SimpleTooltip";
     console.log(json);
     localStorage.clear();
 
-    axios.post('http://localhost:8000/api/employee/', json).then(res => {
+    axios.post(API_BASE_URL+'employee/', json).then(res => {
       console.log(res);
       const employeeId = res.data.id;
       this.state.markedDays.forEach((element) => {
@@ -114,7 +115,7 @@ import SimpleTooltip from "../../views/General/SimpleTooltip";
         }
         console.log(empShift);
         // Insert new shifts
-        axios.post('http://localhost:8000/api/employeesShifts', empShift)
+        axios.post(API_BASE_URL+'employeesShifts', empShift)
         .then((res) => {
           console.log(res);
         })
@@ -126,13 +127,13 @@ import SimpleTooltip from "../../views/General/SimpleTooltip";
       'Empleado registrado de manera exitosa',
       'success'
       ).then(function() {
-          window.location = "http://localhost:3000/admin/search-employee";
+          window.location = FRONT_BASE_URL+"admin/search-employee";
       });
     } else{
       Swal.fire( {
         icon: 'error',
-        title: 'Oops...',
-        text: 'No se han llenado todos los campos obligatorios!',
+        title: '¡Error!',
+        text: 'Verifica que todos los campos obligatorios estén completos.',
       })
     }
 
@@ -144,11 +145,11 @@ import SimpleTooltip from "../../views/General/SimpleTooltip";
     const idRol = localStorage.getItem("idRol");
     //Redirect in case of wrong role or no login
     if (!login ) {
-        window.location = "http://localhost:3000/login";
+      window.location = FRONT_BASE_URL+"login";
     }else if(idRol==2){
-        window.location = "http://localhost:3000/general/NurseIndex";
+        window.location = FRONT_BASE_URL+"general/NurseIndex";
     }else if (idRol==1){
-        window.location = "http://localhost:3000/admin/Nomina/Nomina";
+        window.location = FRONT_BASE_URL+"admin/Nomina/Nomina";
     }
      return (
         <>
@@ -237,7 +238,7 @@ import SimpleTooltip from "../../views/General/SimpleTooltip";
                           <FormGroup>
                             <Label htmlFor="diasLaborales">* Dias Laborales</Label>
                             <Input
-                              placeholder="" type="number" id="diasLaborales"
+                              placeholder="3" type="number" id="diasLaborales"
                             />
                            </FormGroup>
                          </Col>

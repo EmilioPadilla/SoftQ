@@ -8,8 +8,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Prompt } from 'react-router'
-
+import { API_BASE_URL, FRONT_BASE_URL } from 'index';
 import Swal from 'sweetalert2';
+import axios from 'axios';
 
 
 // reactstrap components
@@ -29,12 +30,18 @@ import {
   Button
 } from "reactstrap";
 
+function parseStates(states){
+  return states.map((states) => {
+    return { label: states.descripcion, value: states.id };
+  });
+}
+
 
 class RegisterEmployee2 extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      estado: null,
+      estados: [],
       ciudad: null, 
       calle: null,
       numExt: null, 
@@ -78,14 +85,23 @@ class RegisterEmployee2 extends React.Component {
       celular: celular
     };
     localStorage.setItem("contacto", JSON.stringify(datosContacto));
-    window.location = "http://localhost:3000/admin/RE3";
+    window.location = FRONT_BASE_URL+"admin/RE3";
   } else{
     Swal.fire( {
       icon: 'error',
-      title: 'Oops...',
-      text: 'No se han llenado todos los campos obligatorios!',
+      title: '¡Error!',
+      text: 'Verifica que todos los campos obligatorios estén completos.',
     })
   }
+}
+
+componentDidMount() {
+  this.getStates();
+}
+
+getStates() {
+  axios.get(API_BASE_URL+'Estados')
+  .then(res => this.setState({ estados: parseStates(res.data) }));
 }
 
 
@@ -94,11 +110,11 @@ class RegisterEmployee2 extends React.Component {
     const idRol = localStorage.getItem("idRol");
     //Redirect in case of wrong role or no login
     if (!login ) {
-        window.location = "http://localhost:3000/login";
+        window.location = FRONT_BASE_URL+"login";
     }else if(idRol==2){
-        window.location = "http://localhost:3000/general/NurseIndex";
+        window.location = FRONT_BASE_URL+"general/NurseIndex";
     }else if (idRol==1){
-        window.location = "http://localhost:3000/admin/Nomina/Nomina";
+        window.location = FRONT_BASE_URL+"admin/Nomina/Nomina";
     }
     return (
       <>
@@ -127,22 +143,19 @@ class RegisterEmployee2 extends React.Component {
                         <FormGroup>
                           <Label htmlFor="estadoSelect">* Estado</Label>
                           <Input type="select" name="select" id="estadoSelect">
-                          <option defaultValue="1">Selecciona un estado...</option>
-                          <option >Guanajuato</option>
-                          <option>Puebla</option>
-                          <option >Queretaro</option>
+                          {this.state.estados.map((estado) => <option key={estado.value} value={estado.value}>{estado.label}</option>)}
                           </Input>
                         </FormGroup>
                       </Col>
                       <Col className="pl-md-1" md="6">
-                        <FormGroup>
+                      <FormGroup>
                           <Label htmlFor="ciudadSelect">* Ciudad</Label>
-                          <Input type="select" name="select" id="ciudadSelect">
-                          <option defaultValue="1">Selecciona una ciudad...</option>
-                          <option >Guanajuato</option>
-                          <option>Irapuato</option>
-                          <option >Salamanca</option>
-                          </Input>
+                          <Input
+                            defaultValue=""
+                            placeholder="Irapuato"
+                            type="text"
+                            id="ciudadSelect"
+                          />
                         </FormGroup>
                       </Col>
                     </Row>
@@ -151,7 +164,7 @@ class RegisterEmployee2 extends React.Component {
                         <FormGroup>
                           <Label htmlFor="calle">Calle</Label>
                           <Input
-                            defaultValue=""
+                            defaultValue="Castillo Breton"
                             placeholder=""
                             type="text"
                             id="calle"
@@ -162,7 +175,7 @@ class RegisterEmployee2 extends React.Component {
                         <FormGroup>
                           <Label htmlFor="numExt">#Ext</Label>
                           <Input
-                            placeholder=""
+                            placeholder="925"
                             type="text"
                             id="numExt"
                           />
@@ -174,7 +187,7 @@ class RegisterEmployee2 extends React.Component {
                             #Int
                           </Label>
                           <Input
-                            placeholder=""
+                            placeholder="12"
                             type="text"
                             id="numInt"
                           />
@@ -186,7 +199,7 @@ class RegisterEmployee2 extends React.Component {
                             C.P
                           </Label>
                           <Input
-                            placeholder=""
+                            placeholder="36690"
                             type="text"
                             id="cp"
                           />
@@ -198,7 +211,7 @@ class RegisterEmployee2 extends React.Component {
                         <FormGroup>
                           <Label htmlFor="colonia">Colonia</Label>
                           <Input
-                            placeholder="Company"
+                            placeholder="La moderna"
                             type="text"
                             id="colonia"
                           />
@@ -236,7 +249,7 @@ class RegisterEmployee2 extends React.Component {
                         <FormGroup>
                           <Label htmlFor="telefono">Teléfono</Label>
                           <Input
-                            placeholder="" type="tel" id="telefono"
+                            placeholder="62 69 569" type="tel" id="telefono"
                           />
                         </FormGroup>
                       </Col>
@@ -244,7 +257,7 @@ class RegisterEmployee2 extends React.Component {
                         <FormGroup>
                           <Label htmlFor="celular">* Celular</Label>
                           <Input
-                            placeholder="" type="tel" id="celular"
+                            placeholder="462 264 2021" type="tel" id="celular"
                           />
                         </FormGroup>
                       </Col>

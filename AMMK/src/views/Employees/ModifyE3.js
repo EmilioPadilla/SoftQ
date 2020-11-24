@@ -7,7 +7,7 @@ import axios from 'axios';
 import { Link } from "react-router-dom";
 import Swal from 'sweetalert2';
 import SimpleTooltip from "../../views/General/SimpleTooltip";
-import { API_BASE_URL } from '../../index';
+import { API_BASE_URL, FRONT_BASE_URL } from 'index';
 
 // reactstrap components
   import {
@@ -54,7 +54,7 @@ import { API_BASE_URL } from '../../index';
    }
 
    getJobTitles() {
-    axios.get('http://localhost:8000/api/employeeJobTitles')
+    axios.get(API_BASE_URL+'employeeJobTitles')
     .then(res => this.setState({ jobTitles: parseJobTitles(res.data) }));
   }
 
@@ -81,7 +81,7 @@ import { API_BASE_URL } from '../../index';
       numBeneficiarios: numBeneficiarios
     };
 
-    axios.put("http://localhost:8000/api/employee/employee/" + idD, datosEmpleado)
+    axios.put(API_BASE_URL+"employee/employee/" + idD, datosEmpleado)
       .then(function (resp) {
         console.log(resp.data);
       });
@@ -90,14 +90,14 @@ import { API_BASE_URL } from '../../index';
       'Empleado modificado de manera exitosa',
       'success'
       ).then(function() {
-        let rouote = "http://localhost:3000/admin/view-employee/"+idD
+        let rouote = FRONT_BASE_URL+"admin/view-employee/"+idD
         window.location = rouote;
       });
     } else{
       Swal.fire( {
         icon: 'error',
-        title: 'Oops...',
-        text: 'No se han llenado todos los campos obligatorios!',
+        title: '¡Error!',
+        text: 'Verifica que todos los campos obligatorios estén completos.',
       })
     }
 
@@ -118,6 +118,16 @@ fillData (id) {
 
 
    render() {
+    const login = localStorage.getItem("isLoggedIn");
+    const idRol = localStorage.getItem("idRol");
+    //Redirect in case of wrong role or no login
+    if (!login ) {
+      window.location = FRONT_BASE_URL+"login";
+    }else if(idRol==2){
+        window.location = FRONT_BASE_URL+"general/NurseIndex";
+    }else if (idRol==1){
+        window.location = FRONT_BASE_URL+"admin/Nomina/Nomina";
+    }
     const { id } = this.props.match.params;
     this.fillData(id);
      return (
