@@ -107,11 +107,11 @@ export default class RegisterB1 extends Component {
             localStorage.setItem("personal", JSON.stringify(datosPersonales));
             window.location = "http://localhost:3000/admin/Beneficiarias/RegisterB2";
         } else {
-            Swal.fire({
+            Swal.fire( {
                 icon: 'error',
-                title: 'Oops...',
-                text: 'No se han llenado todos los campos obligatorios!',
-            })
+                title: '¡Error!',
+                text: 'Verifica que todos los campos obligatorios estén completos.',
+              })
         }
     }
 

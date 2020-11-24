@@ -9,7 +9,7 @@ import React, { useState } from 'react';
 
 //API CALLS
 import axios from 'axios';
-import { API_BASE_URL } from '../../index';
+import { API_BASE_URL, FRONT_BASE_URL } from 'index';
 import { Link } from "react-router-dom";
 
 //Importing Icon library
@@ -552,11 +552,11 @@ class ViewEmployee extends React.Component {
                       <CardTitle>
                         <Row>
                         <Col>
-                          <Badge color="primary">Documentos</Badge>
+                          <Badge color="primary">Archivos</Badge>
                           </Col>
                           <Col>
                             <Button  className="float-right" size="sm" id="RegistrarDocumentos"><FontAwesomeIcon icon={['fas', 'plus-square']} /></Button>
-                            <SimpleTooltip placement="top" target="RegistrarDocumentos" >Registrar documentos</SimpleTooltip>
+                            <SimpleTooltip placement="top" target="RegistrarDocumentos" >Añadir archivos</SimpleTooltip>
                           </Col>
                           </Row>
                       </CardTitle>

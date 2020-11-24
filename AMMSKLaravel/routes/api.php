@@ -58,6 +58,8 @@ Route::get('WorkedHours/idEmployee/{employees_id}', 'App\Http\Controllers\Worked
 
 Route::resource('Absences', 'App\Http\Controllers\AbsencesController');
 
+Route::resource('Estados', 'App\Http\Controllers\StatesController');
+
 Route::post('employeesShifts/search', 'App\Http\Controllers\EmployeesShiftsController@filterByEmployee');
 Route::post('employeesShifts/delete', 'App\Http\Controllers\EmployeesShiftsController@deleteByEmployee');
 

@@ -8,7 +8,7 @@ import React from "react";
 
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { API_BASE_URL } from '../../index';
+import { API_BASE_URL, FRONT_BASE_URL } from 'index';
 
 // reactstrap components
 import {
@@ -108,7 +108,7 @@ onSubmit(e, id){
         civil_status_id: civil_status_id,
         infonavit: infonavit
       };
-      axios.put("http://localhost:8000/api/employee/personal/" + idD, datosPersonales)
+      axios.put(API_BASE_URL+"employee/personal/" + idD, datosPersonales)
       .then(function (resp) {
         console.log(resp.data);
       });
@@ -117,15 +117,15 @@ onSubmit(e, id){
         'Empleado modificado de manera exitosa',
         'success'
         ).then(function() {
-          let rouote = "http://localhost:3000/admin/view-employee/"+idD
+          let rouote = FRONT_BASE_URL+"admin/view-employee/"+idD
           window.location = rouote;
         });
     } 
     else {
       Swal.fire( {
         icon: 'error',
-        title: 'Oops...',
-        text: 'No se han llenado todos los campos obligatorios!',
+        title: '¡Error!',
+        text: 'Verifica que todos los campos obligatorios estén completos.',
       })
     }
 
@@ -143,12 +143,12 @@ onSubmit(e, id){
   }
 
   getScholarships() {
-    axios.get('http://localhost:8000/api/scholarship')
+    axios.get(API_BASE_URL+"scholarship")
     .then(res => this.setState({ scholarships: parseScholarships(res.data) }));
   }
 
   getCivilStatus() {
-    axios.get('http://localhost:8000/api/employeeCivilStatus')
+    axios.get(API_BASE_URL+"employeeCivilStatus")
     .then(res => this.setState({ civilStatus: parseCivilStatus(res.data) }));
   }
 

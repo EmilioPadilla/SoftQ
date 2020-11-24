@@ -9,7 +9,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { API_BASE_URL } from '../../index';
+import { API_BASE_URL, FRONT_BASE_URL } from 'index';
 
 
 
@@ -30,13 +30,18 @@ import {
   Button
 } from "reactstrap";
 
+function parseStates(states){
+  return states.map((states) => {
+    return { label: states.descripcion, value: states.id };
+  });
+}
 
 class ModifyEmployee2 extends React.Component {
   constructor(props){
     super(props)
     this.state = {
     employee: [],
-      estado: null,
+    estados: [],
       ciudad: null, 
       calle: null,
       numExt: null, 
@@ -70,6 +75,12 @@ class ModifyEmployee2 extends React.Component {
 
   componentDidMount() {
     this.getEmployee();
+    this.getStates();
+  }
+  
+  getStates() {
+    axios.get(API_BASE_URL+'Estados')
+    .then(res => this.setState({ estados: parseStates(res.data) }));
   }
 
   getEmployee() {
@@ -111,7 +122,7 @@ class ModifyEmployee2 extends React.Component {
       telefono: telefono,
       celular: celular
     };
-    axios.put("http://localhost:8000/api/employee/contact/" + idD, datosContacto)
+    axios.put(API_BASE_URL+"employee/contact/" + idD, datosContacto)
       .then(function (resp) {
         console.log(resp.data);
       });
@@ -120,14 +131,14 @@ class ModifyEmployee2 extends React.Component {
         'Empleado modificado de manera exitosa',
         'success'
         ).then(function() {
-          let rouote = "http://localhost:3000/admin/view-employee/"+idD
+          let rouote = FRONT_BASE_URL+"admin/view-employee/"+idD
           window.location = rouote;
         });
-  } else{
+  } else {
     Swal.fire( {
       icon: 'error',
-      title: 'Oops...',
-      text: 'No se han llenado todos los campos obligatorios!',
+      title: '¡Error!',
+      text: 'Verifica que todos los campos obligatorios estén completos.',
     })
   }
 }
@@ -158,22 +169,19 @@ class ModifyEmployee2 extends React.Component {
                         <FormGroup>
                           <Label htmlFor="estadoSelect">* Estado</Label>
                           <Input type="select" name="select" id="estadoSelect">
-                          <option defaultValue="1">Selecciona un estado...</option>
-                          <option >Guanajuato</option>
-                          <option>Puebla</option>
-                          <option >Queretaro</option>
+                          {this.state.estados.map((estado) => <option key={estado.value} value={estado.value}>{estado.label}</option>)}
                           </Input>
                         </FormGroup>
                       </Col>
                       <Col className="pl-md-1" md="6">
-                        <FormGroup>
+                      <FormGroup>
                           <Label htmlFor="ciudadSelect">* Ciudad</Label>
-                          <Input type="select" name="select" id="ciudadSelect">
-                          <option defaultValue="1">Selecciona una ciudad...</option>
-                          <option >Guanajuato</option>
-                          <option>Irapuato</option>
-                          <option >Salamanca</option>
-                          </Input>
+                          <Input
+                            defaultValue=""
+                            placeholder="Irapuato"
+                            type="text"
+                            id="ciudadSelect"
+                          />
                         </FormGroup>
                       </Col>
                     </Row>
@@ -182,7 +190,7 @@ class ModifyEmployee2 extends React.Component {
                         <FormGroup>
                           <Label htmlFor="calle">Calle</Label>
                           <Input
-                            defaultValue=""
+                            defaultValue="Castillo Bretón"
                             placeholder=""
                             type="text"
                             id="calle"
@@ -193,7 +201,7 @@ class ModifyEmployee2 extends React.Component {
                         <FormGroup>
                           <Label htmlFor="numExt">#Ext</Label>
                           <Input
-                            placeholder=""
+                            placeholder="37"
                             type="text"
                             id="numExt"
                           />
@@ -205,7 +213,7 @@ class ModifyEmployee2 extends React.Component {
                             #Int
                           </Label>
                           <Input
-                            placeholder=""
+                            placeholder="2A"
                             type="text"
                             id="numInt"
                           />
@@ -217,7 +225,7 @@ class ModifyEmployee2 extends React.Component {
                             C.P
                           </Label>
                           <Input
-                            placeholder=""
+                            placeholder="36690"
                             type="text"
                             id="cp"
                           />
@@ -229,7 +237,7 @@ class ModifyEmployee2 extends React.Component {
                         <FormGroup>
                           <Label htmlFor="colonia">Colonia</Label>
                           <Input
-                            placeholder="Company"
+                            placeholder="La moderna"
                             type="text"
                             id="colonia"
                           />
@@ -267,7 +275,7 @@ class ModifyEmployee2 extends React.Component {
                         <FormGroup>
                           <Label htmlFor="telefono">Teléfono</Label>
                           <Input
-                            placeholder="" type="tel" id="telefono"
+                            placeholder="6269569" type="tel" id="telefono"
                           />
                         </FormGroup>
                       </Col>
@@ -275,7 +283,7 @@ class ModifyEmployee2 extends React.Component {
                         <FormGroup>
                           <Label htmlFor="celular">* Celular</Label>
                           <Input
-                            placeholder="" type="tel" id="celular"
+                            placeholder="4622642021" type="tel" id="celular"
                           />
                         </FormGroup>
                       </Col>
