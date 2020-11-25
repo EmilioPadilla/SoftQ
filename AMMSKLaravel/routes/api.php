@@ -56,6 +56,7 @@ Route::resource('employeeVacations', 'App\Http\Controllers\VacationsController')
 
 Route::resource('WorkedHours', 'App\Http\Controllers\WorkedHoursController');
 Route::get('WorkedHours/idEmployee/{employees_id}', 'App\Http\Controllers\WorkedHoursController@showByEmployee');
+Route::get('WorkedHours/horasDiarias/{employees_id}', 'App\Http\Controllers\WorkedHoursController@horasDiarias');
 
 Route::resource('Absences', 'App\Http\Controllers\AbsencesController');
 

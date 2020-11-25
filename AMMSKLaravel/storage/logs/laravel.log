@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-[2020-11-19 17:22:25] local.ERROR: SQLSTATE[HY000] [2002] Connection refused (SQL: select * from `civil_status`) {"exception":"[object] (Illuminate\\Database\\QueryException(code: 2002): SQLSTATE[HY000] [2002] Connection refused (SQL: select * from `civil_status`) at /Users/Emirock/Documents/Tec/5to_Semestre/SoftQ/AMMSKLaravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:671)
 [stacktrace]
 #0 /Users/Emirock/Documents/Tec/5to_Semestre/SoftQ/AMMSKLaravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php(745): Illuminate\\Database\\Connection->runQueryCallback('select * from `...', Array, Object(Closure))
 #1 /Users/Emirock/Documents/Tec/5to_Semestre/SoftQ/AMMSKLaravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php(725): Illuminate\\Database\\Connection->tryAgainIfCausedByLostConnection(Object(Illuminate\\Database\\QueryException), 'select * from `...', Array, Object(Closure))
@@ -3787,11 +3785,7 @@
 #46 /Users/Emirock/Documents/Tec/5to_Semestre/SoftQ/AMMSKLaravel/server.php(21): require_once('/Users/Emirock/...')
 #47 {main}
 "} 
-=======
->>>>>>> 1e60f8a5fa972187aeeccfe02ab1af63a1f9e68b
 [2020-11-24 19:59:48] local.ERROR: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'ammk.employees_shifts' doesn't exist (SQL: select `shifts`.`id`, `shifts`.`nombre`, `employees_shifts`.`diaSemana` from `employees_shifts` inner join `shifts` on `shifts`.`id` = `employees_shifts`.`idShifts` where `employees_shifts`.`idEmployees` = 1) {"exception":"[object] (Illuminate\\Database\\QueryException(code: 42S02): SQLSTATE[42S02]: Base table or view not found: 1146 Table 'ammk.employees_shifts' doesn't exist (SQL: select `shifts`.`id`, `shifts`.`nombre`, `employees_shifts`.`diaSemana` from `employees_shifts` inner join `shifts` on `shifts`.`id` = `employees_shifts`.`idShifts` where `employees_shifts`.`idEmployees` = 1) at /Users/Emirock/Documents/Tec/5to_Semestre/SoftQ/AMMSKLaravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:671)
-[stacktrace]
-#0 /Users/Emirock/Documents/Tec/5to_Semestre/SoftQ/AMMSKLaravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php(631): Illuminate\\Database\\Connection->runQueryCallback('select `shifts`...', Array, Object(Closure))
 #1 /Users/Emirock/Documents/Tec/5to_Semestre/SoftQ/AMMSKLaravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php(339): Illuminate\\Database\\Connection->run('select `shifts`...', Array, Object(Closure))
 #2 /Users/Emirock/Documents/Tec/5to_Semestre/SoftQ/AMMSKLaravel/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(2303): Illuminate\\Database\\Connection->select('select `shifts`...', Array, true)
 #3 /Users/Emirock/Documents/Tec/5to_Semestre/SoftQ/AMMSKLaravel/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(2291): Illuminate\\Database\\Query\\Builder->runSelect()
