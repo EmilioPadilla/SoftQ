@@ -18,6 +18,10 @@ class CreateWorkedHoursTable extends Migration
           $table->foreignId('employees_id')->constrained('employees');
           $table->timestamp("horaIngreso")->nullable();
           $table->timestamp("horaSalida")->nullable();
+          $table->timestamp("totalH")->nullable();
+          
+
+
         });
     }
 
