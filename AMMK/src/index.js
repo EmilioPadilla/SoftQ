@@ -46,8 +46,6 @@ ReactDOM.render(
       <Route path="/admin" render={props => <AdminLayout {...props} />} />
       <Route path="/general" render={props => <General {...props} />} />
       <Route path="/login" component={Login}/>
-      {/*Rutas que salen de la aplicacion*/}
-      {/* <Route path="/rtl" render={/props => <RTLLayout {...props} />} /> */}
       <Redirect from="/" to="/admin/dashboard" />
     </Switch>
   </Router>,

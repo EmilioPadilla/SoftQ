@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 
 //Importing Icon library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
+import FileUpload from '../Beneficiarias/FileUpload';
 import Swal from 'sweetalert2';
 import SimpleTooltip from "../General/SimpleTooltip";
 import EmployeeCalendarTable from "components/Employees/EmployeeCalendarTable.js"
@@ -32,7 +32,8 @@ import {
   Row,
   Col,
   Label,
-  Badge
+  Badge,
+  Alert
 } from "reactstrap";
 
 const calculate_age = birthDate => Math.floor((new Date() - new Date(birthDate).getTime()) / 3.15576e+10)
@@ -121,13 +122,23 @@ class ViewEmployee extends React.Component {
 
 
       let months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-      let sedes = ["No registrado", "Granja Betania", "Asoc. MMK"];
+      let sedes = ["No registrado", "Granja Betania", "Asoc. Maximiliano María Kolbe"];
+      let status = ["", "EMPLEADO ACTIVO", "EMPLEADO INACTIVO"];
       let puestos = ["No registrado", "Enfermera(o)", "Director(a)", "Servicios Generales", "Lavandería", "Mayordomo", "Hermana", "Dirección administrativa"];
         return (
             <div className="content">
               {this.state.employees.map((employee) => (
-              <h1>{employee.nombreCompleto}</h1>
-              ))}
+                 <>
+                <h1>{employee.nombreCompleto}</h1>
+            
+
+          {(() => {
+                  switch (employee.status_id) {
+                    case 1:   return <Alert color="primary" style={{ 'fontSize': '15px', 'fontWeight': 'bold' }}>{status[employee.status_id]}</Alert>;
+                    case 2:   return <Alert color="danger" style={{ 'fontSize': '18px', 'fontWeight': 'bold' }}>{status[employee.status_id]}</Alert>;
+                    default:return '';
+                  }
+                })()}
               
               <Row>
                 <Col>
@@ -147,13 +158,14 @@ class ViewEmployee extends React.Component {
                     </CardHeader>
                     <CardBody className="justify-content-md-center"  style={{ display: 'flex'}}>
                       <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                        <img
-                          alt="..."
-                          src={require("assets/img/default-avatar.png")}
-                          width="400in"
-                          height="500in"
-                          style={{ alignSelf: 'center' }}
-                        />
+                         <img src={require("assets/img/default-avatar.png")}
+                         width="400in" 
+                         height="500in"
+                         style={{ alignSelf: 'center' }}
+                         class="img-fluid" 
+                         alt="Imagen de Ingreso" 
+                         id="fotoEmpleado" 
+                         onerror="this.onerror=null; this.src='../../assets/img/default-avatar.png';"></img>
                       </a>
                     </CardBody>
 
@@ -168,7 +180,7 @@ class ViewEmployee extends React.Component {
                             <Badge color="primary">Datos personales</Badge>
                           </Col>
                           <Col>
-                          {this.state.employees.map((employee) => (
+                          {/* {this.state.employees.map((employee) => ( */}
                             <Link to=
                             {{
                                   pathname: '/admin/ModifyE1/'+ employee.id,
@@ -177,12 +189,12 @@ class ViewEmployee extends React.Component {
                               <Button  className="float-right" size="sm" id="editarpers"><FontAwesomeIcon icon={['fas', 'pencil-alt']} /></Button>
                               <SimpleTooltip placement="top" target="editarpers" >Editar datos personales</SimpleTooltip>
                             </Link>
-                            ))}
+                            {/* ))} */}
                           </Col>
                         </Row>
                       </CardTitle>
                     </CardHeader>
-                    {this.state.employees.map((employee) => (
+                    {/* {this.state.employees.map((employee) => ( */}
                     <CardBody>
                       <Row>
                         <Col> 
@@ -271,7 +283,7 @@ class ViewEmployee extends React.Component {
                         </Col>
                       </Row>
                     </CardBody>
-                   ))}
+                   {/* ))} */}
                   </Card>
                   <Card>
                     <CardHeader>
@@ -281,7 +293,7 @@ class ViewEmployee extends React.Component {
                             <Badge color="primary">Datos de contacto</Badge>
                           </Col>
                           <Col>
-                          {this.state.employees.map((employee) => (
+                          {/* {this.state.employees.map((employee) => ( */}
                             <Link to=
                             {{
                                   pathname: '/admin/ModifyE2/'+ employee.id,
@@ -290,12 +302,12 @@ class ViewEmployee extends React.Component {
                               <Button  className="float-right" size="sm" id="editarpers"><FontAwesomeIcon icon={['fas', 'pencil-alt']} /></Button>
                               <SimpleTooltip placement="top" target="editarpers" >Editar datos de contacto</SimpleTooltip>
                               </Link>
-                               ))}
+                               {/* ))} */}
                           </Col>
                         </Row>
                       </CardTitle>
                     </CardHeader>
-                    {this.state.employees.map((employee) => (
+                    {/* {this.state.employees.map((employee) => ( */}
                     <CardBody>
                       <Row>
                         <Col>
@@ -395,7 +407,7 @@ class ViewEmployee extends React.Component {
                       </Row>
                       
                     </CardBody>
-                   ))}
+                   {/* ))} */}
                   </Card>
                 </Col>
               </Row>
@@ -409,7 +421,6 @@ class ViewEmployee extends React.Component {
                             <Badge color="primary">Datos de empleado</Badge>
                           </Col>
                           <Col>
-                          {this.state.employees.map((employee) => (
                           <Link to=
                             {{
                                   pathname: '/admin/ModifyE3/'+ employee.id,
@@ -418,13 +429,11 @@ class ViewEmployee extends React.Component {
                               <Button  className="float-right" size="sm" id="editaremp"><FontAwesomeIcon icon={['fas', 'pencil-alt']} /></Button>
                               <SimpleTooltip placement="top" target="editaremp" >Editar datos de empleado</SimpleTooltip>
                             </Link>
-                             ))}
                           </Col>
 
                         </Row>
                       </CardTitle>
                     </CardHeader>
-                    {this.state.employees.map((employee) => (
                     <CardBody>
                       <Row>
                         <Col>
@@ -526,7 +535,6 @@ class ViewEmployee extends React.Component {
                         </Col>
                       </Row>
                     </CardBody>
-                    ))}
                   </Card>
                 </Col>
               </Row>
@@ -555,22 +563,24 @@ class ViewEmployee extends React.Component {
                           <Badge color="primary">Archivos</Badge>
                           </Col>
                           <Col>
-                            <Button  className="float-right" size="sm" id="RegistrarDocumentos"><FontAwesomeIcon icon={['fas', 'plus-square']} /></Button>
-                            <SimpleTooltip placement="top" target="RegistrarDocumentos" >Añadir archivos</SimpleTooltip>
+                          {/* view will be used to change paths within same component */}
+                          <FileUpload id={this.state.id} view="2"/>
                           </Col>
                           </Row>
                       </CardTitle>
                     </CardHeader>
                     <CardBody>
-                      <TableEmployeeFiles/>
+                      <TableEmployeeFiles id={employee.id} />
                     </CardBody>
                   </Card>
                 </Col>
+                </Row>
+                <Row>
                 <Col>
                   <Card>
                     <CardHeader>
                       <CardTitle>
-                      {this.state.employees.map((employee) => ( 
+                      {/* {this.state.employees.map((employee) => (  */}
                         <Row>
                           <Col>
                             <Badge color="primary">Vacaciones</Badge>
@@ -579,18 +589,19 @@ class ViewEmployee extends React.Component {
                             <ModalNewVacation id={employee.id}/>
                           </Col>
                         </Row>
-                        ))}
+                        {/* ))} */}
                       </CardTitle>
                     </CardHeader>
                     <CardBody>
-                    {this.state.employees.map((employee) => ( 
+                    {/* {this.state.employees.map((employee) => (  */}
                       <TableEmployeeVacations idEmployee={employee.id}/>
-                      ))}
+                      {/* ))} */}
                     </CardBody>
                   </Card>
                 </Col>
               </Row> 
-              
+              </>
+                ))}
             </div>
         )
     }

@@ -255,15 +255,9 @@ class ModifyEmployee2 extends React.Component {
                       </Col>
                     </Row>
                     <Row>
-                      <Col className="pl-md-1" md="7">
-                        <FormGroup>
-                        <Label htmlFor="CompDom">Comprobante de Domicilio</Label>
-                        <CustomInput type="file" name="customFile" id="CompDom" label="Selecciona un archivo"/>
-                        </FormGroup>
-                      </Col>
                     </Row>
                     <Row>
-                      <Col className="pl-md-1" md="7">
+                      <Col className="pl-md-1" md="6">
                         <FormGroup>
                           <Label htmlFor="correo">Correo</Label>
                           <Input

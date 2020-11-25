@@ -225,7 +225,7 @@ class RegisterEmployee extends React.Component {
                         
                     </Row>
 
-                      <Row>
+                      {/* <Row>
                       <Col className="pl-md-1"  md="6">
                           <FormGroup>
                           <Label for="Contrato">Copia de Contrato</Label>
@@ -257,7 +257,7 @@ class RegisterEmployee extends React.Component {
                           </FormGroup>
                         </Col>
 
-                      </Row>
+                      </Row> */}
                     
                   </CardBody>
                 </Card>

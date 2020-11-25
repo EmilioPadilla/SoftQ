@@ -62,13 +62,15 @@ Route::resource('Absences', 'App\Http\Controllers\AbsencesController');
 
 Route::resource('Estados', 'App\Http\Controllers\StatesController');
 
+Route::resource('employee_files', 'App\Http\Controllers\EmployeeFilesController');
+Route::get('employee_files/downloadFile/{id}', 'App\Http\Controllers\EmployeeFilesController@downloadFile');
+
 Route::post('employeesShifts/search', 'App\Http\Controllers\EmployeesShiftsController@filterByEmployee');
 Route::post('employeesShifts/delete', 'App\Http\Controllers\EmployeesShiftsController@deleteByEmployee');
 
 Route::get('inactiveEmployee', 'App\Http\Controllers\EmployeesController@showInactive');
 Route::get('employee/{id}', 'App\Http\Controllers\EmployeesController@show');
 Route::get('employeeVacations/{id}', 'App\Http\Controllers\VacationsController@show');
-Route::get('employeeFiles/{id}', 'App\Http\Controllers\Employee_FilesController@show');
 Route::any('employee/reenter/{id}', 'App\Http\Controllers\EmployeesController@reenterEmployee');
 Route::any('employee/exit/{id}', 'App\Http\Controllers\EmployeesController@exitEmployee');
 Route::put('employee/personal/{id}', 'App\Http\Controllers\EmployeesController@updatePersonal');
