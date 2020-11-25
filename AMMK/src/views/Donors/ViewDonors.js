@@ -58,6 +58,7 @@ class  ViewDonors extends Component {
       //Busqueda tipo de donante
       sortByTipo(){
         var tipo = document.getElementById('tipoSelect').value;
+        var status = document.getElementById('statusSelect').value;
         var numTipo;
         if (tipo === "Particular"){
          numTipo=1;
@@ -70,12 +71,26 @@ class  ViewDonors extends Component {
         }else if (tipo ==="Fundación"){
             numTipo=5;
         }
-       
-         axios.get("http://localhost:8000/api/donors/table/tipoDonante/"+numTipo)
-           .then(function (resp){
-             respuesta = resp.data;
-             document.getElementById("tablaD").innerHTML = respuesta;
-           } );
+        var numStatus;
+        if (status === "Activos"){
+         numStatus=1;
+        }else if (status ==="Inactivos"){
+         numStatus=2;
+        }
+        if(numStatus==1){
+          axios.get("http://localhost:8000/api/donors/table/tipoDonante/"+numTipo)
+          .then(function (resp){
+            respuesta = resp.data;
+            document.getElementById("tablaD").innerHTML = respuesta;
+          } );
+        }
+        if(numStatus==2){
+          axios.get("http://localhost:8000/api/donors/table/tipoDonanteI/"+numTipo)
+          .then(function (resp){
+            respuesta = resp.data;
+            document.getElementById("tablaD").innerHTML = respuesta;
+          } );
+        }
        }
        //busqueda por el input
        searchDonor(){

@@ -39,6 +39,7 @@ Route::get('donorContacts/delete/{id}', 'App\Http\Controllers\ContactoDonanteCon
 Route::resource('donaciones', 'App\Http\Controllers\DonacionController');
 Route::resource('contactoDonante', 'App\Http\Controllers\ContactoDonanteController');
 Route::get('donors/table/tipoDonante/{tipo}', 'App\Http\Controllers\DonantesController@showTipoDonante');
+Route::get('donors/table/tipoDonanteI/{tipo}', 'App\Http\Controllers\DonantesController@showTipoDonanteI');
 //Route::get('account/find/{username}', 'App\Http\Controllers\AccountController@showId');
 Route::get('donors/table/buscar/{palabra}', 'App\Http\Controllers\DonantesController@searchDonor');
 

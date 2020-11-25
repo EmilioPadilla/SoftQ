@@ -200,7 +200,6 @@ return array(
     'Database\\Seeders\\ShiftsSeeder' => $baseDir . '/database/seeders/ShiftsSeeder.php',
     'Database\\Seeders\\SpecialtySeeder' => $baseDir . '/database/seeders/SpecialtySeeder.php',
     'Database\\Seeders\\StatusDonacionSeeder' => $baseDir . '/database/seeders/StatusDonacionSeeder.php',
-    'Database\\Seeders\\StatusEmployeeSeeder' => $baseDir . '/database/seeders/StatusEmployeeSeeder 2.php',
     'Database\\Seeders\\StatusSeeder' => $baseDir . '/database/seeders/StatusSeeder.php',
     'Database\\Seeders\\TipoDonacionSeeder' => $baseDir . '/database/seeders/TipoDonacionSeeder.php',
     'Database\\Seeders\\TipoDonanteSeeder' => $baseDir . '/database/seeders/TipoDonanteSeeder.php',
