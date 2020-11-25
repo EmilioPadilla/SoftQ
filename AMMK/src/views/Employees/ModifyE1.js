@@ -257,40 +257,6 @@ onSubmit(e, id){
                         </Col>
                         
                     </Row>
-
-                      <Row>
-                      <Col className="pl-md-1"  md="6">
-                          <FormGroup>
-                          <Label for="Contrato">Copia de Contrato</Label>
-                          <CustomInput type="file" name="customFile" id="Contraro" label="Selecciona un archivo"/>
-                          </FormGroup>
-                        </Col>
-                        <Col className="pl-md-1" md="6">
-                          <FormGroup>x
-                          <Label for="DocRFC">Carga de RFC</Label>
-                          <CustomInput type="file" name="customFile" id="DocRFC" label="Selecciona un archivo"/>
-                          </FormGroup>
-                        </Col>
-                        <Col className="pl-md-1" md="6">
-                          <FormGroup>
-                          <Label for="DocCurp">Carga de Curp</Label>
-                          <CustomInput type="file" name="customFile" id="DocCurp" label="Selecciona un archivo"/>
-                          </FormGroup>
-                        </Col>
-                        <Col className="pl-md-1" md="6">
-                          <FormGroup>
-                          <Label for="DocIne">Carga de INE</Label>
-                          <CustomInput type="file" name="customFile" id="DocIne" label="Selecciona un archivo"/>
-                          </FormGroup>
-                        </Col>
-                        <Col className="pl-md-1" md="6">
-                          <FormGroup>
-                          <Label for="ActNac">Acta de nacimiento</Label>
-                          <CustomInput type="file" name="customFile" id="ActNac" label="Selecciona un archivo"/>
-                          </FormGroup>
-                        </Col>
-
-                      </Row>
                     
                   </CardBody>
                 </Card>

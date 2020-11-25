@@ -220,12 +220,6 @@ fillData (id) {
                      <Row>
                          <Col md="6">
                            <FormGroup>
-                           <Label for="Contrato">Copia de Contrato</Label>
-                           <CustomInput type="file" name="customFile" id="Contraro" label="Selecciona un archivo"/>
-                           </FormGroup>
-                         </Col>
-                         <Col md="6">
-                           <FormGroup>
                            <Label for="numBenef">Número de beneficiarios</Label>
                            <Input
                               placeholder="2"

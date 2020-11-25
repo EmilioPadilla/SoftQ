@@ -41,12 +41,10 @@ import {
 
     componentDidMount() {
       let id = this.props.dataFromParent;
-      console.log(id);
       this.getEmployees();
     }
 
     componentDidUpdate(prevProps) {
-      console.log("updated"+prevProps);
       if (this.props.statusId != prevProps.statusId || 
         this.props.sedeId != prevProps.sedeId || 
         this.props.inputValue != prevProps.inputValue) {
@@ -62,12 +60,8 @@ import {
       }
       axios.post(API_BASE_URL + 'filterEmployee', params)
         .then(res => {
-          console.log(res);
           const employees = res.data;
-          
           this.setState({ employees });
-  
-          console.log(this.state);
         })
     }
 
