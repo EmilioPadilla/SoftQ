@@ -45,6 +45,7 @@ Route::get('donors/table/buscar/{palabra}', 'App\Http\Controllers\DonantesContro
 
 // Rutas empleados
 Route::resource('employee', 'App\Http\Controllers\EmployeesController');
+Route::post('filterEmployee', 'App\Http\Controllers\EmployeesController@filter');
 Route::resource('employeeStatus', 'App\Http\Controllers\StatusEmployeeController');
 Route::resource('scholarship', 'App\Http\Controllers\ScholarshipController');
 Route::resource('status', 'App\Http\Controllers\EmployeesShiftsController');

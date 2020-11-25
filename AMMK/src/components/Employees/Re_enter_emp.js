@@ -60,12 +60,12 @@ const ReenterEmp = (props) => {
                         <FormGroup>
                             <FontAwesomeIcon icon={["fas", "calendar-alt"]} />
                             <Label for="fechaR">&nbsp;Fecha de reingreso:</Label>
-                            <Input type="date" id="fechaReingreso" value={employee.fechaReingreso}></Input>
+                            <Input type="date" id="fechaReingreso" defaultValue={employee.fechaReingreso}></Input>
                         </FormGroup>
                         <FormGroup>
                             <FontAwesomeIcon icon={["fas", "comment"]} />
                             <Label for="motivo">&nbsp;Motivo de reingreso</Label>
-                            <textarea rows="3" cols="64" id="motivoReingreso" value={employee.motivoReingreso}/>
+                            <textarea rows="3" cols="64" id="motivoReingreso" defaultValue={employee.motivoReingreso}/>
                         </FormGroup>
                     </Col>
                 </Row>

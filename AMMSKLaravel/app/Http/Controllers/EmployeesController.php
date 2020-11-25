@@ -150,6 +150,78 @@ class EmployeesController extends Controller
     }
 
     /**
+     * Filter employee by status, headquarter, or name
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function filter(Request $request)
+    {
+        if($request->statusId != 0) {
+            $employees = Employee::with('status')->select()
+            ->where("status_id", $request->statusId)
+            ->get();
+            if($request->sedeId != 0) {
+                $employees = Employee::with('status')->select()
+                ->where("status_id", $request->statusId)
+                ->where("headquarter_id", $request->sedeId)
+                ->get();
+
+                if($request->inputValue != '') {
+                    $employees = Employee::with('status')->select()
+                    ->where("status_id", $request->statusId)
+                    ->where("headquarter_id", $request->sedeId)
+                    ->where('nombreCompleto', 'LIKE', '%'. $request->inputValue .'%')
+                    ->get();
+                }
+            }
+            if($request->inputValue != '') {
+                $employees = Employee::with('status')->select()
+                ->where("status_id", $request->statusId)
+                ->where('nombreCompleto', 'LIKE', '%'. $request->inputValue .'%')
+                ->get();
+
+                if($request->sedeId != 0) {
+                    $employees = Employee::with('status')->select()
+                    ->where("status_id", $request->statusId)
+                    ->where('nombreCompleto', 'LIKE', '%'. $request->inputValue .'%')
+                    ->where("headquarter_id", $request->sedeId)
+                    ->get();
+                }
+            }
+        } else if($request->sedeId != 0) {
+            $employees = Employee::with('status')->select()
+            ->where("headquarter_id", $request->sedeId)
+            ->get();
+
+            if($request->inputValue != '') {
+                $employees = Employee::with('status')->select()
+                ->where("headquarter_id", $request->sedeId)
+                ->where('nombreCompleto', 'LIKE', '%'. $request->inputValue .'%')
+                ->get();
+            }
+
+        } else if($request->inputValue != '') {
+            $employees = Employee::with('status')->select()
+            ->where('nombreCompleto', 'LIKE', '%'. $request->inputValue .'%')
+            ->get();
+
+            if($request->sedeId != 0) {
+                $employees = Employee::with('status')->select()
+                ->where('nombreCompleto', 'LIKE', '%'. $request->inputValue .'%')
+                ->where("headquarter_id", $request->sedeId)
+                ->get();
+            }
+        } else {
+            $employees = Employee::with('status')->select()
+            ->orderBy('status_id', 'asc')
+            ->get();
+        }
+        
+        return $employees;
+    }
+
+    /**
      * Display employees according to status value
      *
      * @param  int  $id

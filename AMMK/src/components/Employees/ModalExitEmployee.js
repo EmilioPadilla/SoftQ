@@ -67,13 +67,13 @@ const ModalExample = (props) => {
                 <Label htmlFor="fechaEgreso">
                   Fecha de egreso
                 </Label>
-                <Input type="date" id="fechaEgreso" value={employee.fechaEgreso}/>
+                <Input type="date" id="fechaEgreso" defaultValue={employee.fechaEgreso}/>
               </FormGroup>
               <FormGroup>
                 <Label HtmlFor="motivoEgreso">
                   Motivo:
                   <br/>
-                  <textarea rows="3" cols="64" id="motivoEgreso" value={employee.motivoEgreso}/>
+                  <textarea rows="3" cols="64" id="motivoEgreso" defaultValue={employee.motivoEgreso}/>
                 </Label>
               </FormGroup>
 
