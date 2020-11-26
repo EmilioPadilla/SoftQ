@@ -17,6 +17,7 @@ import { Prompt } from 'react-router'
     CardBody,
     FormGroup,
     Form,
+    Alert,
     Input,
     Row,
     Col,
@@ -45,7 +46,6 @@ import { Prompt } from 'react-router'
        puesto: null, 
        diasLaborales: null,
        monto: null,
-       numBenef: null,
        selectedOption: null
      }
 
@@ -68,10 +68,9 @@ import { Prompt } from 'react-router'
     let puesto = document.getElementById("puesto").value;
     let turnosQuincena = document.getElementById("diasLaborales").value;
     let salarioxhora = document.getElementById("monto").value;
-    let numBeneficiarios = document.getElementById("numBenef").value;
     var idD= document.getElementById("valorId").value;
 
-    if (fechaIngreso !== '' && headquarter_id !== '' && frecuenciaSalario !== '' && puesto !== '' && salarioxhora !== '' && turnosQuincena !== '') {
+    if (fechaIngreso !== '' && headquarter_id !== '' && frecuenciaSalario !== '' && puesto !== '' && turnosQuincena !== '') {
     const datosEmpleado = {
       fechaIngreso: fechaIngreso,
       headquarter_id: headquarter_id, 
@@ -79,7 +78,6 @@ import { Prompt } from 'react-router'
       puesto: puesto, 
       diasLaborales: turnosQuincena,
       salarioxhora: salarioxhora,
-      numBeneficiarios: numBeneficiarios
     };
 
     axios.put(API_BASE_URL+"employee/employee/" + idD, datosEmpleado)
@@ -112,7 +110,6 @@ fillData (id) {
            document.getElementById("puesto").value = res.data[0].puesto;
            document.getElementById("diasLaborales").value = res.data[0].diasLaborales;
            document.getElementById("monto").value = res.data[0].salarioxhora;
-           document.getElementById("numBenef").value = res.data[0].numBeneficiarios; 
            document.getElementById("valorId").value = id;
           })
   }
@@ -139,7 +136,8 @@ fillData (id) {
             message="Te encuentras en proceso de registro                                                ¿Estás seguro de querer salir?"
           />
         <h2 className="title">Modificar empleado</h2>
-        <Form >
+
+        <Form autocomplete="off">
           <Row>
             <Col md="12">
               <Card>
@@ -147,6 +145,7 @@ fillData (id) {
                   <br/>
                   <h3 className="title">Datos de empleado</h3>
                 </CardHeader>
+                <Alert color="primary">Los campos marcados con un asterisco (*) son obligatorios.</Alert>
                 <CardBody>
                   
                     <Row>
@@ -204,7 +203,7 @@ fillData (id) {
                       <Col  md="6">
                         <Col className="pl-md-1">
                           <FormGroup>
-                            <Label htmlFor="monto">* Monto</Label>
+                            <Label htmlFor="monto">Monto</Label>
                             <Input
                               placeholder="1500"
                               type="text"
@@ -222,19 +221,6 @@ fillData (id) {
                            </FormGroup>
                          </Col>
                      </Row>
-                     <Row>
-                         <Col md="6">
-                           <FormGroup>
-                           <Label for="numBenef">Número de beneficiarios</Label>
-                           <Input
-                              placeholder="2"
-                              type="number"
-                              id="numBenef"
-                            />
-                            <SimpleTooltip placement="top" target="numBenef">Beneficiarios a quienes se les puede otorgar porcion del salario del empleado</SimpleTooltip>
-                           </FormGroup>
-                         </Col>
-                         </Row>
                     
                 </CardBody>
               </Card>

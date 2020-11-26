@@ -81,6 +81,8 @@ import {
     }
 
     render() {
+      let months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+        
         return (
           <Row>
             <Col md="12">
@@ -96,23 +98,20 @@ import {
                   <tbody>
                   {this.state.vacations.map((vacation, i) => (
                       <tr key={vacation.id}>
-                        <td>{vacation.fechaRegistro}</td>
-                        <td>{vacation.fechaSalida}</td>
-                        <td>{vacation.fechaRegreso}</td>
+                        <td>{vacation.fechaRegistro.split("-")[2].split(" ")[0]} de {months[vacation.fechaRegistro.split("-")[1] - 1]} del {vacation.fechaRegistro.split("-")[0]} </td>
+                        <td>{vacation.fechaSalida.split("-")[2]} de {months[vacation.fechaSalida.split("-")[1] - 1]} del {vacation.fechaSalida.split("-")[0]}</td>
+                        <td>{vacation.fechaRegreso.split("-")[2]} de {months[vacation.fechaRegreso.split("-")[1] - 1]} del {vacation.fechaRegreso.split("-")[0]}</td>
                         <td>
-                            <Row>
-                            {/* <a href="/admin/view-employee">
-                              <button id="editar" type="button" className="btn btn-info btn-sm">
-                                <FontAwesomeIcon icon={['fas', 'edit']} />
-                              </button>
-                              <SimpleTooltip placement="top" target="editar">Editar registro</SimpleTooltip>
-                            </a> */}
+                          <Row>
+                          <Col md="4">
                             <EditVacationModal id={this.props.idEmployee} vacations={this.state.vacations[i]}/>
-                            &nbsp;&nbsp;&nbsp;&nbsp;
+                          </Col>
+                          <Col md="4">
                               <Link>
                                 <SimpleTooltip placement="top" target="eliminar">Eliminar</SimpleTooltip>
                                 <Button size="sm" id="eliminar" color="danger" onClick={()=>{this.seleccionarVacacion(vacation); this.setState({modalEliminar: true})}}><FontAwesomeIcon icon={['fas', 'trash-alt']}/></Button>
                               </Link>
+                              </Col>
                             </Row>
                         </td>
                       </tr>

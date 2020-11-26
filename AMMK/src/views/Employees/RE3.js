@@ -23,8 +23,7 @@ import { API_BASE_URL, FRONT_BASE_URL } from 'index';
     Col,
     Progress,
     Label,
-    CustomInput,
-    Button,
+    Alert,
   } from "reactstrap";
 
 
@@ -34,6 +33,7 @@ import { API_BASE_URL, FRONT_BASE_URL } from 'index';
   });
 }
 
+const validDate = RegExp(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/);
  class RegisterEmployee3 extends React.Component {
    constructor(props){
      super(props)
@@ -46,13 +46,35 @@ import { API_BASE_URL, FRONT_BASE_URL } from 'index';
        puesto: null, 
        diasLaborales: null,
        monto: null,
-       numBenef: null,
-       selectedOption: null
+       selectedOption: null,
+       errors: {
+         date: '',
+       }
      }
       this.onChange = this.onChange.bind(this);
       this.handleCalendarChange = this.handleCalendarChange.bind(this);
       this.onSubmit = this.onSubmit.bind(this);
+      this.handleChange = this.handleChange.bind(this);
   }
+
+  handleChange = (event) => {
+    event.preventDefault();
+    const { name, value } = event.target;
+    let errors = this.state.errors;
+
+    switch (name) {
+        case 'date':
+            errors.date =
+            validDate.test(value)
+                            ? ""
+                            : "La fecha no es correcta.";
+            break;
+        default:
+            break;
+    }
+
+    this.setState({ errors, [name]: value });
+}
 
    onChange(e) {
      this.setState({ value: e.value });
@@ -81,9 +103,8 @@ import { API_BASE_URL, FRONT_BASE_URL } from 'index';
     let puesto = document.getElementById("puesto").value;
     let turnosQuincena = document.getElementById("diasLaborales").value;
     let salarioxhora = document.getElementById("monto").value;
-    let numBeneficiarios = document.getElementById("numBenef").value;
 
-    if (fechaIngreso !== '' && headquarter_id !== '' && frecuenciaSalario !== '' && puesto !== '' && salarioxhora !== '' && turnosQuincena !== '') {
+    if (fechaIngreso !== '' && headquarter_id !== '' && frecuenciaSalario !== '' && puesto !== '' && turnosQuincena !== '') {
     const datosEmpleado = {
       fechaIngreso: fechaIngreso,
       headquarter_id: headquarter_id, 
@@ -91,7 +112,6 @@ import { API_BASE_URL, FRONT_BASE_URL } from 'index';
       puesto: puesto, 
       diasLaborales: turnosQuincena,
       salarioxhora: salarioxhora,
-      numBeneficiarios: numBeneficiarios
     };
 
     localStorage.setItem("empleado", JSON.stringify(datosEmpleado));
@@ -151,6 +171,7 @@ import { API_BASE_URL, FRONT_BASE_URL } from 'index';
     }else if (idRol==1){
         window.location = FRONT_BASE_URL+"admin/Nomina/Nomina";
     }
+    const { errors } = this.state;
      return (
         <>
         <div className="content">
@@ -159,7 +180,7 @@ import { API_BASE_URL, FRONT_BASE_URL } from 'index';
             message="Te encuentras en proceso de registro                                                ¿Estás seguro de querer salir?"
           />
         <h2 className="title">Registrar empleado</h2>
-        <Form >
+        <Form autocomplete="off">
           <Row>
             <Col md="12">
               <Card>
@@ -168,6 +189,7 @@ import { API_BASE_URL, FRONT_BASE_URL } from 'index';
                   <br/>
                   <h3 className="title">Datos de empleado</h3>
                 </CardHeader>
+                <Alert color="primary">Los campos marcados con un asterisco (*) son obligatorios.</Alert>
                 <CardBody>
                   
                     <Row>
@@ -177,7 +199,8 @@ import { API_BASE_URL, FRONT_BASE_URL } from 'index';
                           <Label htmlFor="fechaIngreso">
                             * Fecha de ingreso
                           </Label>
-                          <Input type="date" id="fechaIngreso"/>
+                          <Input type="date" id="fechaIngreso" name="date"   onChange={this.handleChange}/>
+                          {errors.date.length > 0 && <span className='error'>{errors.date}</span>}
                         </FormGroup>
                       </Col>
                       </Col>
@@ -225,7 +248,7 @@ import { API_BASE_URL, FRONT_BASE_URL } from 'index';
                       <Col  md="6">
                         <Col className="pl-md-1">
                           <FormGroup>
-                            <Label htmlFor="monto">* Monto</Label>
+                            <Label htmlFor="monto">Monto</Label>
                             <Input
                               placeholder="1500"
                               type="text"
@@ -243,19 +266,6 @@ import { API_BASE_URL, FRONT_BASE_URL } from 'index';
                            </FormGroup>
                          </Col>
                      </Row>
-                     <Row>
-                         <Col md="6">
-                           <FormGroup>
-                           <Label for="numBenef">Número de beneficiarios</Label>
-                           <Input
-                              placeholder="2"
-                              type="number"
-                              id="numBenef"
-                            />
-                            <SimpleTooltip placement="top" target="numBenef">Beneficiarios a quienes se les puede otorgar porcion del salario del empleado</SimpleTooltip>
-                           </FormGroup>
-                         </Col>
-                         </Row>
                     <Row>
                       <Col>
                         <h4 className="text-center">Calendario de empleado</h4>

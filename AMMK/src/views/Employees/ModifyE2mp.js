@@ -156,7 +156,7 @@ class ModifyEmployee2 extends React.Component {
             message="Te encuentras en proceso de registro                                                ¿Estás seguro de querer salir?"
           />
           <h2 className="title">Modificar empleado</h2>
-          <Form>
+          <Form autocomplete="off">
           <Row>
             <Col md="12">
               <Card>

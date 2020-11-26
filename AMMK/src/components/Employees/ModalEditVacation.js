@@ -59,10 +59,12 @@ const ModalEditVacation = (props) => {
   return (
     <div>
       <Button id="registrarVacaciones" className="inline float-right" size="sm" inline onClick={toggle}><FontAwesomeIcon icon={['fas', 'pencil-alt']} /></Button>
-      <SimpleTooltip placement="top" target="registrarVacaciones">Registrar Vacaciones</SimpleTooltip>
+      <SimpleTooltip placement="top" target="registrarVacaciones">Editar</SimpleTooltip>
       <Form>
       <Modal isOpen={modal} toggle={toggle} className={className} color="primary">
-        <ModalHeader toggle={toggle}>Editar vacaciones</ModalHeader>
+        <ModalHeader>
+        <h3 className="title">Editar vacaciones</h3>
+        </ModalHeader>
         <ModalBody>
 
               <FormGroup>
@@ -82,7 +84,7 @@ const ModalEditVacation = (props) => {
         </ModalBody>
 
         <ModalFooter>
-          <Button color="info" visibility="none" onClick={toggle}>Salir</Button>{' '}
+          <Button color="info" visibility="none" onClick={toggle}>Cancelar</Button>{' '}
           <Button  onClick={editVacation.bind("this", id, vacations.id)}>Modificar</Button>
         </ModalFooter>
       </Modal>

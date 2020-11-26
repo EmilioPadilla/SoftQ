@@ -164,7 +164,7 @@ onSubmit(e, id){
             message="Te encuentras en proceso de registro                                                ¿Estás seguro de querer salir?"
           />
           <h2 className="title">Modificar empleado</h2>
-          <Form >
+          <Form autocomplete="off" >
                 <Card>
                   <CardHeader>
                    
