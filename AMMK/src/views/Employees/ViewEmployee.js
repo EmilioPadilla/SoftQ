@@ -20,7 +20,9 @@ import SimpleTooltip from "../General/SimpleTooltip";
 import EmployeeCalendarTable from "components/Employees/EmployeeCalendarTable.js"
 import TableEmployeeFiles from "components/Employees/TableEmployeeFiles.js"
 import TableEmployeeVacations from "components/Employees/TableEmployeeVacations.js"
-import ModalNewVacation from "components/Employees/ModalNewVacation";
+import ModalNewVacation from "components/Employees/ModalNewVacation.js";
+import ModalNewEmpBeneficiary from "components/Employees/ModalNewEmpBeneficiary.js";
+import TableEmployeeBeneficiary from "components/Employees/TableEmployeeBeneficiary.js";
 
 // reactstrap components
 import {
@@ -559,6 +561,27 @@ class ViewEmployee extends React.Component {
                     <CardHeader>
                       <CardTitle>
                         <Row>
+                          <Col>
+                            <Badge color="primary">Beneficiarios de nómina</Badge>
+                          </Col>
+                          <Col>
+                            <ModalNewEmpBeneficiary id={employee.id}/>
+                          </Col>
+                        </Row>
+                      </CardTitle>
+                    </CardHeader>
+                    <CardBody>
+                      <TableEmployeeBeneficiary idEmployee={employee.id}/>
+                    </CardBody>
+                  </Card>
+                </Col>
+              </Row> 
+              <Row>
+                <Col>
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>
+                        <Row>
                         <Col>
                           <Badge color="primary">Archivos</Badge>
                           </Col>
@@ -580,7 +603,6 @@ class ViewEmployee extends React.Component {
                   <Card>
                     <CardHeader>
                       <CardTitle>
-                      {/* {this.state.employees.map((employee) => (  */}
                         <Row>
                           <Col>
                             <Badge color="primary">Vacaciones</Badge>
@@ -589,13 +611,10 @@ class ViewEmployee extends React.Component {
                             <ModalNewVacation id={employee.id}/>
                           </Col>
                         </Row>
-                        {/* ))} */}
                       </CardTitle>
                     </CardHeader>
                     <CardBody>
-                    {/* {this.state.employees.map((employee) => (  */}
                       <TableEmployeeVacations idEmployee={employee.id}/>
-                      {/* ))} */}
                     </CardBody>
                   </Card>
                 </Col>

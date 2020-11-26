@@ -52,6 +52,7 @@ const ModalEditVacation = (props) => {
     vacations
   } = props;
 
+
   const [modal, setModal] = useState(false);
 
   const toggle = () => setModal(!modal);

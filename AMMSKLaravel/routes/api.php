@@ -60,8 +60,11 @@ Route::get('WorkedHours/horasDiarias/{employees_id}', 'App\Http\Controllers\Work
 
 Route::resource('Absences', 'App\Http\Controllers\AbsencesController');
 
+Route::resource('Kinship', 'App\Http\Controllers\KinshipController');
+
 Route::resource('Estados', 'App\Http\Controllers\StatesController');
 
+Route::resource('empBeneficiary', 'App\Http\Controllers\BenefEmployeeController');
 Route::resource('employee_files', 'App\Http\Controllers\EmployeeFilesController');
 Route::get('employee_files/downloadFile/{id}', 'App\Http\Controllers\EmployeeFilesController@downloadFile');
 
