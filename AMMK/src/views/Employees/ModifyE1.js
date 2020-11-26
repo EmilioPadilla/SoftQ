@@ -159,7 +159,7 @@ onSubmit(e, id){
       <>
         <div className="content">
           <h2 className="title">Modificar empleado</h2>
-          <Form >
+          <Form autocomplete="off" >
                 <Card>
                   <CardHeader>
                    

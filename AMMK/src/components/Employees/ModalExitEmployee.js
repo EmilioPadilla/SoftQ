@@ -59,19 +59,19 @@ const ModalExample = (props) => {
       <SimpleTooltip placement="top" target="egresar">Egresar</SimpleTooltip>
       <Form>
       <Modal isOpen={modal} toggle={toggle} className={className} color="primary">
-        <ModalHeader toggle={toggle}>Egresar empleado</ModalHeader>
+        <ModalHeader ><h3 className="title">Egresar empleado</h3></ModalHeader>
         {/* <h3 color="primary">Egresar empleado</h3> */}
         <ModalBody>
 
               <FormGroup>
                 <Label htmlFor="fechaEgreso">
-                  Fecha de egreso
+                 * Fecha de egreso
                 </Label>
                 <Input type="date" id="fechaEgreso" defaultValue={employee.fechaEgreso}/>
               </FormGroup>
               <FormGroup>
                 <Label HtmlFor="motivoEgreso">
-                  Motivo:
+                 * Motivo:
                   <br/>
                   <textarea rows="3" cols="64" id="motivoEgreso" defaultValue={employee.motivoEgreso}/>
                 </Label>
@@ -91,7 +91,7 @@ const ModalExample = (props) => {
         </ModalBody>
 
         <ModalFooter>
-          <Button color="info" visibility="none" onClick={toggle}>salir</Button>{' '}
+          <Button color="info" visibility="none" onClick={toggle}>Cancelar</Button>{' '}
           <Button  onClick={exitEmployee.bind("this", id)}>Egresar</Button>
         </ModalFooter>
       </Modal>
