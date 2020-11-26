@@ -9,6 +9,7 @@ import React from "react";
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { API_BASE_URL, FRONT_BASE_URL } from 'index';
+import { Prompt } from 'react-router'
 
 // reactstrap components
 import {
@@ -158,6 +159,10 @@ onSubmit(e, id){
     return (
       <>
         <div className="content">
+        <Prompt
+            when={true}
+            message="Te encuentras en proceso de registro                                                ¿Estás seguro de querer salir?"
+          />
           <h2 className="title">Modificar empleado</h2>
           <Form >
                 <Card>
