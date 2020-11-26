@@ -48,13 +48,11 @@ import {
     }
     
     getFiles() {
-      console.log(window.location.href);
       let urlElements = window.location.href.split('/');
       axios.get(API_BASE_URL + 'employee_files/' + urlElements[5])
         .then(res => {
           const files = res.data;
           this.setState({ files });
-          console.log(this.state);
         })
     }
   

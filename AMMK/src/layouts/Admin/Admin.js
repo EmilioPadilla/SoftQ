@@ -122,9 +122,12 @@ class Admin extends React.Component {
       routes=routes.filter(route => route.rol === 'enf' )
       routes=routes.filter(route => route.onlyGen === true )
     }
+   
     return routes
   }
+  
   render() {
+    console.log(this.props.location.pathname);
     return (
       <>
         <div className="wrapper">

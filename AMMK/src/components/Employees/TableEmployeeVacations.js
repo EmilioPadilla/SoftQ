@@ -82,7 +82,6 @@ import {
 
     render() {
       let months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-        
         return (
           <Row>
             <Col md="12">

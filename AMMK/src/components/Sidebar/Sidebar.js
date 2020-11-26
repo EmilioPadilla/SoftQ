@@ -137,16 +137,6 @@ class Sidebar extends React.Component {
                 </li>
               );
             })}
-             {/* <li
-              className="active-pro"
-            >
-              <ReactstrapNavLink
-                href=""
-              >
-                <i className="tim-icons icon-spaceship" />
-                <p>Posicionar hasta abajo</p>
-              </ReactstrapNavLink>
-            </li> */}
           </Nav>
         </div>
       </div>
