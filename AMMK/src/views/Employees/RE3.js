@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 import EmployeeCalendarTable from "components/Employees/EmployeeCalendarTable.js";
 import SimpleTooltip from "../../views/General/SimpleTooltip";
 import { API_BASE_URL, FRONT_BASE_URL } from 'index';
+import GoBackButton  from '../../components/General/goBackButton.js';
 
 // reactstrap components
   import {
@@ -179,7 +180,14 @@ const validDate = RegExp(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]
             when={true}
             message="Te encuentras en proceso de registro                                                ¿Estás seguro de querer salir?"
           />
-        <h2 className="title">Registrar empleado</h2>
+        <Row>
+            <Col >
+              <h2 className="title">Registrar empleado</h2>
+            </Col>
+            <Col >
+              <GoBackButton pathname="buscar empleados" path="/admin/search-employee"/>
+            </Col>
+          </Row>
         <Form autocomplete="off">
           <Row>
             <Col md="12">

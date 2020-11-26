@@ -6,10 +6,12 @@
 */
 import React from "react";
 import { Prompt } from 'react-router'
-
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { API_BASE_URL, FRONT_BASE_URL } from 'index';
+import SimpleTooltip from "../../views/General/SimpleTooltip";
+import { Link } from "react-router-dom";
+import GoBackButton  from '../../components/General/goBackButton.js';
 
 // reactstrap components
 import {
@@ -27,6 +29,7 @@ import {
   Alert,
   Button
 } from "reactstrap";
+import { Box } from "@material-ui/core";
 
 function parseScholarships(scholarships){
   return scholarships.map((scholarship) => {
@@ -174,6 +177,8 @@ class RegisterEmployee extends React.Component {
         window.location = FRONT_BASE_URL+"admin/Nomina/Nomina";
     }
     const { errors } = this.state;
+    const pathname = "buscar empleados";
+    const path = "/admin/search-employee"
     return (
       <>
         <div className="content">
@@ -182,8 +187,17 @@ class RegisterEmployee extends React.Component {
             when={true}
             message="Te encuentras en proceso de registro...                                                ¿Estás segur@ de querer salir?"
           />
-          <h2 className="title">Registrar empleado</h2>
-          <Form autocomplete="off">
+          <Row>
+            <Col >
+              <h2 className="title">Registrar empleado</h2>
+            </Col>
+            <Col >
+              <GoBackButton pathname="buscar empleados" path="/admin/search-employee"/>
+            </Col>
+          </Row>
+          
+          
+          <Form autoComplete="off">
                 <Card>
                   <CardHeader>
                    

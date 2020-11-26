@@ -11,6 +11,7 @@ import { Prompt } from 'react-router'
 import { API_BASE_URL, FRONT_BASE_URL } from 'index';
 import Swal from 'sweetalert2';
 import axios from 'axios';
+import GoBackButton  from '../../components/General/goBackButton.js';
 
 
 // reactstrap components
@@ -189,7 +190,14 @@ getStates() {
             when={true}
             message="Te encuentras en proceso de registro                                                ¿Estás seguro de querer salir?"
           />
-          <h2 className="title">Registrar empleado</h2>
+           <Row>
+            <Col >
+              <h2 className="title">Registrar empleado</h2>
+            </Col>
+            <Col >
+              <GoBackButton pathname="buscar empleados" path="/admin/search-employee"/>
+            </Col>
+          </Row>
           <Form autocomplete="off">
           <Row>
             <Col md="12">
