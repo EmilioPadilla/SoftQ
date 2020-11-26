@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 // reactstrap components
-import {Button, Modal, ModalBody, ModalHeader, FormGroup, Input, Label, Row, Col} from 'reactstrap';
+import {Button, Modal, ModalBody, ModalFooter, ModalHeader, FormGroup, Input, Label, Row, Col} from 'reactstrap';
 import SimpleTooltip from "../../views/General/SimpleTooltip";
 import axios from 'axios';
 import Swal from 'sweetalert2';
@@ -51,8 +51,8 @@ const ReenterEmp = (props) => {
       <SimpleTooltip placement="top" target="reingresar">Reingresar</SimpleTooltip>
 
       <Modal isOpen={modal} toggle={toggle} className={className}>
-        <ModalHeader toggle={toggle}>
-        <h3 className="title">REINGRESAR</h3>
+        <ModalHeader >
+        <h3 className="title">Reingresar empleado</h3>
         </ModalHeader>
         <ModalBody>
                 <Row>
@@ -69,11 +69,10 @@ const ReenterEmp = (props) => {
                         </FormGroup>
                     </Col>
                 </Row>
-                <Row className="text-center">
-                    <Col md="12">
-                        <Button color="success" onClick={reEnterEmployee.bind("this", id)}>Reingresar</Button>
-                    </Col>
-                </Row>
+                <ModalFooter>
+                    <Button color="info" visibility="none" onClick={toggle}>Cancelar</Button>{' '}
+                    <Button color="success" onClick={reEnterEmployee.bind("this", id)}>Reingresar</Button>
+                 </ModalFooter>
         </ModalBody>
       </Modal>
     </div>

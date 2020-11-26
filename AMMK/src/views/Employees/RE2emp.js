@@ -36,7 +36,9 @@ function parseStates(states){
   });
 }
 
-
+const validTextInput = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ ]{3,}$/);
+const validEmail = RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/);
+const validNumber = RegExp(/^[0-9]*$/);
 class RegisterEmployee2 extends React.Component {
   constructor(props){
     super(props)
@@ -51,15 +53,23 @@ class RegisterEmployee2 extends React.Component {
       municipio: null,
       correo: null, 
       telefono: null,
-      celular: null
+      celular: null,
+      errors: {
+        ciudad: '',
+        calle: '',
+        colonia: '',
+        municipio: '',
+        correo: '',
     }
+    };
+    this.handleChange = this.handleChange.bind(this);
   }
 
   onSubmit(e){
     e.preventDefault()
     //Agarrar los valores 
     let estado = document.getElementById("estadoSelect").value;
-    let ciudad = document.getElementById("ciudadSelect").value;
+    let ciudad = document.getElementById("ciudad").value;
     let calle = document.getElementById("calle").value;
     let numExterior = document.getElementById("numExt").value;
     let numInterior = document.getElementById("numInt").value;
@@ -82,7 +92,13 @@ class RegisterEmployee2 extends React.Component {
       municipio: municipio,
       correo: correo, 
       telefono: telefono,
-      celular: celular
+      celular: celular,
+      errors: {
+        ciudad: '',
+        calle: '',
+        colonia: '',
+        municipio: '',
+    }
     };
     localStorage.setItem("contacto", JSON.stringify(datosContacto));
     window.location = FRONT_BASE_URL+"admin/RE3";
@@ -93,6 +109,55 @@ class RegisterEmployee2 extends React.Component {
       text: 'Verifica que todos los campos obligatorios estén completos.',
     })
   }
+}
+
+handleChange = (event) => {
+  event.preventDefault();
+  const { name, value } = event.target;
+  let errors = this.state.errors;
+
+  switch (name) {
+      case 'ciudad':
+          errors.ciudad =
+          validTextInput.test(value)
+          ? ""
+          : "El campo solo acepta letras.";
+          break;
+      case 'calle':
+          errors.calle =
+              validTextInput.test(value)
+              ? ""
+              : "El campo solo acepta letras.";
+          break;
+      case 'municipio':
+          errors.municipio =
+          validTextInput.test(value)
+          ? ""
+          : "El campo solo acepta letras.";
+          break;
+      case 'colonia':
+          errors.colonia =
+          validTextInput.test(value)
+          ? ""
+          : "El campo solo acepta letras.";
+          break;
+      case 'correo':
+          errors.correo =
+          validEmail.test(value)
+          ? ""
+          : "Escribe un correo válido.";
+      break;
+      case 'num':
+          errors.num = 
+          validNumber.test(value)
+          ? ""
+          : "El campo solo acepta numeros.";
+      break;
+      default:
+          break;
+  }
+
+  this.setState({ errors, [name]: value });
 }
 
 componentDidMount() {
@@ -116,6 +181,7 @@ getStates() {
     }else if (idRol==1){
         window.location = FRONT_BASE_URL+"admin/Nomina/Nomina";
     }
+    const { errors } = this.state;
     return (
       <>
         <div className="content">
@@ -124,7 +190,7 @@ getStates() {
             message="Te encuentras en proceso de registro                                                ¿Estás seguro de querer salir?"
           />
           <h2 className="title">Registrar empleado</h2>
-          <Form>
+          <Form autocomplete="off">
           <Row>
             <Col md="12">
               <Card>
@@ -149,13 +215,16 @@ getStates() {
                       </Col>
                       <Col className="pl-md-1" md="6">
                       <FormGroup>
-                          <Label htmlFor="ciudadSelect">* Ciudad</Label>
+                          <Label htmlFor="ciudad">* Ciudad</Label>
                           <Input
                             defaultValue=""
                             placeholder="Irapuato"
                             type="text"
-                            id="ciudadSelect"
+                            id="ciudad"
+                            name="ciudad"
+                            onChange={this.handleChange}
                           />
+                          {errors.ciudad.length > 0 && <span className='error'>{errors.ciudad}</span>}
                         </FormGroup>
                       </Col>
                     </Row>
@@ -168,7 +237,10 @@ getStates() {
                             placeholder=""
                             type="text"
                             id="calle"
+                            name="calle"
+                            onChange={this.handleChange}
                           />
+                          {errors.calle.length > 0 && <span className='error'>{errors.calle}</span>}
                         </FormGroup>
                       </Col>
                       <Col className="pl-md-1" md="2">
@@ -214,7 +286,10 @@ getStates() {
                             placeholder="La moderna"
                             type="text"
                             id="colonia"
+                            name="colonia"
+                            onChange={this.handleChange}
                           />
+                          {errors.colonia.length > 0 && <span className='error'>{errors.colonia}</span>}
                         </FormGroup>
                       </Col>
                       <Col className="pl-md-1" md="6">
@@ -224,7 +299,10 @@ getStates() {
                             placeholder="Corregidora"
                             type="text"
                             id="municipio"
+                            name="municipio"
+                            onChange={this.handleChange}
                           />
+                          {errors.municipio.length > 0 && <span className='error'>{errors.municipio}</span>}
                         </FormGroup>
                       </Col>
                     </Row>
@@ -241,8 +319,12 @@ getStates() {
                         <FormGroup>
                           <Label htmlFor="correo">Correo</Label>
                           <Input
-                            placeholder="mike@email.com" type="email"id="correo"
-                          />
+                            placeholder="mike@email.com" type="email"
+                            id="correo"
+                            name="correo"
+                            onChange={this.handleChange}
+                            />
+                            {errors.correo.length > 0 && <span className='error'>{errors.correo}</span>}
                         </FormGroup>
                       </Col>
                       <Col className="pl-md-1" md="6">

@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, FormGroup, CustomInput, Label, Form } from 'reactstrap';
 import SimpleTooltip from "../../views/General/SimpleTooltip";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faPlus } from '@fortawesome/free-solid-svg-icons';
 
 function newVacation (id) {
   let fechaSalida = document.getElementById("fechaSalida").value;
@@ -55,12 +56,11 @@ const ModalNewVacation = (props) => {
 
   return (
     <div>
-      <Button id="registrarVacaciones" className="inline float-right" size="sm" inline onClick={toggle}><FontAwesomeIcon icon={['fas', 'plus-square']} /></Button>
+      <Button id="registrarVacaciones" className="inline float-right" size="sm" inline onClick={toggle}><FontAwesomeIcon icon={faPlus} /></Button>
       <SimpleTooltip placement="top" target="registrarVacaciones">Registrar Vacaciones</SimpleTooltip>
       <Form>
-      <Modal isOpen={modal} toggle={toggle} className={className} color="primary">
-        <ModalHeader toggle={toggle}>Agregar vacaciones</ModalHeader>
-        {/* <h3 color="primary">Egresar empleado</h3> */}
+      <Modal isOpen={modal} toggle={toggle} color="primary">
+        <ModalHeader><h3 className="title">Agregar vacaciones</h3></ModalHeader>
         <ModalBody>
 
               <FormGroup>
@@ -78,9 +78,9 @@ const ModalNewVacation = (props) => {
 
 
         </ModalBody>
-
         <ModalFooter>
-          <Button color="info" visibility="none" onClick={toggle}>Salir</Button>{' '}
+        
+          <Button color="info" visibility="none" onClick={toggle}>Cancelar</Button>{' '}
           <Button  onClick={newVacation.bind("this", id)}>Agregar</Button>
         </ModalFooter>
       </Modal>
