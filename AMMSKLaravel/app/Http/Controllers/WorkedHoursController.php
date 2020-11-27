@@ -4,9 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+<<<<<<< HEAD
 use App\Models\WorkedHours;
 
 use DB;
+=======
+//importing model 
+use App\Models\WorkedHours; 
+use Illuminate\Support\Facades\DB;
+>>>>>>> 39100abb20345f21861059d22e345007f73707e1
 
 class WorkedHoursController extends Controller
 {
@@ -207,5 +213,23 @@ class WorkedHoursController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function horasDiarias($idEmployee){
+
+        $datos= DB::table('worked_hours')
+        ->select('worked_hours.horaIngreso', 'worked_hours.horaSalida')
+        ->where('worked_hours.employees_id',$idEmployee)
+        ->get();
+
+        foreach ($datos as $res){
+            
+            $startTime = Carbon::parse($res->horaIngreso);
+            $endTime = Carbon::parse($res->horaSalida);
+
+            $totalDuration = $endTime->diff($startTime)->format('%H');
+
+        }
+        return $totalDuration;
     }
 }

@@ -31,6 +31,7 @@ import "assets/css/black-dashboard-react.css";
 import "assets/css/nucleo-icons.css";
 
 export const API_BASE_URL = 'http://localhost:8000/api/';
+export const FRONT_BASE_URL = 'http://localhost:3000/';
 
 const hist = createBrowserHistory();
 
@@ -45,8 +46,6 @@ ReactDOM.render(
       <Route path="/admin" render={props => <AdminLayout {...props} />} />
       <Route path="/general" render={props => <General {...props} />} />
       <Route path="/login" component={Login}/>
-      {/*Rutas que salen de la aplicacion*/}
-      {/* <Route path="/rtl" render={/props => <RTLLayout {...props} />} /> */}
       <Redirect from="/" to="/admin/dashboard" />
     </Switch>
   </Router>,

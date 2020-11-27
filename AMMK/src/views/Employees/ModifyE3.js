@@ -7,7 +7,8 @@ import axios from 'axios';
 import { Link } from "react-router-dom";
 import Swal from 'sweetalert2';
 import SimpleTooltip from "../../views/General/SimpleTooltip";
-import { API_BASE_URL } from '../../index';
+import { API_BASE_URL, FRONT_BASE_URL } from 'index';
+import { Prompt } from 'react-router'
 
 // reactstrap components
   import {
@@ -16,6 +17,7 @@ import { API_BASE_URL } from '../../index';
     CardBody,
     FormGroup,
     Form,
+    Alert,
     Input,
     Row,
     Col,
@@ -44,7 +46,6 @@ import { API_BASE_URL } from '../../index';
        puesto: null, 
        diasLaborales: null,
        monto: null,
-       numBenef: null,
        selectedOption: null
      }
 
@@ -54,7 +55,7 @@ import { API_BASE_URL } from '../../index';
    }
 
    getJobTitles() {
-    axios.get('http://localhost:8000/api/employeeJobTitles')
+    axios.get(API_BASE_URL+'employeeJobTitles')
     .then(res => this.setState({ jobTitles: parseJobTitles(res.data) }));
   }
 
@@ -67,10 +68,9 @@ import { API_BASE_URL } from '../../index';
     let puesto = document.getElementById("puesto").value;
     let turnosQuincena = document.getElementById("diasLaborales").value;
     let salarioxhora = document.getElementById("monto").value;
-    let numBeneficiarios = document.getElementById("numBenef").value;
     var idD= document.getElementById("valorId").value;
 
-    if (fechaIngreso !== '' && headquarter_id !== '' && frecuenciaSalario !== '' && puesto !== '' && salarioxhora !== '' && turnosQuincena !== '') {
+    if (fechaIngreso !== '' && headquarter_id !== '' && frecuenciaSalario !== '' && puesto !== '' && turnosQuincena !== '') {
     const datosEmpleado = {
       fechaIngreso: fechaIngreso,
       headquarter_id: headquarter_id, 
@@ -78,10 +78,9 @@ import { API_BASE_URL } from '../../index';
       puesto: puesto, 
       diasLaborales: turnosQuincena,
       salarioxhora: salarioxhora,
-      numBeneficiarios: numBeneficiarios
     };
 
-    axios.put("http://localhost:8000/api/employee/employee/" + idD, datosEmpleado)
+    axios.put(API_BASE_URL+"employee/employee/" + idD, datosEmpleado)
       .then(function (resp) {
         console.log(resp.data);
       });
@@ -90,14 +89,14 @@ import { API_BASE_URL } from '../../index';
       'Empleado modificado de manera exitosa',
       'success'
       ).then(function() {
-        let rouote = "http://localhost:3000/admin/view-employee/"+idD
+        let rouote = FRONT_BASE_URL+"admin/view-employee/"+idD
         window.location = rouote;
       });
     } else{
       Swal.fire( {
         icon: 'error',
-        title: 'Oops...',
-        text: 'No se han llenado todos los campos obligatorios!',
+        title: '¡Error!',
+        text: 'Verifica que todos los campos obligatorios estén completos.',
       })
     }
 
@@ -111,20 +110,34 @@ fillData (id) {
            document.getElementById("puesto").value = res.data[0].puesto;
            document.getElementById("diasLaborales").value = res.data[0].diasLaborales;
            document.getElementById("monto").value = res.data[0].salarioxhora;
-           document.getElementById("numBenef").value = res.data[0].numBeneficiarios; 
            document.getElementById("valorId").value = id;
           })
   }
 
 
    render() {
+    const login = localStorage.getItem("isLoggedIn");
+    const idRol = localStorage.getItem("idRol");
+    //Redirect in case of wrong role or no login
+    if (!login ) {
+      window.location = FRONT_BASE_URL+"login";
+    }else if(idRol==2){
+        window.location = FRONT_BASE_URL+"general/NurseIndex";
+    }else if (idRol==1){
+        window.location = FRONT_BASE_URL+"admin/Nomina/Nomina";
+    }
     const { id } = this.props.match.params;
     this.fillData(id);
      return (
         <>
         <div className="content">
+        <Prompt
+            when={true}
+            message="Te encuentras en proceso de registro                                                ¿Estás seguro de querer salir?"
+          />
         <h2 className="title">Modificar empleado</h2>
-        <Form >
+
+        <Form autocomplete="off">
           <Row>
             <Col md="12">
               <Card>
@@ -132,6 +145,7 @@ fillData (id) {
                   <br/>
                   <h3 className="title">Datos de empleado</h3>
                 </CardHeader>
+                <Alert color="primary">Los campos marcados con un asterisco (*) son obligatorios.</Alert>
                 <CardBody>
                   
                     <Row>
@@ -189,7 +203,7 @@ fillData (id) {
                       <Col  md="6">
                         <Col className="pl-md-1">
                           <FormGroup>
-                            <Label htmlFor="monto">* Monto</Label>
+                            <Label htmlFor="monto">Monto</Label>
                             <Input
                               placeholder="1500"
                               type="text"
@@ -207,25 +221,6 @@ fillData (id) {
                            </FormGroup>
                          </Col>
                      </Row>
-                     <Row>
-                         <Col md="6">
-                           <FormGroup>
-                           <Label for="Contrato">Copia de Contrato</Label>
-                           <CustomInput type="file" name="customFile" id="Contraro" label="Selecciona un archivo"/>
-                           </FormGroup>
-                         </Col>
-                         <Col md="6">
-                           <FormGroup>
-                           <Label for="numBenef">Número de beneficiarios</Label>
-                           <Input
-                              placeholder="2"
-                              type="number"
-                              id="numBenef"
-                            />
-                            <SimpleTooltip placement="top" target="numBenef">Beneficiarios a quienes se les puede otorgar porcion del salario del empleado</SimpleTooltip>
-                           </FormGroup>
-                         </Col>
-                         </Row>
                     
                 </CardBody>
               </Card>

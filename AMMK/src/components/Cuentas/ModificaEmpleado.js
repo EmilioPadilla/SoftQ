@@ -67,7 +67,7 @@ export class ModificaEmpleado extends React.Component{
                                 <div class="row justify-content-center">
                                     <div class="col-4" align="center">
                                         <Button className="btn-fill" color="info" type="submit">
-                                            Guardar
+                                            Modificar
                                         </Button>
                                     </div>
                                 </div>

@@ -182,7 +182,7 @@ export default class SpecificView extends Component {
                                 <Badge color="primary">ARCHIVOS DE REGISTRO</Badge>
                             </Col>
                             <Col md="6">
-                                <FileUpload id={beneficiary.id}/>
+                                <FileUpload id={beneficiary.id} view="1"/>
                             </Col>
                         </Row>
                         <div style={{

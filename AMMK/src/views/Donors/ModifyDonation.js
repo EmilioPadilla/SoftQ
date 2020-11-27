@@ -5,16 +5,6 @@ import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 
 const ModifyDonation = (props) => {
-  const login = localStorage.getItem("isLoggedIn");
-  const idRol = localStorage.getItem("idRol");
-  //Redirect in case of wrong role or no login
-  if (!login ) {
-      window.location = "http://localhost:3000/login";
-  }else if(idRol==2){
-      window.location = "http://localhost:3000/general/NurseIndex";
-  }else if (idRol==1){
-      window.location = "http://localhost:3000/admin/Nomina/Nomina";
-  }
   const { id } = props.match.params;
   ax(id);
   return (
@@ -28,7 +18,7 @@ const ModifyDonation = (props) => {
                     <div class="row justify-content-center">
                         <div class="col-4" >
                             <FormGroup>
-                            <p className="font-weight-bold">FECHA EN QUE SE REALIZÓ: </p>
+                            <label className="font-weight-bold">FECHA EN QUE SE REALIZÓ: </label>
                             <Input
                                     id="fecha"
                                     
@@ -40,7 +30,7 @@ const ModifyDonation = (props) => {
                     <div class="row justify-content-center">
                         <div class="col-4">
                             <FormGroup>
-                            <p className="font-weight-bold">TIPO DONACIÓN: </p>
+                            <label className="font-weight-bold">TIPO DONACIÓN: </label>
                             <Input
                                     id="tipo"
                                     
@@ -54,7 +44,7 @@ const ModifyDonation = (props) => {
                     
                         <div class="col-4">
                             <FormGroup >
-                            <p className="font-weight-bold">MONTO: </p>
+                            <label className="font-weight-bold">MONTO: </label>
                             <Input
                                     id="monto"
                                     
@@ -66,7 +56,7 @@ const ModifyDonation = (props) => {
                     <div class="row justify-content-center">
                         <div class="col-4">
                             <FormGroup>
-                            <p className="font-weight-bold">DESCRIPCIÓN: </p>
+                            <label className="font-weight-bold">DESCRIPCIÓN: </label>
                             <Input
                                     id="descripcion"
                                     
@@ -78,14 +68,14 @@ const ModifyDonation = (props) => {
                     <br/>
                     <div class="row justify-content-center">
                         <div class="col-4" align="center">
-                        <Link to="/admin/ViewDonors">
+                        <Link to={`/admin/ViewSpecificDonor/${id}`}>
                                 <Button className="btn-fill" color="primary" >
                                     Regresar
                                 </Button>
                         </Link>
                         </div>
                         <div class="col-4" align="center">
-                                <Button className="btn-fill" color="success" onClick={modificar}>
+                                <Button className="btn-fill" color="danger" onClick={modificar}>
                                     Modificar
                                 </Button>
                         </div>

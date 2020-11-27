@@ -56,7 +56,7 @@ import {
       }
     
       crearTabla(){
-        var tabla='<thead> <tr> <th> Nombre </th> <th> Username </th> <th> Rol </th> <th> Acciones </th> </tr> </thead> <tbody>';
+        var tabla='<thead> <tr> <th> Nombre </th> <th> Nombre de usuario </th> <th> Rol </th> <th> Acciones </th> </tr> </thead> <tbody>';
         const num=1;
         axios.get("http://localhost:8000/api/employee/")
           .then(function (resp){

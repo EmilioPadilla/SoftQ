@@ -15,10 +15,13 @@ class CreateBenefEmployeeTable extends Migration
     {
         Schema::create('benef_employee', function (Blueprint $table) {
             $table->id()->from(1);
-            $table->foreignId('emp_id')->constrained('employees');
-    			  $table->foreignId('benef_id')->constrained('benef_payroll');
+            $table->foreignId('employees_id')->constrained('employees');
             $table->foreignId('kinship_id')->constrained('kinship');
             $table->integer("porcentaje");
+            $table->String("nombreCompleto")->nullable();
+            $table->String("telefono")->nullable();
+            $table->String("direccion")->nullable();
+            $table->String("rfc")->nullable();
         });
     }
 

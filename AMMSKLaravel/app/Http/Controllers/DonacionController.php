@@ -33,7 +33,6 @@ class DonacionController extends Controller
                 ->join('tipo_donacion', 'donacion.idTipoDonacion', '=', 'tipo_donacion.id')
                 ->join('_donante', 'donacion.idDonante', '=', '_donante.id')
                 ->select( 'tipo_donacion.nombre', 'donacion.fechaDonacion','donacion.descripcion','donacion.monto')
-
                 ->get();
     }
 
