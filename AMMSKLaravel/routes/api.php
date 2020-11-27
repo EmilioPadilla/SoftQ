@@ -82,6 +82,11 @@ Route::resource('employeeVacations', 'App\Http\Controllers\VacationsController')
 
 Route::resource('WorkedHours', 'App\Http\Controllers\WorkedHoursController');
 Route::get('WorkedHours/idEmployee/{employees_id}', 'App\Http\Controllers\WorkedHoursController@showByEmployee');
+Route::post('payrolls', 'App\Http\Controllers\WorkedHoursController@showPayrolls');
+
+Route::post('employeesShifts/search', 'App\Http\Controllers\EmployeesShiftsController@filterByEmployee');
+Route::post('employeesShifts/delete', 'App\Http\Controllers\EmployeesShiftsController@deleteByEmployee');
+Route::post('employeesShifts/future', 'App\Http\Controllers\EmployeesShiftsController@futureDaysByEmployee');
 Route::get('WorkedHours/horasDiarias/{employees_id}', 'App\Http\Controllers\WorkedHoursController@horasDiarias');
 
 Route::resource('Absences', 'App\Http\Controllers\AbsencesController');
@@ -93,9 +98,6 @@ Route::resource('Estados', 'App\Http\Controllers\StatesController');
 Route::resource('empBeneficiary', 'App\Http\Controllers\BenefEmployeeController');
 Route::resource('employee_files', 'App\Http\Controllers\EmployeeFilesController');
 Route::get('employee_files/downloadFile/{id}', 'App\Http\Controllers\EmployeeFilesController@downloadFile');
-
-Route::post('employeesShifts/search', 'App\Http\Controllers\EmployeesShiftsController@filterByEmployee');
-Route::post('employeesShifts/delete', 'App\Http\Controllers\EmployeesShiftsController@deleteByEmployee');
 
 Route::get('inactiveEmployee', 'App\Http\Controllers\EmployeesController@showInactive');
 Route::get('employee/{id}', 'App\Http\Controllers\EmployeesController@show');

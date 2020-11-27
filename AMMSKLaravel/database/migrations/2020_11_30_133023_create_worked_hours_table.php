@@ -16,6 +16,7 @@ class CreateWorkedHoursTable extends Migration
         Schema::create('worked_hours', function (Blueprint $table) {
           $table->id()->from(1);
           $table->foreignId('employees_id')->constrained('employees');
+          $table->foreignId('employees_shifts_id')->constrained('employees_shifts');
           $table->timestamp("horaIngreso")->nullable();
           $table->timestamp("horaSalida")->nullable();
           $table->timestamp("totalH")->nullable();
