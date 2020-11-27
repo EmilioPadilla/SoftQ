@@ -16,8 +16,7 @@ class ViewDonations extends Component {
         const num=1;
         axios.get("http://localhost:8000/api/donations/table/all/"+localStorage.getItem("idD"))
           .then(function (resp){
-            respuesta = respuesta.concat(resp.data);
-            document.getElementById("tablaD").innerHTML = respuesta;
+            document.getElementById("tablaD").innerHTML = resp.data;
           } );
           //localStorage.clear();
       }    

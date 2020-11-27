@@ -67,7 +67,7 @@ class RegistroContactoDonante extends Component {
         <div class="container-fluid">
           <h1 className="title">Registrar Contacto</h1>
             <div class="container">
-            <Form onSubmit={this.onSubmit}>
+            <Form >
               
             <Form.Row>
               <FormGroup as={Row}>
@@ -117,7 +117,7 @@ class RegistroContactoDonante extends Component {
 
               <Col align="left">
 
-              <Button type="submit">Registrar</Button>
+              <Button onSubmit={this.onSubmit} type="submit">Registrar</Button>
 
 
           </Col>

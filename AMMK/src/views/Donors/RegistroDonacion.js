@@ -88,7 +88,7 @@ class RegistroDonacion extends Component {
         <div class="container-fluid">
           <h1 className="title">Registrar Donación</h1>
             <div class="container">
-            <Form onSubmit={this.onSubmit}>
+            <Form >
               <Form.Row>
                 <Form.Group as={Row} controlId="fechaDonacion">
                   <Form.Label>Fecha en que se realizó:</Form.Label>
@@ -127,7 +127,7 @@ class RegistroDonacion extends Component {
               </Form.Group>
               </Link>
               <Form.Group as={Col} controlId="descripcion">
-              <Button type="submit">Registrar</Button>
+              <Button onSubmit={this.onSubmit} type="submit">Registrar</Button>
               </Form.Group>
               </Form.Row>
 

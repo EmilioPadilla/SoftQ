@@ -16,8 +16,7 @@ class ViewContacts extends Component {
         const num=1;
         axios.get("http://localhost:8000/api/donors/contact/table/all/"+localStorage.getItem("idD"))
           .then(function (resp){
-            respuesta = respuesta.concat(resp.data);
-            document.getElementById("tablaC").innerHTML = respuesta;
+            document.getElementById("tablaC").innerHTML = resp.data;
           } );
          // localStorage.clear();
 
