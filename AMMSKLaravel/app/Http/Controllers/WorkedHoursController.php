@@ -4,15 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-<<<<<<< HEAD
 use App\Models\WorkedHours;
 
 use DB;
-=======
-//importing model 
-use App\Models\WorkedHours; 
-use Illuminate\Support\Facades\DB;
->>>>>>> 39100abb20345f21861059d22e345007f73707e1
 
 class WorkedHoursController extends Controller
 {
