@@ -8,16 +8,6 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 library.add(fas)
 
 const EliminarDonacion = props =>{
-    const login = localStorage.getItem("isLoggedIn");
-    const idRol = localStorage.getItem("idRol");
-    //Redirect in case of wrong role or no login
-    if (!login ) {
-        window.location = "http://localhost:3000/login";
-    }else if(idRol==2){
-        window.location = "http://localhost:3000/general/NurseIndex";
-    }else if (idRol==1){
-        window.location = "http://localhost:3000/admin/Nomina/Nomina";
-    }
     const {id} = props.match.params;
     ax(id);
     return(
@@ -32,7 +22,7 @@ const EliminarDonacion = props =>{
                                 <div class="row justify-content-center">
                                     <div class="col-4" >
                                         <FormGroup>
-                                        <p className="font-weight-bold">FECHA EN QUE SE REALIZÓ: </p>
+                                        <label className="font-weight-bold">FECHA EN QUE SE REALIZÓ: </label>
                                         <Input
                                                 id="fecha"
                                                 
@@ -44,7 +34,7 @@ const EliminarDonacion = props =>{
                                 <div class="row justify-content-center">
                                     <div class="col-4">
                                         <FormGroup>
-                                        <p className="font-weight-bold">TIPO DONACIÓN: </p>
+                                        <label className="font-weight-bold">TIPO DONACIÓN: </label>
                                         <Input
                                                 id="tipo"
                                                 
@@ -58,7 +48,7 @@ const EliminarDonacion = props =>{
                                 
                                     <div class="col-4">
                                         <FormGroup id="monto">
-                                        <p id="monto" className="font-weight-bold">MONTO: </p>
+                                        <label id="monto" className="font-weight-bold">MONTO: </label>
                                         <Input
                                                 id="monto"
                                                 
@@ -70,7 +60,7 @@ const EliminarDonacion = props =>{
                                 <div class="row justify-content-center">
                                     <div class="col-4">
                                         <FormGroup>
-                                        <p className="font-weight-bold">DESCRIPCIÓN: </p>
+                                        <label className="font-weight-bold">DESCRIPCIÓN: </label>
                                         <Input
                                                 id="descripcion"
                                                 
@@ -122,8 +112,7 @@ function ax(idC){
 function eliminar(){
     var idD = document.getElementById("valorId").value;
     console.log(idD);
-        axios.delete('http://localhost:8000/api/donations/delete/'+idD)
-
+        axios.delete('http://localhost:8000/api/donaciones/'+idD)
               .then(function (resp){
                 console.log(resp.data);
               } );

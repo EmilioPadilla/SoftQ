@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Input} from "reactstrap"
 import { Link } from "react-router-dom";
 
-import { Row, Modal, Form, FormGroup,  Dropdown,Button, Col, Alert } from "react-bootstrap";
+import { Row, Modal, Form, FormGroup,  Dropdown,Button, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import SimpleTooltip from "../General/SimpleTooltip";
 import axios from "axios";
@@ -81,16 +81,6 @@ class RegistroDonacion extends Component {
     }
       
     render() { 
-      const login = localStorage.getItem("isLoggedIn");
-      const idRol = localStorage.getItem("idRol");
-      //Redirect in case of wrong role or no login
-      /*if (!login ) {
-          window.location = "http://localhost:3000/login";
-      }else if(idRol==2){
-          window.location = "http://localhost:3000/general/NurseIndex";
-      }else if (idRol==1){
-          window.location = "http://localhost:3000/admin/Nomina/Nomina";
-      }*/
         this.crearSelectTipoDonacion();
 
         return ( 
@@ -99,7 +89,6 @@ class RegistroDonacion extends Component {
           <h1 className="title">Registrar Donación</h1>
             <div class="container">
             <Form onSubmit={this.onSubmit}>
-              <Alert color="primary">Los campos marcados con un asterisco (*) son obligatorios.</Alert>
               <Form.Row>
                 <Form.Group as={Row} controlId="fechaDonacion">
                   <Form.Label>Fecha en que se realizó:</Form.Label>
@@ -109,7 +98,7 @@ class RegistroDonacion extends Component {
                 </Form.Row>
                 <Form.Row>
               <FormGroup as={Row}>
-         <label>* Tipo de donación:</label>
+         <label>*Seleccione Tipo de Donación</label>
          <Form.Control as="select" id="tipoDonacion" ></Form.Control>
        </FormGroup>
 

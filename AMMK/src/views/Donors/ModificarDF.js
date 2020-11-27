@@ -5,16 +5,6 @@ import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 
 const ModificarDF = (props) => {
-    const login = localStorage.getItem("isLoggedIn");
-    const idRol = localStorage.getItem("idRol");
-    //Redirect in case of wrong role or no login
-    if (!login ) {
-        window.location = "http://localhost:3000/login";
-    }else if(idRol==2){
-        window.location = "http://localhost:3000/general/NurseIndex";
-    }else if (idRol==1){
-        window.location = "http://localhost:3000/admin/Nomina/Nomina";
-    }
   const { id } = props.match.params;
   ax(id);
   return (
@@ -28,7 +18,7 @@ const ModificarDF = (props) => {
                 <div class="row justify-content-center">
                         <div class="col-4" >
                             <FormGroup>
-                            <p className="font-weight-bold">RAZÓN SOCIAL: </p>
+                            <label className="font-weight-bold">RAZÓN SOCIAL: </label>
                             <Input
                                     id="rs"
                                     
@@ -40,7 +30,7 @@ const ModificarDF = (props) => {
                     <div class="row justify-content-center">
                         <div class="col-4" >
                             <FormGroup>
-                            <p className="font-weight-bold">RFC: </p>
+                            <label className="font-weight-bold">RFC: </label>
                             <Input
                                     id="rfc"
                                     
@@ -52,7 +42,7 @@ const ModificarDF = (props) => {
                     <div class="row justify-content-center">
                         <div class="col-4">
                             <FormGroup>
-                            <p className="font-weight-bold">CALLE: </p>
+                            <label className="font-weight-bold">CALLE: </label>
                             <Input
                                     id="calle"
                                     
@@ -66,7 +56,7 @@ const ModificarDF = (props) => {
                     
                         <div class="col-4">
                             <FormGroup >
-                            <p  className="font-weight-bold"># INTERIOR: </p>
+                            <label  className="font-weight-bold"># INTERIOR: </label>
                             <Input
                                     id="interior"
                                     
@@ -78,7 +68,7 @@ const ModificarDF = (props) => {
                     <div class="row justify-content-center">
                         <div class="col-4">
                             <FormGroup>
-                            <p className="font-weight-bold"># EXTERIOR: </p>
+                            <label className="font-weight-bold"># EXTERIOR: </label>
                             <Input
                                     id="exterior"
                                     
@@ -91,7 +81,7 @@ const ModificarDF = (props) => {
                     <div class="row justify-content-center">
                         <div class="col-4">
                             <FormGroup>
-                            <p className="font-weight-bold">CÓDIGO POSTAL: </p>
+                            <label className="font-weight-bold">CÓDIGO POSTAL: </label>
                             <Input
                                     id="cp"
                                     
@@ -103,7 +93,7 @@ const ModificarDF = (props) => {
                     <div class="row justify-content-center">
                         <div class="col-4">
                             <FormGroup>
-                            <p className="font-weight-bold">COLONIA: </p>
+                            <label className="font-weight-bold">COLONIA: </label>
                             <Input
                                     id="colonia"
                                     
@@ -115,7 +105,7 @@ const ModificarDF = (props) => {
                     <div class="row justify-content-center">
                         <div class="col-4">
                             <FormGroup>
-                            <p className="font-weight-bold">CIUDAD: </p>
+                            <label className="font-weight-bold">CIUDAD: </label>
                             <Input
                                     id="ciudad"
                                     
@@ -127,7 +117,7 @@ const ModificarDF = (props) => {
                     <div class="row justify-content-center">
                         <div class="col-4">
                             <FormGroup>
-                            <p className="font-weight-bold">MUNICIPIO: </p>
+                            <label className="font-weight-bold">MUNICIPIO: </label>
                             <Input
                                     id="municipio"
                                     
@@ -139,7 +129,7 @@ const ModificarDF = (props) => {
                     <div class="row justify-content-center">
                         <div class="col-4">
                             <FormGroup>
-                            <p className="font-weight-bold">ESTADO: </p>
+                            <label className="font-weight-bold">ESTADO: </label>
                             <Input
                                     id="estado"
                                     
@@ -151,7 +141,7 @@ const ModificarDF = (props) => {
                     <div class="row justify-content-center">
                         <div class="col-4">
                             <FormGroup>
-                            <p className="font-weight-bold">PAÍS: </p>
+                            <label className="font-weight-bold">PAÍS: </label>
                             <Input
                                     id="pais"
                                     
@@ -163,7 +153,7 @@ const ModificarDF = (props) => {
                     <div class="row justify-content-center">
                         <div class="col-4">
                             <FormGroup>
-                            <p className="font-weight-bold">CORREO: </p>
+                            <label className="font-weight-bold">CORREO: </label>
                             <Input
                                     id="correo"
                                     
@@ -256,7 +246,7 @@ function modificar() {
       
       };
     axios
-      .put("http://localhost:8000/api/modificarFacturacion/" + idD, donante)
+      .put("http://localhost:8000/api/donantes/modificarFacturacion/" + idD, donante)
       .then(function (resp) {
         console.log(resp.data);
       });

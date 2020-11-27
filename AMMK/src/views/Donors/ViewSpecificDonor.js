@@ -243,5 +243,3 @@ function ax(idD){
 
 
 export default ViewSpecificDonor;
-
-

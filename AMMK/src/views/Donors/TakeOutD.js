@@ -1,15 +1,8 @@
 import React, { Component } from "react";
-import { FormGroup, Form, Input, Button, Alert, Label } from "reactstrap";
+import { FormGroup, Form, Input, Button } from "reactstrap";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
-
-//ICONS
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { fas } from '@fortawesome/free-solid-svg-icons'
-library.add(fas)
-
 const TakeOutD = (props) => {
     const login = localStorage.getItem("isLoggedIn");
     const idRol = localStorage.getItem("idRol");
@@ -29,13 +22,12 @@ const TakeOutD = (props) => {
         <div class="row">
             <div class="col-12" >
 
-                <h2 align="center" className="title">Egresar Donante</h2>
+                <h2 align="center">Egresar Donante</h2>
                 <Form>
-                <Alert color="primary">Todos los campos son obligatorios.</Alert>
                     <div class="row justify-content-center">
                         <div class="col-4" >
                             <FormGroup>
-                            <Label><FontAwesomeIcon icon={['fas', 'calendar-alt']} />&nbsp;Fecha de egreso:</Label>
+                            <label className="font-weight-bold">FECHA DE EGRESO: </label>
                             <Input
                                     id="fecha"
                                     
@@ -47,7 +39,7 @@ const TakeOutD = (props) => {
                     <div class="row justify-content-center">
                         <div class="col-4">
                             <FormGroup>
-                            <Label>Motivo de egreso:</Label>
+                            <label className="font-weight-bold">MOTIVO DE EGRESO: </label>
                             <Input
                                     id="motivo"
                                     
@@ -70,7 +62,7 @@ const TakeOutD = (props) => {
                         </div>
                         <div class="col-4" align="center">
                                 <Button className="btn-fill" color="danger" onClick={modificar}>
-                                    Egresar
+                                    EGRESAR
                                 </Button>
                         </div>
                     </div>
@@ -109,20 +101,20 @@ function modificar() {
 
       };
     axios
-      .put("http://localhost:8000/api/donantes/" + idD, donante)
+      .put("http://localhost:8000/api/donantes/modificarEgreso/" + idD, donante)
       .then(function (resp) {
         console.log(resp.data);
       });
 
-    Swal.fire("¡Listo!", "Donante egresado de manera exitosa.", "success").then(function () {
+    Swal.fire("¡Listo!", "Donante Egresado de manera exitosa", "success").then(function () {
       window.location = "http://localhost:3000/admin/ViewDonors";
     });
   } else {
-    Swal.fire( {
-      icon: 'error',
-      title: '¡ERROR!',
-      text: 'Verifica que todos los campos obligatorios estén completos.',
-    })
+    Swal.fire(
+      "¡Error!",
+      "Alguno de los campos se encuentra vacio",
+      "error"
+    );
   }
 }
 
