@@ -21,8 +21,7 @@ class ViewDonors extends Component {
 
     axios.get("http://localhost:8000/api/donors/table/all")
       .then(function (resp) {
-        respuesta = respuesta.concat(resp.data);
-        document.getElementById("tablaD").innerHTML = respuesta;
+        document.getElementById("tablaD").innerHTML = resp.data;
       });
 
 
@@ -156,7 +155,7 @@ class ViewDonors extends Component {
             maxHeight: '400px',
             overflowY: 'auto'
           }}>
-          <Table hover id="tablaD">
+          <Table  id="tablaD">
           </Table>
           </div>
         </Col>

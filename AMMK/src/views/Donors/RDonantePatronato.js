@@ -82,6 +82,7 @@ class RDonantesPatronato extends Component {
     };
     
     localStorage.setItem("patronato", JSON.stringify(donantePatronato));
+    window.location = "http://localhost:3000/admin/Facturacion";
 
     //axios.post('http://localhost:8000/api/donantes/', donantePatronato).then(res => {console.log(res.data)});
     //Swal.fire(
@@ -160,7 +161,7 @@ class RDonantesPatronato extends Component {
 
                   <br/>
           <div class="container"></div>
-          <Form onClick={this.onSubmit}>
+          <Form >
          
 
           <div className='fullname'>
@@ -239,7 +240,7 @@ class RDonantesPatronato extends Component {
                     <Col  md="6" align="right">
 
                     <Link to='/admin/Facturacion'>
-                    <Button onClick="onSubmit()">Siguiente&nbsp;<FontAwesomeIcon icon={['fas', 'arrow-circle-right']}/></Button>
+                    <Button onClick={this.onSubmit}>Siguiente&nbsp;<FontAwesomeIcon icon={['fas', 'arrow-circle-right']}/></Button>
                     </Link>
                     </Col>
                 </Form.Row>

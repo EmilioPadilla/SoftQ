@@ -70,6 +70,7 @@ handleInvalidSubmit(event, errors, values) {
 
 onSubmit(e) {
   e.preventDefault()
+  console.log("onSubmit");
   var tipoDonante=document.getElementById("selectTipoDonante").value;
   var recurrencia= document.getElementById("selectRecurrencia").value;
 
@@ -83,6 +84,7 @@ onSubmit(e) {
   }
 localStorage.setItem("tipoDonante2", JSON.stringify(tipoDonante2));
 localStorage.setItem("recurrencia", JSON.stringify(tipoRecurrencia));
+  window.location = "http://localhost:3000/admin/RegistroDonante1";
 
 }
 
@@ -104,7 +106,7 @@ localStorage.setItem("recurrencia", JSON.stringify(tipoRecurrencia));
           <ProgressBar now={10} />
                   <br/>
           <div class="container"></div>
-       <Form onClick={this.onSubmit}>
+       <Form>
         <FormGroup>
          <label>*Seleccione Tipo de Donante:</label>
          <Form.Control as="select" id="selectTipoDonante" required></Form.Control>
@@ -120,7 +122,7 @@ localStorage.setItem("recurrencia", JSON.stringify(tipoRecurrencia));
       <>
             
        <Link to="/admin/RegistroDonante1">
-       <Button onClick="onSubmit()">Siguiente&nbsp;<FontAwesomeIcon icon={['fas', 'arrow-circle-right']}/></Button>
+       <Button onClick={this.onSubmit}>Siguiente&nbsp;<FontAwesomeIcon icon={['fas', 'arrow-circle-right']}/></Button>
 
        </Link>
        

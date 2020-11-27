@@ -34,6 +34,9 @@ class DonantesController extends Controller
     {
         //
     }
+    //correo
+
+   
 
     /**
      * Store a newly created resource in storage.
@@ -93,7 +96,6 @@ class DonantesController extends Controller
             $respuesta .= '<td> <div class="row"> <div class="col"> <a href="/admin/ViewSpecificDonor/'.$res->id.'"> <button id="verDetalle" type="button" class="btn btn-info btn-sm" > <i class="fa fa-eye"> </i></button> ';
            $respuesta .= '</a> </div> <div class="col" > <a href="/admin/donacion/'.$res->id.'"> <button id="registrarDonacion" type="button" class="btn btn-primary  btn-sm"> <i class="fa fa-plus" aria-hidden="true"></i></button> ';
            $respuesta .= '</a> </div> <div class="col" > <a href="/admin/contactoDonante/'.$res->id.'"> <button id="registrarContactoDonate" type="button"  class="btn btn-primary btn-sm"> <i class="fa fa-address-book" aria-hidden="true"></i> </button> ';
-           $respuesta .= '</a> </div> <div class="col" > <a href="/admin/Email"> <button id="registrarContactoDonate" type="button"  class="btn btn-primary btn-sm"> <i class="far fa-envelope" aria-hidden="true"></i> </button> ';
            $respuesta .= '</a> </div> <div class="col" > <a href="/admin/egresarDonante/'.$res->id.'"> <button id="registrarContactoDonate" type="button"  class="btn btn-danger btn-sm"> <i class="fa fa-trash-alt"> </i> </button> </a> </div> </div> </td> </tr> ';
           // $respuesta .= '</a> </div> <div class="col" > <a href="/admin/re-ingresarDonante/'.$res->id.'"> <button id="registrarContactoDonate" type="button"  class="btn btn-success btn-sm"> <i class="fa fa-repeat" aria-hidden="true"></i> </button> </a> </div> </div> </td> </tr> ';
 

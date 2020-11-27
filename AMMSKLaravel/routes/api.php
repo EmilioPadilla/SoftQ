@@ -62,6 +62,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     Route::get('donorContacts/delete/{id}', 'App\Http\Controllers\ContactoDonanteController@deleteC');
     Route::resource('donaciones', 'App\Http\Controllers\DonacionController');
     Route::resource('contactoDonante', 'App\Http\Controllers\ContactoDonanteController');
+    Route::get("send-email/{nombre}/{email}", "App\Http\Controllers\EmailController@sendEmailToUser");
 
 
     Route::get('donaciones/table/date/{fecha}', 'App\Http\Controllers\DonacionController@financesTable');

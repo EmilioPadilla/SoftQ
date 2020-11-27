@@ -44,6 +44,8 @@ const ViewSpecificDonor = props =>{
 
         <h1 className="title">DETALLE DONANTE</h1>
         <h3 className="title" id="nombreDonante"></h3>
+        <i class="fa fa-envelope-o" aria-hidden="true"></i>
+
 
         <Badge color="primary">DATOS GENERALES</Badge>
         <Link to={`/admin/ModificarGeneralDonante/${id}`}><button id="verDetalle" type="button" class="btn btn-info btn-sm" ><i class="fa fa-pencil-alt" ></i> </button></Link>
@@ -237,6 +239,7 @@ function ax(idD){
 
     } );
 
+    
 
     
 }

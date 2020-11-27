@@ -235,7 +235,7 @@ localStorage.clear();
           <ProgressBar now={100} />
           <br />
           <div class="container"></div>
-          <Form onSubmit={this.onSubmit}>
+          <Form >
             <Form.Row>
               <Form.Group as={Row} controlId="razonSocialF">
                 <Form.Label>Razón Social:</Form.Label>
@@ -325,7 +325,7 @@ localStorage.clear();
                     </Col>
                     <Col  md="6" align="right">
 
-                    <Button type="submit">Registrar</Button>
+                    <Button onSubmit={this.onSubmit}type="submit">Registrar</Button>
                     </Col>
                 </Form.Row>
                 </Form>
