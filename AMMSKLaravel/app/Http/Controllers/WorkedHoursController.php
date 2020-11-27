@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-//importing model 
+use Carbon\Carbon;
 use App\Models\WorkedHours;
 
 use DB;
@@ -112,6 +111,9 @@ class WorkedHoursController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function showPayrolls(Request $request) {
+
+        $endOfCurrentMonth = Carbon::now()->endOfMonth()->toDateString();
+
         $days =  DB::table('calendar_table')->join(
             "employees_shifts",
             "employees_shifts.diaSemana",
@@ -136,13 +138,13 @@ class WorkedHoursController extends Controller
                     "employees_shifts.id"
                 );
                 $join->on(
-                    "worked_hours.horaIngreso",
+                    DB::Raw("DATE(worked_hours.horaIngreso)"),
                     "=",
                     "calendar_table.d"
                 );
             }
         )->selectRaw(
-            "employees.id,
+            "employees.id AS employeeId,
             employees.nombreCompleto AS nombre,
             CAST(SUM(CASE WHEN worked_hours.horaIngreso IS NULL THEN 0 ELSE 1 END) AS UNSIGNED) AS asistencias,
             MIN(DATE(calendar_table.d)) as inicio,
@@ -150,13 +152,13 @@ class WorkedHoursController extends Controller
             CAST(SUM(CASE WHEN worked_hours.horaIngreso IS NULL THEN 1 ELSE 0 END) AS UNSIGNED) AS faltas,
             COUNT(MINUTE(TIME(worked_hours.horaIngreso) - TIME(shifts.horaIngreso)) > 10) AS retardos, 
             SUM(employees.salarioxhora * HOUR(TIME(worked_hours.horaSalida) - TIME(worked_hours.horaIngreso))) AS pago"
-            )->whereBetween(
-                "calendar_table.d",
-                [$request->startDate, $request->endDate]
-            )->groupByRaw(
-                "employees.id, employees.nombreCompleto,
-                DAY(calendar_table.d) <= 15"
-            )->orderByRaw('MIN(DATE(calendar_table.d)) ASC');
+        )->where([
+            ["calendar_table.d", "<=", $endOfCurrentMonth],
+            ["calendar_table.d", ">=", DB::Raw("DATE(employees.fechaIngreso)")]
+        ])->groupByRaw(
+            "employees.id, employees.nombreCompleto,
+            YEAR(calendar_table.d), MONTH(calendar_table.d), DAY(calendar_table.d) <= 15"
+        )->orderByRaw('MIN(DATE(calendar_table.d)) DESC')->take(50);
 
         if ($request->idEmployees != 0) {
             $days->where(
