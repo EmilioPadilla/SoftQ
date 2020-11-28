@@ -1,12 +1,20 @@
 import React, { Component } from 'react';
-import { API_BASE_URL } from '../../index';
+import { Link } from "react-router-dom";
+
+import { API_BASE_URL, FRONT_BASE_URL } from '../../index';
 import DropdownRecord from 'components/Finanzas/DropdownRecord';
 import DropdownRecordExpenses from 'components/Finanzas/DropdownRecordExpenses';
 // reactstrap components
-import { Row, Col} from 'reactstrap';
+import { Row, Col, Button} from 'reactstrap';
 
 //API calls
 import axios from 'axios';
+
+//ICONS
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+library.add(fas)
 
 
 export default class Record extends React.Component {
@@ -72,11 +80,11 @@ export default class Record extends React.Component {
         const idRol = localStorage.getItem("idRol");
         //Redirect in case of wrong role or no login
         if (!login ) {
-            window.location = "http://localhost:3000/login";
+            window.location = FRONT_BASE_URL + "login";
         }else if(idRol==2){
-            window.location = "http://localhost:3000/general/NurseIndex";
+            window.location = FRONT_BASE_URL + "general/NurseIndex";
         }else if (idRol==1){
-            window.location = "http://localhost:3000/admin/Nomina/Nomina";
+            window.location = FRONT_BASE_URL + "admin/Nomina/Nomina";
         }
         return (
             <div className="content">
@@ -109,6 +117,12 @@ export default class Record extends React.Component {
                     <Col>
                     </Col>
                 </Row>
+                <div class="fixed-bottom"  style={{margin: '15px'}}>
+                <Link to='../Finanzas/MonthlyView'>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <Button color="primary" id="regresar"><FontAwesomeIcon icon={['fas', 'arrow-circle-left']}/>&nbsp;Regresar</Button>
+              </Link>
+            </div>
             </div>
         )
     }

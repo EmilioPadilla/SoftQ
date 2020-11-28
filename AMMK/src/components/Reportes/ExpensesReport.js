@@ -20,6 +20,12 @@ import {
 // internal components
 import GroupedExpensesTable from "../../components/Reportes/GroupedExpensesTable";
 
+//Importing Icon library
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+library.add(fas)
+
 function convertToCSV(objArray) {
   var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
   var str = '';
@@ -364,7 +370,7 @@ class ExpensesResport extends Component {
                         </Card>
                     </Col>
                 </Row>
-                <Button onClick={this.exportExpenses} className="mb-3 d-print-none">Exportar</Button>
+                <Button onClick={this.exportExpenses} className="mb-3 d-print-none"><FontAwesomeIcon icon={['fas', 'file-export']} />&nbsp;Exportar</Button>
                 <Row className="d-flex justify-content-center">
                     <Col lg="11">
                         <GroupedExpensesTable

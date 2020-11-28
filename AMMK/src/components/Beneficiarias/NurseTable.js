@@ -6,7 +6,7 @@ import axios from 'axios';
 import { API_BASE_URL } from '../../index';
 
 //COMPONENTS
-import {Table, Button, Row, ModalBody, ModalFooter, Modal, Col} from 'reactstrap';
+import {Table, Button, Row, ModalBody, ModalFooter, Modal, Col, ModalHeader, Alert} from 'reactstrap';
 import SimpleTooltip from '../../views/General/SimpleTooltip';
 
 //ICONS
@@ -103,12 +103,15 @@ export default class NurseTable extends React.Component {
         </Table>
 
         <Modal isOpen={this.state.modalEliminar}>
-                <ModalBody>
-                   ¿Estás segur@ que deseas eliminar la consulta médica?
+        <ModalHeader>
+                <Alert align="center" color="danger">ATENCIÓN: ELIMINAR UNA CONSULTA ES UNA ACCIÓN PERMANENTE</Alert>
+                </ModalHeader>
+                <ModalBody align="center">
+                   <p style={{'fontSize': '20px'}}>¿Estás segur@ que deseas eliminar la consulta médica?</p>
                 </ModalBody>
                 <ModalFooter>
-                  <Button color="primary"onClick={()=>this.setState({modalEliminar: false})}>No</Button>
-                  <Button color="danger" onClick={()=>this.peticionDelete()}>Sí</Button>
+                  <Button color="primary"onClick={()=>this.setState({modalEliminar: false})}>Cancelar</Button>
+                  <Button color="danger" onClick={()=>this.peticionDelete()}>Eliminar</Button>
                 </ModalFooter>
         </Modal>
 

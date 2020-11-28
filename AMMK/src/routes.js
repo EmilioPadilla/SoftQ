@@ -41,7 +41,6 @@ import DeleteAccountEmployee from "views/Cuentas/DeleteAccountEmployee";
 //BENEFICIARIAS
 import RegisterB1 from "views/Beneficiarias/RegisterB1.js";
 import RegisterB2 from "views/Beneficiarias/RegisterB2.js";
-import RegisterB3 from "views/Beneficiarias/RegisterB3.js";
 import RegisterTreatment from "views/Beneficiarias/RegisterTreatment.js";
 import GeneralViewAdmin from "views/Beneficiarias/GeneralViewAdmin.js";
 import GeneralViewNurse from "views/Beneficiarias/GeneralViewNurse.js";
@@ -279,7 +278,7 @@ var routes = [
 
   },
   {
-    path: "/Beneficiarias/ModifyMedApp/:id",
+    path: "/Beneficiarias/ModifyMedApp/:id/:bid",
     name: "Beneficiarias",
     rtlName: "طباعة",
     icon: "tim-icons icon-single-02",
@@ -303,15 +302,6 @@ var routes = [
     rtlName: "طباعة",
     icon: "tim-icons icon-single-02",
     component: RegisterB2,
-    layout: "/admin",
-    showInSidebar: false,
-  },
-  {
-    path: "/Beneficiarias/RegisterB3",
-    name: "Beneficiarias",
-    rtlName: "طباعة",
-    icon: "tim-icons icon-single-02",
-    component: RegisterB3,
     layout: "/admin",
     showInSidebar: false,
   },

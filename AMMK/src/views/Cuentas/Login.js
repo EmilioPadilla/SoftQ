@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import LoginForm from "components/Login/LoginForm";
+import { API_BASE_URL, FRONT_BASE_URL } from 'index';
 
 
 
@@ -11,11 +12,11 @@ export default class Login extends Component {
         //Redirect in case of wrong role or no login
         if (login) {
          if(idRol==2){
-            window.location = "http://localhost:3000/general/NurseIndex";
+            window.location = FRONT_BASE_URL+"general/NurseIndex";
          }else if (idRol==1){
-            window.location = "http://localhost:3000/admin/Nomina/Nomina";
+            window.location = FRONT_BASE_URL+"admin/Nomina/Nomina";
          }else if (idRol==3){
-            window.location = "http://localhost:3000/general/GeneralIndex";
+            window.location = FRONT_BASE_URL+"general/GeneralIndex";
          }
         }
         return(

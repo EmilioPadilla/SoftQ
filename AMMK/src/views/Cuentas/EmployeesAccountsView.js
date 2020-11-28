@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import AccountPlusIcon from 'mdi-react/AccountPlusIcon';
 import AccountSearchIcon from 'mdi-react/AccountSearchIcon';
 import DeleteIcon from 'mdi-react/DeleteIcon';
+import { API_BASE_URL, FRONT_BASE_URL } from 'index';
 
 //Importing Icon library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -69,19 +70,31 @@ class EmployeesAccountView extends React.Component {
   
 
   crearTabla(){
-    axios.get("http://localhost:8000/api/account/table/all")
+    axios.get(API_BASE_URL+"account/table/all")
       .then(function (resp){
         respuesta = respuesta.concat(resp.data);
         document.getElementById("tablaCE").innerHTML = respuesta;
+        document.getElementById('spnCirc').style.display = 'none';
       } );
   }
 
   searchBar(){
+    var rol = document.getElementById('roleSelect').value;
+    var numRol;
     var palabra = document.getElementById('busq').value;
+    if (rol === "Empleado General"){
+     numRol=1;
+    }else if (rol ==="Enfermera"){
+     numRol=2;
+    }else if (rol === "Administrador"){
+     numRol=3;
+    }else{
+      numRol=0;
+    }
     if(palabra == ""){
       palabra = "allOfEm";
     }
-    axios.get("http://localhost:8000/api/account/table/search/"+palabra)
+    axios.get(API_BASE_URL+"account/table/search/"+palabra+"/"+numRol)
       .then(function (resp){
         respuesta = resp.data;
         document.getElementById("tablaCE").innerHTML = respuesta;
@@ -96,11 +109,13 @@ class EmployeesAccountView extends React.Component {
     numRol=1;
    }else if (rol ==="Enfermera"){
     numRol=2;
-   }else{
+   }else if (rol === "Administrador"){
     numRol=3;
+   }else{
+     numRol=0;
    }
   
-    axios.get("http://localhost:8000/api/account/table/roles/"+numRol)
+    axios.get(API_BASE_URL+"account/table/roles/"+numRol)
       .then(function (resp){
         respuesta = resp.data;
         document.getElementById("tablaCE").innerHTML = respuesta;
@@ -110,33 +125,35 @@ class EmployeesAccountView extends React.Component {
 
 
   render() {
-    /*const login = localStorage.getItem("isLoggedIn");
+    const login = localStorage.getItem("isLoggedIn");
     const idRol = localStorage.getItem("idRol");
     //Redirect in case of wrong role or no login
     if (!login ) {
-      window.location = "http://localhost:3000/login";
+      window.location = FRONT_BASE_URL+"login";
     }else if(idRol==2){
-      window.location = "http://localhost:3000/general/NurseIndex";
+      window.location = FRONT_BASE_URL+"general/NurseIndex";
     }else if (idRol==1){
-      window.location = "http://localhost:3000/admin/Nomina/Nomina";
-    }*/
+      window.location = FRONT_BASE_URL+"admin/Nomina/Nomina";
+    }
 
 
     this.crearTabla();
     return (
         <div className="content">
-          <h1 className="title">CUENTAS DE EMPLEADOS</h1>
+          <h2 className="title">
+            Cuentas de Empleados
+          </h2>
         <Row>
           <Col>
             <FormGroup>
-            <label>Búsqueda por nombre:</label>
+            <label>Búsqueda por nombre de usuario:</label>
              <InputGroup>
                  <InputGroupAddon addonType="prepend">
                    <InputGroupText id="busqNombre" >
                      <FontAwesomeIcon icon={['fas', 'search']} />
                    </InputGroupText>
                  </InputGroupAddon>
-                 <Input placeholder="Juan Artal González"  id="busq" onInput={this.searchBar}/>
+                 <Input placeholder="Admin123"  id="busq" onInput={this.searchBar}/>
              </InputGroup>      
            </FormGroup>
          </Col>
@@ -153,9 +170,10 @@ class EmployeesAccountView extends React.Component {
         <Row>
          <Col>
            <FormGroup>
-           <Label for="roleSelect">Búsqueda por rol:</Label>
-               <Input type="select" name="select" id="roleSelect" onChange={this.sortByRole}>
-               <option selected >Selecciona una opción...</option>
+           <Label for="roleSelect">Búsqueda por rol</Label>
+               <Input type="select" name="select" id="roleSelect" onChange={this.searchBar}>
+               <option disabled selected >Rol...</option>
+               <option value={0}>Todos</option>
                <option valaue={1}>Empleado General</option>
                <option valaue={2}>Enfermera</option>
                <option valaue={3}>Administrador</option>
@@ -163,10 +181,17 @@ class EmployeesAccountView extends React.Component {
            </FormGroup>
          </Col>
         </Row>
+        <div class="row justify-content-center">
+          <div class="col-1">
+            <div class="spinner-border" role="status" id="spnCirc" align="center">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+        </div>
         <div >
           <Row>
             <Col md="12">
-            <div class="overflow-auto" style={ { height: 400 } }>
+            <div  style={ { maxHeight: '300px', overflowY:'auto' } }>
               <Table hover id="tablaCE">
               </Table>
               </div>

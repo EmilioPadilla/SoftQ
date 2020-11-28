@@ -86,6 +86,11 @@ Route::resource('employeeVacations', 'App\Http\Controllers\VacationsController')
 
 Route::resource('WorkedHours', 'App\Http\Controllers\WorkedHoursController');
 Route::get('WorkedHours/idEmployee/{employees_id}', 'App\Http\Controllers\WorkedHoursController@showByEmployee');
+Route::post('payrolls', 'App\Http\Controllers\WorkedHoursController@showPayrolls');
+
+Route::post('employeesShifts/search', 'App\Http\Controllers\EmployeesShiftsController@filterByEmployee');
+Route::post('employeesShifts/delete', 'App\Http\Controllers\EmployeesShiftsController@deleteByEmployee');
+Route::post('employeesShifts/future', 'App\Http\Controllers\EmployeesShiftsController@futureDaysByEmployee');
 Route::get('WorkedHours/horasDiarias/{employees_id}', 'App\Http\Controllers\WorkedHoursController@horasDiarias');
 
 Route::resource('Absences', 'App\Http\Controllers\AbsencesController');
@@ -97,9 +102,6 @@ Route::resource('Estados', 'App\Http\Controllers\StatesController');
 Route::resource('empBeneficiary', 'App\Http\Controllers\BenefEmployeeController');
 Route::resource('employee_files', 'App\Http\Controllers\EmployeeFilesController');
 Route::get('employee_files/downloadFile/{id}', 'App\Http\Controllers\EmployeeFilesController@downloadFile');
-
-Route::post('employeesShifts/search', 'App\Http\Controllers\EmployeesShiftsController@filterByEmployee');
-Route::post('employeesShifts/delete', 'App\Http\Controllers\EmployeesShiftsController@deleteByEmployee');
 
 Route::get('inactiveEmployee', 'App\Http\Controllers\EmployeesController@showInactive');
 Route::get('employee/{id}', 'App\Http\Controllers\EmployeesController@show');
@@ -123,7 +125,7 @@ Route::resource('accountRole', 'App\Http\Controllers\Account_RoleController');
 Route::get('account/find/{username}', 'App\Http\Controllers\AccountController@showId');
 Route::get('account/table/all', 'App\Http\Controllers\AccountController@showTable');
 Route::get('account/table/roles/{role}', 'App\Http\Controllers\AccountController@showByRole');
-Route::get('account/table/search/{keyWord}', 'App\Http\Controllers\AccountController@searchBar');
+Route::get('account/table/search/{keyWord}/{idRol}', 'App\Http\Controllers\AccountController@searchBar');
 Route::get('account/delete/information/{id}', 'App\Http\Controllers\AccountController@deleteInfo');
 Route::post('account/login/confirmation', 'App\Http\Controllers\AccountController@loginInfo');
 
@@ -135,6 +137,7 @@ Route::resource('headquarters', 'App\Http\Controllers\HeadquarterController');
 /* EMPIEZA BENEFICIARIAS */
 Route::post('beneficiaries/filter', 'App\Http\Controllers\BeneficiaryController@filter');
 Route::post('beneficiaries/filterActive', 'App\Http\Controllers\BeneficiaryController@filterActive');
+Route::get('beneficiaries/getLast', 'App\Http\Controllers\BeneficiaryController@getLast');
 
 Route::post('beneficiaries/{id}/reingresar', 'App\Http\Controllers\BeneficiaryController@reingresar');
 Route::resource('beneficiaries', 'App\Http\Controllers\BeneficiaryController');
@@ -145,10 +148,14 @@ Route::get('treatments/{id}/med', 'App\Http\Controllers\TreatmentController@forB
 Route::resource('medical_appointments', 'App\Http\Controllers\MedicalAppointmentController');
 Route::get('medical_appointments/{id}/med', 'App\Http\Controllers\MedicalAppointmentController@forBeneficiary');
 
-Route::resource('benef_files', 'App\Http\Controllers\BenefFileController');
-Route::get('benef_files/downloadFile/{id}', 'App\Http\Controllers\BenefFileController@downloadFile');
+Route::resource('beneficiary_files', 'App\Http\Controllers\BeneficiaryFileController');
+Route::get('beneficiary_files/downloadFile/{id}', 'App\Http\Controllers\BeneficiaryFileController@downloadFile');
+Route::get('beneficiary_files/prescriptions/{id}', 'App\Http\Controllers\BeneficiaryFileController@showP');
+Route::get('beneficiary_files/ingreso/{id}', 'App\Http\Controllers\BeneficiaryFileController@showImage');
 
 Route::resource('specialties', 'App\Http\Controllers\SpecialtyController');
+
+Route::resource('file_category', 'App\Http\Controllers\FileCategoryController');
 
 Route::resource('modes', 'App\Http\Controllers\ModeController');
 /* TERMINA BENEFICIARIAS */

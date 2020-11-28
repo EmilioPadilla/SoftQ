@@ -23,6 +23,22 @@ class BeneficiaryController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getLast()
+    {
+        $beneficiary = Beneficiary::
+        orderBy('id', 'DESC')
+        ->select('id')
+        ->first();
+        $id = str_replace('{"id":', '', $beneficiary);
+        $lastId = str_replace('}', '', $id);
+        return response()->json($lastId);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response

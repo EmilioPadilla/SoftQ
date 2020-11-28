@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import { useParams } from 'react-router-dom';
 
 //API CALLS
 import axios from 'axios';
@@ -17,7 +16,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 library.add(fas)
   
-export default class FilesTable extends React.Component {
+export default class PrescriptionsTable extends React.Component {
 
   constructor(props) {
     super(props);
@@ -44,7 +43,7 @@ export default class FilesTable extends React.Component {
     const id = {
       id: this.props.id
     }
-    axios.get(API_BASE_URL + 'beneficiary_files/' + id)
+    axios.get(API_BASE_URL + 'beneficiary_files/prescriptions/' + id)
       .then(res => {
         const files = res.data;
         this.setState({ files });
@@ -104,8 +103,6 @@ peticionDownload=()=>{
               <tr>
                 <th>Nombre de archivo</th>
                 <th>Descripción</th>
-                <th>Categoría</th>
-                <th>Fecha</th>
                 <th>Acciones</th>
               </tr>
             </thead>
@@ -115,8 +112,6 @@ peticionDownload=()=>{
                 <tr key={file.id}>
                   <td>{file.path}</td>
                   <td>{file.comentario}</td>
-                  <td>{file.categoria.name}</td>
-                  <td>{file.created_at.split("T")[0]}</td>
                   <td>
                   <Row>
                                         <Col md="4">
@@ -141,7 +136,7 @@ peticionDownload=()=>{
                 <Alert align="center" color="danger">ATENCIÓN: ELIMINAR UN ARCHIVO ES UNA ACCIÓN PERMANENTE</Alert>
                 </ModalHeader>
                 <ModalBody align="center">
-                   <p style={{'fontSize': '20px'}}>¿Estás segur@ que deseas eliminar el archivo?</p>
+                   <p style={{'fontSize': '20px'}}>¿Estás segur@ que deseas eliminar la receta médica?</p>
                 </ModalBody>
                 <ModalFooter>
                   <Button color="info" onClick={()=>this.setState({modalEliminar: false})}>Cancelar</Button>
@@ -162,4 +157,4 @@ peticionDownload=()=>{
       </div>
     )
   }
-} 
+}

@@ -102,7 +102,12 @@ class AccountController extends Controller
                             ->select('accounts.password', 'accounts.id','accounts_roles.idRol')
                             ->get();
             if(password_verify($request->password,$passwordDb[0]->password )){
-                return [$passwordDb[0]->id,$passwordDb[0]->idRol];
+                $information = DB::table('accounts')
+                                ->join('accounts_roles','accounts.id','=','accounts_roles.idAccount')
+                                ->where('username', $request->username)
+                                ->select('accounts.id','accounts_roles.idRol')
+                                ->get();
+                return $information;
             }else{
                 return 0; 
             }
@@ -130,6 +135,7 @@ class AccountController extends Controller
 
 
     public function showByRole($role){
+        if ($role != 0){
         $datos = DB::table('accounts')
                     ->join('employees', 'accounts.idEmployee', '=', 'employees.id')
                     ->join('accounts_roles','accounts.id','=','accounts_roles.idAccount')
@@ -138,12 +144,22 @@ class AccountController extends Controller
                     ->where('accounts_roles.idRol', $role)
                     ->orderBy('accounts.id', 'desc')
                     ->get();
-        $respuesta = '<thead> <tr> <th> Nombre </th> <th> Username </th> <th> Rol </th> <th> Acciones </th> </tr> </thead> <tbody>';
+        }
+        else {
+            $datos = DB::table('accounts')
+                    ->join('employees', 'accounts.idEmployee', '=', 'employees.id')
+                    ->join('accounts_roles','accounts.id','=','accounts_roles.idAccount')
+                    ->join('roles','accounts_roles.idRol','=','roles.id')
+                    ->select('accounts.id', 'employees.nombreCompleto', 'roles.nombreRol', 'accounts.username','accounts_roles.idRol')
+                    ->orderBy('accounts.id', 'desc')
+                    ->get();
+        }
+        $respuesta = '<thead> <tr> <th> Nombre </th> <th> Nombre de Usuario </th> <th> Rol </th> <th> Acciones </th> </tr> </thead> <tbody>';
         foreach ($datos as $res){
             $respuesta .= '<tr> <td id="jkl">'. $res->nombreCompleto. '</td>';
             $respuesta .= '<td>'.$res->username.'</td>';
             $respuesta .= '<td>'.$res->nombreRol.'</td>';
-            $respuesta .= '<td> <div class="row"> <div class="col"> <a href="/admin/Cuentas/ModCuentaEmp/'.$res->id.'"> <button id="verDetalle" type="button" class="btn btn-info btn-sm" > <i class="fa fa-edit"> </i></button> ';
+            $respuesta .= '<td> <div class="row"> <div class="col"> <a href="/admin/Cuentas/ModCuentaEmp/'.$res->id.'"> <button id="verDetalle" type="button" class="btn btn-info btn-sm" > <i class="fa fa-pencil-alt"> </i></button> ';
             $respuesta .= '</a> </div> <div class="col" > <a href="/admin/Cuentas/DelCuentaEmp/'.$res->id.'"> <button id="eliminar" type="button"  class="btn btn-danger btn-sm"> <i class="fa fa-trash-alt"> </i></button> </a> </div> </div> </td> </tr> ';
         }
         $respuesta .= '</tbody>';
@@ -153,11 +169,21 @@ class AccountController extends Controller
 
 
 
-    public function searchBar($keyWord){
+    public function searchBar($keyWord,$idRol){
         if($keyWord == "allOfEm"){
             $keyWord = "";
         }
-        $datos = DB::table('accounts')
+        if ($idRol != 0){
+            $datos = DB::table('accounts')
+                    ->join('employees', 'accounts.idEmployee', '=', 'employees.id')
+                    ->join('accounts_roles','accounts.id','=','accounts_roles.idAccount')
+                    ->join('roles','accounts_roles.idRol','=','roles.id')
+                    ->select('accounts.id', 'employees.nombreCompleto', 'roles.nombreRol', 'accounts.username','accounts_roles.idRol')
+                    ->where([['accounts.username', 'like', '%'.$keyWord.'%'],['accounts_roles.idRol',$idRol]])
+                    ->orderBy('accounts.id', 'desc')
+                    ->get();
+        }else{
+            $datos = DB::table('accounts')
                     ->join('employees', 'accounts.idEmployee', '=', 'employees.id')
                     ->join('accounts_roles','accounts.id','=','accounts_roles.idAccount')
                     ->join('roles','accounts_roles.idRol','=','roles.id')
@@ -165,12 +191,14 @@ class AccountController extends Controller
                     ->where('accounts.username', 'like', '%'.$keyWord.'%' )
                     ->orderBy('accounts.id', 'desc')
                     ->get();
-        $respuesta = '<thead> <tr> <th> Nombre </th> <th> Username </th> <th> Rol </th> <th> Acciones </th> </tr> </thead> <tbody>';
+        }
+        
+        $respuesta = '<thead> <tr> <th> Nombre </th> <th> Nombre de Usuario </th> <th> Rol </th> <th> Acciones </th> </tr> </thead> <tbody>';
         foreach ($datos as $res){
             $respuesta .= '<tr> <td id="jkl">'. $res->nombreCompleto. '</td>';
             $respuesta .= '<td>'.$res->username.'</td>';
             $respuesta .= '<td>'.$res->nombreRol.'</td>';
-            $respuesta .= '<td> <div class="row"> <div class="col"> <a href="/admin/Cuentas/ModCuentaEmp/'.$res->id.'"> <button id="verDetalle" type="button" class="btn btn-info btn-sm" > <i class="fa fa-edit"> </i></button> ';
+            $respuesta .= '<td> <div class="row"> <div class="col"> <a href="/admin/Cuentas/ModCuentaEmp/'.$res->id.'"> <button id="verDetalle" type="button" class="btn btn-info btn-sm" > <i class="fa fa-pencil-alt"> </i></button> ';
             $respuesta .= '</a> </div> <div class="col" > <a href="/admin/Cuentas/DelCuentaEmp/'.$res->id.'"> <button id="eliminar" type="button"  class="btn btn-danger btn-sm"> <i class="fa fa-trash-alt"> </i></button> </a> </div> </div> </td> </tr> ';
         }
         $respuesta .= '</tbody>';
@@ -187,13 +215,13 @@ class AccountController extends Controller
                     ->select('accounts.id', 'employees.nombreCompleto', 'roles.nombreRol', 'accounts.username')
                     ->orderBy('accounts.id', 'desc')
                     ->get();
-        $respuesta = '<thead> <tr> <th> Nombre </th> <th> Username </th> <th> Rol </th> <th> Acciones </th> </tr> </thead> <tbody>';
+        $respuesta = '<thead> <tr> <th> Nombre </th> <th> Nombre de Usuario </th> <th> Rol </th> <th> Acciones </th> </tr> </thead> <tbody>';
         foreach ($datos as $res){
             $respuesta .= '<tr> <td id="jkl">'. $res->nombreCompleto. '</td>';
             $respuesta .= '<td>'.$res->username.'</td>';
             $respuesta .= '<td>'.$res->nombreRol.'</td>';
-            $respuesta .= '<td> <div class="row"> <div class="col"> <a href="/admin/Cuentas/ModCuentaEmp/'.$res->id.'"> <button id="verDetalle" type="button" class="btn btn-info btn-sm" > <i class="fa fa-edit"> </i></button> ';
-            $respuesta .= '</a> </div> <div class="col" > <a href="/admin/Cuentas/DelCuentaEmp/'.$res->id.'"> <button id="eliminar" type="button"  class="btn btn-danger btn-sm"> <i class="fa fa-trash-alt"> </i></button> </a> </div> </div> </td> </tr> ';
+            $respuesta .= '<td> <div class="row"> <div class="col"> <a href="/admin/Cuentas/ModCuentaEmp/'.$res->id.'"> <button id="verDetalle" type="button" class="btn btn-info btn-sm"  data-toggle="tooltip" title="Editar"> <i class="fa fa-pencil-alt"> </i></button> ';
+            $respuesta .= '</a> </div> <div class="col" > <a href="/admin/Cuentas/DelCuentaEmp/'.$res->id.'"> <button id="eliminar" type="button"  class="btn btn-danger btn-sm" data-toggle="tooltip" title="Eliminar"> <i class="fa fa-trash-alt"> </i></button> </a> </div> </div> </td> </tr> ';
         }
         $respuesta .= '</tbody>';
         return $respuesta;

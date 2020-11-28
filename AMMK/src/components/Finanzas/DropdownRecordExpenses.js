@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { API_BASE_URL } from '../../index';
 import { Button } from 'reactstrap';
+
 //API calls
 import axios from 'axios';
 
@@ -15,7 +16,7 @@ const DropdownRecordExpenses = (props) => {
         {idT}
       </Button>
       <div id={idDiv} style={{display: "none"}} >
-      <div id={idTable} class="overflow-auto" style={ { height: 150 } } >
+      <div id={idTable} style={ { maxHeight: '300px', overflowY:'auto' } }>
 
       </div>
       </div>

@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import { Prompt } from 'react-router';
 
 //Components
 import Form from "react-bootstrap/Form";
 import SimpleTooltip from "../General/SimpleTooltip";
-import { Button, Modal, ModalBody, ModalFooter, Card, Input, CardBody, FormGroup, Alert, Label, CustomInput, Row, Col, InputGroupText, InputGroupAddon, InputGroup} from 'reactstrap';
+import { Button, Modal, ModalBody, ModalHeader, ModalFooter, Card, Input, CardBody, FormGroup, Alert, Label, CustomInput, Row, Col, InputGroupText, InputGroupAddon, InputGroup} from 'reactstrap';
 
 //API calls
 import axios from 'axios';
-import { API_BASE_URL } from 'index';
+import { API_BASE_URL, FRONT_BASE_URL } from 'index';
 import Swal from 'sweetalert2';
 
 //Importing Icon library
@@ -28,27 +29,23 @@ const validTextArea = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ _:\0-9@]+$/);
 const validTime = RegExp(/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/);
 const validDate = RegExp(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/);
 
-//FORM VALIDATIONS
-const validateForm = (errors) => {
-    let valid = true;
-    Object.values(errors).forEach(
-      (val) => val.length > 0 && (valid = false)
-    );
-    return valid;
-  }
-  
-  const countErrors = (errors) => {
-    let count = 0;
-    Object.values(errors).forEach(
-      (val) => val.length > 0 && (count = count+1)
-    );
-    return count;
-  }
+//SELECT FOR HEADQUARTERS
+function parseSede(sedes){
+  return sedes.map((sede) => {
+    return { label: sede.nombre, value: sede.id };
+  });
+}
 
 export default class RegisterExpense extends Component {
+    
+  //CALL PARA SELECT 
+    getSedes() {
+      axios.get(API_BASE_URL + 'headquarters')
+      .then(res => this.setState({ sedes: parseSede(res.data) }));
+    }
 
     crearSelect(){
-        var sel='<option value="NA" disabled selected>Selecciona una opcion</option>';
+        var sel='<option value="0" selected>Selecciona una opción...</option>';
         const num=1;
         axios.get(API_BASE_URL + "categories").then(function(resp){
         console.log(resp.data);
@@ -73,6 +70,7 @@ export default class RegisterExpense extends Component {
             monto: null,
             descripcion: null,
             nombre: null,
+            sedes: [],
             errors: {
                 fecha: '',
                 pagoA: '',
@@ -95,18 +93,18 @@ export default class RegisterExpense extends Component {
             case 'fecha': 
             errors.fecha =
             value.length < 1
-              ? "La fecha del egreso es requerida"
+              ? "La fecha del egreso es un campo requerido."
               : "" ||
             validDate.test(value)
-              ? "La fecha no es correcta"
+              ? "La fecha ingresada no es válida."
               : "";
             break;
             case 'pagoA': 
             errors.pagoA =
             value.length < 1
-              ? "El receptor del egreso es requerido"
+              ? "El receptor del egreso es requerido."
               : "" || value.length > 70
-              ? "El campo permite máximo 70 caracteres"
+              ? "El campo permite máximo 70 caracteres."
               : "" || validTextInput.test(value)
               ? ""
               : "El campo solo acepta letras.";
@@ -114,30 +112,30 @@ export default class RegisterExpense extends Component {
             case 'descripcion': 
             errors.descripcion =
             value.length > 200
-              ? "El campo permite máximo 200 caracteres"
+              ? "El campo permite máximo 200 caracteres."
               : "" || validAlphanumericInput.test(value)
               ? ""
-              : "El campo solo acepta letras y números";
+              : "El campo solo acepta letras y números.";
             break;
             case 'monto': 
             errors.monto =
             value.length < 1
-              ? "El monto del egreso es requerido"
+              ? "El monto del egreso es un campo requerido."
               : "" ||
             value.length > 10
-              ? "El campo permite un número de hasta 10 cifras"
+              ? "El campo permite un número de hasta 10 cifras."
               : "" || 
             validAmount.test(value)
               ? ""
-              : "El campo solo acepta numeros representativos de montos de dinero.";
+              : "El campo solo acepta números representativos de montos de dinero.";
             break;
             case 'nombre': 
             errors.nombre =
-            value.length < 1
-              ? "El nombre de la categoría es requerido"
+            value.length === 0
+              ? "El nombre de la categoría es requerido."
               : "" ||
             value.length > 30
-              ? "El campo permite máximo 30 caracteres"
+              ? "El campo permite máximo 30 caracteres."
               : "" || validTextInput.test(value)
               ? ""
               : "El campo solo acepta letras.";
@@ -158,31 +156,33 @@ export default class RegisterExpense extends Component {
         let descripcion = document.getElementById("descripcion").value;
         let monto = document.getElementById("monto").value;
         let category_id = document.getElementById("selectCategory").value;
+        let headquarter_id = document.getElementById("sede").value;
 
-        if(pagoA != ''){
-        const expense = {
+        if(fecha === '' || pagoA === '' || monto === '' || category_id === '0' || headquarter_id === '0'){
+          Swal.fire(
+            'ERROR!',
+            'Verifica que los campos obligatorios estén completos.',
+            'error'
+        )
+        }else{
+          const expense = {
             category_id: category_id,
             fecha: fecha,
             pagoA: pagoA,
             descripcion: descripcion,
             monto: monto,
+            headquarter_id: headquarter_id,
         };
 
         axios.post(API_BASE_URL + "expenses/", expense).then(res => {console.log(res)});
 
         Swal.fire(
             '¡Listo!',
-            'Egreso registrado de manera exitosa',
+            'Egreso registrado de manera exitosa.',
             'success'
             ).then(function() {
-                window.location = "http://localhost:3000/admin/Finanzas/MonthlyView";
-            });
-        }else{
-                Swal.fire(
-                    'ERROR!',
-                    'Verifica que los campos obligatorios estén llenos',
-                    'error'
-                )
+                window.location = FRONT_BASE_URL + "admin/Finanzas/MonthlyView";
+            });     
         }
     }
 
@@ -205,7 +205,7 @@ export default class RegisterExpense extends Component {
             'Categoría registrada de manera exitosa',
             'success'
             ).then(function() {
-                window.location = "http://localhost:3000/admin/Finanzas/RegisterExpense";
+                window.location = FRONT_BASE_URL + "admin/Finanzas/RegisterExpense";
             });
         }else{
                 Swal.fire(
@@ -216,27 +216,43 @@ export default class RegisterExpense extends Component {
         }
     }
 
+    componentDidMount() {
+      this.getSedes();
+      this.crearSelect();
+    }
+
     render() {
       const login = localStorage.getItem("isLoggedIn");
       const idRol = localStorage.getItem("idRol");
       //Redirect in case of wrong role or no login
       if (!login ) {
-          window.location = "http://localhost:3000/login";
+          window.location = FRONT_BASE_URL + "login";
       }else if(idRol==2){
-          window.location = "http://localhost:3000/general/NurseIndex";
+          window.location = FRONT_BASE_URL + "general/NurseIndex";
       }else if (idRol==1){
-          window.location = "http://localhost:3000/admin/Nomina/Nomina";
+          window.location = FRONT_BASE_URL + "admin/Nomina/Nomina";
       }
 
-        const {errors, formValid} = this.state;
-        this.crearSelect();
+        const {errors} = this.state;
         return (
             <div className="content">
+              <Prompt
+            when={true}
+            message="Te encuentras en proceso de registro...                                                ¿Estás segur@ de querer salir?"
+          />
                 <h1 className="title">REGISTRAR EGRESO</h1>
                 <Card>
                     <CardBody>
                         <Alert color="primary">Los campos marcados con un asterisco (*) son obligatorios.</Alert>
                         <Form onSubmit={this.onSubmit} autocomplete="off">
+                        <FormGroup>
+                            <Label htmlFor="sede">* Sede:</Label>
+                            <Input type="select" name="sede" id="sede" value={this.state.value} onChange={this.onChange}>
+                            <option value="0" selected>Selecciona una opción...</option>
+                            {this.state.sedes.map((sede) => <option key={sede.value} value={sede.value}>{sede.label}</option>)}
+                            </Input>
+                          </FormGroup>
+
                             <FormGroup>
                                 <Label htmlFor="fecha">*&nbsp;<FontAwesomeIcon icon={['fas', 'calendar-alt']} />&nbsp;Fecha:</Label>
                                 <Input type="date" id="fecha" name="fecha" onChange={this.handleChange}></Input>
@@ -246,7 +262,7 @@ export default class RegisterExpense extends Component {
                             </FormGroup>
                             
                             <FormGroup>
-                                <Label htmlFor="pagoA">*&nbsp;<FontAwesomeIcon icon={['fas', 'diagnoses']} />&nbsp;Pago a:</Label>
+                                <Label htmlFor="pagoA">*&nbsp;Pago a:</Label>
                                 <Input id="pagoA" placeholder="CEA" onChange={this.handleChange} name="pagoA"></Input>
                                 {errors.pagoA.length > 0 && <span className='error'>{errors.pagoA}</span> 
                                 || 
@@ -254,7 +270,7 @@ export default class RegisterExpense extends Component {
                             </FormGroup>
 
                             <FormGroup>
-                                <Label htmlFor="descripcion"><FontAwesomeIcon icon={['fas', 'map-marker-alt']} />&nbsp;Descripción:</Label>
+                                <Label htmlFor="descripcion">Descripción:</Label>
                                 <Input id="descripcion" placeholder="Pago de agua noviembre y octubre" onChange={this.handleChange} name="descripcion"></Input>
                                 {errors.descripcion.length > 0 && <span className='error'>{errors.descripcion}</span> 
                                 || 
@@ -262,27 +278,22 @@ export default class RegisterExpense extends Component {
                             </FormGroup>
 
                             <FormGroup>
-                                <Label htmlFor="monto">*&nbsp;<FontAwesomeIcon icon={['fas', 'clock']} />&nbsp;Monto:</Label>
-                                <InputGroup>
-                                    <InputGroupAddon addonType="prepend">
-                                    <InputGroupText>$</InputGroupText>
-                                    </InputGroupAddon>
-                                    <Input id="monto" type="text" placeholder="50000.00" onChange={this.handleChange} name="monto"></Input>
-                                </InputGroup>
+                                <Label htmlFor="monto">*&nbsp;<FontAwesomeIcon icon={['fas', 'coins']} />&nbsp;Monto:</Label>
+                                <Input id="monto" type="text" placeholder="50000.00" onChange={this.handleChange} name="monto"></Input>
                                 {errors.monto.length > 0 && <span className='error'>{errors.monto}</span> 
                                 || 
                                  errors.monto.length == 0 && <span className='error'>{errors.monto}</span>}
                             </FormGroup>
 
+                            <Label>Categoría:</Label>
                             <Row>
-                                <Col md="10">
+                                <Col md="11">
                                     <FormGroup>
-                                        <label>Selecciona categoría:</label>
                                         <Form.Control as="select" id="selectCategory" ></Form.Control>
                                     </FormGroup>
-                                </Col>
-                                <Col md="2">
-                                <Button size="sm" id="añadir" onClick={()=>{this.setState({modalEliminar: true})}} color="primary"><FontAwesomeIcon icon={['fas', 'plus']} /></Button>
+                                    </Col>
+                                   <Col md="1">
+                                <Button className="float-right" size="sm" id="añadir" onClick={()=>{this.setState({modalEliminar: true})}} color="primary"><FontAwesomeIcon icon={['fas', 'plus']} /></Button>
                                 <SimpleTooltip placement="top" target="añadir" >Añadir categoría</SimpleTooltip>
                                 </Col>
                             </Row>
@@ -300,6 +311,9 @@ export default class RegisterExpense extends Component {
 
         <Modal isOpen={this.state.modalEliminar}>
         <Form onSubmit={this.onPost} autocomplete="off">
+          <ModalHeader>
+            <h3 className="title" align="center">Añadir Categoría</h3>
+          </ModalHeader>
                 <ModalBody>
                     <Label>Nueva categoría:</Label>
                     <Input type="text" id="nombre" name="nombre" onChange={this.handleChange}></Input>
@@ -308,11 +322,17 @@ export default class RegisterExpense extends Component {
                     errors.nombre.length == 0 && <span className='error'>{errors.nombre}</span>}
                 </ModalBody>
                 <ModalFooter>
-                  <Button color="danger"onClick={()=>this.setState({modalEliminar: false})}>Cancelar</Button>
+                  <Button color="info"onClick={()=>this.setState({modalEliminar: false})}>Cancelar</Button>
                   <Button color="primary" type="submit">Añadir</Button>
                 </ModalFooter>
         </Form>
         </Modal>
+        <div class="fixed-bottom"  style={{margin: '15px'}}>
+                <Link to='../Finanzas/MonthlyView'>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <Button color="primary" id="regresar"><FontAwesomeIcon icon={['fas', 'arrow-circle-left']}/>&nbsp;Regresar</Button>
+              </Link>
+            </div>
 
             </div>
         )

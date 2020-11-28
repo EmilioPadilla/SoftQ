@@ -2,6 +2,7 @@ import React from "react";
 //IMPORTING ICONS FROM thenounproject.com
 import nomina from '../../images/nomina.png';
 import beneficiarias from '../../images/beneficiarias.png';
+import {FRONT_BASE_URL } from 'index';
 
 // reactstrap components
 import {
@@ -20,11 +21,11 @@ class GeneralIndex extends React.Component {
     const idRol = localStorage.getItem("idRol");
     //Redirect in case of wrong role or no login
     if (!login ) {
-      window.location = "http://localhost:3000/login";
+      window.location = FRONT_BASE_URL + "login";
     }else if(idRol==3){
-      window.location = "http://localhost:3000/general/GeneralIndex";
+      window.location = FRONT_BASE_URL + "general/GeneralIndex";
     }else if (idRol==1){
-      window.location = "http://localhost:3000/admin/Nomina/Nomina";
+      window.location = FRONT_BASE_URL + "admin/Nomina/Nomina";
     }
     return (
       <>
