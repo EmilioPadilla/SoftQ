@@ -95,7 +95,7 @@ export default class GeneralViewAdmin extends Component {
                 <Row>
                     <Col md="6">
                     <FormGroup>
-                            <label>Filtrar por status: </label>
+                            <label>Filtrar por estatus: </label>
                             <Form.Control onChange={this.onStatusChange} as="select" id="selectStatus"></Form.Control>
                     </FormGroup>
                     </Col>

@@ -27,7 +27,7 @@ const TakeOutD = (props) => {
                     <div class="row justify-content-center">
                         <div class="col-4" >
                             <FormGroup>
-                            <p className="font-weight-bold">FECHA DE EGRESO: </p>
+                            <label className="font-weight-bold">FECHA DE EGRESO: </label>
                             <Input
                                     id="fecha"
                                     
@@ -39,7 +39,7 @@ const TakeOutD = (props) => {
                     <div class="row justify-content-center">
                         <div class="col-4">
                             <FormGroup>
-                            <p className="font-weight-bold">MOTIVO DE EGRESO: </p>
+                            <label className="font-weight-bold">MOTIVO DE EGRESO: </label>
                             <Input
                                     id="motivo"
                                     
@@ -101,7 +101,7 @@ function modificar() {
 
       };
     axios
-      .put("http://localhost:8000/api/donantes/" + idD, donante)
+      .put("http://localhost:8000/api/donantes/modificarEgreso/" + idD, donante)
       .then(function (resp) {
         console.log(resp.data);
       });

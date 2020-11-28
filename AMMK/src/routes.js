@@ -16,17 +16,10 @@
 
 */
 import Dashboard from "views/Dashboard.js";
-//import Notifications from "views/Notifications.js";
-import Rtl from "views/Rtl.js";
-// import Facturacion from "views/Facturacion";
 
 import GeneralIndex from "views/General/GeneralIndex.js";
 import NurseIndex from "views/General/NurseIndex.js";
 import Nomina from "views/Nomina/Nomina.js";
-
-
-import TableList from "views/TableList.js";
-import Typography from "views/Typography.js";
 import RegisterEmployee from "views/Employees/RE.js";
 import ModifyEmployee from "views/Employees/ModifyE1.js";
 import RegisterEmployee2 from "views/Employees/RE2emp.js";
@@ -95,16 +88,6 @@ import Record from "views/Finanzas/Record.js";
 //REPORTES
 import Reports from "views/Reports/Reports.js";
 //FIN REPORTES
-
-// const login = localStorage.getItem("isLoggedIn");
-
-//     //Redirect in case of wrong role or no login
-//     if(idRol==2){
-//         window.location = "http://localhost:3000/general/NurseIndex";
-//     }else if (idRol==1){
-//         window.location = "http://localhost:3000/admin/Nomina/Nomina";
-//     }
-
 
 
 var routes = [
@@ -647,21 +630,5 @@ var routes = [
     rol: 'admin'
   },
 
-
-
-  
-
-
-
-  // SE BORRARÁ UNA VEZ QUE TODOS ENTIENDAN EL CONCEPTO DE RTL SUPPORT
-  {
-    path: "/rtl-support",
-    name: "RTL Support",
-    rtlName: "ار تي ال",
-    icon: "tim-icons icon-world",
-    component: Rtl,
-    layout: "/rtl",
-    showInSidebar: false
-  }
 ];
 export default routes;

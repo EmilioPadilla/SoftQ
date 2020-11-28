@@ -9,6 +9,8 @@ import { Prompt } from 'react-router'
 import Swal from 'sweetalert2';
 import EmployeeCalendarTable from "components/Employees/EmployeeCalendarTable.js";
 import SimpleTooltip from "../../views/General/SimpleTooltip";
+import { API_BASE_URL, FRONT_BASE_URL } from 'index';
+import GoBackButton  from '../../components/General/goBackButton.js';
 
 // reactstrap components
   import {
@@ -22,8 +24,7 @@ import SimpleTooltip from "../../views/General/SimpleTooltip";
     Col,
     Progress,
     Label,
-    CustomInput,
-    Button,
+    Alert,
   } from "reactstrap";
 
 
@@ -33,6 +34,7 @@ import SimpleTooltip from "../../views/General/SimpleTooltip";
   });
 }
 
+const validDate = RegExp(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/);
  class RegisterEmployee3 extends React.Component {
    constructor(props){
      super(props)
@@ -45,13 +47,35 @@ import SimpleTooltip from "../../views/General/SimpleTooltip";
        puesto: null, 
        diasLaborales: null,
        monto: null,
-       numBenef: null,
-       selectedOption: null
+       selectedOption: null,
+       errors: {
+         date: '',
+       }
      }
       this.onChange = this.onChange.bind(this);
       this.handleCalendarChange = this.handleCalendarChange.bind(this);
       this.onSubmit = this.onSubmit.bind(this);
+      this.handleChange = this.handleChange.bind(this);
   }
+
+  handleChange = (event) => {
+    event.preventDefault();
+    const { name, value } = event.target;
+    let errors = this.state.errors;
+
+    switch (name) {
+        case 'date':
+            errors.date =
+            validDate.test(value)
+                            ? ""
+                            : "La fecha no es correcta.";
+            break;
+        default:
+            break;
+    }
+
+    this.setState({ errors, [name]: value });
+}
 
    onChange(e) {
      this.setState({ value: e.value });
@@ -67,7 +91,7 @@ import SimpleTooltip from "../../views/General/SimpleTooltip";
    }
 
    getJobTitles() {
-    axios.get('http://localhost:8000/api/employeeJobTitles')
+    axios.get(API_BASE_URL+'employeeJobTitles')
     .then(res => this.setState({ jobTitles: parseJobTitles(res.data) }));
   }
 
@@ -80,9 +104,8 @@ import SimpleTooltip from "../../views/General/SimpleTooltip";
     let puesto = document.getElementById("puesto").value;
     let turnosQuincena = document.getElementById("diasLaborales").value;
     let salarioxhora = document.getElementById("monto").value;
-    let numBeneficiarios = document.getElementById("numBenef").value;
 
-    if (fechaIngreso !== '' && headquarter_id !== '' && frecuenciaSalario !== '' && puesto !== '' && salarioxhora !== '' && turnosQuincena !== '') {
+    if (fechaIngreso !== '' && headquarter_id !== '' && frecuenciaSalario !== '' && puesto !== '' && turnosQuincena !== '') {
     const datosEmpleado = {
       fechaIngreso: fechaIngreso,
       headquarter_id: headquarter_id, 
@@ -90,7 +113,6 @@ import SimpleTooltip from "../../views/General/SimpleTooltip";
       puesto: puesto, 
       diasLaborales: turnosQuincena,
       salarioxhora: salarioxhora,
-      numBeneficiarios: numBeneficiarios
     };
 
     localStorage.setItem("empleado", JSON.stringify(datosEmpleado));
@@ -103,7 +125,7 @@ import SimpleTooltip from "../../views/General/SimpleTooltip";
     console.log(json);
     localStorage.clear();
 
-    axios.post('http://localhost:8000/api/employee/', json).then(res => {
+    axios.post(API_BASE_URL+'employee/', json).then(res => {
       console.log(res);
       const employeeId = res.data.id;
       this.state.markedDays.forEach((element) => {
@@ -114,7 +136,7 @@ import SimpleTooltip from "../../views/General/SimpleTooltip";
         }
         console.log(empShift);
         // Insert new shifts
-        axios.post('http://localhost:8000/api/employeesShifts', empShift)
+        axios.post(API_BASE_URL+'employeesShifts', empShift)
         .then((res) => {
           console.log(res);
         })
@@ -126,13 +148,13 @@ import SimpleTooltip from "../../views/General/SimpleTooltip";
       'Empleado registrado de manera exitosa',
       'success'
       ).then(function() {
-          window.location = "http://localhost:3000/admin/search-employee";
+          window.location = FRONT_BASE_URL+"admin/search-employee";
       });
     } else{
       Swal.fire( {
         icon: 'error',
-        title: 'Oops...',
-        text: 'No se han llenado todos los campos obligatorios!',
+        title: '¡Error!',
+        text: 'Verifica que todos los campos obligatorios estén completos.',
       })
     }
 
@@ -144,12 +166,13 @@ import SimpleTooltip from "../../views/General/SimpleTooltip";
     const idRol = localStorage.getItem("idRol");
     //Redirect in case of wrong role or no login
     if (!login ) {
-        window.location = "http://localhost:3000/login";
+      window.location = FRONT_BASE_URL+"login";
     }else if(idRol==2){
-        window.location = "http://localhost:3000/general/NurseIndex";
+        window.location = FRONT_BASE_URL+"general/NurseIndex";
     }else if (idRol==1){
-        window.location = "http://localhost:3000/admin/Nomina/Nomina";
+        window.location = FRONT_BASE_URL+"admin/Nomina/Nomina";
     }
+    const { errors } = this.state;
      return (
         <>
         <div className="content">
@@ -157,8 +180,15 @@ import SimpleTooltip from "../../views/General/SimpleTooltip";
             when={true}
             message="Te encuentras en proceso de registro                                                ¿Estás seguro de querer salir?"
           />
-        <h2 className="title">Registrar empleado</h2>
-        <Form >
+        <Row>
+            <Col >
+              <h2 className="title">Registrar empleado</h2>
+            </Col>
+            <Col >
+              <GoBackButton pathname="buscar empleados" path="/admin/search-employee"/>
+            </Col>
+          </Row>
+        <Form autocomplete="off">
           <Row>
             <Col md="12">
               <Card>
@@ -167,6 +197,7 @@ import SimpleTooltip from "../../views/General/SimpleTooltip";
                   <br/>
                   <h3 className="title">Datos de empleado</h3>
                 </CardHeader>
+                <Alert color="primary">Los campos marcados con un asterisco (*) son obligatorios.</Alert>
                 <CardBody>
                   
                     <Row>
@@ -176,7 +207,8 @@ import SimpleTooltip from "../../views/General/SimpleTooltip";
                           <Label htmlFor="fechaIngreso">
                             * Fecha de ingreso
                           </Label>
-                          <Input type="date" id="fechaIngreso"/>
+                          <Input type="date" id="fechaIngreso" name="date"   onChange={this.handleChange}/>
+                          {errors.date.length > 0 && <span className='error'>{errors.date}</span>}
                         </FormGroup>
                       </Col>
                       </Col>
@@ -224,7 +256,7 @@ import SimpleTooltip from "../../views/General/SimpleTooltip";
                       <Col  md="6">
                         <Col className="pl-md-1">
                           <FormGroup>
-                            <Label htmlFor="monto">* Monto</Label>
+                            <Label htmlFor="monto">Monto</Label>
                             <Input
                               placeholder="1500"
                               type="text"
@@ -237,30 +269,11 @@ import SimpleTooltip from "../../views/General/SimpleTooltip";
                           <FormGroup>
                             <Label htmlFor="diasLaborales">* Dias Laborales</Label>
                             <Input
-                              placeholder="" type="number" id="diasLaborales"
+                              placeholder="3" type="number" id="diasLaborales"
                             />
                            </FormGroup>
                          </Col>
                      </Row>
-                     <Row>
-                         <Col md="6">
-                           <FormGroup>
-                           <Label for="Contrato">Copia de Contrato</Label>
-                           <CustomInput type="file" name="customFile" id="Contraro" label="Selecciona un archivo"/>
-                           </FormGroup>
-                         </Col>
-                         <Col md="6">
-                           <FormGroup>
-                           <Label for="numBenef">Número de beneficiarios</Label>
-                           <Input
-                              placeholder="2"
-                              type="number"
-                              id="numBenef"
-                            />
-                            <SimpleTooltip placement="top" target="numBenef">Beneficiarios a quienes se les puede otorgar porcion del salario del empleado</SimpleTooltip>
-                           </FormGroup>
-                         </Col>
-                         </Row>
                     <Row>
                       <Col>
                         <h4 className="text-center">Calendario de empleado</h4>

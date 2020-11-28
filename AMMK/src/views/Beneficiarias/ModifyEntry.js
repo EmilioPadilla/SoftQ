@@ -22,23 +22,6 @@ const validAge = RegExp(/^[0-9]{1,2}$/);
 const validTextArea = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ _:\0-9@]+$/);
 const validDate = RegExp(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/);
 
-//FORM VALIDATIONS
-const validateForm = (errors) => {
-  let valid = true;
-  Object.values(errors).forEach(
-    (val) => val.length > 0 && (valid = false)
-  );
-  return valid;
-}
-
-const countErrors = (errors) => {
-  let count = 0;
-  Object.values(errors).forEach(
-    (val) => val.length > 0 && (count = count + 1)
-  );
-  return count;
-}
-
 function parseHeadquarters(headquarters){
   return headquarters.map((headquarters) => {
     return { label: headquarters.nombre, value: headquarters.id };
@@ -46,6 +29,25 @@ function parseHeadquarters(headquarters){
 }
 
 export default class ModifyEntry extends Component {
+  fillData () {
+    let urlElements = window.location.href.split('/');
+    console.log(API_BASE_URL + 'beneficiaries/' + urlElements[6] );
+    axios.get(API_BASE_URL + 'beneficiaries/' + urlElements[6])
+        .then(function (res) {
+           document.getElementById("nombreCompleto").value = res.data[0].nombreCompleto;
+           document.getElementById("apodo").value = res.data[0].apodo;
+           document.getElementById("fechaNacimiento").value = res.data[0].fechaNacimiento;
+           document.getElementById("numCurp").value = res.data[0].numCurp;
+           document.getElementById("fechaIngreso").value = res.data[0].fechaIngreso;
+           document.getElementById("edadMental").value = res.data[0].edadMental;
+           document.getElementById("motivoIngreso").value = res.data[0].motivoIngreso;
+           document.getElementById("canalizador").value = res.data[0].canalizador;
+           document.getElementById("dxMedico").value = res.data[0].dxMedico;
+           document.getElementById("vinculosFam").value = res.data[0].vinculosFam;
+           document.getElementById("headquarters").value = res.data[0].headquarter_id;
+          })
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -70,7 +72,6 @@ export default class ModifyEntry extends Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
-    //this.handleInputChange = this.handleInputChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
@@ -79,17 +80,7 @@ export default class ModifyEntry extends Component {
     beneficiaries: [],
   }
 
-   //REALIZAR PETICIÓN GET PARA OBTENER LOS VALORES ACTUALES
    componentDidMount() {
-    let urlElements = window.location.href.split('/');
-  console.log(urlElements[6]);
-    axios.get(API_BASE_URL + 'beneficiaries/' + urlElements[6])
-    .then(res => {
-        const beneficiaries = res.data;
-        this.setState({ beneficiaries });
-        console.log(beneficiaries);
-      })
-
       this.getSede();
   }
 
@@ -171,7 +162,7 @@ export default class ModifyEntry extends Component {
     let dxMedico = document.getElementById("dxMedico").value;
     let vinculosFam = document.getElementById("vinculosFam").value;
 
-    if(vinculosFam !== ''){
+    if(sede !== '' && fechaIngreso !== '' && motivoIngreso !== '' && dxMedico !== ''){
     const beneficiary = {
         id: id,
         status_id: 1,
@@ -197,7 +188,7 @@ export default class ModifyEntry extends Component {
         'Egreso registrado de manera exitosa',
         'success',
         ).then(function() {
-            window.location = "http://localhost:3000/admin/Beneficiarias/GeneralViewAdmin";
+            window.location = "http://localhost:3000/admin/Beneficiarias/SpecificView/" + id;
         });
         }else{
             Swal.fire(
@@ -222,6 +213,9 @@ export default class ModifyEntry extends Component {
         }
     const {errors} = this.state;
 
+    let urlElements = window.location.href.split('/');
+    this.fillData();
+
     return (
       <div className="content">
         <Form onSubmit={this.onSubmit} autocomplete="off">
@@ -231,17 +225,15 @@ export default class ModifyEntry extends Component {
             <Alert color="primary">Los campos marcados con un asterisco (*) son obligatorios.</Alert>
           </CardHeader>
           <CardBody>
-          {this.state.beneficiaries.map((beneficiary) => (
-                <>
-          <Input type="text" id="id" name="id" value={this.props.id} hidden></Input>
-                            <Input type="text" id="nombreCompleto" name="nombreCompleto" value={beneficiary.nombreCompleto} hidden></Input>
-                            <Input type="text" id="apodo" name="apodo" value={beneficiary.apodo} hidden></Input>
-                            <Input type="text" id="numCurp" name="numCurp" value={beneficiary.numCurp} hidden></Input>
-                            <Input type="text" id="fechaNacimiento" name="fechaNacimiento" value={beneficiary.fechaNacimiento} hidden></Input>
+          <Input type="text" id="id" name="id" value={urlElements[6]} hidden></Input>
+                            <Input type="text" id="nombreCompleto" name="nombreCompleto" hidden></Input>
+                            <Input type="text" id="apodo" name="apodo" hidden></Input>
+                            <Input type="text" id="numCurp" name="numCurp" hidden></Input>
+                            <Input type="text" id="fechaNacimiento" name="fechaNacimiento" hidden></Input>
               
               <FormGroup>
                             <Label htmlFor="headquarters">* Sede: </Label>
-                            <Input type="select" name="select" id="headquarters" value={beneficiary.headquarter_id} ref={this.input}> 
+                            <Input type="select" name="select" id="headquarters"> 
                             <option defaultValue="0">Selecciona la sede...</option>
                             {this.state.headquarters.map((headquarters) => <option key={headquarters.value} value={headquarters.value}>{headquarters.label}</option>)}
                             </Input>
@@ -251,7 +243,7 @@ export default class ModifyEntry extends Component {
                 <Col md="6">
                   <FormGroup>
                     <Label htmlFor="fechaIngreso">*&nbsp;<FontAwesomeIcon icon={['fas', 'calendar-alt']} />&nbsp;Fecha de ingreso:</Label>
-                    <Input type="date" id="fechaIngreso" name="fechaIngreso" onChange={this.handleChange} value={beneficiary.fechaIngreso}></Input>
+                    <Input type="date" id="fechaIngreso" name="fechaIngreso"></Input>
                     {errors.fechaIngreso.length > 0 && <span className='error'>{errors.fechaIngreso}</span>
                       ||
                       errors.fechaIngreso.length == 0 && <span className='error'>{errors.fechaIngreso}</span>}
@@ -269,7 +261,7 @@ export default class ModifyEntry extends Component {
 
               <FormGroup>
                 <Label htmlFor="dxMedico">*&nbsp;<FontAwesomeIcon icon={['fas', 'notes-medical']} />&nbsp;Diagnóstico médico:</Label>
-                <Input maxLength="125" id="dxMedico" placeholder="Parálisis cerebral" name="dxMedico" onChange={this.handleChange} value={beneficiary.dxMedico}></Input>
+                <Input maxLength="125" id="dxMedico" placeholder="Parálisis cerebral" name="dxMedico"></Input>
                 {errors.dxMedico.length > 0 && <span className='error'>{errors.dxMedico}</span>
                   ||
                   errors.dxMedico.length == 0 && <span className='error'>{errors.dxMedico}</span>}
@@ -277,12 +269,12 @@ export default class ModifyEntry extends Component {
 
               <FormGroup>
                 <Label htmlFor="motivoIngreso">*&nbsp;<FontAwesomeIcon icon={['fas', 'notes-medical']} />&nbsp;Motivo de ingreso:</Label>
-                <Input id="motivoIngreso" placeholder="motivo de ingreso" name="motivoIngreso" onChange={this.handleChange} value={beneficiary.motivoIngreso}></Input>
+                <Input id="motivoIngreso" placeholder="motivo de ingreso" name="motivoIngreso" ></Input>
               </FormGroup>
 
               <FormGroup>
                 <Label htmlFor="edadMental">Edad mental:</Label>
-                <Input id="edadMental" type="number" min="1" max="100" name="edadMental" onChange={this.handleChange} value={beneficiary.edadMental}></Input>
+                <Input id="edadMental" type="number" min="1" max="100" name="edadMental"></Input>
                 {errors.edadMental.length > 0 && <span className='error'>{errors.edadMental}</span>
                   ||
                   errors.edadMental.length == 0 && <span className='error'>{errors.edadMental}</span>}
@@ -290,7 +282,7 @@ export default class ModifyEntry extends Component {
 
               <FormGroup>
                 <Label htmlFor="canalizador">Canalizador:</Label>
-                <Input id="canalizador" placeholder="Estefanía Ortíz" name="canalizador" onChange={this.handleChange} value={beneficiary.canalizador}></Input>
+                <Input id="canalizador" placeholder="Estefanía Ortíz" name="canalizador"></Input>
                 {errors.canalizador.length > 0 && <span className='error'>{errors.canalizador}</span>
                   ||
                   errors.canalizador.length == 0 && <span className='error'>{errors.canalizador}</span>}
@@ -298,20 +290,16 @@ export default class ModifyEntry extends Component {
 
               <FormGroup>
                 <Label htmlFor="vinculosFam">Vínculos familiares:</Label>
-                <Input id="vinculosFam" type="textarea" name="vinculosFam" onChange={this.handleChange} value={beneficiary.vinculosFam}></Input>
+                <Input id="vinculosFam" type="textarea" name="vinculosFam"></Input>
                 {errors.vinculosFam.length > 0 && <span className='error'>{errors.vinculosFam}</span>
                   ||
                   errors.vinculosFam.length == 0 && <span className='error'>{errors.vinculosFam}</span>}
               </FormGroup>
-            </>
-                ))}
           </CardBody>
         </Card>
         <Row>
           <Col md="12" align="center">
-            <Link to='/admin/Beneficiarias/RegisterB3'>
               <Button type="submit" >Modificar</Button>
-            </Link>
           </Col>
         </Row>
         </Form>

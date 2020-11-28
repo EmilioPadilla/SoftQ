@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\EmployeesShifts;
 use App\Models\Shifts;
 
+use DB;
+
 class EmployeesShiftsController extends Controller
 {
     /**
@@ -35,9 +37,62 @@ class EmployeesShiftsController extends Controller
             "shifts.id",
             "shifts.nombre",
             "employees_shifts.diaSemana"
-        )->where("employees_shifts.idEmployees", $request->idEmployees)
-        ->get();
-        return $empShifts;
+        )->where("employees_shifts.idEmployees", $request->idEmployees);
+
+        if ($request->diaSemana) {
+            $empShifts->where(
+                "employees_shifts.diaSemana", $request->diaSemana
+            );
+        }
+        
+        return $empShifts->get();
+    }
+
+
+    /**
+     * Future days by employee.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function futureDaysByEmployee(Request $request) {
+        $days =  DB::table('calendar_table')->join(
+            "employees_shifts",
+            "employees_shifts.diaSemana",
+            "=",
+            "calendar_table.weekday_name_spanish"
+        )
+        ->join(
+            "shifts",
+            "shifts.id",
+            "=",
+            "employees_shifts.idShifts"
+        )
+        ->join(
+            "employees",
+            "employees.id",
+            "=",
+            "employees_shifts.idEmployees"
+        )
+        ->select(
+            "employees_shifts.idEmployees",
+            "employees_shifts.idShifts",
+            "employees.nombreCompleto",
+            "calendar_table.d",
+            "shifts.horaIngreso",
+            "shifts.horaSalida"
+        )->whereBetween(
+            "calendar_table.dt",
+            [$request->startDate, $request->endDate]
+        )->orderByRaw('calendar_table.dt ASC');
+
+        if ($request->idEmployees != 0) {
+            $days->where(
+                "employees_shifts.idEmployees", $request->idEmployees
+            );
+        }
+
+        return $days->get();
     }
 
     /**

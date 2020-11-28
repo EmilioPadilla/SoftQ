@@ -36,31 +36,39 @@ import {
 
   class ViewEmployeeTable extends React.Component {
     state = {
-      employeesA:[],
-      employeesI:[],
-      action:''
+      employees: []
     }
 
     componentDidMount() {
       let id = this.props.dataFromParent;
-      console.log(id);
-      //Active employees
-      axios.get(API_BASE_URL + 'employee/')
+      this.getEmployees();
+    }
+
+    componentDidUpdate(prevProps) {
+      if (this.props.statusId != prevProps.statusId || 
+        this.props.sedeId != prevProps.sedeId || 
+        this.props.inputValue != prevProps.inputValue) {
+        this.getEmployees();
+      }
+    }
+
+    getEmployees() {
+      const params = {
+        statusId: this.props.statusId,
+        sedeId: this.props.sedeId,
+        inputValue: this.props.inputValue
+      }
+      axios.post(API_BASE_URL + 'filterEmployee', params)
         .then(res => {
-          const employeesA = res.data;
-          this.setState({ employeesA });
-        });
-      //Inactive employees
-      axios.get(API_BASE_URL + 'inactiveEmployee')
-      .then(res => {
-        const employeesI = res.data;
-        this.setState({ employeesI });
-      });
+          const employees = res.data;
+          this.setState({ employees });
+        })
     }
 
 
 
     render() {
+      let sedes = ["", "Asoc. MMK", "Granja Betanía"];
       let puesto = ["No registrado", "Enfermera", "Director(a)", "Servicios Generales", "Lavanderia", "Mayordomo", "Hermana", "Dirección administrativa"];
         return (
           <Row>
@@ -69,17 +77,17 @@ import {
                   <thead>
                       <tr>
                         <th>Nombre</th>
-                        <th>Celular</th>
+                        <th>Sede</th>
                         <th>Puesto</th>
                         <th>Acciones</th>
                       </tr>
                   </thead>
                   <tbody>
 
-                    {this.state.employeesA.map((employees) => (
+                  {this.state.employees.map((employees) => (
                       <tr key={employees.id}>
                         <td>{employees.nombreCompleto}</td>
-                        <td>{employees.celular}</td>
+                        <td>{sedes[employees.headquarter_id]}</td>
                         <td>{puesto[employees.puesto]}</td>
                         <td>
                             <Row>
@@ -92,30 +100,13 @@ import {
                                 <SimpleTooltip placement="top" target="verDetalle">Ver detalle</SimpleTooltip>
                                 </Link>
                                 &nbsp;&nbsp;&nbsp;&nbsp; 
-                                <ModalExitEmployee id={employees.id} employee={employees}/>
-                                
-                            </Row>
-                        </td>
-                      </tr>
-                    ))}
-                    {/* {this.state.action} */}
-                    {this.state.employeesI.map((employee) => (
-                      <tr key={employee.id}>
-                        <td>{employee.nombreCompleto}</td>
-                        <td>{employee.celular}</td>
-                        <td>{puesto[employee.puesto]}</td>
-                        <td>
-                            <Row>
-                                <Link to=
-                                {{
-                                  pathname: '=view-employee/'+ employee.id,
-                                  state:employee.id
-                                }}>
-                                  <Button color="info" size="sm" id="verDetalle"><FontAwesomeIcon icon={['fas', 'eye']} /></Button>
-                                  <SimpleTooltip placement="top" target="verDetalle">Ver detalle</SimpleTooltip>
-                                </Link>
-                                &nbsp;&nbsp;&nbsp;&nbsp; 
-                                <ReenterEmp id={employee.id} employee={employee}></ReenterEmp>;
+                                {(() => {
+                                  switch (employees.status_id) {
+                                    case 1:   return <ModalExitEmployee id={employees.id} employee={employees}/>
+                                    case 2: return <ReenterEmp id={employees.id} employee={employees}></ReenterEmp>
+                                    default:return<ModalExitEmployee id={employees.id}/>
+                                  }
+                                })()}
                                 
                             </Row>
                         </td>

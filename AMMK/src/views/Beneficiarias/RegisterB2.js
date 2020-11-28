@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import { Prompt } from 'react-router';
 
 //COMPONENTS
 import Form from "react-bootstrap/Form";
@@ -164,8 +165,8 @@ export default class RegisterB2 extends Component {
     } else{
       Swal.fire( {
         icon: 'error',
-        title: 'Oops...',
-        text: 'No se han llenado todos los campos obligatorios!',
+        title: '¡ERROR!',
+        text: 'Verifica que todos los campos obligatorios estén completos.',
       })
     }
   }
@@ -190,6 +191,10 @@ export default class RegisterB2 extends Component {
 
     return (
       <div className="content">
+        <Prompt
+            when={true}
+            message="Te encuentras en proceso de registro...                                                ¿Estás segur@ de querer salir?"
+          />
         <h2 className="title">Registrar Beneficiaria</h2>
         <Form onSubmit={this.onSubmit} autocomplete="off">
         <Card>

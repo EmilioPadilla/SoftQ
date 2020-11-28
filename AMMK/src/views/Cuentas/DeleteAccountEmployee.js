@@ -46,7 +46,7 @@ const DeleteAccountEmp = props =>{
                                 <div class="row justify-content-center">
                                     <div class="col-4">
                                         <FormGroup>
-                                            <label>Nombre Completo:</label>
+                                            <label>Nombre completo:</label>
                                             <Input
                                                 id="nombreModify"
                                                 disabled

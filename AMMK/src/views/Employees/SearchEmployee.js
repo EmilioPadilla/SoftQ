@@ -5,13 +5,10 @@
 
 */
 import React from "react";
-
 import axios from 'axios';
-
 import { Link } from "react-router-dom";
-
 import AccountPlusIcon from 'mdi-react/AccountPlusIcon';
-
+import { API_BASE_URL, FRONT_BASE_URL } from 'index';
 //Importing Icon library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -36,11 +33,6 @@ function parseStatus(statuses) {
     return { label: status.nombre, value: status.id };
   });
 }
-function parseJobTitle(jobTitles) {
-  return jobTitles.map((jobTitle) => {
-    return { label: jobTitle.nombre, value: jobTitle.id };
-  });
-}
 
 
 class SearchEmployee extends React.Component {
@@ -48,25 +40,43 @@ class SearchEmployee extends React.Component {
     super(props)
     this.state = {
       statuses: [],
-      jobTitles: []
+      selectedStatus: 0,
+      selectedSede: 0,
+      inputValue:'',
     }
+    this.onStatusChange = this.onStatusChange.bind(this);
+    this.onSedeChange = this.onSedeChange.bind(this);
+    this.onInputChange = this.onInputChange.bind(this);
+  }
+
+  onStatusChange(e) {
+      e.preventDefault();
+      this.setState({ selectedStatus: e.target.value });
+      console.log(this.state)
+  }
+
+  onInputChange(e) {
+      e.preventDefault();
+      this.setState({ inputValue: e.target.value });
+      console.log(e.target.value)
+  }
+
+  onSedeChange(e) {
+      e.preventDefault();
+      this.setState({ selectedSede: e.target.value });
+      console.log(this.state)
   }
 
   componentDidMount() {
     this.getStatus();
-    this.getJobTitle();
   }
   
 
   getStatus() {
-    axios.get('http://localhost:8000/api/employeeStatus')
+    axios.get(API_BASE_URL+'employeeStatus')
     .then(res => this.setState({ statuses: parseStatus(res.data) }));
   }
 
-  getJobTitle() {
-    axios.get('http://localhost:8000/api/employeeJobTitles')
-    .then(res => this.setState({ jobTitles: parseJobTitle(res.data) }));
-  }
 
   render() {
     
@@ -74,11 +84,11 @@ class SearchEmployee extends React.Component {
     const idRol = localStorage.getItem("idRol");
     //Redirect in case of wrong role or no login
     if (!login ) {
-        window.location = "http://localhost:3000/login";
+        window.location = FRONT_BASE_URL+"login";
     }else if(idRol==2){
-        window.location = "http://localhost:3000/general/NurseIndex";
+        window.location = FRONT_BASE_URL+"general/NurseIndex";
     }else if (idRol==1){
-        window.location = "http://localhost:3000/admin/Nomina/Nomina";
+        window.location = FRONT_BASE_URL+"admin/Nomina/Nomina";
     }
 
     return (
@@ -88,9 +98,9 @@ class SearchEmployee extends React.Component {
           <Row>
             <Col>
               <FormGroup>
-              <Label for="statusSelect">Estatus</Label>
-                  <Input type="select" name="select" id="statusSelect">
-                  <option defaultValue="0">Estatus...</option>
+                  <Label forHTML="estatus">Filtrar por estatus: </Label>
+                  <Input type="select" name="select" id="statusSelect" onChange={this.onStatusChange} >
+                  <option defaultValue="0">Selecciona una opción...</option>
                   {this.state.statuses.map((status) => <option key={status.value} value={status.value}>{status.label}</option>)}
                   </Input>
               </FormGroup>
@@ -106,32 +116,36 @@ class SearchEmployee extends React.Component {
             </Col>
         </Row>
         <Row>
-          <Col>
+          <Col md="8">
             <FormGroup>
-             <Label for="exampleSearch">Búsqueda por nombre</Label>
+             <Label for="exampleSearch">Búsqueda por nombre:</Label>
              <InputGroup>
                  <InputGroupAddon addonType="prepend">
                    <InputGroupText>
                      <FontAwesomeIcon icon={['fas', 'search']} />
                    </InputGroupText>
                  </InputGroupAddon>
-                 <Input placeholder="Juan Artal Gonzalez"/>
+                 <Input placeholder="Juan Artal González" onChange={this.onInputChange}/>
              </InputGroup>
            </FormGroup>
          </Col>
-         <Col>
+         <Col md="4">
            <FormGroup>
-           <Label for="puestoSelect">Búsqueda por puesto</Label>
-               <Input type="select" name="select" id="puestoSelect">
-               <option defaultValue="0">Puesto...</option>
-                  {this.state.jobTitles.map((jobTitle) => <option key={jobTitle.value} value={jobTitle.value}>{jobTitle.label}</option>)}
+           <Label for="puestoSelect">Filtrar por sede:</Label>
+               <Input type="select" name="select" id="puestoSelect" onChange={this.onSedeChange}>
+               <option defaultValue="0">Selecciona una opción...</option>
+               <option value="1">Asoc. MMK.</option>
+               <option value="2">Granja Betanía</option>
                </Input>
            </FormGroup>
          </Col>
         </Row>
-        <ViewEmployeeTable/>
-        <div>
-
+        
+         <div style={{
+            maxHeight: '400px',
+            overflowY: 'auto'
+          }}>
+        <ViewEmployeeTable statusId={this.state.selectedStatus} sedeId={this.state.selectedSede} inputValue={this.state.inputValue}/>
         </div>
         </div>
 
