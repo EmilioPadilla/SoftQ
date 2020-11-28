@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
 // reactstrap components
-import { Row, Col, Button, FormGroup, Card, CardHeader, CardTitle, CardBody} from 'reactstrap';
+import { Row, Col, Button, FormGroup, Card, CardHeader, CardTitle, CardBody, Label} from 'reactstrap';
 import Form from "react-bootstrap/Form";
 
 // internal components
@@ -12,7 +12,7 @@ import SimpleTooltip from "../General/SimpleTooltip";
 
 //API calls
 import axios from 'axios';
-import { API_BASE_URL } from 'index';
+import { API_BASE_URL, FRONT_BASE_URL } from 'index';
 
 //Importing Icon library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -98,21 +98,17 @@ export default class MonthlyView extends Component {
         const idRol = localStorage.getItem("idRol");
         //Redirect in case of wrong role or no login
         if (!login ) {
-            window.location = "http://localhost:3000/login";
+            window.location = FRONT_BASE_URL + "login";
         }else if(idRol==2){
-            window.location = "http://localhost:3000/general/NurseIndex";
+            window.location = FRONT_BASE_URL + "general/NurseIndex";
         }else if (idRol==1){
-            window.location = "http://localhost:3000/admin/Nomina/Nomina";
+            window.location = FRONT_BASE_URL + "admin/Nomina/Nomina";
         }
         return (
             <div className="content">
-                <h1 className="title">FINANZAS</h1>
                 <Row>
                     <Col md="6">
-                        <FormGroup>
-                            <label>Selecciona la sede de los ingresos...</label>
-                            <Form.Control onChange={this.onCampusChange} as="select" id="selectSede"></Form.Control>
-                        </FormGroup>
+                    <h1 className="title">FINANZAS</h1>
                     </Col>
                     
                     <Col md="6">
@@ -169,11 +165,21 @@ export default class MonthlyView extends Component {
                                 <Row>
                                     <Col md="12">
                                     <FormGroup>
-                                        <label>Filtra por categoría...</label>
+                            <Label>Filtrar por sede:</Label>
+                            <Form.Control onChange={this.onCampusChange} as="select" id="selectSede"></Form.Control>
+                        </FormGroup>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col md="12">
+                                    <FormGroup>
+                                        <Label>Filtrar por categoría:</Label>
                                         <Form.Control onChange={this.onCategoryChange} as="select" id="selectCategory"></Form.Control>
                                     </FormGroup>
                                     </Col>
                                 </Row>
+
+                                
                                 <div style={{
             maxHeight: '300px',
             overflowY: 'auto'

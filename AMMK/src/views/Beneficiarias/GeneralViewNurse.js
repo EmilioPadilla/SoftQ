@@ -9,7 +9,7 @@ import Form from "react-bootstrap/Form";
 
 //API calls
 import axios from 'axios';
-import { API_BASE_URL } from 'index';
+import { API_BASE_URL, FRONT_BASE_URL } from 'index';
 
 //Importing Icon library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -23,10 +23,10 @@ export default class GeneralViewNurse extends Component {
         super(props);
         this.state = {
             selectedSede: 0,
-            inputValue:'',
+            inputValue: '',
         }
-      this.onSedeChange = this.onSedeChange.bind(this);
-      this.onInputChange = this.onInputChange.bind(this);
+        this.onSedeChange = this.onSedeChange.bind(this);
+        this.onInputChange = this.onInputChange.bind(this);
     }
     onInputChange(e) {
         e.preventDefault();
@@ -40,16 +40,16 @@ export default class GeneralViewNurse extends Component {
         console.log(this.state)
     }
 
-    crearSelect(){
-        var sel='<option value=0 selected>Selecciona una opcion...</option>';
-        const num=1;
-        axios.get(API_BASE_URL + "headquarters").then(function(resp){
-        console.log(resp.data);
-        resp.data.forEach(element =>{
-          sel = sel.concat('<option value='+ element.id + '>' + element.nombre +'</option>');
+    crearSelect() {
+        var sel = '<option value=0 selected>Selecciona una opcion...</option>';
+        const num = 1;
+        axios.get(API_BASE_URL + "headquarters").then(function (resp) {
+            console.log(resp.data);
+            resp.data.forEach(element => {
+                sel = sel.concat('<option value=' + element.id + '>' + element.nombre + '</option>');
+            });
+            document.getElementById("selectSede").innerHTML = sel;
         });
-        document.getElementById("selectSede").innerHTML=sel; 
-      });
     }
 
     componentDidMount() {
@@ -57,16 +57,16 @@ export default class GeneralViewNurse extends Component {
     }
 
     render() {
-    const login = localStorage.getItem("isLoggedIn");
-    const idRol = localStorage.getItem("idRol");
-    //Redirect in case of wrong role or no login
-    if (!login ) {
-      window.location = "http://localhost:3000/login";
-    }else if(idRol==3){
-      window.location = "http://localhost:3000/general/GeneralIndex";
-    }else if (idRol==1){
-      window.location = "http://localhost:3000/admin/Nomina/Nomina";
-    }
+        const login = localStorage.getItem("isLoggedIn");
+        const idRol = localStorage.getItem("idRol");
+        //Redirect in case of wrong role or no login
+        if (!login) {
+            window.location = (FRONT_BASE_URL + "login");
+        } else if (idRol == 3) {
+            window.location = (FRONT_BASE_URL + "general/GeneralIndex");
+        } else if (idRol == 1) {
+            window.location = (FRONT_BASE_URL + "admin/Nomina/Nomina");
+        }
         return (
             <div className="content">
                 <h1 className="title">BENEFICIARIAS</h1>
@@ -94,11 +94,11 @@ export default class GeneralViewNurse extends Component {
 
                 <Card>
                     <CardBody>
-                    <div style={{
-            maxHeight: '400px',
-            overflowY: 'auto'
-          }}>
-                        <NurseTable sedeId={this.state.selectedSede} inputValue={this.state.inputValue} />
+                        <div style={{
+                            maxHeight: '400px',
+                            overflowY: 'auto'
+                        }}>
+                            <NurseTable sedeId={this.state.selectedSede} inputValue={this.state.inputValue} />
                         </div>
                     </CardBody>
                 </Card>

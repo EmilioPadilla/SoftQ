@@ -5,7 +5,7 @@ import axios from 'axios';
 import { API_BASE_URL } from '../../index';
 
 //COMPONENTS
-import {Table, Button, Row, ModalBody, ModalFooter, Modal, Col} from 'reactstrap';
+import {Table, Button, Row, ModalBody, ModalFooter, Modal, Col, ModalHeader, Alert} from 'reactstrap';
 import ModifyTreatment from "../../views/Beneficiarias/ModifyTreatment";
 import SimpleTooltip from '../../views/General/SimpleTooltip';
 import Swal from 'sweetalert2';
@@ -99,7 +99,7 @@ export default class TreatmentTable extends React.Component {
                   <td>
                     <Row>
                         <Col md="4">
-                        <ModifyTreatment name={treatment.id}/>
+                        <ModifyTreatment name={treatment.beneficiary_id}/>
                         </Col>
 
                         <Col md="4">
@@ -115,15 +115,17 @@ export default class TreatmentTable extends React.Component {
         </Table>
 
         <Modal isOpen={this.state.modalEliminar}>
-                <ModalBody>
-                   ¿Estás segur@ que deseas eliminar el tratamiento?
+        <ModalHeader>
+                <Alert align="center" color="danger">ATENCIÓN: ELIMINAR UN TRATAMIENTO ES UNA ACCIÓN PERMANENTE</Alert>
+                </ModalHeader>
+                <ModalBody align="center">
+                   <p style={{'fontSize': '20px'}}>¿Estás segur@ que deseas eliminar el tratamiento?</p>
                 </ModalBody>
                 <ModalFooter>
-                  <Button color="primary"onClick={()=>this.setState({modalEliminar: false})}>No</Button>
-                  <Button color="danger" onClick={()=>this.peticionDelete()}>Sí</Button>
+                  <Button color="info"onClick={()=>this.setState({modalEliminar: false})}>Cancelar</Button>
+                  <Button color="danger" onClick={()=>this.peticionDelete()}>Eliminar</Button>
                 </ModalFooter>
         </Modal>
-
       </div>
     )
   }

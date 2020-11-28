@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 //importing model 
-use App\Models\BenefFile; 
+use App\Models\BeneficiaryFile; 
 use App\Models\Beneficiary; 
 use Response;
 
-class BenefFileController extends Controller
+class BeneficiaryFileController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +18,8 @@ class BenefFileController extends Controller
      */
     public function index()
     {
-        $benefFiles = BenefFile::all();
-        return response()->json($benefFiles);
+        $beneficiaryFiles = BeneficiaryFile::all();
+        return response()->json($beneficiaryFiles);
     }
 
     /**
@@ -50,14 +50,23 @@ class BenefFileController extends Controller
             $file      = $request->file('file');
             $filename  = $file->getClientOriginalName();
             $extension = $file->getClientOriginalExtension();
-            $picture   = time().'-'.$filename;
-            $file->move(public_path('benef_files'), $picture);
-            $benefFile = new BenefFile;
-            $benefFile->path = $picture;
-                $benefFile->beneficiary_id = $request->input("id");
-                $benefFile->comentario = $request->input("comentario");
-                $benefFile->categoria = $request->input("categoria");;
-                $benefFile->save();
+            $cat= $request->input("categoria");
+            if ($cat === 6) {
+               $cat = imagenIngreso;
+               $picture   = $cat.'_'.$filename;
+            } else if ($cat === 7) {
+                $cat = imagenEgreso;
+                $picture   = $cat.'_'.$filename;
+            } else {
+                $picture   = time().'_'.$filename;
+            }
+            $file->move(public_path('beneficiary_files'), $picture);
+            $beneficiaryFile = new BeneficiaryFile;
+            $beneficiaryFile->path = $picture;
+                $beneficiaryFile->beneficiary_id = $request->input("id");
+                $beneficiaryFile->comentario = $request->input("comentario");
+                $beneficiaryFile->category_id = $request->input("categoria");
+                $beneficiaryFile->save();
                 return response()->json('File added succesfully');
       } else
       {
@@ -76,11 +85,45 @@ class BenefFileController extends Controller
      */
     public function show($id)
     {
-        $benefFiles = BenefFile::where('beneficiary_id', '=', $id)
+        $beneficiaryFiles = BeneficiaryFile::with('categoria')
+        ->where('beneficiary_id', '=', $id)
+        ->where('category_id', '<>', '8')
         ->orderBy('created_at', 'desc')
         ->get();
-        return response()->json ($benefFiles);
+        return response()->json ($beneficiaryFiles);
     }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showImage($id)
+    {
+        $beneficiaryFiles = BeneficiaryFile::
+        where('beneficiary_id', '=', $id)
+        ->where('category_id', '=', '6')
+        ->get(['path']);
+        return response()->json ($beneficiaryFiles);
+    }
+
+        /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showP($id)
+    {
+        $beneficiaryFiles = BeneficiaryFile::with('categoria')
+        ->where('beneficiary_id', '=', $id)
+        ->where('category_id', '=', '8')
+        ->orderBy('created_at', 'desc')
+        ->get();
+        return response()->json ($beneficiaryFiles);
+    }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -111,10 +154,10 @@ class BenefFileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(BenefFile $benefFile)
+    public function destroy(BeneficiaryFile $beneficiaryFile)
     {
-        $file = $benefFile->path;
-        $route = public_path().'/benef_files/'.$file;
+        $file = $beneficiaryFile->path;
+        $route = public_path().'/beneficiary_files/'.$file;
         if($route){
             $benefFile->delete();
             unlink($route);
@@ -123,15 +166,15 @@ class BenefFileController extends Controller
                 'error'=>'File not exist!']);
         }
         return response()->json([
-            'message' => $benefFile
+            'message' => $beneficiaryFile
         ]);
     } 
 
     public function downloadFile($id){
-        $benefFile = BenefFile::where('id', '=', $id)->pluck('path');
-        $path1 = str_replace('["', '', $benefFile);
+        $beneficiaryFile = BeneficiaryFile::where('id', '=', $id)->pluck('path');
+        $path1 = str_replace('["', '', $beneficiaryFile);
         $path2 = str_replace('"]', '', $path1);
-        $route = public_path().'/benef_files/'.$path2;
+        $route = public_path().'/beneficiary_files/'.$path2;
         $headers = array('Content-Type: application/pdf',);
         return Response::download($route, $path2, $headers);
     }

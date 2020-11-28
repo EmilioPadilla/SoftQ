@@ -64,7 +64,8 @@ class MedicalAppointmentController extends Controller
      */
     public function show($id)
     {
-        $medicalAppointment = MedicalAppointment::where('id', $id)->get();
+        $medicalAppointment = MedicalAppointment::with('specialty')
+        ->where('id', $id)->get();
         return response()->json($medicalAppointment);
     }
 

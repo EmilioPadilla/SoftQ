@@ -5,7 +5,7 @@ import axios from 'axios';
 import { API_BASE_URL } from '../../index';
 
 //Components
-import {Table, Button, Col, Row, ModalBody, ModalFooter, Modal} from 'reactstrap';
+import {Table, Button, Col, Row, ModalBody, ModalFooter, Modal, ModalHeader, Alert} from 'reactstrap';
 import SimpleTooltip from '../../views/General/SimpleTooltip';
 import Swal from 'sweetalert2';
 
@@ -129,9 +129,11 @@ class ExpensesTable extends React.Component {
                   <td>{this.formatter.format(expense.monto)}</td>
                   <td>{expense.category.nombre}</td>
                   <td>
-                      <Row>
+                      <Row align="center">
+                        <Col md="12">
                         <Button size="sm" id="eliminar" onClick={()=>{this.seleccionarEgreso(expense); this.setState({modalEliminar: true})}} color="danger"><FontAwesomeIcon icon={['fas', 'trash-alt']} /></Button>
                         <SimpleTooltip placement="top" target="eliminar" >Eliminar</SimpleTooltip>
+                        </Col>
                       </Row>
                   </td>
                 </tr>
@@ -141,12 +143,15 @@ class ExpensesTable extends React.Component {
         </Table>
 
         <Modal isOpen={this.state.modalEliminar}>
-                <ModalBody>
-                   ¿Estás segur@ que deseas eliminar el egreso?
+        <ModalHeader>
+                <Alert align="center" color="danger">ATENCIÓN: ELIMINAR UN EGRESO ES UNA ACCIÓN PERMANENTE</Alert>
+                </ModalHeader>
+                <ModalBody align="center">
+                   <p style={{'fontSize': '20px'}}>¿Estás segur@ que deseas eliminar el egreso?</p>
                 </ModalBody>
                 <ModalFooter>
-                  <Button color="primary"onClick={()=>this.setState({modalEliminar: false})}>No</Button>
-                  <Button color="danger" onClick={()=>this.peticionDelete()}>Sí</Button>
+                  <Button color="info"onClick={()=>this.setState({modalEliminar: false})}>Cancelar</Button>
+                  <Button color="danger" onClick={()=>this.peticionDelete()}>Eliminar</Button>
                 </ModalFooter>
         </Modal>
       </Col>

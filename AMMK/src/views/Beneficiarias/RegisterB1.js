@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Prompt } from 'react-router'
+import { Prompt } from 'react-router';
 
 //COMPONENTS
 import { Button, Card, CardHeader, CardBody, Form, FormGroup, Label, Input, CustomInput, Progress, Col, Alert, Row, Badge } from "reactstrap";
 import Swal from 'sweetalert2';
+import { FRONT_BASE_URL } from 'index';
 
 //ICONS
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -16,6 +17,8 @@ const validTextInput = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ ]{3,}$/);
 const validName = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ]+(?:\s[A-Za-zÀ-ÖØ-öø-ÿ]+)+(?:\s[A-Za-zÀ-ÖØ-öø-ÿ]+)+$/);
 const validCurp = RegExp(/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/);
 const validDate = RegExp(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/);
+const validAlphanumericInput = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ \0-9]+$/); //acepta numeros y letras y saltos de linea
+
 
 export default class RegisterB1 extends Component {
 
@@ -28,11 +31,13 @@ export default class RegisterB1 extends Component {
             apodo: null,
             fechaNacimiento: null,
             curp: null,
+            vinculosFam: null,
             errors: {
                 nombreCompleto: '',
                 apodo: '',
                 fechaNacimiento: '',
                 curp: '',
+                vinculosFam: '',
             }
         };
 
@@ -48,38 +53,54 @@ export default class RegisterB1 extends Component {
         switch (name) {
             case 'nombreCompleto':
                 errors.nombreCompleto =
-                    value.length < 1
-                        ? "El nombre de la beneficiaria es requerido"
+                    value.length === 0
+                        ? "El nombre de la beneficiaria es requerido."
                         : "" || value.length > 50
-                            ? "El campo permite máximo 50 caracteres"
+                            ? "El campo permite máximo 50 caracteres."
                             : "" || validName.test(value)
                                 ? ""
-                                : "El campo solo acepta letras y debe ser llenado de la forma: nombre apPaterno apMaterno";
+                                : "El campo solo acepta letras y debe ser llenado de la forma: nombre apPaterno apMaterno.";
                 break;
             case 'apodo':
                 errors.apodo =
-                    value.length > 50
-                        ? "El campo permite máximo 50 caracteres"
-                        : "" || value.length < 3
-                            ? "El campo debe contener al menos 3 caracteres"
-                            : "" || validTextInput.test(value)
-                                ? ""
-                                : "El campo solo acepta letras.";
+                    value.length === 0
+                        ? ""
+                        : "" ||
+                            value.length > 50
+                            ? "El campo permite máximo 50 caracteres."
+                            : "" || value.length < 3
+                                ? "El campo debe contener al menos 3 caracteres."
+                                : "" || validTextInput.test(value)
+                                    ? ""
+                                    : "El campo solo acepta letras.";
                 break;
             case 'fechaNacimiento':
                 errors.fechaNacimiento =
-                    value.length < 1
-                        ? "La fecha de nacimiento de la beneficiaria es requerida"
+                    value.length === 0
+                        ? "La fecha de nacimiento de la beneficiaria es requerida."
                         : "" ||
                             validDate.test(value)
-                            ? "La fecha no es correcta"
+                            ? "La fecha no es correcta."
                             : "";
                 break;
             case 'curp':
                 errors.curp =
-                    validCurp.test(value)
+                    value.length === 0
                         ? ""
-                        : "La curp ingresada no es correcta.";
+                        : "" ||
+                            validCurp.test(value)
+                            ? ""
+                            : "La curp ingresada no es correcta.";
+                break;
+
+            case 'vinculosFam':
+                errors.vinculosFam =
+                    value.length === 0
+                        ? ""
+                        : "" ||
+                            validAlphanumericInput.test(value)
+                            ? ""
+                            : "El texto ingresado es inválido.";
                 break;
             default:
                 break;
@@ -96,6 +117,7 @@ export default class RegisterB1 extends Component {
         let apodo = document.getElementById("apodo").value;
         let fechaNacimiento = document.getElementById("fechaNacimiento").value;
         let curp = document.getElementById("curp").value;
+        let vinculosFam = document.getElementById("vinculosFam").value;
 
         if (nombre !== '' && fechaNacimiento !== '') {
             const datosPersonales = {
@@ -103,15 +125,16 @@ export default class RegisterB1 extends Component {
                 apodo: apodo,
                 fechaNacimiento: fechaNacimiento,
                 numCurp: curp,
+                vinculosFam: vinculosFam,
             };
             localStorage.setItem("personal", JSON.stringify(datosPersonales));
-            window.location = "http://localhost:3000/admin/Beneficiarias/RegisterB2";
+            window.location = FRONT_BASE_URL + "admin/Beneficiarias/RegisterB2";
         } else {
-            Swal.fire( {
+            Swal.fire({
                 icon: 'error',
                 title: '¡Error!',
                 text: 'Verifica que todos los campos obligatorios estén completos.',
-              })
+            })
         }
     }
 
@@ -120,11 +143,11 @@ export default class RegisterB1 extends Component {
         const idRol = localStorage.getItem("idRol");
         //Redirect in case of wrong role or no login
         if (!login) {
-            window.location = "http://localhost:3000/login";
+            window.location = FRONT_BASE_URL + "login";
         } else if (idRol == 2) {
-            window.location = "http://localhost:3000/general/NurseIndex";
+            window.location = FRONT_BASE_URL + "general/NurseIndex";
         } else if (idRol == 1) {
-            window.location = "http://localhost:3000/admin/Nomina/Nomina";
+            window.location = FRONT_BASE_URL + "admin/Nomina/Nomina";
         }
         const { errors } = this.state;
         return (
@@ -139,7 +162,7 @@ export default class RegisterB1 extends Component {
                     <Card>
                         <CardHeader>
                             <h3 className="title">Datos personales</h3>
-                            <Progress striped color="primary" value="33.33"></Progress>
+                            <Progress striped color="primary" value="50"></Progress>
                             <br></br>
                             <Alert color="primary">Los campos marcados con un asterisco (*) son obligatorios.</Alert>
                         </CardHeader>
@@ -160,54 +183,28 @@ export default class RegisterB1 extends Component {
                                     errors.apodo.length == 0 && <span className='error'>{errors.apodo}</span>}
                             </FormGroup>
 
-                            <Row>
-                                <Col md="6">
-                                    <FormGroup>
-                                        <Label htmlFor="fechaNacimiento">*&nbsp;<FontAwesomeIcon icon={['fas', 'calendar-alt']} />&nbsp;Fecha de nacimiento:</Label>
-                                        <Input type="date" id="fechaNacimiento" name="fechaNacimiento" onChange={this.handleChange}></Input>
-                                        {errors.fechaNacimiento.length > 0 && <span className='error'>{errors.fechaNacimiento}</span>
-                                            ||
-                                            errors.fechaNacimiento.length == 0 && <span className='error'>{errors.fechaNacimiento}</span>}
-                                    </FormGroup>
-                                </Col>
-
-                                <Col md="6">
-                                    <FormGroup>
-                                        <Label htmlFor="actaNacimiento"><FontAwesomeIcon icon={['fas', 'file-upload']} />&nbsp;Carga de acta de nacimiento:</Label>
-                                        <CustomInput id="actaNacimiento" type="file" label="Seleccionar archivo...">
-                                        </CustomInput>
-                                        <Badge color="light">* Recuerda subir un archivo .pdf, .doc/x, .xls/x or .ppt/x</Badge>
-                                    </FormGroup>
-                                </Col>
-                            </Row>
-
-                            <Row>
-                                <Col md="6">
-                                    <FormGroup>
-                                        <Label htmlFor="curp">CURP:</Label>
-                                        <Input id="curp" name="curp" placeholder="XEXX010101HNEXXXA4" onChange={this.handleChange}></Input>
-                                        {errors.curp.length > 0 && <span className='error'>{errors.curp}</span>
-                                            ||
-                                            errors.curp.length == 0 && <span className='error'>{errors.curp}</span>}
-                                    </FormGroup>
-                                </Col>
-
-                                <Col md="6">
-                                    <FormGroup>
-                                        <Label htmlFor="cargaCurp"><FontAwesomeIcon icon={['fas', 'file-upload']} />&nbsp;Carga de CURP:</Label>
-                                        <CustomInput id="cargaCurp" type="file" label="Seleccionar archivo...">
-                                        </CustomInput>
-                                        <Badge color="light">* Recuerda subir un archivo .pdf, .doc/x, .xls/x or .ppt/x</Badge>
-                                    </FormGroup>
-                                </Col>
-                            </Row>
+                            <FormGroup>
+                                <Label htmlFor="fechaNacimiento">*&nbsp;<FontAwesomeIcon icon={['fas', 'calendar-alt']} />&nbsp;Fecha de nacimiento:</Label>
+                                <Input type="date" id="fechaNacimiento" name="fechaNacimiento" onChange={this.handleChange}></Input>
+                                {errors.fechaNacimiento.length > 0 && <span className='error'>{errors.fechaNacimiento}</span>
+                                    ||
+                                    errors.fechaNacimiento.length == 0 && <span className='error'>{errors.fechaNacimiento}</span>}
+                            </FormGroup>
 
                             <FormGroup>
-                                <Label htmlFor="cargaIne"><FontAwesomeIcon icon={['fas', 'file-upload']} />&nbsp;Carga de INE:</Label>
-                                <CustomInput id="cargaIne" type="file" label="Seleccionar archivo...">
-                                </CustomInput>
-                                <Badge id="cargaIne" color="light">* Recuerda subir un archivo .pdf, .doc/x, .xls/x or .ppt/x</Badge>
+                                <Label htmlFor="curp">CURP:</Label>
+                                <Input id="curp" name="curp" placeholder="XEXX010101HNEXXXA4" onChange={this.handleChange}></Input>
+                                {errors.curp.length > 0 && <span className='error'>{errors.curp}</span>
+                                    ||
+                                    errors.curp.length == 0 && <span className='error'>{errors.curp}</span>}
                             </FormGroup>
+
+                            <FormGroup>
+                                <Label htmlFor="vinculosFam">Vínculos familiares:</Label>
+                                <Input id="vinculosFam" type="textarea" name="vinculosFam" onChange={this.handleChange}></Input>
+                                {errors.vinculosFam.length > 0 && <span className='error'>{errors.vinculosFam}</span>}
+                            </FormGroup>
+
                         </CardBody>
                     </Card>
                     <Col md="12" align="right">

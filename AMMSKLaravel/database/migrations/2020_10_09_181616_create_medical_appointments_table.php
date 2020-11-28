@@ -20,8 +20,8 @@ class CreateMedicalAppointmentsTable extends Migration
   					$table->time('horaConsulta');
   					$table->string('diagnostico', 100)->nullable();
   					$table->string('direccion', 150);
-  					$table->string('hospital', 100);
-  					$table->integer('consultorio')->nullable();;
+  					$table->string('hospital', 100)->nullable();
+  					$table->integer('consultorio')->nullable();
   					$table->foreignId('specialty_id')->constrained('specialties');
   					$table->text('comentario')->nullable();
 });
