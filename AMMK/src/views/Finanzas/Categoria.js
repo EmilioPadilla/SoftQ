@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios';
-import $ from 'jquery'
+import $ from 'jquery';
+import {FRONT_BASE_URL } from 'index';
 
 class PostForm extends React.Component {
   constructor(props) {
@@ -34,11 +35,11 @@ class PostForm extends React.Component {
     const idRol = localStorage.getItem("idRol");
     //Redirect in case of wrong role or no login
     if (!login ) {
-        window.location = "http://localhost:3000/login";
+        window.location = FRONT_BASE_URL + "login";
     }else if(idRol==2){
-        window.location = "http://localhost:3000/general/NurseIndex";
+        window.location = FRONT_BASE_URL + "general/NurseIndex";
     }else if (idRol==1){
-        window.location = "http://localhost:3000/admin/Nomina/Nomina";
+        window.location = FRONT_BASE_URL + "admin/Nomina/Nomina";
     }
     return (
       <div className="container">

@@ -5,12 +5,8 @@ import classNames from "classnames";
 
 // reactstrap components
 import {
-  Collapse,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
   Input,
+  Button, 
   NavbarBrand,
   Navbar,
   NavLink,
@@ -18,6 +14,13 @@ import {
   Container,
   Modal
 } from "reactstrap";
+import SimpleTooltip from "../../views/General/SimpleTooltip";
+
+//ICONS
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+library.add(fas)
 
 class GeneralNavbar extends React.Component {
   constructor(props) {
@@ -114,38 +117,8 @@ class GeneralNavbar extends React.Component {
               <span className="navbar-toggler-bar navbar-kebab" />
               <span className="navbar-toggler-bar navbar-kebab" />
             </button>
-            <Collapse navbar isOpen={this.state.collapseOpen}>
-              <Nav className="ml-auto" navbar>
-                <UncontrolledDropdown nav>
-                  <DropdownToggle
-                    caret
-                    color="default"
-                    data-toggle="dropdown"
-                    nav
-                    onClick={e => e.preventDefault()}
-                  >
-                    <div className="photo">
-                      <img alt="..." src={require("assets/img/anime3.png")} />
-                    </div>
-                    <b className="caret d-none d-lg-block d-xl-block" />
-                    <p className="separator d-lg-none">Administrador</p>
-                  </DropdownToggle>
-                  <DropdownMenu className="dropdown-navbar" right tag="ul">
-                    <NavLink tag="li">
-                      <DropdownItem className="nav-item">Configuración de cuenta</DropdownItem>
-                    </NavLink>
-                    <NavLink tag="li">
-                      <DropdownItem className="nav-item">Configuración de empleados</DropdownItem>
-                    </NavLink>
-                    <DropdownItem divider tag="li" />
-                    <NavLink tag="li">
-                      <DropdownItem className="nav-item" onClick={this.logoutFunc}>Cerrar Sesión</DropdownItem>
-                    </NavLink>
-                  </DropdownMenu>
-                </UncontrolledDropdown>
-                <li className="separator d-lg-none" />
-              </Nav>
-            </Collapse>
+            <Button color="danger" size="sm" className="nav-item" id="cerrarSesion" onClick={this.logoutFunc}><FontAwesomeIcon icon={['fas', 'sign-out-alt']} /></Button>
+            <SimpleTooltip placement="left" target="cerrarSesion">Cerrar sesión</SimpleTooltip>
           </Container>
         </Navbar>
         <Modal

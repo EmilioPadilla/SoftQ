@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {FRONT_BASE_URL } from 'index';
 
 //COMPONENTS
 import TablaNomina from "../../components/Nomina/TablaNomina";
@@ -10,9 +11,9 @@ export default class Nomina extends Component {
         const idRol = localStorage.getItem("idRol");
         //Redirect in case of wrong role or no login
         if (!login ) {
-            window.location = "http://localhost:3000/login";
+            window.location = FRONT_BASE_URL + "login";
         }else if (idRol==3){
-            window.location = "http://localhost:3000/general/GeneralIndex";
+            window.location = FRONT_BASE_URL + "general/GeneralIndex";
         }
 
         return (

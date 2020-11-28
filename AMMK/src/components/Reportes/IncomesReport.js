@@ -19,6 +19,11 @@ import {
 
 // internal components
 import GroupedIncomesTable from "../../components/Reportes/GroupedIncomesTable";
+//Importing Icon library
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+library.add(fas)
 
 function convertToCSV(objArray) {
   var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
@@ -275,7 +280,7 @@ class IncomesResport extends Component {
                         </Card>
                     </Col>
                 </Row>
-                <Button onClick={this.exportIncomes} className="mb-3 d-print-none">Exportar</Button>
+                <Button onClick={this.exportIncomes} className="mb-3 d-print-none"><FontAwesomeIcon icon={['fas', 'file-export']} />&nbsp;Exportar</Button>
                 <Row className="d-flex justify-content-center">
                     <Col lg="11">
                         <GroupedIncomesTable
