@@ -139,7 +139,7 @@ function modificar() {
       });
 
     Swal.fire("¡Listo!", "Cambios guardados", "success").then(function () {
-      window.location = "http://localhost:3000/admin/ViewDonors";
+      window.location = "http://localhost:3000/admin/ViewSpecificDonor/"+idD;
     });
   } else {
     Swal.fire(
