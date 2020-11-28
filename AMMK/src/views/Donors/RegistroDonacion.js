@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Input} from "reactstrap"
 import { Link } from "react-router-dom";
+import { Prompt } from 'react-router';
 
 import { Row, Modal, Form, FormGroup,  Dropdown,Button, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -173,6 +174,10 @@ class RegistroDonacion extends Component {
 
         return ( 
 <div className="justify-content-center">
+<Prompt
+            when={true}
+            message="Te encuentras en proceso de registro...                                                ¿Estás segur@ de querer salir?"
+          />
         <div class="container-fluid ">
           <h1 className="title">Registrar Donación</h1>
           <Card>
@@ -183,7 +188,7 @@ class RegistroDonacion extends Component {
           <CardBody>
             <div class="container">
 
-            <Form >
+            <Form autoComplete="off" >
               <Form.Row>
                 <Form.Group as={Col} controlId="fechaDonacion">
                   <Form.Label>*&nbsp;<FontAwesomeIcon icon={['fas', 'calendar-alt']} />&nbsp;FECHA EN QUE SE REALIZÓ</Form.Label>

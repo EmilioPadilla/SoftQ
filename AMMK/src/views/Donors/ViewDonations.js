@@ -39,8 +39,13 @@ class ViewDonations extends Component {
 <div className="content">
 
 <Col md="12">
+<div style={{
+            maxHeight: '400px',
+            overflowY: 'auto'
+          }}>
               <Table hover id="tablaD">
               </Table>
+              </div>
             </Col>
             
             </div>

@@ -26,7 +26,7 @@ const ModifyDonorContact = (props) => {
           <Alert color="primary">Los campos marcados con un asterisco (*) son obligatorios.</Alert>
           </CardHeader>
           <CardBody>
-                <Form>
+                <Form autoComplete="off">
                     <div class="row">
                         <div class="col-4" >
                             <FormGroup>

@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { FormGroup, Form, Input, Button } from "reactstrap";
 import axios from "axios";
+import { Prompt } from 'react-router';
+
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import { Progress, Alert, Col, Card, CardBody, CardHeader } from "reactstrap";
@@ -11,6 +13,10 @@ const ModifyDonation = (props) => {
   ax(id);
   return (
     <div class="content">
+       <Prompt
+            when={true}
+            message="Te encuentras en proceso de modificación...                                                ¿Estás segur@ de querer salir?"
+          />
     <div class="container">
         <div class="row">
             <div class="col-12" >
@@ -21,7 +27,7 @@ const ModifyDonation = (props) => {
           <Alert color="primary">Los campos marcados con un asterisco (*) son obligatorios.</Alert>
           </CardHeader>
           <CardBody>
-                <Form>
+                <Form autoComplete="off">
                     <div class="row justify-content-center">
                         <div class="col-4" >
                             <FormGroup>

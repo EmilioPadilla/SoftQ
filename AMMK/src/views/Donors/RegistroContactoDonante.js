@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Prompt } from 'react-router';
 
 import { Row, Modal, Form, FormGroup,  Dropdown,Button, Col } from "react-bootstrap";
 import axios from "axios";
@@ -173,6 +174,10 @@ class RegistroContactoDonante extends Component {
 
         return ( 
 <div className="content">
+<Prompt
+            when={true}
+            message="Te encuentras en proceso de registro...                                                ¿Estás segur@ de querer salir?"
+          />
         <div class="container-fluid">
           <h1 className="title">Registrar Contacto</h1>
           <Card>
@@ -182,7 +187,7 @@ class RegistroContactoDonante extends Component {
           </CardHeader>
           <CardBody>
             <div class="container">
-            <Form >
+            <Form autoComplete="off">
               
             <Form.Row>
               <FormGroup as={Col}>

@@ -41,8 +41,14 @@ class ViewContacts extends Component {
 <div className="content">
 
 <Col md="12">
+<div style={{
+            maxHeight: '400px',
+            overflowY: 'auto'
+          }}>
               <Table hover id="tablaC">
               </Table>
+              </div>
+
             </Col>
                
             </div>

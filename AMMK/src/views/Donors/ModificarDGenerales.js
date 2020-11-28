@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { FormGroup, Form, Input, Button } from "reactstrap";
 import axios from "axios";
+import { Prompt } from 'react-router';
+
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -12,6 +14,10 @@ const ModificarDGenerales = (props) => {
   ax(id);
   return (
     <div class="content">
+      <Prompt
+            when={true}
+            message="Te encuentras en proceso de modificación...                                                ¿Estás segur@ de querer salir?"
+          />
     <div class="container">
         <div class="row">
             <div class="col-12" >
