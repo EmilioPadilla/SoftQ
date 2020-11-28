@@ -9,7 +9,7 @@ import Form from "react-bootstrap/Form";
 // reactstrap components
 import { DropdownItem, Input, Row, Table, Button, Badge } from 'reactstrap';
 import SimpleTooltip from "../General/SimpleTooltip";
-
+import SendEmail from '../Donors/SendEmail'
 //Importing Icon library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -52,16 +52,19 @@ const ViewSpecificDonor = props =>{
           
           <CardBody>
               <Row>
-                  <Col md="6">
+                  <Col md="5">
                   <Badge color="primary">DATOS PERSONALES</Badge>
 
                   </Col>
-                  <Col md="6">
+                  <Col md="2">
                   <Link to={`/admin/ModificarGeneralDonante/${id}`}><button id="verDetalle" type="button" class="btn btn-info btn-sm" ><i class="fa fa-pencil-alt" ></i> </button>
                   <SimpleTooltip placement="top" target="verDetalle">Modificar</SimpleTooltip>
 
                   </Link>
 
+                  </Col>
+                  <Col md="2">
+                      <SendEmail/>
                   </Col>
               </Row>
 
@@ -256,9 +259,12 @@ function ax(idD){
     .then(function (resp){
       console.log(resp.data);
      document.getElementById("nombreDonante").innerHTML = resp.data[0].nombreCompleto1;
+     localStorage.setItem("name",resp.data[0].nombreCompleto1);
      document.getElementById("fechaCumple").innerHTML = resp.data[0].fechaCumpleaños1;
     document.getElementById("RFC1").innerHTML = resp.data[0].RFC1;
      document.getElementById("correo1").innerHTML = resp.data[0].correo1;
+     localStorage.setItem("correo",resp.data[0].correo1);
+
      document.getElementById("tel").innerHTML = resp.data[0].telefono1;
      document.getElementById("cel").innerHTML = resp.data[0].celular1;
      document.getElementById("razonSocial").innerHTML= resp.data[0].RazonSocial;
@@ -281,6 +287,8 @@ function ax(idD){
 
     
 }
+
+
 
 
 export default ViewSpecificDonor;

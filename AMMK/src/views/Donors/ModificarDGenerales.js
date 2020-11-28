@@ -50,7 +50,7 @@ const ModificarDGenerales = (props) => {
                     <div class="col-4">
 
                             <FormGroup>
-                            <label className="font-weight-bold">*&nbsp;<FontAwesomeIcon icon={['fas', 'calendar-alt']} />&nbsp;FECHA DE CUMPLEAÑOS: </label>
+                            <label className="font-weight-bold">&nbsp;<FontAwesomeIcon icon={['fas', 'calendar-alt']} />&nbsp;FECHA DE CUMPLEAÑOS: </label>
                             <Input
                                     id="fecha"
                                     
@@ -149,7 +149,7 @@ function modificar() {
             var cel= document.getElementById("celular").value ;
             var correo=document.getElementById("correo").value ;
     var idD=document.getElementById("valorId").value;
-  if (nom!= "" && fecha != ""&&rfc != ""&&tel != ""&&cel!= ""&&correo!= "") {
+  if (nom!= "" &&rfc != ""&&tel != ""&&cel!= ""&&correo!= "") {
     const donante = {
         nombreCompleto1: nom,
         fechaCumpleaños1: fecha,
