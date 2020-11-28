@@ -185,17 +185,16 @@ class RegistroDonacion extends Component {
 
             <Form >
               <Form.Row>
-                <Form.Group as={Row} controlId="fechaDonacion">
-                  <Form.Label>*&nbsp;<FontAwesomeIcon icon={['fas', 'calendar-alt']} />&nbsp;Fecha en que se realizó:</Form.Label>
+                <Form.Group as={Col} controlId="fechaDonacion">
+                  <Form.Label>*&nbsp;<FontAwesomeIcon icon={['fas', 'calendar-alt']} />&nbsp;FECHA EN QUE SE REALIZÓ</Form.Label>
                   <Form.Control name="fecha" type="date" id="fechaDonacion" placeholder=" / / " onChange={this.handleChange}/>
                   {errors.fecha.length > 0 &&
                     <span className='error'>{errors.fecha}</span>}
                 </Form.Group>
               
-                </Form.Row>
-                <Form.Row>
-              <FormGroup as={Row}>
-         <label>* Seleccione Tipo de Donación</label>
+                
+              <FormGroup as={Col}>
+         <label>* SELECCIONE TIPO DE DONACIÓN:</label>
          <Form.Control as="select" id="tipoDonacion" name="tipo"></Form.Control>
         </FormGroup>
 
@@ -203,22 +202,20 @@ class RegistroDonacion extends Component {
                
               
               <Form.Row>
-                <Form.Group as={Row} controlId="monto">
-                  <Form.Label>*&nbsp;<FontAwesomeIcon icon={['fas', 'money-bill']} />&nbsp;Monto:</Form.Label>
+                <Form.Group as={Col} controlId="monto">
+                  <Form.Label>*&nbsp;<FontAwesomeIcon icon={['fas', 'money-bill']} />&nbsp;MONTO:</Form.Label>
                   <Form.Control type="text" id="monto" name="monto"placeholder="$3,000.00" onChange={this.handleChange} />{errors.monto.length > 0 &&
                     <span className='error'>{errors.monto}</span>}
                 
                 </Form.Group>
-              </Form.Row>
-
-
-            <Form.Row>
-              <Form.Group as={Row} controlId="descripcion">
-                <Form.Label>*Descripción:</Form.Label>
+              
+              <Form.Group as={Col} controlId="descripcion">
+                <Form.Label>* DESCRIPCIÓN:</Form.Label>
                 <Form.Control type="text" id="descripcion" name="descripcion"placeholder="15 paquetes de arroz, 3 latas de atún y 5kg de frijols" onChange={this.handleChange} /> {errors.descripcion.length > 0 &&
                     <span className='error'>{errors.descripcion}</span>}
               </Form.Group>
               </Form.Row>
+              <div class="row justify-content-center">
 
               <Form.Row>
                 <Link to='/admin/ViewDonors'>
@@ -230,7 +227,7 @@ class RegistroDonacion extends Component {
               <Button onClick={this.onSubmit} type="submit">Registrar</Button>
               </Form.Group>
               </Form.Row>
-
+</div>
               
 
           </Form>

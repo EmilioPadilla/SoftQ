@@ -185,16 +185,12 @@ class RegistroContactoDonante extends Component {
             <Form >
               
             <Form.Row>
-              <FormGroup as={Row}>
+              <FormGroup as={Col}>
               <Form.Label>* Nombre del Contacto:</Form.Label>
          <Form.Control id="nombre" name="nombre" placeholder="Maria Sandoval" onChange={this.handleChange} ></Form.Control>{errors.nombre.length > 0 &&
                     <span className='error'>{errors.nombre}</span>}
        </FormGroup>
-
-       </Form.Row>
-              
-       <Form.Row>
-                <Form.Group as={Row} controlId="cargo">
+                <Form.Group as={Col} controlId="cargo">
                   <Form.Label>* Cargo:</Form.Label>
                   <Form.Control name="cargo" type="text" id="cargo" placeholder="Gerente Comercial" onChange={this.handleChange} />{errors.cargo.length > 0 &&
                     <span className='error'>{errors.cargo}</span>}
@@ -202,40 +198,37 @@ class RegistroContactoDonante extends Component {
               </Form.Row>
 
               <Form.Row>
-                <Form.Group as={Row} controlId="cumple">
+                <Form.Group as={Col} controlId="cumple">
                   <Form.Label><FontAwesomeIcon icon={['fas', 'calendar-alt']} />&nbsp;Fecha de Cumpleaños:</Form.Label>
                   <Form.Control type="date" name="cumple"id="cumple" placeholder=" / / " onChange={this.handleChange}/>{errors.cumple.length > 0 &&
                     <span className='error'>{errors.cumple}</span>}
                 </Form.Group>
               
-                </Form.Row>
                 
-               
-              
-              
-
-            <Form.Row>
-              <Form.Group as={Row} controlId="telefono" name="telefono">
-                <Form.Label><FontAwesomeIcon icon={['fas', 'phone-alt']} />&nbsp;Telefono:</Form.Label>
-                <Form.Control  name="telefono"type="text" id="telefono" placeholder="223 3333"onChange={this.handleChange} />{errors.telefono.length > 0 &&
-                    <span className='error'>{errors.telefono}</span>}
-              </Form.Group>
-              </Form.Row>
-              <Form.Row>
-              <Form.Group as={Row} controlId="celular">
-                <Form.Label>*&nbsp;<FontAwesomeIcon icon={['fas', 'mobile-alt']} />&nbsp;Celular:</Form.Label>
-                <Form.Control type="text" id="celular" name="celular"placeholder="442 434 7652" onChange={this.handleChange} />
-                {errors.celular.length > 0 &&
-                    <span className='error'>{errors.celular}</span>}</Form.Group>
-              </Form.Row>
-              <Form.Row>
-              <Form.Group as={Row} controlId="correo">
+              <Form.Group as={Col} controlId="correo">
                 <Form.Label>*&nbsp;<FontAwesomeIcon icon={['fas', 'envelope']} />&nbsp;Correo:</Form.Label>
                 <Form.Control type="email" id="correo" name="correo" placeholder="ejemplo@ejemplo.com"onChange={this.handleChange} />
                 {errors.correo.length > 0 &&
                     <span className='error'>{errors.correo}</span>}</Form.Group>
               </Form.Row>
 
+              
+              
+
+            <Form.Row>
+              <Form.Group as={Col} controlId="telefono" name="telefono">
+                <Form.Label><FontAwesomeIcon icon={['fas', 'phone-alt']} />&nbsp;Telefono:</Form.Label>
+                <Form.Control  name="telefono"type="text" id="telefono" placeholder="223 3333"onChange={this.handleChange} />{errors.telefono.length > 0 &&
+                    <span className='error'>{errors.telefono}</span>}
+              </Form.Group>
+             
+              <Form.Group as={Col} controlId="celular">
+                <Form.Label>*&nbsp;<FontAwesomeIcon icon={['fas', 'mobile-alt']} />&nbsp;Celular:</Form.Label>
+                <Form.Control type="text" id="celular" name="celular"placeholder="442 434 7652" onChange={this.handleChange} />
+                {errors.celular.length > 0 &&
+                    <span className='error'>{errors.celular}</span>}</Form.Group>
+              </Form.Row>
+              
               <Col align="left">
 
               <Button onClick={this.onSubmit} type="submit">Registrar</Button>
