@@ -3,21 +3,22 @@ import { Link } from "react-router-dom";
 import {FormGroup, Form, Input, Button, Alert, Modal, ModalBody, ModalFooter} from "reactstrap"
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { API_BASE_URL, FRONT_BASE_URL } from 'index';
 
 var open = false;
 
 const DeleteAccountEmp = props =>{
     
-        const login = localStorage.getItem("isLoggedIn");
-        const idRol = localStorage.getItem("idRol");
-        //Redirect in case of wrong role or no login
-        if (!login ) {
-            window.location = "http://localhost:3000/login";
-        }else if(idRol==2){
-            window.location = "http://localhost:3000/general/NurseIndex";
-        }else if (idRol==1){
-            window.location = "http://localhost:3000/admin/Nomina/Nomina";
-        }
+    const login = localStorage.getItem("isLoggedIn");
+    const idRol = localStorage.getItem("idRol");
+    //Redirect in case of wrong role or no login
+    if (!login ) {
+        window.location = FRONT_BASE_URL+"login";
+    }else if(idRol==2){
+        window.location = FRONT_BASE_URL+"general/NurseIndex";
+    }else if (idRol==1){
+        window.location = FRONT_BASE_URL+"admin/Nomina/Nomina";
+    }
     const {id} = props.match.params;
     ax(id);
     return(
@@ -118,7 +119,7 @@ const DeleteAccountEmp = props =>{
 
 
 function ax(idC){
-    axios.get("http://localhost:8000/api/account/delete/information/"+idC)
+    axios.get(API_BASE_URL+"account/delete/information/"+idC)
           .then(function (resp){
             console.log(resp.data);
            document.getElementById("usernameModify").value = resp.data[0].username;
@@ -142,7 +143,7 @@ function hideModal(){
 
 function eliminar(){
     var idCuenta = document.getElementById("valorId").value;
-        axios.delete('http://localhost:8000/api/account/'+idCuenta)
+        axios.delete(API_BASE_URL+'account/'+idCuenta)
               .then(function (resp){
                 console.log(resp.data);
               } );
@@ -151,7 +152,7 @@ function eliminar(){
            'Se eliminó la cuenta',
            'success'
            ).then(function() {
-               window.location = "http://localhost:3000/admin/Cuentas/PrincipalEmp";
+               window.location = FRONT_BASE_URL+"admin/Cuentas/PrincipalEmp";
         });
 }
 

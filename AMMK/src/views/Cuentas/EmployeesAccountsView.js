@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import AccountPlusIcon from 'mdi-react/AccountPlusIcon';
 import AccountSearchIcon from 'mdi-react/AccountSearchIcon';
 import DeleteIcon from 'mdi-react/DeleteIcon';
+import { API_BASE_URL, FRONT_BASE_URL } from 'index';
 
 //Importing Icon library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -69,7 +70,7 @@ class EmployeesAccountView extends React.Component {
   
 
   crearTabla(){
-    axios.get("http://localhost:8000/api/account/table/all")
+    axios.get(API_BASE_URL+"account/table/all")
       .then(function (resp){
         respuesta = respuesta.concat(resp.data);
         document.getElementById("tablaCE").innerHTML = respuesta;
@@ -93,7 +94,7 @@ class EmployeesAccountView extends React.Component {
     if(palabra == ""){
       palabra = "allOfEm";
     }
-    axios.get("http://localhost:8000/api/account/table/search/"+palabra+"/"+numRol)
+    axios.get(API_BASE_URL+"account/table/search/"+palabra+"/"+numRol)
       .then(function (resp){
         respuesta = resp.data;
         document.getElementById("tablaCE").innerHTML = respuesta;
@@ -114,7 +115,7 @@ class EmployeesAccountView extends React.Component {
      numRol=0;
    }
   
-    axios.get("http://localhost:8000/api/account/table/roles/"+numRol)
+    axios.get(API_BASE_URL+"account/table/roles/"+numRol)
       .then(function (resp){
         respuesta = resp.data;
         document.getElementById("tablaCE").innerHTML = respuesta;
@@ -124,16 +125,16 @@ class EmployeesAccountView extends React.Component {
 
 
   render() {
-    /*const login = localStorage.getItem("isLoggedIn");
+    const login = localStorage.getItem("isLoggedIn");
     const idRol = localStorage.getItem("idRol");
     //Redirect in case of wrong role or no login
     if (!login ) {
-      window.location = "http://localhost:3000/login";
+      window.location = FRONT_BASE_URL+"login";
     }else if(idRol==2){
-      window.location = "http://localhost:3000/general/NurseIndex";
+      window.location = FRONT_BASE_URL+"general/NurseIndex";
     }else if (idRol==1){
-      window.location = "http://localhost:3000/admin/Nomina/Nomina";
-    }*/
+      window.location = FRONT_BASE_URL+"admin/Nomina/Nomina";
+    }
 
 
     this.crearTabla();

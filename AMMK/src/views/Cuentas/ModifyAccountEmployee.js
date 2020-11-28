@@ -4,20 +4,21 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import { Link } from "react-router-dom";
 import { Prompt } from 'react-router'
+import { API_BASE_URL, FRONT_BASE_URL } from 'index';
 
 
 const ModifyAccountEmp = props =>{
     
-   /* const login = localStorage.getItem("isLoggedIn");
+   const login = localStorage.getItem("isLoggedIn");
     const idRol = localStorage.getItem("idRol");
     //Redirect in case of wrong role or no login
     if (!login ) {
-        window.location = "http://localhost:3000/login";
+        window.location = FRONT_BASE_URL+"login";
     }else if(idRol==2){
-        window.location = "http://localhost:3000/general/NurseIndex";
+        window.location = FRONT_BASE_URL+"general/NurseIndex";
     }else if (idRol==1){
-        window.location = "http://localhost:3000/admin/Nomina/Nomina";
-    }*/
+        window.location = FRONT_BASE_URL+"admin/Nomina/Nomina";
+    }
 
     const {id} = props.match.params;
     ax(id);
@@ -117,7 +118,7 @@ const ModifyAccountEmp = props =>{
 }
 
 function ax(idC){
-    axios.get("http://localhost:8000/api/account/"+idC)
+    axios.get(API_BASE_URL+"account/"+idC)
           .then(function (resp){
            document.getElementById("usernameModify").value = resp.data[0].username;
            document.getElementById("valorId").value = idC;
@@ -145,21 +146,30 @@ function guardar(){
             'error'
         )
     }else if((passwrd!="" && iguales==0) || user.localeCompare(document.getElementById("ogUsername").value) != 0){
-        const cuentaEditar = {
-            username: user,
-            password: passwrd,
-        }
-        axios.put('http://localhost:8000/api/account/'+idCuenta, cuentaEditar)
-              .then(function (resp){
-              } );
-
-         Swal.fire(
-          '¡Listo!',
-           'Cambios guardados',
-           'success'
-           ).then(function() {
-               window.location = "http://localhost:3000/admin/Cuentas/PrincipalEmp";
-        });
+        if (passwrd.match(/[A-Z]/) == null){
+                Swal.fire(
+                    'ERROR!',
+                    'La contraseña debe tener al menos una letra mayúscula',
+                    'error'
+                )
+            }else{
+                const cuentaEditar = {
+                    username: user,
+                    password: passwrd,
+                }
+                axios.put(API_BASE_URL+'account/'+idCuenta, cuentaEditar)
+                      .then(function (resp){
+                      } );
+        
+                 Swal.fire(
+                  '¡Listo!',
+                   'Cambios guardados',
+                   'success'
+                   ).then(function() {
+                       window.location = FRONT_BASE_URL+"admin/Cuentas/PrincipalEmp";
+                });
+            }
+        
     }else if(iguales != 0){
         Swal.fire(
             'ERROR!',

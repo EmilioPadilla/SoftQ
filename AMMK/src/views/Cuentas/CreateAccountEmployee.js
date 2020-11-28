@@ -5,13 +5,14 @@ import {FormGroup, Form, Input} from "react-bootstrap";
 import {Alert, Button} from "reactstrap";
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { API_BASE_URL, FRONT_BASE_URL } from 'index';
 
 class CreateAccEmp extends React.Component{
 
     crearSelect(){
         var sel='<option value="-1" disabled selected>Selecciona una opción</option>';
         const num=1;
-        axios.get("http://localhost:8000/api/account/")
+        axios.get(API_BASE_URL+"account/")
           .then(function (resp){
             console.log(resp.data);
             //Ciclo for para obtener cada uno de los elementos
@@ -39,7 +40,6 @@ class CreateAccEmp extends React.Component{
 
     onSubmit(e) {
         e.preventDefault()
-        var idCuenta = 0;
         var x = document.getElementById("passwd").value;
         var y = document.getElementById("username").value;
         var z = document.getElementById("selectEmpleado").value; 
@@ -48,46 +48,63 @@ class CreateAccEmp extends React.Component{
         var iguales = x.localeCompare(w);
 
 
-        if(x.length < 8){
+        if(x.length < 8 && x.length > 0){
             Swal.fire(
                 'ERROR!',
                 'La contraseña debe tener al menos 8 caracteres',
                 'error'
             )
+        }else if (y==""){
+            Swal.fire(
+                'ERROR!',
+                'Verifica que todos los campos obligatorios estén completos',
+                'error'
+            )
         }else if(iguales==0 && parseInt(z) > 0 && y!="" && x!=""){
-         const cuenta = {
-          user: y,
-          pass: x,
-          idEmp: z,
-          rol: v,
-        };
-        axios.post('http://localhost:8000/api/account/', cuenta)
-          .then(function (resp){
-            if(resp.data==1){
-                setTimeout(function(){
-                    Swal.fire(
-                        '¡Listo!',
-                        'Datos guardados',
-                        'success'
-                        ).then(function() {
-                            window.location = "http://localhost:3000/admin/Cuentas/CrearCuentaEmp";
-                        });
-                },(1000));
-            }else{
+            if (x.match(/[A-Z]/) == null){
                 Swal.fire(
                     'ERROR!',
-                    'Hubo un error al tratar de crear la cuenta, intentalo con un Nombre de Usuario distinto',
+                    'La contraseña debe tener al menos una letra mayúscula',
                     'error'
                 )
+            }else{
+                const cuenta = {
+                    user: y,
+                    pass: x,
+                    idEmp: z,
+                    rol: v,
+                  };
+                  axios.post(API_BASE_URL+'account/', cuenta)
+                    .then(function (resp){
+                      if(resp.data==1){
+                          setTimeout(function(){
+                              Swal.fire(
+                                  '¡Listo!',
+                                  'Datos guardados',
+                                  'success'
+                                  ).then(function() {
+                                      window.location = FRONT_BASE_URL+"admin/Cuentas/CrearCuentaEmp";
+                                  });
+                          },(1000));
+                      }else{
+                          Swal.fire(
+                              'ERROR!',
+                              'Hubo un error al tratar de crear la cuenta, intentalo con un Nombre de Usuario distinto',
+                              'error'
+                          )
+                      }
+                    });          
             }
-          });
-       
-        
-        
+        }else if(iguales != 0){
+            Swal.fire(
+                'ERROR!',
+                'Las contraseñas no coinciden',
+                'error'
+            )
         }else{
             Swal.fire(
                 'ERROR!',
-                'Las contraseñas no coinciden o no has llenado algun valor',
+                'Verifica que todos los campos obligatorios estén completos',
                 'error'
             )
         }
@@ -96,16 +113,16 @@ class CreateAccEmp extends React.Component{
 
 
     render(){
-        /*const login = localStorage.getItem("isLoggedIn");
+        const login = localStorage.getItem("isLoggedIn");
         const idRol = localStorage.getItem("idRol");
         //Redirect in case of wrong role or no login
         if (!login ) {
-            window.location = "http://localhost:3000/login";
+            window.location = FRONT_BASE_URL+"login";
         }else if(idRol==2){
-            window.location = "http://localhost:3000/general/NurseIndex";
+            window.location = FRONT_BASE_URL+"general/NurseIndex";
         }else if (idRol==1){
-            window.location = "http://localhost:3000/admin/Nomina/Nomina";
-        }*/
+            window.location = FRONT_BASE_URL+"admin/Nomina/Nomina";
+        }
         this.crearSelect();
         return(
             <div class="content">

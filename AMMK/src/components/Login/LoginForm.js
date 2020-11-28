@@ -4,6 +4,7 @@ import placeholder from "./../../assets/img/placeholder.jpg";
 import {FormGroup, Form, Input, Button} from "react-bootstrap"
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { API_BASE_URL, FRONT_BASE_URL } from 'index';
 
 export class LoginForm extends React.Component{
 
@@ -17,7 +18,7 @@ export class LoginForm extends React.Component{
             username: user,
             password: pass,
         };
-        axios.post("http://localhost:8000/api/account/login/confirmation/",info)
+        axios.post(API_BASE_URL+"account/login/confirmation/",info)
         .then(function (resp){
           if(resp.data == -1){
             Swal.fire(
@@ -37,11 +38,11 @@ export class LoginForm extends React.Component{
             localStorage.setItem("isLoggedIn", true);
             var idRol = localStorage.getItem("idRol");
             if(idRol==2){
-                window.location = "http://localhost:3000/general/NurseIndex";
+                window.location = FRONT_BASE_URL+"general/NurseIndex";
             }else if (idRol==1){
-                window.location = "http://localhost:3000/admin/Nomina/Nomina";
+                window.location = FRONT_BASE_URL+"admin/Nomina/Nomina";
             }else{
-                window.location = "http://localhost:3000/general/GeneralIndex";
+                window.location = FRONT_BASE_URL+"general/GeneralIndex";
             }
           }
         } );

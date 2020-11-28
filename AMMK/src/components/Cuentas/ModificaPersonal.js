@@ -4,6 +4,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import { Link } from "react-router-dom";
 import { Prompt } from 'react-router'
+import { API_BASE_URL, FRONT_BASE_URL } from 'index';
 
 
 export class ModificaPersonal extends React.Component{
@@ -25,7 +26,7 @@ export class ModificaPersonal extends React.Component{
     datos(){
         var id = localStorage.getItem("idCuenta");
 
-        axios.get("http://localhost:8000/api/account/"+id)
+        axios.get(API_BASE_URL+"account/"+id)
           .then(function (resp){
            document.getElementById("usernamePersonal").value = resp.data[0].username;
            document.getElementById("ogUsername").value = resp.data[0].username;
@@ -70,7 +71,7 @@ export class ModificaPersonal extends React.Component{
                     username: y,
                     password: x,
                 };
-                axios.put('http://localhost:8000/api/account/'+id, cuenta)
+                axios.put(API_BASE_URL+'account/'+id, cuenta)
                   .then(resp => {console.log(resp.data)});
                 //Buscamos el username que acabamos de registrar
                 setTimeout(function() {
@@ -80,7 +81,7 @@ export class ModificaPersonal extends React.Component{
                 'Datos guardados',
                 'success'
                 ).then(function() {
-                    window.location = "http://localhost:3000/admin/Cuentas/CuentaPersonal";
+                    window.location = FRONT_BASE_URL+"admin/Cuentas/CuentaPersonal";
                 });
             }
          
@@ -102,6 +103,16 @@ export class ModificaPersonal extends React.Component{
 
 
     render(){
+        const login = localStorage.getItem("isLoggedIn");
+        const idRol = localStorage.getItem("idRol");
+        //Redirect in case of wrong role or no login
+        if (!login ) {
+            window.location = FRONT_BASE_URL+"login";
+        }else if(idRol==2){
+            window.location = FRONT_BASE_URL+"general/NurseIndex";
+        }else if (idRol==1){
+            window.location = FRONT_BASE_URL+"admin/Nomina/Nomina";
+        }
         this.datos()
         return(
             <div class="content">
