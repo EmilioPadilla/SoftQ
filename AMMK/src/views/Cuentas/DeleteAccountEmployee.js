@@ -1,21 +1,24 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-import {FormGroup, Form, Input, Button, Alert} from "reactstrap"
+import {FormGroup, Form, Input, Button, Alert, Modal, ModalBody, ModalFooter} from "reactstrap"
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { API_BASE_URL, FRONT_BASE_URL } from 'index';
 
+var open = false;
 
 const DeleteAccountEmp = props =>{
-        const login = localStorage.getItem("isLoggedIn");
-        const idRol = localStorage.getItem("idRol");
-        //Redirect in case of wrong role or no login
-        if (!login ) {
-            window.location = "http://localhost:3000/login";
-        }else if(idRol==2){
-            window.location = "http://localhost:3000/general/NurseIndex";
-        }else if (idRol==1){
-            window.location = "http://localhost:3000/admin/Nomina/Nomina";
-        }
+    
+    const login = localStorage.getItem("isLoggedIn");
+    const idRol = localStorage.getItem("idRol");
+    //Redirect in case of wrong role or no login
+    if (!login ) {
+        window.location = FRONT_BASE_URL+"login";
+    }else if(idRol==2){
+        window.location = FRONT_BASE_URL+"general/NurseIndex";
+    }else if (idRol==1){
+        window.location = FRONT_BASE_URL+"admin/Nomina/Nomina";
+    }
     const {id} = props.match.params;
     ax(id);
     return(
@@ -23,8 +26,10 @@ const DeleteAccountEmp = props =>{
                 <div class="container">
                     <div class="row">
                         <div class="col-12" >
-                            <h2 align="center">Eliminar Cuenta de Empleado</h2>
-                            <Alert align="center" color="danger">ATENCIÓN: ELIMINAR UNA CUENTA ES UNA ACCIÓN PERMANENTE</Alert>
+                            <h2 align="center" className="title">Eliminar Cuenta de Empleado</h2>
+                            <div class="row justify-content-center">
+                                <Alert color="danger">ATENCIÓN: ELIMINAR UNA CUENTA ES UNA ACCIÓN PERMANENTE</Alert>
+                            </div>
                             <Form>
                                 <div class="row justify-content-center">
                                     <div class="col-4" >
@@ -65,6 +70,13 @@ const DeleteAccountEmp = props =>{
                                         </FormGroup>
                                     </div>
                                 </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-1">
+                                        <div class="spinner-border" role="status" id="spnCirc" align="center">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+                                    </div>
+                                </div>
                                 <br/>
                                 <div class="row justify-content-center">
                                     <div class="col-4" align="center">
@@ -86,6 +98,17 @@ const DeleteAccountEmp = props =>{
 
                                 </Input>
                             </div>
+                            <div align="center"  >
+                                <Modal id="modalAcc" isOpen={false} >
+                                    <ModalBody>
+                                       ¿Estás segur@ que deseas eliminar la cuenta?
+                                    </ModalBody>
+                                    <ModalFooter>
+                                      <Button color="primary"onClick={()=>hideModal()}>No</Button>
+                                      <Button color="danger" onClick={()=>eliminar()}>Sí</Button>
+                                    </ModalFooter>
+                                </Modal>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -93,20 +116,34 @@ const DeleteAccountEmp = props =>{
     )
 }
 
+
+
 function ax(idC){
-    axios.get("http://localhost:8000/api/account/delete/information/"+idC)
+    axios.get(API_BASE_URL+"account/delete/information/"+idC)
           .then(function (resp){
             console.log(resp.data);
            document.getElementById("usernameModify").value = resp.data[0].username;
            document.getElementById("nombreModify").value = resp.data[0].nombreCompleto;
            document.getElementById("rolModify").value = resp.data[0].nombreRol;
            document.getElementById("valorId").value = idC;
+           document.getElementById('spnCirc').style.display = 'none';
           } );
+}
+
+function displayModal(){
+    console.log(open);
+    open = true;
+    
+}
+
+function hideModal(){
+    open = false;
+    
 }
 
 function eliminar(){
     var idCuenta = document.getElementById("valorId").value;
-        axios.delete('http://localhost:8000/api/account/'+idCuenta)
+        axios.delete(API_BASE_URL+'account/'+idCuenta)
               .then(function (resp){
                 console.log(resp.data);
               } );
@@ -115,7 +152,7 @@ function eliminar(){
            'Se eliminó la cuenta',
            'success'
            ).then(function() {
-               window.location = "http://localhost:3000/admin/Cuentas/PrincipalEmp";
+               window.location = FRONT_BASE_URL+"admin/Cuentas/PrincipalEmp";
         });
 }
 
