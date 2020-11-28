@@ -1,24 +1,37 @@
 import React, { Component } from "react";
 import { FormGroup, Form, Input, Button } from "reactstrap";
 import axios from "axios";
+import { Prompt } from 'react-router';
+
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import { Progress, Alert, Col, Card, CardBody, CardHeader } from "reactstrap";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const ModifyDonation = (props) => {
   const { id } = props.match.params;
   ax(id);
   return (
     <div class="content">
+       <Prompt
+            when={true}
+            message="Te encuentras en proceso de modificación...                                                ¿Estás segur@ de querer salir?"
+          />
     <div class="container">
         <div class="row">
             <div class="col-12" >
-                <h2 align="center">Modificar Donación</h2>
-
-                <Form>
+                <h2>Modificar Donación</h2>
+                <Card>
+          <CardHeader>
+          <h3 align="center" className="title">Datos Donación</h3>
+          <Alert color="primary">Los campos marcados con un asterisco (*) son obligatorios.</Alert>
+          </CardHeader>
+          <CardBody>
+                <Form autoComplete="off">
                     <div class="row justify-content-center">
                         <div class="col-4" >
                             <FormGroup>
-                            <label className="font-weight-bold">FECHA EN QUE SE REALIZÓ: </label>
+                            <label className="font-weight-bold">*&nbsp;<FontAwesomeIcon icon={['fas', 'calendar-alt']} />&nbsp;FECHA EN QUE SE REALIZÓ: </label>
                             <Input
                                     id="fecha"
                                     
@@ -26,11 +39,10 @@ const ModifyDonation = (props) => {
                                 />    
                      </FormGroup>
                         </div>
-                    </div>
-                    <div class="row justify-content-center">
+                    
                         <div class="col-4">
                             <FormGroup>
-                            <label className="font-weight-bold">TIPO DONACIÓN: </label>
+                            <label className="font-weight-bold">* TIPO DONACIÓN: </label>
                             <Input
                                     id="tipo"
                                     
@@ -44,7 +56,7 @@ const ModifyDonation = (props) => {
                     
                         <div class="col-4">
                             <FormGroup >
-                            <label className="font-weight-bold">MONTO: </label>
+                            <label className="font-weight-bold">*&nbsp;<FontAwesomeIcon icon={['fas', 'money-bill']} />&nbsp;MONTO: </label>
                             <Input
                                     id="monto"
                                     
@@ -52,11 +64,10 @@ const ModifyDonation = (props) => {
                                 /> 
                             </FormGroup>
                         </div>
-                    </div>
-                    <div class="row justify-content-center">
+                    
                         <div class="col-4">
                             <FormGroup>
-                            <label className="font-weight-bold">DESCRIPCIÓN: </label>
+                            <label className="font-weight-bold">* DESCRIPCIÓN: </label>
                             <Input
                                     id="descripcion"
                                     
@@ -86,6 +97,8 @@ const ModifyDonation = (props) => {
 
                     </Input>
                 </div>
+                </CardBody>
+                </Card>
             </div>
         </div>
     </div>
@@ -126,7 +139,7 @@ function modificar() {
       });
 
     Swal.fire("¡Listo!", "Cambios guardados", "success").then(function () {
-      window.location = "http://localhost:3000/admin/ViewDonors";
+      window.location = "http://localhost:3000/admin/ViewSpecificDonor/"+idD;
     });
   } else {
     Swal.fire(
