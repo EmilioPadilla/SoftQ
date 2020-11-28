@@ -2,7 +2,11 @@ import React, { Component } from "react";
 import { FormGroup, Form, Input, Button } from "reactstrap";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { Progress, Alert,  Card, CardBody, CardHeader } from "reactstrap";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import { Link } from "react-router-dom";
+
 const TakeOutD = (props) => {
     const login = localStorage.getItem("isLoggedIn");
     const idRol = localStorage.getItem("idRol");
@@ -19,15 +23,21 @@ const TakeOutD = (props) => {
   return (
     <div class="content">
     <div class="container">
+
         <div class="row">
             <div class="col-12" >
+            <h2 >Egresar Donante</h2>
 
-                <h2 align="center">Egresar Donante</h2>
+                <Card>
+          <CardHeader>
+          <h3 align="center" className="title">Proceso de Egreso</h3>
+          </CardHeader>
+          <CardBody>
                 <Form>
                     <div class="row justify-content-center">
                         <div class="col-4" >
                             <FormGroup>
-                            <label className="font-weight-bold">FECHA DE EGRESO: </label>
+                            <label className="font-weight-bold">*&nbsp;<FontAwesomeIcon icon={['fas', 'calendar-alt']} />&nbsp;FECHA DE EGRESO: </label>
                             <Input
                                     id="fecha"
                                     
@@ -39,7 +49,7 @@ const TakeOutD = (props) => {
                     <div class="row justify-content-center">
                         <div class="col-4">
                             <FormGroup>
-                            <label className="font-weight-bold">MOTIVO DE EGRESO: </label>
+                            <label className="font-weight-bold">* MOTIVO DE EGRESO: </label>
                             <Input
                                     id="motivo"
                                     
@@ -72,6 +82,9 @@ const TakeOutD = (props) => {
 
                     </Input>
                 </div>
+                </CardBody>
+                </Card>
+
             </div>
         </div>
     </div>
