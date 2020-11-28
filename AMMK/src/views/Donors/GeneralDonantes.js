@@ -110,7 +110,7 @@ localStorage.setItem("recurrencia", JSON.stringify(tipoRecurrencia));
            <Card>
           <CardHeader>
           <h3 align="center" className="title">Datos Generales</h3>
-          <Progress striped color="primary" value="50"></Progress>
+          <Progress striped color="primary" value="20"></Progress>
           <br></br>
           <Alert color="primary">Los campos marcados con un asterisco (*) son obligatorios.</Alert>
           </CardHeader>
