@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Prompt } from 'react-router';
+import { API_BASE_URL, FRONT_BASE_URL } from 'index';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Progress, Alert, Col, Card, CardBody, CardHeader } from "reactstrap";
@@ -94,14 +95,9 @@ class RDonantesPatronato extends Component {
     };
   
     localStorage.setItem("patronato", JSON.stringify(donantePatronato));
-    window.location = "http://localhost:3000/admin/Facturacion";
+    window.location = FRONT_BASE_URL+"admin/Facturacion";
   }
-    //axios.post('http://localhost:8000/api/donantes/', donantePatronato).then(res => {console.log(res.data)});
-    //Swal.fire(
-    //  'Good job!',
-    //  'Pokemon Added Successfully',
-    //  'success'
-   // )
+   
 
   }
   
@@ -179,21 +175,20 @@ class RDonantesPatronato extends Component {
     const login = localStorage.getItem("isLoggedIn");
     const idRol = localStorage.getItem("idRol");
     //Redirect in case of wrong role or no login
-    /*if (!login ) {
-        window.location = "http://localhost:3000/login";
-    }else if(idRol==2){
-        window.location = "http://localhost:3000/general/NurseIndex";
-    }else if (idRol==1){
-        window.location = "http://localhost:3000/admin/Nomina/Nomina";
-    }
-    */
+    if (!login ) {
+      window.location = FRONT_BASE_URL+"login";
+  }else if(idRol==2){
+      window.location = FRONT_BASE_URL+"general/NurseIndex";
+  }else if (idRol==1){
+      window.location = FRONT_BASE_URL+"admin/Nomina/Nomina";
+  }
     const {errors} = this.state;
 
     return (
       <div className="content">
-        <Prompt
+         <Prompt
             when={true}
-            message="Te encuentras en proceso de registro...                                                ¿Estás segur@ de querer salir?"
+            message="Te encuentras en proceso de modificación... ¿Estás segur@ de querer salir?"
           />
         <div class="container-fluid">
           <h1 className="title">Registrar Donante</h1>

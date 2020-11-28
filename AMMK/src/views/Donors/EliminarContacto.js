@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import {FormGroup, Form, Input, Button} from "reactstrap"
 import axios from 'axios';
+import { API_BASE_URL, FRONT_BASE_URL } from 'index';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Progress, Alert, Col, Card, CardBody, CardHeader } from "reactstrap";
@@ -98,7 +99,7 @@ const EliminarContacto = props =>{
                                 </div>
                                 <div class="row justify-content-center">
                                     <div class="col-4" align="center">
-                                    <Link to="/admin/ViewDonors">
+                                    <Link to={`/admin/ViewSpecificDonor/${localStorage.getItem("idD")}`}>
                                             <Button className="btn-fill" color="primary" >
                                                 Regresar
                                             </Button>
@@ -126,7 +127,7 @@ const EliminarContacto = props =>{
 }
 
 function ax(idC){
-    axios.get("http://localhost:8000/api/donorContacts/delete/"+idC)
+    axios.get(API_BASE_URL+"donorContacts/delete/"+idC)
           .then(function (resp){
             console.log(resp.data);
            document.getElementById("nombre").value = resp.data[0].nombreCompleto;
@@ -143,7 +144,7 @@ function ax(idC){
 function eliminar(){
     var idD = document.getElementById("valorId").value;
     console.log(idD);
-        axios.delete('http://localhost:8000/api/contactoDonante/'+idD)
+        axios.delete(API_BASE_URL+'contactoDonante/'+idD)
               .then(function (resp){
                 console.log(resp.data);
               } );
@@ -152,7 +153,7 @@ function eliminar(){
            'Se ha eliminado la donación!',
            'success'
            ).then(function() {
-               window.location = "http://localhost:3000/admin/ViewDonors";
+               window.location = FRONT_BASE_URL+"admin/ViewSpecificDonor"+localStorage.getItem("idD");
         });
 }
 

@@ -86,13 +86,13 @@ class DonacionController extends Controller
      */
     public function show($id)
     {
-        /*$datos = DB::table('donacion')
+        $datos = DB::table('donacion')
                 ->join('tipo_donacion', 'tipo_donacion.id', '=', 'donacion.idTipoDonacion')
-                ->select( 'donacion.idTipoDonacion', 'donacion.fechaDonacion','donacion.descripcion','donacion.monto')
+                ->select( 'tipo_donacion.nombre', 'donacion.fechaDonacion','donacion.descripcion','donacion.monto')
                 ->where('donacion.id',$id)
                 ->get();
-        return $datos;*/
-        return Donacion::where('id',$id)->get();
+        return $datos;
+       // return Donacion::where('id',$id)->get();
     }
 
     /**
