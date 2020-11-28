@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import ViewDonations from 'views/Donors/ViewDonations'
 import ViewContacts from 'views/Donors/ViewContacts'
+import { Progress, Alert, Col, Card, CardBody, CardHeader } from "reactstrap";
 
 import Form from "react-bootstrap/Form";
 
 // reactstrap components
-import { DropdownItem, Input, Row, Table, Col, Alert, Button, Badge } from 'reactstrap';
+import { DropdownItem, Input, Row, Table, Button, Badge } from 'reactstrap';
 import SimpleTooltip from "../General/SimpleTooltip";
 
 //Importing Icon library
@@ -46,12 +47,24 @@ const ViewSpecificDonor = props =>{
         <h3 className="title" id="nombreDonante"></h3>
         <i class="fa fa-envelope-o" aria-hidden="true"></i>
 
+        <div class="container-fluid">
+        <Card>
+          
+          <CardBody>
+              <Row>
+                  <Col md="6">
+                  <Badge color="primary">DATOS PERSONALES</Badge>
 
-        <Badge color="primary">DATOS GENERALES</Badge>
-        <Link to={`/admin/ModificarGeneralDonante/${id}`}><button id="verDetalle" type="button" class="btn btn-info btn-sm" ><i class="fa fa-pencil-alt" ></i> </button></Link>
+                  </Col>
+                  <Col md="6">
+                  <Link to={`/admin/ModificarGeneralDonante/${id}`}><button id="verDetalle" type="button" class="btn btn-info btn-sm" ><i class="fa fa-pencil-alt" ></i> </button>
+                  <SimpleTooltip placement="top" target="verDetalle">Modificar</SimpleTooltip>
 
-        <br></br>
-        <br></br>
+                  </Link>
+
+                  </Col>
+              </Row>
+
         <Form.Row>
               <Form.Group as={Col} controlId="fechaCumple">
               <p className="font-weight-bold">FECHA DE CUMPLEAÑOS: </p>
@@ -87,15 +100,32 @@ const ViewSpecificDonor = props =>{
                                 <p id="correo1"></p>
                   </Form.Group>
                   </Form.Row>
+                  </CardBody>
+                  </Card>
+                  </div>
+
+            <br></br>
+            <br></br>
+            <div class="container-fluid">
+            <Card>
+          
+          <CardBody>
+              <Row>
+                  <Col md="6">
+                  <Badge color="primary">DATOS FACTURACIÓN</Badge>
+
+                  </Col>
+                  <Col md="6">
+                  <Link to={`/admin/ModificarDFacturacion/${id}`}><button id="verDetalle" type="button" class="btn btn-info btn-sm" ><i class="fa fa-pencil-alt" ></i> </button>
+                  <SimpleTooltip placement="top" target="verDetalle">Modificar</SimpleTooltip>
+
+                  </Link>
+
+                  </Col>
+              </Row>          
+          
                   
-
-            <br></br>
-            <br></br>
-            <Badge color="primary">DATOS FACTURACIÓN</Badge>
-            <Link to={`/admin/ModificarDFacturacion/${id}`}><button id="verDetalle" type="button" class="btn btn-info btn-sm" ><i class="fa fa-pencil-alt" ></i> </button></Link>
-
-            <br></br>
-            <br></br>
+            
         <Form.Row>
               <Form.Group as={Col}>
               <p className="font-weight-bold">RAZÓN SOCIAL:</p>
@@ -186,17 +216,25 @@ const ViewSpecificDonor = props =>{
                   </Form.Group></Form.Row>
                   <br></br>
                   <br></br>
-
-                  <Badge color="primary">CONTACTOS:</Badge>
+                  </CardBody>
+</Card>
+</div>
+<Card>
+          
+          <CardBody>
+                  <Badge color="primary">CONTACTOS</Badge>
 
                <ViewContacts/>
-
-
+                </CardBody>
+                </Card>
           <br></br>
+          <Card>
 
-<Badge color="primary">DONACIONES:</Badge>
+          <CardBody>
+                  <Badge color="primary">DONACIONES</Badge>
 <ViewDonations/>
-
+</CardBody>
+                </Card>
 <br></br> 
 
 <div>
