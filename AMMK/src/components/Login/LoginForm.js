@@ -32,8 +32,8 @@ export class LoginForm extends React.Component{
                 'error'
                 )
           }else{
-            localStorage.setItem("idCuenta",resp.data[0]);
-            localStorage.setItem("idRol",resp.data[1]);
+            localStorage.setItem("idCuenta",resp.data[0].id);
+            localStorage.setItem("idRol",resp.data[0].idRol);
             localStorage.setItem("isLoggedIn", true);
             var idRol = localStorage.getItem("idRol");
             if(idRol==2){

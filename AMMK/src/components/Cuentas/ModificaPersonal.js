@@ -1,28 +1,41 @@
 import React from "react";
-import {FormGroup, Form, Input, Button} from "reactstrap"
+import {FormGroup, Form, Input, Button, Alert, } from "reactstrap"
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { Link } from "react-router-dom";
+import { Prompt } from 'react-router'
 
 
 export class ModificaPersonal extends React.Component{
+    
 
     constructor(props) {
         super(props)
-    
+        this.state = {
+            ogUsername: "",
+        }  
+
         // Setting up functions
-        this.onSubmit = this.onSubmit.bind(this);
-    
-        
+        this.datos = this.datos.bind(this);
     }
+
+
+
 
     datos(){
         var id = localStorage.getItem("idCuenta");
+
         axios.get("http://localhost:8000/api/account/"+id)
           .then(function (resp){
            document.getElementById("usernamePersonal").value = resp.data[0].username;
-          } );
+           document.getElementById("ogUsername").value = resp.data[0].username;
+           document.getElementById('spnCirc').style.display = 'none';
+           
+          } ); 
+          
     }
+
+    
 
     onSubmit(e) {
         e.preventDefault()
@@ -31,35 +44,57 @@ export class ModificaPersonal extends React.Component{
         var y = document.getElementById("usernamePersonal").value;
         var w = document.getElementById("confPassPersonal").value;
         var iguales = x.localeCompare(w);
- 
-        if(iguales==0 && y!=""){
-         const cuenta = {
-          username: y,
-          password: x,
-        };
-        axios.put('http://localhost:8000/api/account/'+id, cuenta)
-          .then(resp => {console.log(resp.data)});
-        //Buscamos el username que acabamos de registrar
-        setTimeout(function() {
-        }, (3 * 1000));
-        Swal.fire(
-        '¡Listo!',
-        'Datos guardados',
-        'success'
-        ).then(function() {
-            window.location = "http://localhost:3000/admin/Cuentas/CuentaPersonal";
-        });
-        }else if(y.length < 8){
+        
+
+        if(x.length < 8 && x.length > 0){
             Swal.fire(
                 'ERROR!',
                 'La contraseña debe tener al menos 8 caracteres',
                 'error'
             )
-        }else{
+        }else if (y==""){
             Swal.fire(
                 'ERROR!',
-                'Las contraseñas no coinciden o no el campo de nombre de usuario esta incompleto',
+                'Verifica que todos los campos obligatorios estén completos',
                 'error'
+            )
+        }else if((iguales==0 && x!="") || y.localeCompare(document.getElementById("ogUsername").value) != 0){
+            if (x.match(/[A-Z]/) == null){
+                Swal.fire(
+                    'ERROR!',
+                    'La contraseña debe tener al menos una letra mayúscula',
+                    'error'
+                )
+            }else{
+                const cuenta = {
+                    username: y,
+                    password: x,
+                };
+                axios.put('http://localhost:8000/api/account/'+id, cuenta)
+                  .then(resp => {console.log(resp.data)});
+                //Buscamos el username que acabamos de registrar
+                setTimeout(function() {
+                }, (3 * 1000));
+                Swal.fire(
+                '¡Listo!',
+                'Datos guardados',
+                'success'
+                ).then(function() {
+                    window.location = "http://localhost:3000/admin/Cuentas/CuentaPersonal";
+                });
+            }
+         
+        }else if (iguales != 0){
+            Swal.fire(
+                'ERROR!',
+                'Las contraseñas no coinciden',
+                'error'
+            )
+        }else if(x==""){
+            Swal.fire(
+                'Atención!',
+                'No hay cambios que guardar',
+                'info'
             )
         }
   }
@@ -67,21 +102,36 @@ export class ModificaPersonal extends React.Component{
 
 
     render(){
-        this.datos();
+        this.datos()
         return(
             <div class="content">
+                <Prompt
+            when={true}
+            message="Te encuentras en proceso de edición                                                ¿Estás seguro de querer salir?"
+          />
                 <div class="container">
                     <div class="row">
                         <div class="col-12" >
-                            <h2 align="center">Modificar Mi Cuenta</h2>
+                            <h2 align="center" className="title">Modificar Mi Cuenta</h2>
+                            <div class="row justify-content-center">
+                                <Alert color="primary">Los campos marcados con un asterisco (*) son obligatorios.</Alert>
+                            </div>
                             <Form onSubmit={this.onSubmit}>
                                 <div class="row justify-content-center">
                                     <div class="col-4" >
                                         <FormGroup>
-                                            <label>Nombre de usuario:</label>
+                                            <label>*Nombre de usuario:</label>
                                             <Input
                                                 type="text"
                                                 id="usernamePersonal"
+                                            /> 
+                                        </FormGroup>
+                                        <FormGroup style={{display: "none"}}>
+                                            <label>Nueva Contraseña:</label>
+                                            <Input
+                                                id="ogUsername"
+                                                type="text"
+                                            
                                             /> 
                                         </FormGroup>
                                     </div>
@@ -110,6 +160,13 @@ export class ModificaPersonal extends React.Component{
                                         </FormGroup>
                                     </div>
                                 </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-1">
+                                        <div class="spinner-border" role="status" id="spnCirc" align="center">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+                                    </div>
+                                </div>
                                 <br/>
                                 <div class="row justify-content-center">
                                     <div class="col-4" align="center">
@@ -120,7 +177,7 @@ export class ModificaPersonal extends React.Component{
                                     </Link>
                                     </div>
                                     <div class="col-4" align="center">
-                                        <Button className="btn-fill" color="primary" type="submit">
+                                        <Button className="btn-fill" color="success" type="submit">
                                             Guardar Cambios
                                         </Button>
                                     </div>

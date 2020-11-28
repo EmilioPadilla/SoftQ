@@ -73,15 +73,27 @@ class EmployeesAccountView extends React.Component {
       .then(function (resp){
         respuesta = respuesta.concat(resp.data);
         document.getElementById("tablaCE").innerHTML = respuesta;
+        document.getElementById('spnCirc').style.display = 'none';
       } );
   }
 
   searchBar(){
+    var rol = document.getElementById('roleSelect').value;
+    var numRol;
     var palabra = document.getElementById('busq').value;
+    if (rol === "Empleado General"){
+     numRol=1;
+    }else if (rol ==="Enfermera"){
+     numRol=2;
+    }else if (rol === "Administrador"){
+     numRol=3;
+    }else{
+      numRol=0;
+    }
     if(palabra == ""){
       palabra = "allOfEm";
     }
-    axios.get("http://localhost:8000/api/account/table/search/"+palabra)
+    axios.get("http://localhost:8000/api/account/table/search/"+palabra+"/"+numRol)
       .then(function (resp){
         respuesta = resp.data;
         document.getElementById("tablaCE").innerHTML = respuesta;
@@ -96,8 +108,10 @@ class EmployeesAccountView extends React.Component {
     numRol=1;
    }else if (rol ==="Enfermera"){
     numRol=2;
-   }else{
+   }else if (rol === "Administrador"){
     numRol=3;
+   }else{
+     numRol=0;
    }
   
     axios.get("http://localhost:8000/api/account/table/roles/"+numRol)
@@ -125,20 +139,20 @@ class EmployeesAccountView extends React.Component {
     this.crearTabla();
     return (
         <div className="content">
-          <h2>
+          <h2 className="title">
             Cuentas de Empleados
           </h2>
         <Row>
           <Col>
             <FormGroup>
-            <label>Búsqueda por nombre:</label>
+            <label>Búsqueda por nombre de usuario:</label>
              <InputGroup>
                  <InputGroupAddon addonType="prepend">
                    <InputGroupText id="busqNombre" >
                      <FontAwesomeIcon icon={['fas', 'search']} />
                    </InputGroupText>
                  </InputGroupAddon>
-                 <Input placeholder="Juan Artal Gonzalez"  id="busq" onInput={this.searchBar}/>
+                 <Input placeholder="Admin123"  id="busq" onInput={this.searchBar}/>
              </InputGroup>      
            </FormGroup>
          </Col>
@@ -156,8 +170,9 @@ class EmployeesAccountView extends React.Component {
          <Col>
            <FormGroup>
            <Label for="roleSelect">Búsqueda por rol</Label>
-               <Input type="select" name="select" id="roleSelect" onChange={this.sortByRole}>
+               <Input type="select" name="select" id="roleSelect" onChange={this.searchBar}>
                <option disabled selected >Rol...</option>
+               <option value={0}>Todos</option>
                <option valaue={1}>Empleado General</option>
                <option valaue={2}>Enfermera</option>
                <option valaue={3}>Administrador</option>
@@ -165,10 +180,17 @@ class EmployeesAccountView extends React.Component {
            </FormGroup>
          </Col>
         </Row>
+        <div class="row justify-content-center">
+          <div class="col-1">
+            <div class="spinner-border" role="status" id="spnCirc" align="center">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+        </div>
         <div >
           <Row>
             <Col md="12">
-            <div class="overflow-auto" style={ { height: 400 } }>
+            <div  style={ { maxHeight: '300px', overflowY:'auto' } }>
               <Table hover id="tablaCE">
               </Table>
               </div>

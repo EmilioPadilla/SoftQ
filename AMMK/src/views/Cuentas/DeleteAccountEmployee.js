@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-import {FormGroup, Form, Input, Button} from "reactstrap"
+import {FormGroup, Form, Input, Button, Alert, Modal, ModalBody, ModalFooter} from "reactstrap"
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
+var open = false;
 
 const DeleteAccountEmp = props =>{
+    
         const login = localStorage.getItem("isLoggedIn");
         const idRol = localStorage.getItem("idRol");
         //Redirect in case of wrong role or no login
@@ -23,8 +25,10 @@ const DeleteAccountEmp = props =>{
                 <div class="container">
                     <div class="row">
                         <div class="col-12" >
-                            <h2 align="center">Eliminar Cuenta de Empleado</h2>
-                            <h4 align="center">ATENCIÓN: ELIMINAR UNA CUENTA ES UNA ACCIÓN PERMANENTE</h4>
+                            <h2 align="center" className="title">Eliminar Cuenta de Empleado</h2>
+                            <div class="row justify-content-center">
+                                <Alert color="danger">ATENCIÓN: ELIMINAR UNA CUENTA ES UNA ACCIÓN PERMANENTE</Alert>
+                            </div>
                             <Form>
                                 <div class="row justify-content-center">
                                     <div class="col-4" >
@@ -65,6 +69,13 @@ const DeleteAccountEmp = props =>{
                                         </FormGroup>
                                     </div>
                                 </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-1">
+                                        <div class="spinner-border" role="status" id="spnCirc" align="center">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+                                    </div>
+                                </div>
                                 <br/>
                                 <div class="row justify-content-center">
                                     <div class="col-4" align="center">
@@ -86,12 +97,25 @@ const DeleteAccountEmp = props =>{
 
                                 </Input>
                             </div>
+                            <div align="center"  >
+                                <Modal id="modalAcc" isOpen={false} >
+                                    <ModalBody>
+                                       ¿Estás segur@ que deseas eliminar la cuenta?
+                                    </ModalBody>
+                                    <ModalFooter>
+                                      <Button color="primary"onClick={()=>hideModal()}>No</Button>
+                                      <Button color="danger" onClick={()=>eliminar()}>Sí</Button>
+                                    </ModalFooter>
+                                </Modal>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
     )
 }
+
+
 
 function ax(idC){
     axios.get("http://localhost:8000/api/account/delete/information/"+idC)
@@ -101,7 +125,19 @@ function ax(idC){
            document.getElementById("nombreModify").value = resp.data[0].nombreCompleto;
            document.getElementById("rolModify").value = resp.data[0].nombreRol;
            document.getElementById("valorId").value = idC;
+           document.getElementById('spnCirc').style.display = 'none';
           } );
+}
+
+function displayModal(){
+    console.log(open);
+    open = true;
+    
+}
+
+function hideModal(){
+    open = false;
+    
 }
 
 function eliminar(){

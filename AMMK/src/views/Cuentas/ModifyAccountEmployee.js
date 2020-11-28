@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import {FormGroup, Form, Input, Button} from "reactstrap"
+import {FormGroup, Form, Input, Button, Alert} from "reactstrap"
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { Link } from "react-router-dom";
+import { Prompt } from 'react-router'
 
 
 const ModifyAccountEmp = props =>{
@@ -22,18 +23,33 @@ const ModifyAccountEmp = props =>{
     ax(id);
     return(
         <div class="content">
+            <Prompt
+            when={true}
+            message="Te encuentras en proceso de edición                                                ¿Estás seguro de querer salir?"
+          />
                 <div class="container">
                     <div class="row">
                         <div class="col-12" >
-                            <h2 align="center">Modificar Cuenta de Empleado</h2>
+                            <h2 align="center" className="title">Modificar Cuenta de Empleado</h2>
+                            <div class="row justify-content-center">
+                                <Alert color="primary">Los campos marcados con un asterisco (*) son obligatorios.</Alert>
+                            </div>
                             <Form>
                                 <div class="row justify-content-center">
                                     <div class="col-4" >
                                         <FormGroup>
-                                            <label>Nombre de usuario:</label>
+                                            <label>*Nombre de usuario:</label>
                                             <Input
                                                 id="usernameModify"
                                                 
+                                                type="text"
+                                            
+                                            /> 
+                                        </FormGroup>
+                                        <FormGroup style={{display: "none"}}>
+                                            <label>Nueva Contraseña:</label>
+                                            <Input
+                                                id="ogUsername"
                                                 type="text"
                                             
                                             /> 
@@ -65,6 +81,13 @@ const ModifyAccountEmp = props =>{
                                         </FormGroup>
                                     </div>
                                 </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-1">
+                                        <div class="spinner-border" role="status" id="spnCirc" align="center">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+                                    </div>
+                                </div>
                                 <br/>
                                 <div class="row justify-content-center">
                                     <div class="col-4" align="center">
@@ -75,7 +98,7 @@ const ModifyAccountEmp = props =>{
                                         </Link>
                                     </div>
                                     <div class="col-4" align="center">
-                                        <Button className="btn-fill" color="primary" onClick={guardar}>
+                                        <Button className="btn-fill" color="success" onClick={guardar}>
                                             Guardar cambios
                                         </Button>
                                     </div>
@@ -98,6 +121,8 @@ function ax(idC){
           .then(function (resp){
            document.getElementById("usernameModify").value = resp.data[0].username;
            document.getElementById("valorId").value = idC;
+           document.getElementById("ogUsername").value = resp.data[0].username;
+           document.getElementById('spnCirc').style.display = 'none';
           } );
 }
 
@@ -107,7 +132,19 @@ function guardar(){
     var confPass = document.getElementById("confpassModify").value;
     var idCuenta = document.getElementById("valorId").value;
     var iguales = passwrd.localeCompare(confPass);
-    if(user!="" && iguales==0){
+    if(passwrd.length < 8 && passwrd.length > 0){
+        Swal.fire(
+            'ERROR!',
+            'La contraseña debe tener al menos 8 caracteres',
+            'error'
+        )
+    }else if (user == ""){
+        Swal.fire(
+            'ERROR!',
+            'Verifica que todos los campos obligatorios estén completos',
+            'error'
+        )
+    }else if((passwrd!="" && iguales==0) || user.localeCompare(document.getElementById("ogUsername").value) != 0){
         const cuentaEditar = {
             username: user,
             password: passwrd,
@@ -123,18 +160,18 @@ function guardar(){
            ).then(function() {
                window.location = "http://localhost:3000/admin/Cuentas/PrincipalEmp";
         });
-    }else if(y.length < 8){
+    }else if(iguales != 0){
         Swal.fire(
             'ERROR!',
-            'La contraseña debe tener al menos 8 caracteres',
+            'Las contraseñas no coinciden',
             'error'
         )
-    }else{
+    }else if(passwrd == ""){
         Swal.fire(
-            '¡Error!',
-             'Las contraseñas no coinciden o alguno de los campos está vacío',
-             'error'
-             )
+            'Atención!',
+            'No hay cambios que guardar',
+            'info'
+        )
     }
 }
 

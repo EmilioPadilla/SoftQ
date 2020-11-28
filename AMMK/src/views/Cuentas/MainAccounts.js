@@ -46,7 +46,7 @@ class MainAccount extends React.Component{
                                           e.preventDefault();
                                           window.location.href='/admin/Cuentas/CuentaPersonal';
                                         }}>
-                                 <FontAwesomeIcon icon={['fas', 'user-circle']} color="#3388a7"/>
+                                 <FontAwesomeIcon icon={['fas', 'user-circle']} color="#0474ac"/>
                                </div>
                              </CardBody>
                          </Card>
@@ -64,7 +64,7 @@ class MainAccount extends React.Component{
                                           e.preventDefault();
                                           window.location.href='/admin/Cuentas/PrincipalEmp';
                                         }}>
-                                <FontAwesomeIcon icon={['fas', 'users']} color="#3388a7"/>
+                                <FontAwesomeIcon icon={['fas', 'users']} color="#0474ac"/>
                               </div>
                             </CardBody>
                          </Card>

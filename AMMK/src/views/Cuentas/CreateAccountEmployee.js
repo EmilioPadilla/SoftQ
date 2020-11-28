@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import {FormGroup, Form, Input, Button} from "react-bootstrap"
+import { Prompt } from 'react-router'
+import {FormGroup, Form, Input} from "react-bootstrap";
+import {Alert, Button} from "reactstrap";
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
@@ -19,6 +21,7 @@ class CreateAccEmp extends React.Component{
             //sel = sel.concat('</Form.Control> </FormGroup>');
             //insertar el select en el html
            document.getElementById("selectEmpleado").innerHTML = sel;
+           document.getElementById('spnCirc').style.display = 'none';
           } );
       }
 
@@ -43,8 +46,15 @@ class CreateAccEmp extends React.Component{
         var w = document.getElementById("confPasswd").value;
         var v = document.getElementById("selectRol").value;
         var iguales = x.localeCompare(w);
- 
-        if(iguales==0 && parseInt(z) > 0 && y!="" && x!=""){
+
+
+        if(x.length < 8){
+            Swal.fire(
+                'ERROR!',
+                'La contraseña debe tener al menos 8 caracteres',
+                'error'
+            )
+        }else if(iguales==0 && parseInt(z) > 0 && y!="" && x!=""){
          const cuenta = {
           user: y,
           pass: x,
@@ -74,12 +84,6 @@ class CreateAccEmp extends React.Component{
        
         
         
-        }else if(y.length < 8){
-            Swal.fire(
-                'ERROR!',
-                'La contraseña debe tener al menos 8 caracteres',
-                'error'
-            )
         }else{
             Swal.fire(
                 'ERROR!',
@@ -105,15 +109,22 @@ class CreateAccEmp extends React.Component{
         this.crearSelect();
         return(
             <div class="content">
+                <Prompt
+            when={true}
+            message="Te encuentras en proceso de registro                                                ¿Estás seguro de querer salir?"
+          />
                 <div class="container">
                     <div class="row">
                         <div class="col-12" >
-                            <h2 align="center">Registrar Cuenta</h2>
+                            <h2 align="center" className="title">Registrar Cuenta</h2>
+                            <div class="row justify-content-center">
+                                <Alert color="primary">Todos los datos son obligatorios.</Alert>
+                            </div>
                             <Form onSubmit={this.onSubmit}>
                                 <div class="row justify-content-center">
                                     <div class="col-4" >  
                                     <FormGroup> 
-                                        <label>Seleccione un Empleado:</label> 
+                                        <label>*Seleccione un Empleado:</label> 
                                             <Form.Control as="select" id="selectEmpleado"> 
                                             
                                             </Form.Control> 
@@ -123,7 +134,7 @@ class CreateAccEmp extends React.Component{
                                 <div class="row justify-content-center">
                                     <div class="col-4" >
                                         <FormGroup>
-                                            <label>Nombre de usuario:</label>
+                                            <label>*Nombre de usuario:</label>
                                             <Form.Control type="text" placeholder="juanP1" 
                                             id="username"
                                             />
@@ -134,7 +145,7 @@ class CreateAccEmp extends React.Component{
                                 <div class="row justify-content-center">
                                     <div class="col-4">
                                         <FormGroup>
-                                            <label>Contraseña:</label>
+                                            <label>*Contraseña:</label>
                                             <Form.Control type="password"  
                                                 id="passwd"
                                             /> 
@@ -144,7 +155,7 @@ class CreateAccEmp extends React.Component{
                                 <div class="row justify-content-center">
                                     <div class="col-4">
                                         <FormGroup>
-                                            <label>Confirmar contraseña:</label>
+                                            <label>*Confirmar contraseña:</label>
                                             <Form.Control type="password"  id="confPasswd"/>
                                         </FormGroup>
                                     </div>
@@ -152,13 +163,20 @@ class CreateAccEmp extends React.Component{
                                 <div class="row justify-content-center">
                                     <div class="col-4" >
                                         <FormGroup>
-                                            <label>Seleccione un Rol:</label>
+                                            <label>*Seleccione un Rol:</label>
                                             <Form.Control as="select" id="selectRol">
                                                 <option value="1">General</option>
                                                 <option value="2">Enfermero</option>
                                                 <option value="3">Administrador</option>
                                             </Form.Control>   
                                         </FormGroup>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-1">
+                                        <div class="spinner-border" role="status" id="spnCirc" align="center">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
                                     </div>
                                 </div>
                                 <br/>
@@ -171,7 +189,7 @@ class CreateAccEmp extends React.Component{
                                     </Link>
                                     </div>
                                     <div class="col-4" align="center">
-                                        <Button className="btn-fill" color="info" type="submit">
+                                        <Button className="btn-fill" color="success" type="submit">
                                             Registrar
                                         </Button>
                                     </div>
