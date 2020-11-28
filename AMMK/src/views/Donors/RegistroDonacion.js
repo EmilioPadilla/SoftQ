@@ -7,6 +7,24 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import SimpleTooltip from "../General/SimpleTooltip";
 import axios from "axios";
 import Swal from 'sweetalert2';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+import { Progress, Alert,  Card, CardBody, CardHeader } from "reactstrap";
+
+library.add(fas)
+
+const validateForm = (errors) => {
+  let valid = true;
+  Object.values(errors).forEach(
+    // if we have an error string set valid to false
+    (val) => val.length > 0 && (valid = false)
+  );
+  return valid;
+}
+const validTextInput = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ ]{3,}$/); //Solo letras al menos 3 caracteres
+const validAlphanumericInput = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ \0-9]+$/); //acepta numeros y letras y saltos de linea
+const validMoney = RegExp(/^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$/); 
+const validDate = RegExp(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/);
 
 //form de registerDonation
 class RegistroDonacion extends Component {
@@ -14,7 +32,21 @@ class RegistroDonacion extends Component {
   //const {id}= props.match.params;  
   constructor(props){
         super(props)
+        this.state = {
+          fecha: null,
+          tipo: null,
+          monto: null,
+          descripcion: null,
+          errors: {
+            fecha: '',
+            tipo: '',
+            monto: '',
+            descripcion: '',
+          }
+        };
       this.onSubmit= this.onSubmit.bind(this);
+      this.handleChange = this.handleChange.bind(this);
+
     }
    
     crearSelectTipoDonacion(){
@@ -42,8 +74,8 @@ class RegistroDonacion extends Component {
         var descripcion = document.getElementById("descripcion").value;
         var tipoDonacion = document.getElementById("tipoDonacion").value;
 
-      
-      //nombre + F de facturacion
+        if (fecha!="" && monto !="" && descripcion !="" && tipoDonacion !=""){
+           //nombre + F de facturacion
         const donacion = {
           fechaDonacion: fecha,
           descripcion: descripcion,
@@ -75,48 +107,116 @@ class RegistroDonacion extends Component {
         ).then(function() {
             window.location = "http://localhost:3000/admin/ViewDonors";
         });
+        } else {
+          Swal.fire( {
+            icon: 'error',
+            title: '¡ERROR!',
+            text: 'Verifica que todos los campos obligatorios estén completos.',
+          })
+     
         
-      
+        }
       
     }
-      
+    handleChange = (event) => {
+      event.preventDefault();
+      const { name, value } = event.target;
+      let errors = this.state.errors;
+  
+      switch (name) {
+        case 'descripcion':
+          errors.descripcion =
+            value.length < 5
+              ? 'Recuerda ingresar la descripción con cantidades'
+              : '' ||  validAlphanumericInput.test(value)
+              ? ""
+              : "El campo solo acepta números y letras.";
+          break;
+          case 'monto': 
+              errors.monto =
+              validMoney.test(value)
+               ? ""
+                : "El campo solo acepta números.";
+              break;
+        case 'tipo':
+          errors.tipo =
+          value.length < 1
+              ? 'El tipo de donación es requerido.'
+              : '';
+          break;
+          case 'fecha':
+            errors.fecha =
+                value.length < 1
+                    ? "La fecha de la donación es requerida"
+                    : "" ||
+                        validDate.test(value)
+                        ? "La fecha no es correcta"
+                        : "";
+            break;
+        default:
+          break;
+      }
+      this.setState({ errors, [name]: value });
+    }
+  
+    handleSubmit = (event) => {
+      event.preventDefault();
+      if (validateForm(this.state.errors)) {
+        console.info('Valid Form')
+      } else {
+        console.error('Invalid Form')
+      }
+    }
     render() { 
         this.crearSelectTipoDonacion();
+        const { errors } = this.state;
 
         return ( 
-<div className="content">
-        <div class="container-fluid">
+<div className="justify-content-center">
+        <div class="container-fluid ">
           <h1 className="title">Registrar Donación</h1>
+          <Card>
+          <CardHeader>
+          <h3 align="center" className="title">Datos Donación</h3>
+          <Alert color="primary">Los campos marcados con un asterisco (*) son obligatorios.</Alert>
+          </CardHeader>
+          <CardBody>
             <div class="container">
+
             <Form >
               <Form.Row>
                 <Form.Group as={Row} controlId="fechaDonacion">
-                  <Form.Label>Fecha en que se realizó:</Form.Label>
-                  <Form.Control type="date" id="fechaDonacion" placeholder=" / / " />
+                  <Form.Label>*&nbsp;<FontAwesomeIcon icon={['fas', 'calendar-alt']} />&nbsp;Fecha en que se realizó:</Form.Label>
+                  <Form.Control name="fecha" type="date" id="fechaDonacion" placeholder=" / / " onChange={this.handleChange}/>
+                  {errors.fecha.length > 0 &&
+                    <span className='error'>{errors.fecha}</span>}
                 </Form.Group>
               
                 </Form.Row>
                 <Form.Row>
               <FormGroup as={Row}>
-         <label>*Seleccione Tipo de Donación</label>
-         <Form.Control as="select" id="tipoDonacion" ></Form.Control>
-       </FormGroup>
+         <label>* Seleccione Tipo de Donación</label>
+         <Form.Control as="select" id="tipoDonacion" name="tipo"></Form.Control>
+        </FormGroup>
 
        </Form.Row>
                
               
               <Form.Row>
                 <Form.Group as={Row} controlId="monto">
-                  <Form.Label>Monto:</Form.Label>
-                  <Form.Control type="text" id="monto" placeholder="$3,000.00" />
+                  <Form.Label>*&nbsp;<FontAwesomeIcon icon={['fas', 'money-bill']} />&nbsp;Monto:</Form.Label>
+                  <Form.Control type="text" id="monto" name="monto"placeholder="$3,000.00" onChange={this.handleChange} />{errors.monto.length > 0 &&
+                    <span className='error'>{errors.monto}</span>}
+                
                 </Form.Group>
               </Form.Row>
 
 
             <Form.Row>
               <Form.Group as={Row} controlId="descripcion">
-                <Form.Label>Descripción:</Form.Label>
-                <Form.Control type="text" id="descripcion" placeholder="15 paquetes de arroz, 3 latas de atún y 5kg de frijols" />
+                <Form.Label>*Descripción:</Form.Label>
+                <Form.Control type="text" id="descripcion" name="descripcion"placeholder="15 paquetes de arroz, 3 latas de atún y 5kg de frijols" onChange={this.handleChange} /> {errors.descripcion.length > 0 &&
+                    <span className='error'>{errors.descripcion}</span>}
               </Form.Group>
               </Form.Row>
 
@@ -127,15 +227,16 @@ class RegistroDonacion extends Component {
               </Form.Group>
               </Link>
               <Form.Group as={Col} controlId="descripcion">
-              <Button onSubmit={this.onSubmit} type="submit">Registrar</Button>
+              <Button onClick={this.onSubmit} type="submit">Registrar</Button>
               </Form.Group>
               </Form.Row>
 
               
 
           </Form>
-         
-            </div>
+         </div>
+         </CardBody>
+         </Card>
             </div>
             </div>
           

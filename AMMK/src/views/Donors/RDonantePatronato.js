@@ -31,6 +31,7 @@ const validRFC = RegExp(/^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-
 const validTextInput = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ ]{3,}$/); //Solo letras al menos 3 caracteres
 const validAlphanumericInput = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ \0-9]+$/); //acepta numeros y letras y saltos de linea
 const validPhoneNumber = RegExp(/^([0-9]{10})?$/); 
+const validDate = RegExp(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/);
 
 
 class RDonantesPatronato extends Component {
@@ -151,6 +152,13 @@ class RDonantesPatronato extends Component {
             ? ''
             : 'El celular debe de contener 10 dígitos.';
         break;
+        case 'birthday':
+          errors.birthday =
+               "" ||
+                      validDate.test(value)
+                      ? "La fecha no es correcta"
+                      : "";
+          break;
       default:
         break;
     }
@@ -214,7 +222,7 @@ class RDonantesPatronato extends Component {
             <Form.Row>
               <Form.Group as={Row} controlId="birthdayPatronato">
                 <Form.Label><FontAwesomeIcon icon={['fas', 'calendar-alt']} />&nbsp;Fecha de cumpleaños:</Form.Label>
-                <Form.Control type="date" placeholder=" / / " noValidate />
+                <Form.Control type="date" placeholder=" / / " onChange={this.handleChange} />
               </Form.Group>
             </Form.Row>
 
