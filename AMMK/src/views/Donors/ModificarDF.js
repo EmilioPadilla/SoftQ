@@ -3,22 +3,34 @@ import { FormGroup,Row,Col,Card, Form, Input, Button } from "reactstrap";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import { Prompt } from 'react-router';
+import { Progress, Alert, CardBody, CardHeader } from "reactstrap";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const ModificarDF = (props) => {
   const { id } = props.match.params;
   ax(id);
   return (
     <div class="content">
+        <Prompt
+            when={true}
+            message="Te encuentras en proceso de modificación...                                                ¿Estás segur@ de querer salir?"
+          />
     <div class="container">
         <div class="row">
             <div class="col-12" >
-                <h2 align="center">Modificar Datos de Facturación del Donante</h2>
-
+                <h2 >Modificar Datos de Facturación del Donante</h2>
+                <Card>
+          <CardHeader>
+          <h3 align="center" className="title">Datos Facturación</h3>
+          <Alert color="primary">Los campos marcados con un asterisco (*) son obligatorios.</Alert>
+          </CardHeader>
+          <CardBody>
                 <Form>
-                <div class="row justify-content-center">
+                <div class="row">
                         <div class="col-4" >
                             <FormGroup>
-                            <label className="font-weight-bold">RAZÓN SOCIAL: </label>
+                            <label className="font-weight-bold">* RAZÓN SOCIAL: </label>
                             <Input
                                     id="rs"
                                     
@@ -26,11 +38,9 @@ const ModificarDF = (props) => {
                                 />    
                      </FormGroup>
                         </div>
-                    </div>
-                    <div class="row justify-content-center">
                         <div class="col-4" >
                             <FormGroup>
-                            <label className="font-weight-bold">RFC: </label>
+                            <label className="font-weight-bold">* RFC: </label>
                             <Input
                                     id="rfc"
                                     
@@ -42,7 +52,7 @@ const ModificarDF = (props) => {
                     <div class="row justify-content-center">
                         <div class="col-4">
                             <FormGroup>
-                            <label className="font-weight-bold">CALLE: </label>
+                            <label className="font-weight-bold">* CALLE: </label>
                             <Input
                                     id="calle"
                                     
@@ -51,12 +61,11 @@ const ModificarDF = (props) => {
                             </FormGroup>
                            
                         </div>
-                    </div>
-                    <div class="row justify-content-center">
+                    
                     
                         <div class="col-4">
                             <FormGroup >
-                            <label  className="font-weight-bold"># INTERIOR: </label>
+                            <label  className="font-weight-bold">* # INTERIOR: </label>
                             <Input
                                     id="interior"
                                     
@@ -64,11 +73,10 @@ const ModificarDF = (props) => {
                                 /> 
                             </FormGroup>
                         </div>
-                    </div>
-                    <div class="row justify-content-center">
+                    
                         <div class="col-4">
                             <FormGroup>
-                            <label className="font-weight-bold"># EXTERIOR: </label>
+                            <label className="font-weight-bold">* # EXTERIOR: </label>
                             <Input
                                     id="exterior"
                                     
@@ -81,7 +89,7 @@ const ModificarDF = (props) => {
                     <div class="row justify-content-center">
                         <div class="col-4">
                             <FormGroup>
-                            <label className="font-weight-bold">CÓDIGO POSTAL: </label>
+                            <label className="font-weight-bold">* CÓDIGO POSTAL: </label>
                             <Input
                                     id="cp"
                                     
@@ -89,11 +97,10 @@ const ModificarDF = (props) => {
                                 /> 
                             </FormGroup>
                         </div>
-                    </div>
-                    <div class="row justify-content-center">
+                   
                         <div class="col-4">
                             <FormGroup>
-                            <label className="font-weight-bold">COLONIA: </label>
+                            <label className="font-weight-bold">* COLONIA: </label>
                             <Input
                                     id="colonia"
                                     
@@ -101,11 +108,10 @@ const ModificarDF = (props) => {
                                 /> 
                             </FormGroup>
                         </div>
-                    </div>
-                    <div class="row justify-content-center">
+                    
                         <div class="col-4">
                             <FormGroup>
-                            <label className="font-weight-bold">CIUDAD: </label>
+                            <label className="font-weight-bold">* CIUDAD: </label>
                             <Input
                                     id="ciudad"
                                     
@@ -117,7 +123,7 @@ const ModificarDF = (props) => {
                     <div class="row justify-content-center">
                         <div class="col-4">
                             <FormGroup>
-                            <label className="font-weight-bold">MUNICIPIO: </label>
+                            <label className="font-weight-bold">* MUNICIPIO: </label>
                             <Input
                                     id="municipio"
                                     
@@ -125,11 +131,10 @@ const ModificarDF = (props) => {
                                 /> 
                             </FormGroup>
                         </div>
-                    </div>
-                    <div class="row justify-content-center">
+                    
                         <div class="col-4">
                             <FormGroup>
-                            <label className="font-weight-bold">ESTADO: </label>
+                            <label className="font-weight-bold">* ESTADO: </label>
                             <Input
                                     id="estado"
                                     
@@ -137,11 +142,10 @@ const ModificarDF = (props) => {
                                 /> 
                             </FormGroup>
                         </div>
-                    </div>
-                    <div class="row justify-content-center">
+                   
                         <div class="col-4">
                             <FormGroup>
-                            <label className="font-weight-bold">PAÍS: </label>
+                            <label className="font-weight-bold">* PAÍS: </label>
                             <Input
                                     id="pais"
                                     
@@ -150,10 +154,10 @@ const ModificarDF = (props) => {
                             </FormGroup>
                         </div>
                     </div>
-                    <div class="row justify-content-center">
+                    <div class="row">
                         <div class="col-4">
                             <FormGroup>
-                            <label className="font-weight-bold">CORREO: </label>
+                            <label>*&nbsp;<FontAwesomeIcon icon={['fas', 'envelope']} />&nbsp; Correo:</label>
                             <Input
                                     id="correo"
                                     
@@ -184,6 +188,9 @@ const ModificarDF = (props) => {
 
                     </Input>
                 </div>
+                </CardBody>
+                </Card>
+
             </div>
         </div>
     </div>

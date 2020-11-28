@@ -3,12 +3,17 @@ import { FormGroup, Form, Input, Button } from "reactstrap";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import { Prompt } from 'react-router';
 
 const ModifyDonorContact = (props) => {
   const { id } = props.match.params;
   ax(id);
   return (
     <div class="content">
+       <Prompt
+            when={true}
+            message="Te encuentras en proceso de modificación...                                                ¿Estás segur@ de querer salir?"
+          /> 
     <div class="container">
         <div class="row">
             <div class="col-12" >
