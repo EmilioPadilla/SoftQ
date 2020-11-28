@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { FormGroup, Form, Input, Button } from "reactstrap";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { Progress, Alert,  Card, CardBody, CardHeader } from "reactstrap";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import { Link } from "react-router-dom";
 const ReenterD = (props) => {
     const login = localStorage.getItem("isLoggedIn");
@@ -22,12 +25,18 @@ const ReenterD = (props) => {
         <div class="row">
             <div class="col-12" >
 
-                <h2 align="center">Re-Ingresar Donante</h2>
+            <h2 >Re-Ingresar Donante</h2>
+
+<Card>
+<CardHeader>
+<h3 align="center" className="title">Proceso de Re-Ingreso</h3>
+</CardHeader>
+<CardBody>
                 <Form>
                     <div class="row justify-content-center">
                         <div class="col-4" >
                             <FormGroup>
-                            <p className="font-weight-bold">FECHA DE Re-Ingreso: </p>
+                            <label className="font-weight-bold">*&nbsp;<FontAwesomeIcon icon={['fas', 'calendar-alt']} />&nbsp;FECHA DE RE-INGRESO: </label>
                             <Input
                                     id="fecha"
                                     
@@ -39,7 +48,7 @@ const ReenterD = (props) => {
                     <div class="row justify-content-center">
                         <div class="col-4">
                             <FormGroup>
-                            <p className="font-weight-bold">MOTIVO DE Re-Ingreso: </p>
+                            <label className="font-weight-bold">* MOTIVO DE RE-INGRESO: </label>
                             <Input
                                     id="motivo"
                                     
@@ -72,6 +81,8 @@ const ReenterD = (props) => {
 
                     </Input>
                 </div>
+                </CardBody>
+                </Card>
             </div>
         </div>
     </div>
