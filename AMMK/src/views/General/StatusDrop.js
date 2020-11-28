@@ -3,7 +3,7 @@ import {FormGroup, Label, Input} from 'reactstrap';
 
 //API CALLS
 import axios from 'axios';
-import { API_BASE_URL } from '../../index';
+import { API_BASE_URL, FRONT_BASE_URL } from '../../index';
 
 export default class StatusDrop extends Component {
 
@@ -29,11 +29,11 @@ export default class StatusDrop extends Component {
     const idRol = localStorage.getItem("idRol");
     //Redirect in case of wrong role or no login
     if (!login ) {
-        window.location = "http://localhost:3000/login";
+        window.location = FRONT_BASE_URL+"login";
     }else if(idRol==2){
-        window.location = "http://localhost:3000/general/NurseIndex";
+        window.location = FRONT_BASE_URL+"general/NurseIndex";
     }else if (idRol==1){
-        window.location = "http://localhost:3000/admin/Nomina/Nomina";
+        window.location = FRONT_BASE_URL+"admin/Nomina/Nomina";
     }
     return (
        <div>
