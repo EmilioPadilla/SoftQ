@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Input} from "reactstrap"
 import { Link } from "react-router-dom";
 import { Prompt } from 'react-router';
+import { API_BASE_URL, FRONT_BASE_URL } from 'index';
 
 import { Row, Modal, Form, FormGroup,  Dropdown,Button, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -35,12 +36,10 @@ class RegistroDonacion extends Component {
         super(props)
         this.state = {
           fecha: null,
-          tipo: null,
           monto: null,
           descripcion: null,
           errors: {
             fecha: '',
-            tipo: '',
             monto: '',
             descripcion: '',
           }
@@ -53,10 +52,8 @@ class RegistroDonacion extends Component {
     crearSelectTipoDonacion(){
         var sel='<option value="NA" disabled selected>Selecciona una opcion</option>';
         const num=1;
-        axios.get("http://localhost:8000/api/tipodonacion").then(function(resp){
-          
-        console.log(resp.data);
-        resp.data.forEach(element =>{
+        axios.get(API_BASE_URL+"tipodonacion").then(function(resp){
+           resp.data.forEach(element =>{
           sel = sel.concat('<option value="'+ element.id + ' " > '+ element.nombre+'</option>');
           //console.log(element.nombre);
         });
@@ -90,14 +87,14 @@ class RegistroDonacion extends Component {
         var jsonArray0 = JSON.parse(localStorage.getItem("donante"));
         var jsonArray1 = JSON.parse(localStorage.getItem("prueba"));
         const jsonArray= {...jsonArray0,...jsonArray1};
-        console.log(jsonArray0);
+        //console.log(jsonArray0);
         localStorage.clear();
 
        // var jsonArray3=  JSON.parse(localStorage.getItem("prueba"));
 
       
 
-        axios.post('http://localhost:8000/api/donaciones', jsonArray).then(res => {console.log(res)});
+        axios.post(API_BASE_URL+'donaciones', jsonArray).then(res => {console.log(res)});
         
        //validacion
       
@@ -106,7 +103,7 @@ class RegistroDonacion extends Component {
         'Datos guardados',
         'success'
         ).then(function() {
-            window.location = "http://localhost:3000/admin/ViewDonors";
+            window.location = FRONT_BASE_URL+"admin/ViewDonors";
         });
         } else {
           Swal.fire( {
@@ -139,20 +136,13 @@ class RegistroDonacion extends Component {
                ? ""
                 : "El campo solo acepta números.";
               break;
-        case 'tipo':
-          errors.tipo =
-          value.length < 1
-              ? 'El tipo de donación es requerido.'
-              : '';
-          break;
+        
           case 'fecha':
             errors.fecha =
-                value.length < 1
-                    ? "La fecha de la donación es requerida"
-                    : "" ||
-                        validDate.test(value)
-                        ? "La fecha no es correcta"
-                        : "";
+            "" ||
+            validDate.test(value)
+            ? "La fecha no es correcta"
+            : "";
             break;
         default:
           break;
@@ -176,7 +166,7 @@ class RegistroDonacion extends Component {
 <div className="justify-content-center">
 <Prompt
             when={true}
-            message="Te encuentras en proceso de registro...                                                ¿Estás segur@ de querer salir?"
+            message="Te encuentras en proceso de registro... ¿Estás segur@ de querer salir?"
           />
         <div class="container-fluid ">
           <h1 className="title">Registrar Donación</h1>
@@ -188,33 +178,36 @@ class RegistroDonacion extends Component {
           <CardBody>
             <div class="container">
 
-            <Form autoComplete="off" >
+            <Form autoComplete="off">
               <Form.Row>
-                <Form.Group as={Col} controlId="fechaDonacion">
+                <Form.Group as={Col} >
                   <Form.Label>*&nbsp;<FontAwesomeIcon icon={['fas', 'calendar-alt']} />&nbsp;FECHA EN QUE SE REALIZÓ</Form.Label>
-                  <Form.Control name="fecha" type="date" id="fechaDonacion" placeholder=" / / " onChange={this.handleChange}/>
+                  <Form.Control name="fecha" type="date"  placeholder=" / / " />
                   {errors.fecha.length > 0 &&
                     <span className='error'>{errors.fecha}</span>}
                 </Form.Group>
               
                 
-              <FormGroup as={Col}>
+              <FormGroup name="tipoDonacion"  as={Col}>
          <label>* SELECCIONE TIPO DE DONACIÓN:</label>
-         <Form.Control as="select" id="tipoDonacion" name="tipo"></Form.Control>
+         <Form.Control as="select" id="tipoDonacion" name="tipoDonacion" >
+         
+
+         </Form.Control>
         </FormGroup>
 
        </Form.Row>
                
               
               <Form.Row>
-                <Form.Group as={Col} controlId="monto">
+                <Form.Group as={Col}>
                   <Form.Label>*&nbsp;<FontAwesomeIcon icon={['fas', 'money-bill']} />&nbsp;MONTO:</Form.Label>
                   <Form.Control type="text" id="monto" name="monto"placeholder="$3,000.00" onChange={this.handleChange} />{errors.monto.length > 0 &&
                     <span className='error'>{errors.monto}</span>}
                 
                 </Form.Group>
               
-              <Form.Group as={Col} controlId="descripcion">
+              <Form.Group as={Col} >
                 <Form.Label>* DESCRIPCIÓN:</Form.Label>
                 <Form.Control type="text" id="descripcion" name="descripcion"placeholder="15 paquetes de arroz, 3 latas de atún y 5kg de frijols" onChange={this.handleChange} /> {errors.descripcion.length > 0 &&
                     <span className='error'>{errors.descripcion}</span>}

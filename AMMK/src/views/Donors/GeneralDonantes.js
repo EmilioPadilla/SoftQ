@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Swal from "sweetalert2";
 import { Progress, Alert, Col, Card, CardBody, CardHeader } from "reactstrap";
+import { API_BASE_URL, FRONT_BASE_URL } from 'index';
+import { Prompt } from 'react-router';
 
 import Button from "react-bootstrap/Button";
 import {
@@ -27,7 +29,7 @@ class GeneralDonantes extends Component {
   crearSelectTipoDonante(){
     var sel='<option value="NA" disabled selected>Selecciona una opcion</option>';
     const num=1;
-    axios.get("http://localhost:8000/api/tipodonante/").then(function(resp){
+    axios.get(API_BASE_URL+"tipodonante/").then(function(resp){
       
     console.log(resp.data);
     resp.data.forEach(element =>{
@@ -45,7 +47,7 @@ class GeneralDonantes extends Component {
   crearSelectRecurrencia(){
     var sel='<option value="NA" disabled selected>Selecciona una opcion</option>';
     const num=1;
-    axios.get("http://localhost:8000/api/recurrencia/").then(function(resp){
+    axios.get(API_BASE_URL+"recurrencia/").then(function(resp){
       
     console.log(resp.data);
     resp.data.forEach(element =>{
@@ -90,7 +92,7 @@ onSubmit(e) {
   }
 localStorage.setItem("tipoDonante2", JSON.stringify(tipoDonante2));
 localStorage.setItem("recurrencia", JSON.stringify(tipoRecurrencia));
-  window.location = "http://localhost:3000/admin/RegistroDonante1";
+  window.location = FRONT_BASE_URL+"admin/RegistroDonante1";
 
 }
 }
@@ -103,6 +105,10 @@ localStorage.setItem("recurrencia", JSON.stringify(tipoRecurrencia));
 
     return (
       <div className="content">
+         <Prompt
+            when={true}
+            message="Te encuentras en proceso de modificación... ¿Estás segur@ de querer salir?"
+          />
         <div class="container-fluid">
 
           <h1 className="title">Registrar Donante</h1>

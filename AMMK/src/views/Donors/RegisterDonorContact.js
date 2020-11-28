@@ -4,6 +4,7 @@ import { Input} from "reactstrap"
 import axios from "axios";
 import RegistroContactoDonante from './RegistroContactoDonante'
 
+import { API_BASE_URL, FRONT_BASE_URL } from 'index';
 
 const RegisterDonation = props =>{
 
@@ -21,7 +22,7 @@ const RegisterDonation = props =>{
     </div>
     )
     function ax(idD){
-      axios.get("http://localhost:8000/api/donantes/"+idD)
+      axios.get(API_BASE_URL+"donantes/"+idD)
       .then(function (resp){
         console.log(resp.data);
         document.getElementById("valorId").innerHTML = idD;

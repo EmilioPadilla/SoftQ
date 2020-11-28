@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import ViewDonations from 'views/Donors/ViewDonations'
 import ViewContacts from 'views/Donors/ViewContacts'
 import { Progress, Alert, Col, Card, CardBody, CardHeader } from "reactstrap";
+import { API_BASE_URL, FRONT_BASE_URL } from 'index';
 
 import Form from "react-bootstrap/Form";
 
@@ -26,13 +27,13 @@ const ViewSpecificDonor = props =>{
     const login = localStorage.getItem("isLoggedIn");
     const idRol = localStorage.getItem("idRol");
     //Redirect in case of wrong role or no login
-   /* if (!login ) {
-        window.location = "http://localhost:3000/login";
+    if (!login ) {
+        window.location = FRONT_BASE_URL+"login";
     }else if(idRol==2){
-        window.location = "http://localhost:3000/general/NurseIndex";
+        window.location = FRONT_BASE_URL+"general/NurseIndex";
     }else if (idRol==1){
-        window.location = "http://localhost:3000/admin/Nomina/Nomina";
-    }*/
+        window.location = FRONT_BASE_URL+"admin/Nomina/Nomina";
+    }
 
     const {id}= props.match.params;
     ax(id);
@@ -70,13 +71,13 @@ const ViewSpecificDonor = props =>{
 
         <Form.Row>
               <Form.Group as={Col} controlId="fechaCumple">
-              <p className="font-weight-bold">FECHA DE CUMPLEAÑOS: </p>
+              <label className="font-weight-bold">&nbsp;<FontAwesomeIcon icon={['fas', 'calendar-alt']} />&nbsp;FECHA DE CUMPLEAÑOS: </label>
                                 <p id="fechaCumple"></p>
                   </Form.Group>
                   &nbsp;&nbsp;&nbsp;
 
                   <Form.Group as={Col}>
-                  <p className="font-weight-bold" >RFC:</p>
+                  <label className="font-weight-bold" >RFC:</label>
                                 <p id="RFC1"></p>
                   </Form.Group>
 
@@ -88,18 +89,18 @@ const ViewSpecificDonor = props =>{
         <br></br>
                   <Form.Row>
               <Form.Group as={Col}>
-              <p className="font-weight-bold" >TELEFONO:</p>
+              <label className="font-weight-bold"><FontAwesomeIcon icon={['fas', 'phone-alt']} />&nbsp;TELÉFONO:</label>
                                 <p id="tel"></p>
                   </Form.Group>
                   &nbsp;&nbsp;&nbsp;
 
                   <Form.Group as={Col}>
-                  <p className="font-weight-bold">CELULAR:</p>
+                  <label className="font-weight-bold">&nbsp;<FontAwesomeIcon icon={['fas', 'mobile-alt']} />&nbsp;CELULAR:</label>
                                 <p id="cel"></p>
                   </Form.Group>
 
                   <Form.Group as={Col}>
-                  <p className="font-weight-bold">CORREO:</p>
+                  <label className="font-weight-bold">&nbsp;<FontAwesomeIcon icon={['fas', 'envelope']} />&nbsp; CORREO: </label>
                                 <p id="correo1"></p>
                   </Form.Group>
                   </Form.Row>
@@ -131,13 +132,13 @@ const ViewSpecificDonor = props =>{
             
         <Form.Row>
               <Form.Group as={Col}>
-              <p className="font-weight-bold">RAZÓN SOCIAL:</p>
+              <label className="font-weight-bold" >RAZÓN SOCIAL:</label>
                                 <p id="razonSocial"></p>
                   </Form.Group>
                   &nbsp;&nbsp;&nbsp;
 
                   <Form.Group as={Col}>
-                  <p className="font-weight-bold">RFC:</p>
+                  <label className="font-weight-bold" >RFC:</label>
                                 <p id="RFC2"></p>
                   </Form.Group>
                   <Form.Group as={Col}>
@@ -148,20 +149,20 @@ const ViewSpecificDonor = props =>{
             
             <Form.Row>
               <Form.Group as={Col}>
-              <p className="font-weight-bold">CALLE:</p>
+              <label className="font-weight-bold" >CALLE:</label>
                             <p id="calle"></p>
 
                   </Form.Group>
                   &nbsp;&nbsp;&nbsp;
 
                   <Form.Group as={Col}>
-                  <p className="font-weight-bold"># Interior:</p>
+                  <label className="font-weight-bold" ># INTERIOR:</label>
                             <p id="interior"></p>
 
                   </Form.Group>
 
                   <Form.Group as={Col}>
-                  <p className="font-weight-bold"># Exterior:</p>
+                  <label className="font-weight-bold" ># EXTERIOR:</label>
                             <p id="exterior"></p>
                   </Form.Group>
                   </Form.Row>
@@ -170,20 +171,20 @@ const ViewSpecificDonor = props =>{
             
             <Form.Row>
               <Form.Group as={Col}>
-              <p className="font-weight-bold">C.P. :</p>
+              <label className="font-weight-bold" >CÓDIGO POSTAL:</label>
                             <p id="cp"></p>
 
                   </Form.Group>
                   &nbsp;&nbsp;&nbsp;
 
                   <Form.Group as={Col}>
-                  <p className="font-weight-bold">COLONIA:</p>
+                  <label className="font-weight-bold" >COLONIA:</label>
                             <p id="colonia"></p>
 
                   </Form.Group>
 
                   <Form.Group as={Col}>
-                  <p className="font-weight-bold">CIUDAD:</p>
+                  <label className="font-weight-bold" >CIUDAD:</label>
                             <p id="ciudad"></p>
                   </Form.Group>
                   </Form.Row>
@@ -193,20 +194,20 @@ const ViewSpecificDonor = props =>{
             
             <Form.Row>
               <Form.Group as={Col}>
-              <p className="font-weight-bold">MUNICIPIO:</p>
+              <label className="font-weight-bold" >MUNICIPIO:</label>
                             <p id="municipio"></p>
 
                   </Form.Group>
                   &nbsp;&nbsp;&nbsp;
 
                   <Form.Group as={Col}>
-                  <p className="font-weight-bold">ESTADO:</p>
+                  <label className="font-weight-bold" >ESTADO:</label>
                             <p id="estado"></p>
 
                   </Form.Group>
 
                   <Form.Group as={Col}>
-                  <p className="font-weight-bold">PAÍS:</p>
+                  <label className="font-weight-bold" >PAÍS:</label>
                             <p id="pais"></p>
                   </Form.Group>
                   </Form.Row>
@@ -214,7 +215,7 @@ const ViewSpecificDonor = props =>{
        
                   <Form.Row>
               <Form.Group as={Col}>
-              <p className="font-weight-bold">CORREO:</p>
+              <label className="font-weight-bold">&nbsp;<FontAwesomeIcon icon={['fas', 'envelope']} />&nbsp; CORREO: </label>
                             <p id="correo"></p>
                   </Form.Group></Form.Row>
                   <br></br>
@@ -255,7 +256,7 @@ const ViewSpecificDonor = props =>{
 }
 
 function ax(idD){
-    axios.get("http://localhost:8000/api/donantes/"+idD)
+    axios.get(API_BASE_URL+"donantes/"+idD)
     .then(function (resp){
       console.log(resp.data);
      document.getElementById("nombreDonante").innerHTML = resp.data[0].nombreCompleto1;

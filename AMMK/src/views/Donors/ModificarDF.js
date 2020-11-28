@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { Prompt } from 'react-router';
 import { Progress, Alert, CardBody, CardHeader } from "reactstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { API_BASE_URL, FRONT_BASE_URL } from 'index';
 
 const ModificarDF = (props) => {
   const { id } = props.match.params;
@@ -14,7 +15,7 @@ const ModificarDF = (props) => {
     <div class="content">
         <Prompt
             when={true}
-            message="Te encuentras en proceso de modificación...                                                ¿Estás segur@ de querer salir?"
+            message="Te encuentras en proceso de modificación... ¿Estás segur@ de querer salir?"
           />
     <div class="container">
         <div class="row">
@@ -199,7 +200,7 @@ const ModificarDF = (props) => {
 };
 
 function ax(idC) {
-  axios.get("http://localhost:8000/api/donantes/" + idC).then(function (resp) {
+  axios.get(API_BASE_URL+"donantes/" + idC).then(function (resp) {
     console.log(resp.data);
            document.getElementById("rs").value = resp.data[0].RazonSocial;
            document.getElementById("rfc").value = resp.data[0].RFC;
@@ -253,13 +254,13 @@ function modificar() {
       
       };
     axios
-      .put("http://localhost:8000/api/donantes/modificarFacturacion/" + idD, donante)
+      .put(API_BASE_URL+"donantes/modificarFacturacion/" + idD, donante)
       .then(function (resp) {
         console.log(resp.data);
       });
 
     Swal.fire("¡Listo!", "Cambios guardados", "success").then(function () {
-        window.location = "http://localhost:3000/admin/ViewSpecificDonor/"+idD;
+        window.location = FRONT_BASE_URL+"/admin/ViewSpecificDonor/"+idD;
     });
   } else {
     Swal.fire(

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { FormGroup, Form, Input, Button } from "reactstrap";
 import axios from "axios";
 import { Prompt } from 'react-router';
+import { API_BASE_URL, FRONT_BASE_URL } from 'index';
 
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
@@ -24,7 +25,7 @@ const ModificarDGenerales = (props) => {
                 <h2 align="center">Modificar Datos Generales del Donante</h2>
                 <Card>
           <CardHeader>
-          <h3 align="center" className="title">Datos Donación</h3>
+          <h3 align="center" className="title">Datos Personales Donante</h3>
           <Alert color="primary">Los campos marcados con un asterisco (*) son obligatorios.</Alert>
           </CardHeader>
           <CardBody>
@@ -80,7 +81,7 @@ const ModificarDGenerales = (props) => {
 
                         <div class="col-4">
                             <FormGroup >
-                            <label className="font-weight-bold"><FontAwesomeIcon icon={['fas', 'phone-alt']} />&nbsp;Teléfono:</label>
+                            <label className="font-weight-bold"><FontAwesomeIcon icon={['fas', 'phone-alt']} />&nbsp;TELÉFONO:</label>
                             <Input
                                     id="tel"
                                     
@@ -91,7 +92,7 @@ const ModificarDGenerales = (props) => {
                         
                         <div class="col-4">
                             <FormGroup>
-                            <label className="font-weight-bold">&nbsp;<FontAwesomeIcon icon={['fas', 'mobile-alt']} />*&nbsp;Celular:</label>
+                            <label className="font-weight-bold">&nbsp;<FontAwesomeIcon icon={['fas', 'mobile-alt']} />*&nbsp;CELULAR:</label>
                             <Input
                                     id="celular"
                                     
@@ -134,7 +135,7 @@ const ModificarDGenerales = (props) => {
 };
 
 function ax(idC) {
-  axios.get("http://localhost:8000/api/donantes/" + idC).then(function (resp) {
+  axios.get(API_BASE_URL+"donantes/" + idC).then(function (resp) {
     console.log(resp.data);
            document.getElementById("nombre").value = resp.data[0].nombreCompleto1;
            document.getElementById("fecha").value = resp.data[0].fechaCumpleaños1;
@@ -166,13 +167,13 @@ function modificar() {
 
       };
     axios
-      .put("http://localhost:8000/api/donantes/" + idD, donante)
+      .put(API_BASE_URL+"donantes/" + idD, donante)
       .then(function (resp) {
         console.log(resp.data);
       });
 
     Swal.fire("¡Listo!", "Cambios guardados", "success").then(function () {
-      window.location = "http://localhost:3000/admin/ViewSpecificDonor/"+idD;
+      window.location = FRONT_BASE_URL+"admin/ViewSpecificDonor/"+idD;
     });
   } else {
     Swal.fire(
