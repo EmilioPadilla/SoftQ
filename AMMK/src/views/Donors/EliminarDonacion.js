@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import {FormGroup, Form, Input, Button} from "reactstrap"
 import axios from 'axios';
 import { Progress, Alert, Col, Card, CardBody, CardHeader } from "reactstrap";
+import { API_BASE_URL, FRONT_BASE_URL } from 'index';
 
 import Swal from 'sweetalert2';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -79,7 +80,7 @@ const EliminarDonacion = props =>{
                                 <br/>
                                 <div class="row justify-content-center">
                                     <div class="col-4" align="center">
-                                    <Link to="/admin/ViewDonors">
+                                    <Link to={`/admin/ViewSpecificDonor/${localStorage.getItem("idD")}`}>
                                             <Button className="btn-fill" color="primary" >
                                                 Regresar
                                             </Button>
@@ -107,7 +108,7 @@ const EliminarDonacion = props =>{
 }
 
 function ax(idC){
-    axios.get("http://localhost:8000/api/donaciones/"+idC)
+    axios.get( API_BASE_URL+"donaciones/"+idC)
           .then(function (resp){
             console.log(resp.data);
            //document.getElementById("tipo").value = resp.data[0].idTipoDonacion;
@@ -121,7 +122,7 @@ function ax(idC){
 function eliminar(){
     var idD = document.getElementById("valorId").value;
     console.log(idD);
-        axios.delete('http://localhost:8000/api/donaciones/'+idD)
+        axios.delete( API_BASE_URL+"donaciones/"+idD)
               .then(function (resp){
                 console.log(resp.data);
               } );
@@ -130,7 +131,7 @@ function eliminar(){
            'Se ha eliminado la donación!',
            'success'
            ).then(function() {
-               window.location = "http://localhost:3000/admin/ViewDonors";
+               window.location = FRONT_BASE_URL+"admin/ViewSpecificDonor"+localStorage.getItem("idD");
         });
 }
 

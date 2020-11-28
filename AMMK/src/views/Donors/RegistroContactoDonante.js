@@ -9,6 +9,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
+import { API_BASE_URL } from "index";
+import { FRONT_BASE_URL } from "index";
 library.add(fas)
 const validateForm = (errors) => {
   let valid = true;
@@ -85,7 +87,7 @@ class RegistroContactoDonante extends Component {
 
       
 
-        axios.post('http://localhost:8000/api/contactoDonante', jsonArray).then(res => {console.log(res)});
+        axios.post(API_BASE_URL+'contactoDonante', jsonArray).then(res => {console.log(res)});
         
        //validacion
       
@@ -94,7 +96,7 @@ class RegistroContactoDonante extends Component {
         'Datos guardados',
         'success'
         ).then(function() {
-            window.location = "http://localhost:3000/admin/ViewDonors";
+            window.location = FRONT_BASE_URL+"admin/ViewDonors";
         });
         
         }else{
@@ -176,7 +178,7 @@ class RegistroContactoDonante extends Component {
 <div className="content">
 <Prompt
             when={true}
-            message="Te encuentras en proceso de registro...                                                ¿Estás segur@ de querer salir?"
+            message="Te encuentras en proceso de modificación... ¿Estás segur@ de querer salir?"
           />
         <div class="container-fluid">
           <h1 className="title">Registrar Contacto</h1>

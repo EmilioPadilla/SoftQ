@@ -6,6 +6,7 @@ import { Row, Table, Col, Button, FormGroup, Input, Label, InputGroup, InputGrou
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
+import { API_BASE_URL, FRONT_BASE_URL } from 'index';
 
 
 var respuesta = "";
@@ -19,7 +20,7 @@ class ViewDonors extends Component {
 
   crearTabla() {
 
-    axios.get("http://localhost:8000/api/donors/table/all")
+    axios.get(API_BASE_URL+"donors/table/all")
       .then(function (resp) {
         document.getElementById("tablaD").innerHTML = resp.data;
       });
@@ -58,26 +59,26 @@ class ViewDonors extends Component {
       }
 
     if (numStatus == 1) {
-      axios.get("http://localhost:8000/api/donors/table/all")
+      axios.get(API_BASE_URL+"donors/table/all")
         .then(function (resp) {
           respuesta = resp.data;
           document.getElementById("tablaD").innerHTML = respuesta;
         });
     } else if (numStatus == 2) {
-      axios.get("http://localhost:8000/api/donors/tableI/all")
+      axios.get(API_BASE_URL+"donors/tableI/all")
         .then(function (resp) {
           respuesta = resp.data;
           document.getElementById("tablaD").innerHTML = respuesta;
         });
     }else if(numTipo!=0 && numStatus==1){
-      axios.get("http://localhost:8000/api/donors/tableAT/all/"+numTipo)
+      axios.get(API_BASE_URL+"donors/tableAT/all/"+numTipo)
         .then(function (resp) {
           respuesta = resp.data;
           document.getElementById("tablaD").innerHTML = respuesta;
         });
     }else if(numTipo!=0 && numStatus==2){
 
-    axios.get("http://localhost:8000/api/donors/tableIT/all/" + numTipo)
+    axios.get(API_BASE_URL+"donors/tableIT/all/" + numTipo)
       .then(function (resp) {
         respuesta = resp.data;
         document.getElementById("tablaD").innerHTML = respuesta;
@@ -115,20 +116,20 @@ class ViewDonors extends Component {
     }
     localStorage.setItem("tipo",numTipo);
     if(numTipo==0){
-      axios.get("http://localhost:8000/api/donors/table/all")
+      axios.get(API_BASE_URL+"donors/table/all")
         .then(function (resp) {
           respuesta = resp.data;
           document.getElementById("tablaD").innerHTML = respuesta;
         });
     }else if(numTipo!=0 && numStatus==1){
-      axios.get("http://localhost:8000/api/donors/tableAT/all/"+numTipo)
+      axios.get(API_BASE_URL+"donors/tableAT/all/"+numTipo)
         .then(function (resp) {
           respuesta = resp.data;
           document.getElementById("tablaD").innerHTML = respuesta;
         });
     }else if(numTipo!=0 && numStatus==2){
 
-    axios.get("http://localhost:8000/api/donors/tableIT/all/" + numTipo)
+    axios.get(API_BASE_URL+"donors/tableIT/all/" + numTipo)
       .then(function (resp) {
         respuesta = resp.data;
         document.getElementById("tablaD").innerHTML = respuesta;
@@ -138,7 +139,7 @@ class ViewDonors extends Component {
     
     else{
 
-      axios.get("http://localhost:8000/api/donors/tableAT/all/"+numTipo)
+      axios.get(API_BASE_URL+"donors/tableAT/all/"+numTipo)
       .then(function (resp) {
         respuesta = resp.data;
         document.getElementById("tablaD").innerHTML = respuesta;
@@ -153,7 +154,7 @@ class ViewDonors extends Component {
     if (palabra == "") {
       palabra = "allOfEm";
     }
-    axios.get("http://localhost:8000/api/donors/table/buscar/" + palabra)
+    axios.get(API_BASE_URL+"donors/table/buscar/" + palabra)
       .then(function (resp) {
         respuesta = resp.data;
         document.getElementById("tablaD").innerHTML = respuesta;
@@ -166,13 +167,13 @@ class ViewDonors extends Component {
     const login = localStorage.getItem("isLoggedIn");
     const idRol = localStorage.getItem("idRol");
     //Redirect in case of wrong role or no login
-    /*if (!login ) {
-        window.location = "http://localhost:3000/login";
-    }else if(idRol==2){
-        window.location = "http://localhost:3000/general/NurseIndex";
-    }else if (idRol==1){
-        window.location = "http://localhost:3000/admin/Nomina/Nomina";
-    }*/
+    if (!login ) {
+      window.location = FRONT_BASE_URL+"login";
+  }else if(idRol==2){
+      window.location = FRONT_BASE_URL+"general/NurseIndex";
+  }else if (idRol==1){
+      window.location = FRONT_BASE_URL+"admin/Nomina/Nomina";
+  }
     this.crearTabla();
 
     return (
