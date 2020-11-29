@@ -129,6 +129,16 @@ export default class FileUpload extends Component {
                 window.location = (FRONT_BASE_URL + "admin/view-employee/" + id);
               });
             });
+          } else if (view == 3) {
+            axios.post(API_BASE_URL + 'employee_files', fd
+            ).then(res => {
+              this.setState.modalArchivos = false;
+              Swal.fire(
+                '¡Listo!',
+                'Documento cargado de manera exitosa.',
+                'success',
+              );
+            });
           } else if (view == 1) {
             axios.post(API_BASE_URL + 'beneficiary_files', fd
             ).then(res => {
