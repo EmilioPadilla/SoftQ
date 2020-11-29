@@ -122,7 +122,7 @@ class RegisterEmployee extends React.Component {
     let fechaNac = document.getElementById("fechaNacimiento").value;
     let CURP = document.getElementById("CURP").value;
     let RFC = document.getElementById("RFC").value;
-    let NumSeguroSocial = document.getElementById("NumSeguroSocial").value;
+    let numSeguroSocial = document.getElementById("numSeguroSocial").value;
     let civil_status_id = document.getElementById("civil_status").value;
     let infonavit = document.getElementById("NumInfonavit").value;
 
@@ -134,7 +134,7 @@ class RegisterEmployee extends React.Component {
         fechaNac: fechaNac, 
         RFC: RFC,
         CURP: CURP, 
-        NumSeguroSocial: NumSeguroSocial,
+        numSeguroSocial: numSeguroSocial,
         scholarship_id: scholarship_id,
         civil_status_id: civil_status_id,
         infonavit: infonavit
@@ -272,11 +272,11 @@ class RegisterEmployee extends React.Component {
                         </Col>
                         <Col className="pl-md-1" md="6">
                           <FormGroup>
-                            <Label htmlFor="NumSeguroSocial">Número de Seguro Social</Label>
+                            <Label htmlFor="numSeguroSocial">Número de Seguro Social</Label>
                             <Input
                               placeholder="92919084431"
                               type="text"
-                              id="NumSeguroSocial"
+                              id="numSeguroSocial"
                             />
                           </FormGroup>
                         </Col>

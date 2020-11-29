@@ -8,6 +8,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, FormGroup, C
 import SimpleTooltip from "../../views/General/SimpleTooltip";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { API_BASE_URL, FRONT_BASE_URL } from 'index';
+import FileUpload from '../../views/Beneficiarias/FileUpload';
 
 function exitEmployee (id) {
   let motivoEgreso = document.getElementById("motivoEgreso").value;
@@ -79,13 +80,14 @@ const ModalExample = (props) => {
               </FormGroup>
 
               <FormGroup>
-              <Label for="DocCurp">Carga de finiquito</Label>
-              <CustomInput type="file" name="customFile" id="DocFiniq" label="Selecciona un archivo"/>
+              <Label>Carga de finiquito</Label>
+              <FileUpload id={employee.id} view="3"/>
               </FormGroup>
-
+              <br></br>
+              <br/>
               <FormGroup>
-              <Label for="DocCurp">Carga de renuncia</Label>
-              <CustomInput type="file" name="customFile" id="DocRenuncia" label="Selecciona un archivo"/>
+              <Label>Carga de renuncia</Label>
+              <FileUpload id={employee.id} view="3"/>
               </FormGroup>
 
 

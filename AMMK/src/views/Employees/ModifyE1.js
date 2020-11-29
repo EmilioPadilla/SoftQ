@@ -68,7 +68,7 @@ class RegisterEmployee extends React.Component {
            document.getElementById("fechaNacimiento").value = res.data[0].fechaNac;
            document.getElementById("CURP").value = res.data[0].CURP;
            document.getElementById("RFC").value = res.data[0].RFC;
-           document.getElementById("NumSeguroSocial").value = res.data[0].numSeguroSocial;
+           document.getElementById("numSeguroSocial").value = res.data[0].numSeguroSocial;
            document.getElementById("civil_status").value = res.data[0].civil_status_id;
            document.getElementById("NumInfonavit").value = res.data[0].infonavit; 
            document.getElementById("escolaridad").value = res.data[0].scholarship_id; 
@@ -93,7 +93,7 @@ onSubmit(e, id){
     let fechaNac = document.getElementById("fechaNacimiento").value;
     let CURP = document.getElementById("CURP").value;
     let RFC = document.getElementById("RFC").value;
-    let NumSeguroSocial = document.getElementById("NumSeguroSocial").value;
+    let numSeguroSocial = document.getElementById("numSeguroSocial").value;
     let civil_status_id = document.getElementById("civil_status").value;
     let infonavit = document.getElementById("NumInfonavit").value;
     var idD= document.getElementById("valorId").value;
@@ -105,7 +105,7 @@ onSubmit(e, id){
         fechaNac: fechaNac, 
         RFC: RFC,
         CURP: CURP, 
-        NumSeguroSocial: NumSeguroSocial,
+        numSeguroSocial: numSeguroSocial,
         scholarship_id: scholarship_id,
         civil_status_id: civil_status_id,
         infonavit: infonavit
@@ -222,11 +222,11 @@ onSubmit(e, id){
                         </Col>
                         <Col className="pl-md-1" md="6">
                           <FormGroup>
-                            <Label htmlFor="NumSeguroSocial">Número de Seguro Social</Label>
+                            <Label htmlFor="numSeguroSocial">Número de Seguro Social</Label>
                             <Input
                               placeholder="92919084431"
                               type="text"
-                              id="NumSeguroSocial"
+                              id="numSeguroSocial"
                             />
                           </FormGroup>
                         </Col>
