@@ -1,3 +1,4 @@
+
 [2020-11-28 14:15:11] local.ERROR: SQLSTATE[HY000] [1049] Unknown database 'softq' (SQL: select * from `status_emp`) {"exception":"[object] (Illuminate\\Database\\QueryException(code: 1049): SQLSTATE[HY000] [1049] Unknown database 'softq' (SQL: select * from `status_emp`) at /Users/Emirock/Documents/Tec/5to_Semestre/SoftQ/AMMSKLaravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php:671)
 [stacktrace]
 #0 /Users/Emirock/Documents/Tec/5to_Semestre/SoftQ/AMMSKLaravel/vendor/laravel/framework/src/Illuminate/Database/Connection.php(631): Illuminate\\Database\\Connection->runQueryCallback('select * from `...', Array, Object(Closure))
