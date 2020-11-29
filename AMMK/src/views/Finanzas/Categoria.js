@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios';
 import $ from 'jquery';
-import {FRONT_BASE_URL } from 'index';
+import {FRONT_BASE_URL, API_BASE_URL } from 'index';
 
 class PostForm extends React.Component {
   constructor(props) {
@@ -19,7 +19,7 @@ class PostForm extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     let nota = $("#nota").val()
-     axios.post('http://localhost:8000/notas', {
+     axios.post(API_BASE_URL+'notas', {
        nota: nota,
      })
      .then(function (response) {

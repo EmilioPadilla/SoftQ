@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from 'axios'
 import Swal from 'sweetalert2';
 import 'bootstrap/dist/css/bootstrap.css';
+import { API_BASE_URL } from 'index';
 
 export default class CreateExpense extends Component {
     constructor(props) {
@@ -32,7 +33,7 @@ export default class CreateExpense extends Component {
       amount: this.state.amount,
     };
 
-    axios.post('http://localhost:8000/api/expenses/', expense)
+    axios.post(API_BASE_URL+'expenses/', expense)
       .then(res => console.log(res.data));
     Swal.fire(
   		'Good job!',

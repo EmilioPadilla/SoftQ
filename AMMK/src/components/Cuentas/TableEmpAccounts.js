@@ -7,27 +7,12 @@
 
 import React from "react";
 
-import AccountSearchIcon from 'mdi-react/AccountSearchIcon';
-import DeleteIcon from 'mdi-react/DeleteIcon';
-import ModalExitEmployee from "components/Employees/ModalExitEmployee.js";
-import SimpleTooltip from "../../views/General/SimpleTooltip";
-
-//Importing Icon library
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { fas } from '@fortawesome/free-solid-svg-icons';
-
+import { API_BASE_URL, FRONT_BASE_URL } from 'index';
 
 // reactstrap components
 import {
-  Card,
-  CardTitle,
-  CardHeader,
-  CardBody,
-  CardFooter,
   Table,
   Row,
-  Button,
   Col
   } from "reactstrap";
 
@@ -58,7 +43,7 @@ import {
       crearTabla(){
         var tabla='<thead> <tr> <th> Nombre </th> <th> Nombre de usuario </th> <th> Rol </th> <th> Acciones </th> </tr> </thead> <tbody>';
         const num=1;
-        axios.get("http://localhost:8000/api/employee/")
+        axios.get(API_BASE_URL+"employee/")
           .then(function (resp){
             console.log(resp.data);
             resp.data.forEach(element => {

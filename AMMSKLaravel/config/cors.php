@@ -17,13 +17,13 @@ return [
 
     'paths' => ['api/*'],
 
-    'allowed_methods' => ['*'],
+    'allowed_methods' => ['https://ammk.hogaresfaustinollamas.org/*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => ['https://ammk.hogaresfaustinollamas.org/*'],
 
     'allowed_origins_patterns' => [],
 
-    'allowed_headers' => ['*'],
+    'allowed_headers' => ['https://ammk.hogaresfaustinollamas.org/*'],
 
     'exposed_headers' => [],
 

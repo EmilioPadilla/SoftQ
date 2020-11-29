@@ -2,8 +2,8 @@
   "name": "AMMK",
   "version": "1.1.0",
   "private": true,
-  "proxy": "http://localhost:3000",
-  "homepage": "http://localhost:3000",
+  "proxy": "http://ammk.hogaresfaustinollamas.org",
+  "homepage": "http://ammk.hogaresfaustinollamas.org",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",

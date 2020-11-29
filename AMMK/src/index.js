@@ -30,14 +30,13 @@ import "assets/demo/demo.css";
 import "assets/css/black-dashboard-react.css";
 import "assets/css/nucleo-icons.css";
 
-export const API_BASE_URL = 'http://localhost:8000/api/';
-export const FRONT_BASE_URL = 'http://localhost:3000/';
+export const API_BASE_URL = 'http://test-api.ejsanchez.com.mx/api/';
+export const FRONT_BASE_URL = 'http://ammk.hogaresfaustinollamas.org/';
+// export const API_BASE_URL = 'http://localhost:8000/api/';
+// export const FRONT_BASE_URL = 'http://localhost:3000/';
 export const IMAGE_URL = 'http://test-api.ejsanchez.com.mx/public/';
 const hist = createBrowserHistory();
 
-function activateWhite() {
-  document.body.classList.add("white-content");
-}
 
 ReactDOM.render(
   <Router history={hist}>
