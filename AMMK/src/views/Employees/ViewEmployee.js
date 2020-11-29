@@ -9,7 +9,7 @@ import React, { useState } from 'react';
 
 //API CALLS
 import axios from 'axios';
-import { API_BASE_URL, FRONT_BASE_URL } from 'index';
+import { API_BASE_URL, FRONT_BASE_URL, IMAGE_URL } from 'index';
 import { Link } from "react-router-dom";
 
 //Importing Icon library
@@ -22,6 +22,7 @@ import TableEmployeeFiles from "components/Employees/TableEmployeeFiles.js"
 import TableEmployeeVacations from "components/Employees/TableEmployeeVacations.js"
 import ModalNewVacation from "components/Employees/ModalNewVacation.js";
 import ModalNewEmpBeneficiary from "components/Employees/ModalNewEmpBeneficiary.js";
+import ModalEditPhoto from "components/Employees/ModalEditPhoto.js";
 import TableEmployeeBeneficiary from "components/Employees/TableEmployeeBeneficiary.js";
 
 // reactstrap components
@@ -48,6 +49,7 @@ class ViewEmployee extends React.Component {
         markedDays: [],
         statuses: [],
         employees: [],
+        absences: [],
         id: '',
       }
       this.handleCalendarChange = this.handleCalendarChange.bind(this);
@@ -62,10 +64,44 @@ class ViewEmployee extends React.Component {
     componentDidMount() {
       const { id } = this.props.match.params;
       this.state.id = id
+      this.getEmployees(id);
+      this.getAbsences(id);
+      this.getPath();
+    }
+
+    getPath() {
+      const { id } = this.props.match.params;
+      axios.get(API_BASE_URL + 'employee_files/ingreso/' + id)
+          .then(res => {
+              if (!Object.keys(res.data).length) {
+                  console.log("NO DATA!");
+                  return;
+              }
+              //const path = res.data;
+              const path = res.data[0].path;
+              console.log(path);
+
+              let pathFinal = IMAGE_URL + "employee_files/" + path;
+              document.getElementById("imagenIngreso").src = pathFinal;
+          })
+  }
+
+    getEmployees(id) {
       axios.get(API_BASE_URL + 'employee/'+id)
+      .then(res => {
+        const employees = res.data;
+        this.setState({ employees });
+      })
+    }
+
+    getAbsences(id) {
+      const employee = {
+        idEmployee: id,
+      }
+      axios.post(API_BASE_URL + 'payrolls',employee)
         .then(res => {
-          const employees = res.data;
-          this.setState({ employees });
+          const absences = res.data;
+          this.setState({ absences });
         })
     }
 
@@ -82,7 +118,7 @@ class ViewEmployee extends React.Component {
         idEmployees: this.state.id
       }
       // Delete old shifts
-      axios.post('http://localhost:8000/api/employeesShifts/delete', delParam)
+      axios.post(API_BASE_URL+'employeesShifts/delete', delParam)
       .then(res => {
         console.log(res);
         this.state.markedDays.forEach((element) => {
@@ -93,7 +129,7 @@ class ViewEmployee extends React.Component {
           }
           console.log(empShift);
           // Insert new shifts
-          axios.post('http://localhost:8000/api/employeesShifts', empShift)
+          axios.post(API_BASE_URL+'employeesShifts', empShift)
           .then((res) => {
             console.log(res);
             // Show success modal if the last modification was successful
@@ -109,17 +145,26 @@ class ViewEmployee extends React.Component {
       });
     }
 
+    getLastPayrollAbsence() {
+      if (this.state.absences[0] !== undefined) {
+        const absence = this.state.absences[0].faltas;
+        return absence;
+      } else {
+        return "No hay registro";
+      }
+    }
+
     render() {
 
         const login = localStorage.getItem("isLoggedIn");
         const idRol = localStorage.getItem("idRol");
         //Redirect in case of wrong role or no login
         if (!login ) {
-            window.location = "http://localhost:3000/login";
+            window.location = FRONT_BASE_URL+"login";
         }else if(idRol==2){
-            window.location = "http://localhost:3000/general/NurseIndex";
+            window.location = FRONT_BASE_URL+"general/NurseIndex";
         }else if (idRol==1){
-            window.location = "http://localhost:3000/admin/Nomina/Nomina";
+            window.location = FRONT_BASE_URL+"admin/Nomina/Nomina";
         }
 
 
@@ -136,14 +181,14 @@ class ViewEmployee extends React.Component {
 
           {(() => {
                   switch (employee.status_id) {
-                    case 1:   return <Alert color="primary" style={{ 'fontSize': '15px', 'fontWeight': 'bold' }}>{status[employee.status_id]}</Alert>;
-                    case 2:   return <Alert color="danger" style={{ 'fontSize': '18px', 'fontWeight': 'bold' }}>{status[employee.status_id]}</Alert>;
+                    case 1:   return <Alert color="primary" style={{ 'fontSize': '25px', 'fontWeight': 'bold', 'textAlign': 'center'  }}>{status[employee.status_id]}</Alert>;
+                    case 2:   return <Alert color="danger" style={{ 'fontSize': '25px', 'fontWeight': 'bold', 'textAlign': 'center'  }}>{status[employee.status_id]}</Alert>;
                     default:return '';
                   }
                 })()}
               
               <Row>
-                <Col>
+                <Col md="5">
                   <Card>
                     <CardHeader>
                       <CardTitle>
@@ -152,23 +197,20 @@ class ViewEmployee extends React.Component {
                             <Badge color="primary">Foto de empleado</Badge>
                           </Col>
                           <Col>
-                            <Button  className="float-right" size="sm" id="editarfoto"><FontAwesomeIcon icon={['fas', 'pencil-alt']} /></Button>
-                            <SimpleTooltip placement="top" target="editarfoto" >Editar foto</SimpleTooltip>
+                            <ModalEditPhoto/>
                           </Col>
                         </Row>
                       </CardTitle>
                     </CardHeader>
                     <CardBody className="justify-content-md-center"  style={{ display: 'flex'}}>
-                      <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                         <img src={require("assets/img/default-avatar.png")}
-                         width="400in" 
-                         height="500in"
-                         style={{ alignSelf: 'center' }}
-                         class="img-fluid" 
-                         alt="Imagen de Ingreso" 
-                         id="fotoEmpleado" 
-                         onerror="this.onerror=null; this.src='../../assets/img/default-avatar.png';"></img>
-                      </a>
+                      <img src="" 
+                      width="400in" 
+                      height="500in"
+                      className="img-fluid" 
+                      alt="Imagen de Ingreso" 
+                      id="imagenIngreso" 
+                      onError={(e) => { e.target.onerror = null; 
+                      e.target.src = "https://www.pngitem.com/pimgs/m/22-223925_female-avatar-female-avatar-no-face-hd-png.png" }}></img>
                     </CardBody>
 
                     </Card>
@@ -285,7 +327,6 @@ class ViewEmployee extends React.Component {
                         </Col>
                       </Row>
                     </CardBody>
-                   {/* ))} */}
                   </Card>
                   <Card>
                     <CardHeader>
@@ -295,7 +336,6 @@ class ViewEmployee extends React.Component {
                             <Badge color="primary">Datos de contacto</Badge>
                           </Col>
                           <Col>
-                          {/* {this.state.employees.map((employee) => ( */}
                             <Link to=
                             {{
                                   pathname: '/admin/ModifyE2/'+ employee.id,
@@ -304,12 +344,10 @@ class ViewEmployee extends React.Component {
                               <Button  className="float-right" size="sm" id="editarpers"><FontAwesomeIcon icon={['fas', 'pencil-alt']} /></Button>
                               <SimpleTooltip placement="top" target="editarpers" >Editar datos de contacto</SimpleTooltip>
                               </Link>
-                               {/* ))} */}
                           </Col>
                         </Row>
                       </CardTitle>
                     </CardHeader>
-                    {/* {this.state.employees.map((employee) => ( */}
                     <CardBody>
                       <Row>
                         <Col>
@@ -409,7 +447,6 @@ class ViewEmployee extends React.Component {
                       </Row>
                       
                     </CardBody>
-                   {/* ))} */}
                   </Card>
                 </Col>
               </Row>
@@ -453,14 +490,12 @@ class ViewEmployee extends React.Component {
                       <Row>
                         <Col>
                           <Label>
-                            <strong>Suscrito en app móvil:</strong>
+                            <strong>Fecha de ingreso:</strong>
                           </Label>
                         </Col>
                         <Col>
-                          <Label style={{'fontSize': '20px'}} >
-                            <FontAwesomeIcon icon={['fas', 'check-circle']} color="green"/>
-
-                            
+                          <Label>
+                              {employee.fechaIngreso.split("-")[2]} de {months[employee.fechaIngreso.split("-")[1] - 1]} del {employee.fechaIngreso.split("-")[0]}
                           </Label>
                         </Col>
                       </Row>
@@ -514,25 +549,13 @@ class ViewEmployee extends React.Component {
                       </Row>
                       <Row>
                         <Col>
-                          <Label>
-                            <strong>Absencias en la quincena:</strong>
-                          </Label>
+                            <Label style={{color:'#ce4258'}}>
+                              <strong>Ausencias:</strong>
+                            </Label>
                         </Col>
                         <Col>
                           <Label>
-                            Ninguna
-                          </Label>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col>
-                          <Label>
-                            <strong>Retardos en la quincena:</strong>
-                          </Label>
-                        </Col>
-                        <Col>
-                          <Label>
-                            2 retardos
+                            {this.getLastPayrollAbsence()}
                           </Label>
                         </Col>
                       </Row>
@@ -556,6 +579,28 @@ class ViewEmployee extends React.Component {
                 </Card>
               </Row>
               <Row>
+              <Col>
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>
+                        <Row>
+                        <Col>
+                          <Badge color="primary">Archivos</Badge>
+                          </Col>
+                          <Col>
+                          {/* view will be used to change paths within same component */}
+                          <FileUpload id={this.state.id} view="2"/>
+                          </Col>
+                          </Row>
+                      </CardTitle>
+                    </CardHeader>
+                    <CardBody>
+                      <TableEmployeeFiles id={employee.id} />
+                    </CardBody>
+                  </Card>
+                </Col>
+              </Row>
+              <Row>
                 <Col>
                   <Card>
                     <CardHeader>
@@ -576,28 +621,7 @@ class ViewEmployee extends React.Component {
                   </Card>
                 </Col>
               </Row> 
-              <Row>
-                <Col>
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>
-                        <Row>
-                        <Col>
-                          <Badge color="primary">Archivos</Badge>
-                          </Col>
-                          <Col>
-                          {/* view will be used to change paths within same component */}
-                          <FileUpload id={this.state.id} view="2"/>
-                          </Col>
-                          </Row>
-                      </CardTitle>
-                    </CardHeader>
-                    <CardBody>
-                      <TableEmployeeFiles id={employee.id} />
-                    </CardBody>
-                  </Card>
-                </Col>
-                </Row>
+
                 <Row>
                 <Col>
                   <Card>

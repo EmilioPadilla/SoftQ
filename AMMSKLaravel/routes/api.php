@@ -113,7 +113,7 @@ Route::put('employee/contact/{id}', 'App\Http\Controllers\EmployeesController@up
 Route::put('employee/employee/{id}', 'App\Http\Controllers\EmployeesController@updateEmployee');
 
 
-
+Route::get('employee_files/ingreso/{id}', 'App\Http\Controllers\EmployeeFilesController@showImage');
 
 
 

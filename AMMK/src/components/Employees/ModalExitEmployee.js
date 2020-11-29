@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, FormGroup, CustomInput, Label, Form } from 'reactstrap';
 import SimpleTooltip from "../../views/General/SimpleTooltip";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { API_BASE_URL, FRONT_BASE_URL } from 'index';
 
 function exitEmployee (id) {
   let motivoEgreso = document.getElementById("motivoEgreso").value;
@@ -18,8 +19,8 @@ function exitEmployee (id) {
     fechaEgreso: fechaEgreso,
     motivoEgreso: motivoEgreso
   }
-  axios.put('http://localhost:8000/api/employee/exit/'+id, egresarEmpleado).then(function() {
-    window.location = "http://localhost:3000/admin/search-employee";
+  axios.put(API_BASE_URL+'employee/exit/'+id, egresarEmpleado).then(function() {
+    window.location = FRONT_BASE_URL+"admin/search-employee";
   });
   } else {
     Swal.fire( {
@@ -55,7 +56,7 @@ const ModalExample = (props) => {
 
   return (
     <div>
-      <Button id="egresar" color="danger" className="inline" size="sm" inline onClick={toggle}><FontAwesomeIcon icon={['fas', 'trash-alt']}/></Button>
+      <Button id="egresar" color="danger" className="inline" size="sm" onClick={toggle}><FontAwesomeIcon icon={['fas', 'trash-alt']}/></Button>
       <SimpleTooltip placement="top" target="egresar">Egresar</SimpleTooltip>
       <Form>
       <Modal isOpen={modal} toggle={toggle} className={className} color="primary">

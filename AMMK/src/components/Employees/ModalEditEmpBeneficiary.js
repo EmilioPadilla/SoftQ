@@ -80,7 +80,7 @@ const ModalEditEmpBeneficiary = (props) => {
 
   return (
     <div>
-      <Button id="editarbeneficairio" className="inline float-right" size="sm" inline onClick={toggle}><FontAwesomeIcon icon={['fas', 'pencil-alt']} /></Button>
+      <Button id="editarbeneficairio" className="inline float-right" size="sm" onClick={toggle}><FontAwesomeIcon icon={['fas', 'pencil-alt']} /></Button>
       <SimpleTooltip placement="top" target="editarbeneficairio">Editar</SimpleTooltip>
       <Form>
       <Modal isOpen={modal} toggle={toggle} className={className} color="primary">
