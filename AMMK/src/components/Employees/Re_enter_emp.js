@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import {Button, Modal, ModalBody, ModalFooter, ModalHeader, FormGroup, Input, Label, Row, Col} from 'reactstrap';
 import SimpleTooltip from "../../views/General/SimpleTooltip";
 import axios from 'axios';
+import { API_BASE_URL, FRONT_BASE_URL } from 'index';
 import Swal from 'sweetalert2';
 
 //Importing Icon library
@@ -23,8 +24,8 @@ function reEnterEmployee (id) {
     fechaReingreso: fechaReingreso,
     motivoReingreso: motivoReingreso
   }
-  axios.put('http://localhost:8000/api/employee/reenter/'+id, reingresarEmpleado).then(function() {
-    window.location = "http://localhost:3000/admin/search-employee";
+  axios.put(API_BASE_URL+'employee/reenter/'+id, reingresarEmpleado).then(function() {
+    window.location = FRONT_BASE_URL+"admin/search-employee";
   });
   } else {
     Swal.fire( {

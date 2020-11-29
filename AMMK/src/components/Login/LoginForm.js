@@ -13,7 +13,6 @@ export class LoginForm extends React.Component{
       onSignIn (){
           var user = document.getElementById('loginUsername').value;
           var pass = document.getElementById('loginPassword').value;
-        
           const info = {
             username: user,
             password: pass,
@@ -26,6 +25,7 @@ export class LoginForm extends React.Component{
                 'El username no existe en el sistema',
                 'error'
                 )
+                window.location = FRONT_BASE_URL+"general/GeneralIndex";
           }else if(resp.data == 0){
             Swal.fire(
                 '¡Error!',
@@ -38,11 +38,11 @@ export class LoginForm extends React.Component{
             localStorage.setItem("isLoggedIn", true);
             var idRol = localStorage.getItem("idRol");
             if(idRol==2){
-                window.location = FRONT_BASE_URL+"general/NurseIndex";
+                window.location.href = "general/NurseIndex";
             }else if (idRol==1){
-                window.location = FRONT_BASE_URL+"admin/Nomina/Nomina";
+                window.location.href = "admin/Nomina/Nomina";
             }else{
-                window.location = FRONT_BASE_URL+"general/GeneralIndex";
+                window.location.href = "general/GeneralIndex";
             }
           }
         } );
@@ -97,7 +97,7 @@ export class LoginForm extends React.Component{
                         </Form>
                         </div>
                         <div class="col" align="right">
-                            <img src={placeholder} /*style={mystyle}*/  alt="placeholder"/>
+                            <img src={placeholder}   alt="placeholder"/>
                         </div>
                     </div>
                 </div>

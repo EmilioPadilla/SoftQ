@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
 //COMPONENTS
-import { DropdownItem, Row, Table, Col, Alert, Button, Badge, CardBody, Card, Input } from 'reactstrap';
+import { DropdownItem, Row, Table, Col, Alert, Button, Badge, CardBody, Card, CardHeader, CardTitle } from 'reactstrap';
 import SimpleTooltip from "../General/SimpleTooltip";
 import ModifyTakeOut from './ModifyTakeOut';
 import FileUpload from './FileUpload';
 import FilesTable from 'components/Beneficiarias/FilesTable';
+import ModalEditPhoto from "components/Employees/ModalEditPhoto.js";
 
 //API CALLS
 import axios from 'axios';
@@ -92,10 +93,37 @@ export default class SpecificView extends Component {
                         })()}
 
                         <Row>
-                            <Col md="4">
+                            {/* <Col md="4">
                                 <img src="" width="250" className="img-fluid" alt="Imagen de Ingreso" id="imagenIngreso" onError={(e) => { e.target.onerror = null; e.target.src = "https://www.pngitem.com/pimgs/m/22-223925_female-avatar-female-avatar-no-face-hd-png.png" }}></img>
+                            </Col> */}
+                            <Col md="5">
+                                <Card>
+                                    <CardHeader>
+                                    <CardTitle>
+                                        <Row>
+                                        <Col>
+                                            <Badge color="primary">Foto de beneficiaria</Badge>
+                                        </Col>
+                                        <Col>
+                                            <ModalEditPhoto/>
+                                        </Col>
+                                        </Row>
+                                    </CardTitle>
+                                    </CardHeader>
+                                    <CardBody className="justify-content-md-center"  style={{ display: 'flex'}}>
+                                    <img src="" 
+                                    width="400in" 
+                                    height="500in"
+                                    className="img-fluid" 
+                                    alt="Imagen de Ingreso" 
+                                    id="imagenIngreso" 
+                                    onError={(e) => { e.target.onerror = null; 
+                                    e.target.src = "https://www.pngitem.com/pimgs/m/22-223925_female-avatar-female-avatar-no-face-hd-png.png" }}></img>
+                                    </CardBody>
+
+                                    </Card>
                             </Col>
-                            <Col md="8">
+                            <Col md="7">
                                 <Card>
                                     <CardBody>
                                         <h1 className="title">{beneficiary.nombreCompleto}</h1>

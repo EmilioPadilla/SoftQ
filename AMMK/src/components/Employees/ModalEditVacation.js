@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, FormGroup, CustomInput, Label, Form } from 'reactstrap';
 import SimpleTooltip from "../../views/General/SimpleTooltip";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { API_BASE_URL, FRONT_BASE_URL } from 'index';
 
 function editVacation (idEmployee, idVacation) {
   let fechaSalida = document.getElementById("fechaSalida").value;
@@ -23,8 +24,8 @@ function editVacation (idEmployee, idVacation) {
     fechaSalida: fechaSalida,
     fechaRegreso: fechaRegreso
   }
-  const link = "http://localhost:3000/admin/view-employee/"+idEmployee
-  axios.put('http://localhost:8000/api/employeeVacations/'+idVacation,registrarVacacion).then(res => {console.log(res)});
+  const link = FRONT_BASE_URL+"admin/view-employee/"+idEmployee
+  axios.put(API_BASE_URL+'employeeVacations/'+idVacation,registrarVacacion).then(res => {console.log(res)});
 
   Swal.fire(
     '¡Listo!',
@@ -59,7 +60,7 @@ const ModalEditVacation = (props) => {
 
   return (
     <div>
-      <Button id="registrarVacaciones" className="inline float-right" size="sm" inline onClick={toggle}><FontAwesomeIcon icon={['fas', 'pencil-alt']} /></Button>
+      <Button id="registrarVacaciones" className="inline float-right" size="sm" onClick={toggle}><FontAwesomeIcon icon={['fas', 'pencil-alt']} /></Button>
       <SimpleTooltip placement="top" target="registrarVacaciones">Editar</SimpleTooltip>
       <Form>
       <Modal isOpen={modal} toggle={toggle} className={className} color="primary">

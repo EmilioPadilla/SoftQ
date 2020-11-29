@@ -78,7 +78,7 @@ const ModalNewEmpBeneficiary = (props) => {
 
   return (
     <div>
-      <Button id="registrarBenef" className="inline float-right" size="sm" inline onClick={toggle}><FontAwesomeIcon icon={faPlus} /></Button>
+      <Button id="registrarBenef" className="inline float-right" size="sm" onClick={toggle}><FontAwesomeIcon icon={faPlus} /></Button>
       <SimpleTooltip placement="top" target="registrarBenef">Agregar beneficiario</SimpleTooltip>
       <Form autoComplete="off">
       <Modal isOpen={modal} toggle={toggle} color="primary">

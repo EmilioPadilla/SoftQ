@@ -164,7 +164,7 @@ const validDate = RegExp(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]
    render() {
     const login = localStorage.getItem("isLoggedIn");
     const idRol = localStorage.getItem("idRol");
-    //Redirect in case of wrong role or no login
+    // Redirect in case of wrong role or no login
     if (!login ) {
       window.location = FRONT_BASE_URL+"login";
     }else if(idRol==2){
@@ -183,9 +183,6 @@ const validDate = RegExp(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]
         <Row>
             <Col >
               <h2 className="title">Registrar empleado</h2>
-            </Col>
-            <Col >
-              <GoBackButton pathname="buscar empleados" path="/admin/search-employee"/>
             </Col>
           </Row>
         <Form autocomplete="off">

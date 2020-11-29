@@ -49,13 +49,22 @@ class EmployeeFilesController extends Controller
             $file      = $request->file('file');
             $filename  = $file->getClientOriginalName();
             $extension = $file->getClientOriginalExtension();
-            $picture   = time().'-'.$filename;
+            $cat= $request->input("categoria");
+            if ($cat === 6) {
+               $cat = imagenIngreso;
+               $picture   = $cat.'_'.$filename;
+            } else if ($cat === 7) {
+                $cat = imagenEgreso;
+                $picture   = $cat.'_'.$filename;
+            } else {
+                $picture   = time().'_'.$filename;
+            }
             $file->move(public_path('employee_files'), $picture);
             $EmpFile = new EmpFile;
             $EmpFile->path = $picture;
                 $EmpFile->employees_id = $request->input("id");
                 $EmpFile->comentario = $request->input("comentario");
-                $EmpFile->categoria = $request->input("categoria");;
+                $EmpFile->category_id = $request->input("categoria");;
                 $EmpFile->save();
                 return response()->json('File added succesfully');
       } else
@@ -79,6 +88,21 @@ class EmployeeFilesController extends Controller
         ->orderBy('created_at', 'desc')
         ->get();
         return response()->json ($EmpFiles);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showImage($id)
+    {
+        $imageEmployee = EmpFile::
+        where('employees_id', '=', $id)
+        ->where('category_id', '=', '6')
+        ->get(['path']);
+        return response()->json ($imageEmployee);
     }
 
     /**
