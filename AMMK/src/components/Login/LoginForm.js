@@ -38,11 +38,11 @@ export class LoginForm extends React.Component{
             localStorage.setItem("isLoggedIn", true);
             var idRol = localStorage.getItem("idRol");
             if(idRol==2){
-                window.location = FRONT_BASE_URL+"general/NurseIndex";
+                window.location.href = "general/NurseIndex";
             }else if (idRol==1){
-                window.location = FRONT_BASE_URL+"admin/Nomina/Nomina";
+                window.location.href = "admin/Nomina/Nomina";
             }else{
-                window.location = FRONT_BASE_URL+"general/GeneralIndex";
+                window.location.href = "general/GeneralIndex";
             }
           }
         } );

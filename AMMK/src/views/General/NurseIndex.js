@@ -16,6 +16,7 @@ import {
 
 
 class GeneralIndex extends React.Component {
+  
   render() {
     const login = localStorage.getItem("isLoggedIn");
     const idRol = localStorage.getItem("idRol");
@@ -27,6 +28,7 @@ class GeneralIndex extends React.Component {
     }else if (idRol==1){
       window.location = FRONT_BASE_URL + "admin/Nomina/Nomina";
     }
+
     return (
       <>
       <br/><br/><br/>

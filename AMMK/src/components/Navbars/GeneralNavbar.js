@@ -20,6 +20,7 @@ import SimpleTooltip from "../../views/General/SimpleTooltip";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
+import { FRONT_BASE_URL } from "index";
 library.add(fas)
 
 class GeneralNavbar extends React.Component {
@@ -40,7 +41,7 @@ class GeneralNavbar extends React.Component {
   //function for the logout
   logoutFunc(){
     localStorage.clear();
-    window.location = "http://localhost:3000/login";
+    window.location = FRONT_BASE_URL+"login";
   }
   // function that adds color white/transparent to the navbar on resize (this is for the collapse)
   updateColor = () => {
