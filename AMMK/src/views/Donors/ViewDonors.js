@@ -13,28 +13,33 @@ var respuesta = "";
 function setValorId(params) {
   console.log('Hola');
 }
-
-var status = 1;
+var numTipo=0;
+var numStatus=1;
 class ViewDonors extends Component {
 
 
   crearTabla() {
 
-    axios.get(API_BASE_URL+"donors/table/all")
-      .then(function (resp) {
-        document.getElementById("tablaD").innerHTML = resp.data;
-      });
+    axios.get(API_BASE_URL+"donors/table/all/"+localStorage.getItem("numS")+"/"+localStorage.getItem("tipo"))
+    .then(function (resp) {
+      respuesta = resp.data;
+      document.getElementById("tablaD").innerHTML = respuesta;
+    });
 
 
 
 
   }
-  //filtro Activos e Inactivos
-  sortByStatus() {
+  componentDidMount(){
+    localStorage.setItem("numS",numStatus);
+    localStorage.setItem("tipo",numTipo);
+
+  }
+
+  //Busqueda tipo de donante
+  sortD() {
     var tipo = document.getElementById('tipoSelect').value;
-    var numTipo;
     var status = document.getElementById('statusSelect').value;
-    var numStatus;
     if (status === "Activos") {
       numStatus = 1;
     } else if (status === "Inactivos") {
@@ -42,62 +47,6 @@ class ViewDonors extends Component {
     }else if(status === "Selecciona estatus donante..."){
       numStatus = 1;
 
-    }
-
-    if(tipo === "Seleccione una opción..."){
-      numTipo=0;
-    }else if (tipo === "Particular") {
-        numTipo = 1;
-      } else if (tipo === "Patronato") {
-        numTipo = 2;
-      } else if (tipo === "Gobierno") {
-        numTipo = 3;
-      } else if (tipo === "Empresa") {
-        numTipo = 4;
-      } else if (tipo === "Fundación") {
-        numTipo = 5;
-      }
-
-    if (numStatus == 1) {
-      axios.get(API_BASE_URL+"donors/table/all")
-        .then(function (resp) {
-          respuesta = resp.data;
-          document.getElementById("tablaD").innerHTML = respuesta;
-        });
-    } else if (numStatus == 2) {
-      axios.get(API_BASE_URL+"donors/tableI/all")
-        .then(function (resp) {
-          respuesta = resp.data;
-          document.getElementById("tablaD").innerHTML = respuesta;
-        });
-    }else if(numTipo!=0 && numStatus==1){
-      axios.get(API_BASE_URL+"donors/tableAT/all/"+numTipo)
-        .then(function (resp) {
-          respuesta = resp.data;
-          document.getElementById("tablaD").innerHTML = respuesta;
-        });
-    }else if(numTipo!=0 && numStatus==2){
-
-    axios.get(API_BASE_URL+"donors/tableIT/all/" + numTipo)
-      .then(function (resp) {
-        respuesta = resp.data;
-        document.getElementById("tablaD").innerHTML = respuesta;
-      });
-    }
-
-
-  }
-
-  //Busqueda tipo de donante
-  sortByTipo() {
-    var tipo = document.getElementById('tipoSelect').value;
-    var numTipo;
-    var status = document.getElementById('statusSelect').value;
-    var numStatus;
-    if (status === "Activos") {
-      numStatus = 1;
-    } else if (status === "Inactivos") {
-      numStatus = 2;
     }
     localStorage.setItem("numS",numStatus);
 
@@ -115,50 +64,12 @@ class ViewDonors extends Component {
       numTipo = 5;
     }
     localStorage.setItem("tipo",numTipo);
-    if(numTipo==0){
-      axios.get(API_BASE_URL+"donors/table/all")
+      axios.get(API_BASE_URL+"donors/table/all/"+localStorage.getItem("numS")+"/"+localStorage.getItem("tipo"))
         .then(function (resp) {
           respuesta = resp.data;
           document.getElementById("tablaD").innerHTML = respuesta;
         });
-    }else if(numTipo!=0 && numStatus==1){
-      axios.get(API_BASE_URL+"donors/tableAT/all/"+numTipo)
-        .then(function (resp) {
-          respuesta = resp.data;
-          document.getElementById("tablaD").innerHTML = respuesta;
-        });
-    }else if(numTipo!=0 && numStatus==2){
-
-    axios.get(API_BASE_URL+"donors/tableIT/all/" + numTipo)
-      .then(function (resp) {
-        respuesta = resp.data;
-        document.getElementById("tablaD").innerHTML = respuesta;
-      });
-    }
     
-    
-    else{
-
-      axios.get(API_BASE_URL+"donors/tableAT/all/"+numTipo)
-      .then(function (resp) {
-        respuesta = resp.data;
-        document.getElementById("tablaD").innerHTML = respuesta;
-      });
-    }
-    
-
-  }
-  //busqueda por el input
-  searchDonor() {
-    var palabra = document.getElementById('buscar').value;
-    if (palabra == "") {
-      palabra = "allOfEm";
-    }
-    axios.get(API_BASE_URL+"donors/table/buscar/" + palabra)
-      .then(function (resp) {
-        respuesta = resp.data;
-        document.getElementById("tablaD").innerHTML = respuesta;
-      });
   }
 
 
@@ -183,7 +94,7 @@ class ViewDonors extends Component {
           <Col md="6">
             <FormGroup>
               <Label for="statusSelect">Filtrar por estatus:</Label>
-              <Input type="select" name="select" id="statusSelect" onChange={this.sortByStatus} >
+              <Input type="select" name="select" id="statusSelect" onChange={this.sortD} >
               <option valaue={1}>Selecciona estatus donante...</option>
                 <option valaue={2}>Activos</option>
                 <option valaue={3}>Inactivos</option>
@@ -212,7 +123,7 @@ class ViewDonors extends Component {
           <Col md="4">
             <FormGroup>
               <Label for="tipoSelect" >Filtrar por tipo de donante:</Label>
-              <Input type="select" name="select" id="tipoSelect" onChange={this.sortByTipo}>
+              <Input type="select" name="select" id="tipoSelect" onChange={this.sortD}>
                 <option valaue={0}>Seleccione una opción...</option>
                 <option valaue={1}>Particular</option>
                 <option valaue={2}>Patronato</option>

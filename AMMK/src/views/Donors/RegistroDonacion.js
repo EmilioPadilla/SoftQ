@@ -158,8 +158,11 @@ class RegistroDonacion extends Component {
         console.error('Invalid Form')
       }
     }
+    componentDidMount(){
+      this.crearSelectTipoDonacion();
+
+    }
     render() { 
-        this.crearSelectTipoDonacion();
         const { errors } = this.state;
 
         return ( 
