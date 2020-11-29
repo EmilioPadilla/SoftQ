@@ -1,24 +1,39 @@
 import React, { Component } from "react";
 import { FormGroup, Form, Input, Button } from "reactstrap";
 import axios from "axios";
+import { Prompt } from 'react-router';
+import { API_BASE_URL, FRONT_BASE_URL } from 'index';
+
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import { Progress, Alert,  Card, CardBody, CardHeader } from "reactstrap";
 
 const ModificarDGenerales = (props) => {
   const { id } = props.match.params;
   ax(id);
   return (
     <div class="content">
+      <Prompt
+            when={true}
+            message="Te encuentras en proceso de modificación...                                                ¿Estás segur@ de querer salir?"
+          />
     <div class="container">
         <div class="row">
             <div class="col-12" >
                 <h2 align="center">Modificar Datos Generales del Donante</h2>
-
+                <Card>
+          <CardHeader>
+          <h3 align="center" className="title">Datos Personales Donante</h3>
+          <Alert color="primary">Los campos marcados con un asterisco (*) son obligatorios.</Alert>
+          </CardHeader>
+          <CardBody>
                 <Form>
                 <div class="row justify-content-center">
                         <div class="col-4" >
                             <FormGroup>
-                            <p className="font-weight-bold">NOMBRE COMPLETO: </p>
+                            <label className="font-weight-bold">* NOMBRE COMPLETO: </label>
                             <Input
                                     id="nombre"
                                     
@@ -26,23 +41,9 @@ const ModificarDGenerales = (props) => {
                                 />    
                      </FormGroup>
                         </div>
-                    </div>
-                    <div class="row justify-content-center">
-                        <div class="col-4" >
-                            <FormGroup>
-                            <p className="font-weight-bold">FECHA DE CUMPLEAÑOS: </p>
-                            <Input
-                                    id="fecha"
-                                    
-                                    type="date"
-                                />    
-                     </FormGroup>
-                        </div>
-                    </div>
-                    <div class="row justify-content-center">
                         <div class="col-4">
                             <FormGroup>
-                            <p className="font-weight-bold">RFC: </p>
+                            <label className="font-weight-bold">* RFC: </label>
                             <Input
                                     id="rfc"
                                     
@@ -53,10 +54,34 @@ const ModificarDGenerales = (props) => {
                         </div>
                     </div>
                     <div class="row justify-content-center">
-                    
+                    <div class="col-4">
+
+                            <FormGroup>
+                            <label className="font-weight-bold">&nbsp;<FontAwesomeIcon icon={['fas', 'calendar-alt']} />&nbsp;FECHA DE CUMPLEAÑOS: </label>
+                            <Input
+                                    id="fecha"
+                                    
+                                    type="date"
+                                />    
+                     </FormGroup>
+                     </div>
+                        <div class="col-4">
+                            <FormGroup>
+                            <label className="font-weight-bold">*&nbsp;<FontAwesomeIcon icon={['fas', 'envelope']} />&nbsp; CORREO: </label>
+                            <Input
+                                    id="correo"
+                                    
+                                    type="email"
+                                /> 
+                            </FormGroup>
+                        </div>
+                    </div>
+                  
+                    <div class="row justify-content-center">
+
                         <div class="col-4">
                             <FormGroup >
-                            <p  className="font-weight-bold">TELEFONO: </p>
+                            <label className="font-weight-bold"><FontAwesomeIcon icon={['fas', 'phone-alt']} />&nbsp;TELÉFONO:</label>
                             <Input
                                     id="tel"
                                     
@@ -64,11 +89,10 @@ const ModificarDGenerales = (props) => {
                                 /> 
                             </FormGroup>
                         </div>
-                    </div>
-                    <div class="row justify-content-center">
+                        
                         <div class="col-4">
                             <FormGroup>
-                            <p className="font-weight-bold">CELULAR: </p>
+                            <label className="font-weight-bold">&nbsp;<FontAwesomeIcon icon={['fas', 'mobile-alt']} />*&nbsp;CELULAR:</label>
                             <Input
                                     id="celular"
                                     
@@ -78,18 +102,7 @@ const ModificarDGenerales = (props) => {
                         </div>
                     </div>
                     <br/>
-                    <div class="row justify-content-center">
-                        <div class="col-4">
-                            <FormGroup>
-                            <p className="font-weight-bold">CORREO: </p>
-                            <Input
-                                    id="correo"
-                                    
-                                    type="email"
-                                /> 
-                            </FormGroup>
-                        </div>
-                    </div>
+                    
                     <br/>
                     <div class="row justify-content-center">
                         <div class="col-4" align="center">
@@ -112,6 +125,8 @@ const ModificarDGenerales = (props) => {
 
                     </Input>
                 </div>
+                </CardBody>
+                </Card>
             </div>
         </div>
     </div>
@@ -120,7 +135,7 @@ const ModificarDGenerales = (props) => {
 };
 
 function ax(idC) {
-  axios.get("http://localhost:8000/api/donantes/" + idC).then(function (resp) {
+  axios.get(API_BASE_URL+"donantes/" + idC).then(function (resp) {
     console.log(resp.data);
            document.getElementById("nombre").value = resp.data[0].nombreCompleto1;
            document.getElementById("fecha").value = resp.data[0].fechaCumpleaños1;
@@ -141,7 +156,7 @@ function modificar() {
             var cel= document.getElementById("celular").value ;
             var correo=document.getElementById("correo").value ;
     var idD=document.getElementById("valorId").value;
-  if (nom!= "" && fecha != ""&&rfc != ""&&tel != ""&&cel!= ""&&correo!= "") {
+  if (nom!= "" &&rfc != ""&&tel != ""&&cel!= ""&&correo!= "") {
     const donante = {
         nombreCompleto1: nom,
         fechaCumpleaños1: fecha,
@@ -152,13 +167,13 @@ function modificar() {
 
       };
     axios
-      .put("http://localhost:8000/api/donantes/" + idD, donante)
+      .put(API_BASE_URL+"donantes/" + idD, donante)
       .then(function (resp) {
         console.log(resp.data);
       });
 
     Swal.fire("¡Listo!", "Cambios guardados", "success").then(function () {
-      window.location = "http://localhost:3000/admin/ViewDonors";
+      window.location = FRONT_BASE_URL+"admin/ViewSpecificDonor/"+idD;
     });
   } else {
     Swal.fire(

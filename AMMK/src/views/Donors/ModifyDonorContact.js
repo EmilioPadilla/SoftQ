@@ -3,22 +3,35 @@ import { FormGroup, Form, Input, Button } from "reactstrap";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import { Prompt } from 'react-router';
+import { Progress, Alert, Col, Card, CardBody, CardHeader } from "reactstrap";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { API_BASE_URL, FRONT_BASE_URL } from 'index';
 
 const ModifyDonorContact = (props) => {
   const { id } = props.match.params;
   ax(id);
   return (
     <div class="content">
+       <Prompt
+            when={true}
+            message="Te encuentras en proceso de modificación... ¿Estás segur@ de querer salir?"
+          /> 
     <div class="container">
         <div class="row">
             <div class="col-12" >
-                <h2 align="center">Modificar Contacto Donante</h2>
-
-                <Form>
-                    <div class="row justify-content-center">
+                <h2 >Modificar Contacto Donante</h2>
+                <Card>
+          <CardHeader>
+          <h3 align="center" className="title">Datos Modificación Donante</h3>
+          <Alert color="primary">Los campos marcados con un asterisco (*) son obligatorios.</Alert>
+          </CardHeader>
+          <CardBody>
+                <Form autoComplete="off">
+                    <div class="row">
                         <div class="col-4" >
                             <FormGroup>
-                            <label className="font-weight-bold">NOMBRE: </label>
+                            <label className="font-weight-bold">* NOMBRE: </label>
                             <Input
                                     id="nombre"
                                     
@@ -26,11 +39,10 @@ const ModifyDonorContact = (props) => {
                                 />    
                      </FormGroup>
                         </div>
-                    </div>
-                    <div class="row justify-content-center">
+                   
                         <div class="col-4">
                             <FormGroup>
-                            <label className="font-weight-bold">CARGO: </label>
+                            <label className="font-weight-bold">* CARGO: </label>
                             <Input
                                     id="cargo"
                                     
@@ -40,11 +52,11 @@ const ModifyDonorContact = (props) => {
                            
                         </div>
                     </div>
-                    <div class="row justify-content-center">
+                    <div class="row">
                     
                         <div class="col-4">
                             <FormGroup id="monto">
-                            <label id="monto" className="font-weight-bold">FECHA DE CUMPLEAÑOS: </label>
+                            <label id="monto" className="font-weight-bold"><FontAwesomeIcon icon={['fas', 'calendar-alt']} />&nbsp;FECHA DE CUMPLEAÑOS: </label>
                             <Input
                                     id="fecha"
                                     
@@ -52,11 +64,10 @@ const ModifyDonorContact = (props) => {
                                 /> 
                             </FormGroup>
                         </div>
-                    </div>
-                    <div class="row justify-content-center">
+                    
                         <div class="col-4">
                             <FormGroup>
-                            <label className="font-weight-bold">CORREO: </label>
+                            <label className="font-weight-bold">*&nbsp;<FontAwesomeIcon icon={['fas', 'envelope']} />&nbsp;CORREO: </label>
                             <Input
                                     id="correo"
                                     
@@ -65,11 +76,10 @@ const ModifyDonorContact = (props) => {
                             </FormGroup>
                         </div>
                     </div>
-                    <br/>
-                    <div class="row justify-content-center">
+                    <div class="row">
                         <div class="col-4">
                             <FormGroup>
-                            <label className="font-weight-bold">TELEFONO: </label>
+                            <label className="font-weight-bold"><FontAwesomeIcon icon={['fas', 'phone-alt']} />&nbsp;TELÉFONO: </label>
                             <Input
                                     id="tel"
                                     
@@ -77,12 +87,10 @@ const ModifyDonorContact = (props) => {
                                 /> 
                             </FormGroup>
                         </div>
-                    </div>
-                    <br/>
-                    <div class="row justify-content-center">
+                    
                         <div class="col-4">
                             <FormGroup>
-                            <label className="font-weight-bold">CELULAR: </label>
+                            <label className="font-weight-bold">*&nbsp;<FontAwesomeIcon icon={['fas', 'mobile-alt']} />&nbsp;CELULAR:</label>
                             <Input
                                     id="cel"
                                     
@@ -91,10 +99,9 @@ const ModifyDonorContact = (props) => {
                             </FormGroup>
                         </div>
                     </div>
-                    <br/>
                     <div class="row justify-content-center">
                         <div class="col-4" align="center">
-                        <Link to={`/admin/ViewSpecificDonor/${id}`}>
+                        <Link to={`/admin/ViewSpecificDonor/${localStorage.getItem("idD")}`}>
                                 <Button className="btn-fill" color="primary" >
                                     Regresar
                                 </Button>
@@ -112,6 +119,8 @@ const ModifyDonorContact = (props) => {
 
                     </Input>
                 </div>
+                </CardBody>
+                </Card>
             </div>
         </div>
     </div>
@@ -120,7 +129,7 @@ const ModifyDonorContact = (props) => {
 };
 
 function ax(idC) {
-  axios.get("http://localhost:8000/api/contactoDonante/" + idC).then(function (resp) {
+  axios.get(API_BASE_URL+"contactoDonante/" + idC).then(function (resp) {
     console.log(resp.data);
     document.getElementById("nombre").value = resp.data[0].nombreCompleto;
     document.getElementById("cargo").value = resp.data[0].cargo;
@@ -143,7 +152,7 @@ function modificar() {
    var cel= document.getElementById("cel").value ;
 
     var idD= document.getElementById("valorId").value;
-  if (nom!= "" && cargo!= ""&&fecha != ""&&correo != ""&&tel!= ""&&cel!= "") {
+  if (nom!= "" && cargo!= ""&&fecha != ""&&correo != ""&&cel!= "") {
     const contacto = {
         nombreCompleto: nom,
         cargo: cargo,
@@ -155,13 +164,13 @@ function modificar() {
 
       };
     axios
-      .put("http://localhost:8000/api/contactoDonante/" + idD, contacto)
+      .put(API_BASE_URL+"contactoDonante/" + idD, contacto)
       .then(function (resp) {
         console.log(resp.data);
       });
 
     Swal.fire("¡Listo!", "Cambios guardados", "success").then(function () {
-      window.location = "http://localhost:3000/admin/ViewDonors";
+      window.location = FRONT_BASE_URL+"admin/ViewSpecificDonor/"+localStorage.getItem("idD");
     });
   } else {
     Swal.fire(

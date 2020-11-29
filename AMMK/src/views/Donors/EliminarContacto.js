@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import {FormGroup, Form, Input, Button} from "reactstrap"
 import axios from 'axios';
+import { API_BASE_URL, FRONT_BASE_URL } from 'index';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Progress, Alert, Col, Card, CardBody, CardHeader } from "reactstrap";
 import Swal from 'sweetalert2';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
@@ -15,14 +19,17 @@ const EliminarContacto = props =>{
                 <div class="container">
                     <div class="row">
                         <div class="col-12" >
-                            <h2 align="center">Eliminar Contacto Donante</h2>
-                            <h4 align="center">ATENCIÓN: ESTA ES UNA ACCIÓN PERMANENTE</h4>
-
+                            <h2 >Eliminar Contacto Donante</h2>
+                            <Card>
+          <CardHeader>
+          <h3 align="center" className="title">ATENCIÓN: ESTA ES UNA ACCIÓN PERMANENTE </h3>
+          </CardHeader>
+          <CardBody>
                             <Form>
                                 <div class="row justify-content-center">
                                     <div class="col-4" >
                                         <FormGroup>
-                                        <label className="font-weight-bold">NOMBRE: </label>
+                                        <label className="font-weight-bold">* NOMBRE: </label>
                                         <Input
                                                 id="nombre"
                                                 
@@ -30,11 +37,10 @@ const EliminarContacto = props =>{
                                             />    
                                  </FormGroup>
                                     </div>
-                                </div>
-                                <div class="row justify-content-center">
+                                
                                     <div class="col-4">
                                         <FormGroup>
-                                        <label className="font-weight-bold">CARGO: </label>
+                                        <label className="font-weight-bold">* CARGO: </label>
                                         <Input
                                                 id="cargo"
                                                 
@@ -48,7 +54,7 @@ const EliminarContacto = props =>{
                                 
                                     <div class="col-4">
                                         <FormGroup id="monto">
-                                        <label id="monto" className="font-weight-bold">FECHA DE CUMPLEAÑOS: </label>
+                                        <label id="monto" className="font-weight-bold"><FontAwesomeIcon icon={['fas', 'calendar-alt']} />&nbsp;FECHA DE CUMPLEAÑOS: </label>
                                         <Input
                                                 id="fecha"
                                                 
@@ -56,11 +62,10 @@ const EliminarContacto = props =>{
                                             /> 
                                         </FormGroup>
                                     </div>
-                                </div>
-                                <div class="row justify-content-center">
+                               
                                     <div class="col-4">
                                         <FormGroup>
-                                        <label className="font-weight-bold">CORREO: </label>
+                                        <label className="font-weight-bold">*&nbsp;<FontAwesomeIcon icon={['fas', 'envelope']} />&nbsp;CORREO: </label>
                                         <Input
                                                 id="correo"
                                                 
@@ -69,11 +74,10 @@ const EliminarContacto = props =>{
                                         </FormGroup>
                                     </div>
                                 </div>
-                                <br/>
                                 <div class="row justify-content-center">
                                     <div class="col-4">
                                         <FormGroup>
-                                        <label className="font-weight-bold">TELEFONO: </label>
+                                        <label className="font-weight-bold"><FontAwesomeIcon icon={['fas', 'phone-alt']} />&nbsp;TELÉFONO: </label>
                                         <Input
                                                 id="tel"
                                                 
@@ -81,12 +85,10 @@ const EliminarContacto = props =>{
                                             /> 
                                         </FormGroup>
                                     </div>
-                                </div>
-                                <br/>
-                                <div class="row justify-content-center">
+                                
                                     <div class="col-4">
                                         <FormGroup>
-                                        <label className="font-weight-bold">CELULAR: </label>
+                                        <label className="font-weight-bold">*&nbsp;<FontAwesomeIcon icon={['fas', 'mobile-alt']} />&nbsp;CELULAR: </label>
                                         <Input
                                                 id="cel"
                                                 
@@ -95,10 +97,9 @@ const EliminarContacto = props =>{
                                         </FormGroup>
                                     </div>
                                 </div>
-                                <br/>
                                 <div class="row justify-content-center">
                                     <div class="col-4" align="center">
-                                    <Link to="/admin/ViewDonors">
+                                    <Link to={`/admin/ViewSpecificDonor/${localStorage.getItem("idD")}`}>
                                             <Button className="btn-fill" color="primary" >
                                                 Regresar
                                             </Button>
@@ -116,6 +117,8 @@ const EliminarContacto = props =>{
 
                                 </Input>
                             </div>
+                            </CardBody>
+                            </Card>
                         </div>
                     </div>
                 </div>
@@ -124,7 +127,7 @@ const EliminarContacto = props =>{
 }
 
 function ax(idC){
-    axios.get("http://localhost:8000/api/donorContacts/delete/"+idC)
+    axios.get(API_BASE_URL+"donorContacts/delete/"+idC)
           .then(function (resp){
             console.log(resp.data);
            document.getElementById("nombre").value = resp.data[0].nombreCompleto;
@@ -141,7 +144,7 @@ function ax(idC){
 function eliminar(){
     var idD = document.getElementById("valorId").value;
     console.log(idD);
-        axios.delete('http://localhost:8000/api/contactoDonante/'+idD)
+        axios.delete(API_BASE_URL+'contactoDonante/'+idD)
               .then(function (resp){
                 console.log(resp.data);
               } );
@@ -150,7 +153,7 @@ function eliminar(){
            'Se ha eliminado la donación!',
            'success'
            ).then(function() {
-               window.location = "http://localhost:3000/admin/ViewDonors";
+               window.location = FRONT_BASE_URL+"admin/ViewSpecificDonor"+localStorage.getItem("idD");
         });
 }
 

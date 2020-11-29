@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import Form from "react-bootstrap/Form";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Swal from "sweetalert2";
+import { Progress, Alert, Col, Card, CardBody, CardHeader } from "reactstrap";
+import { API_BASE_URL, FRONT_BASE_URL } from 'index';
+import { Prompt } from 'react-router';
 
 import Button from "react-bootstrap/Button";
 import {
@@ -11,8 +15,6 @@ import {
   } from "reactstrap";
 import Row from "react-bootstrap/Col";
 import ProgressBar from "react-bootstrap/ProgressBar";
-import Col from "react-bootstrap/Col";
-import Card from "react-bootstrap/Card";
 import { AvForm, AvField, AvGroup, AvInput, AvFeedback, AvRadioGroup, AvRadio, AvCheckboxGroup, AvCheckbox } from 'availity-reactstrap-validation';
 
 import axios from "axios";
@@ -27,7 +29,7 @@ class GeneralDonantes extends Component {
   crearSelectTipoDonante(){
     var sel='<option value="NA" disabled selected>Selecciona una opcion</option>';
     const num=1;
-    axios.get("http://localhost:8000/api/tipodonante/").then(function(resp){
+    axios.get(API_BASE_URL+"tipodonante/").then(function(resp){
       
     console.log(resp.data);
     resp.data.forEach(element =>{
@@ -45,7 +47,7 @@ class GeneralDonantes extends Component {
   crearSelectRecurrencia(){
     var sel='<option value="NA" disabled selected>Selecciona una opcion</option>';
     const num=1;
-    axios.get("http://localhost:8000/api/recurrencia/").then(function(resp){
+    axios.get(API_BASE_URL+"recurrencia/").then(function(resp){
       
     console.log(resp.data);
     resp.data.forEach(element =>{
@@ -70,9 +72,16 @@ handleInvalidSubmit(event, errors, values) {
 
 onSubmit(e) {
   e.preventDefault()
+  //console.log("onSubmit");
   var tipoDonante=document.getElementById("selectTipoDonante").value;
   var recurrencia= document.getElementById("selectRecurrencia").value;
-
+  if (tipoDonante === '' || recurrencia === '' ){
+    Swal.fire( {
+      icon: 'error',
+      title: '¡ERROR!',
+      text: 'Verifica que todos los campos obligatorios estén completos.',
+    })
+  } else {
   const tipoDonante2={
     idTipoDonante: tipoDonante
     
@@ -83,7 +92,9 @@ onSubmit(e) {
   }
 localStorage.setItem("tipoDonante2", JSON.stringify(tipoDonante2));
 localStorage.setItem("recurrencia", JSON.stringify(tipoRecurrencia));
+  window.location = FRONT_BASE_URL+"admin/RegistroDonante1";
 
+}
 }
 
 
@@ -94,17 +105,23 @@ localStorage.setItem("recurrencia", JSON.stringify(tipoRecurrencia));
 
     return (
       <div className="content">
+         <Prompt
+            when={true}
+            message="Te encuentras en proceso de modificación... ¿Estás segur@ de querer salir?"
+          />
         <div class="container-fluid">
 
           <h1 className="title">Registrar Donante</h1>
           
-           <h3 align="center">Datos Generales</h3>
-           <h6 align="left">Los campos señalados con (*) son obligatorios</h6>
-
-          <ProgressBar now={10} />
-                  <br/>
-          <div class="container"></div>
-       <Form onClick={this.onSubmit}>
+           <Card>
+          <CardHeader>
+          <h3 align="center" className="title">Datos Generales</h3>
+          <Progress striped color="primary" value="20"></Progress>
+          <br></br>
+          <Alert color="primary">Los campos marcados con un asterisco (*) son obligatorios.</Alert>
+          </CardHeader>
+          <CardBody>
+       <Form>
         <FormGroup>
          <label>*Seleccione Tipo de Donante:</label>
          <Form.Control as="select" id="selectTipoDonante" required></Form.Control>
@@ -120,7 +137,7 @@ localStorage.setItem("recurrencia", JSON.stringify(tipoRecurrencia));
       <>
             
        <Link to="/admin/RegistroDonante1">
-       <Button onClick="onSubmit()">Siguiente&nbsp;<FontAwesomeIcon icon={['fas', 'arrow-circle-right']}/></Button>
+       <Button onClick={this.onSubmit}>Siguiente&nbsp;<FontAwesomeIcon icon={['fas', 'arrow-circle-right']}/></Button>
 
        </Link>
        
@@ -132,7 +149,8 @@ localStorage.setItem("recurrencia", JSON.stringify(tipoRecurrencia));
                 
                   </Col> 
                   </Form>
-
+                  </CardBody>
+          </Card>
         </div>
       </div>
     );

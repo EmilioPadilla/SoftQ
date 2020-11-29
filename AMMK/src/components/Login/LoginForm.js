@@ -97,7 +97,7 @@ export class LoginForm extends React.Component{
                         </Form>
                         </div>
                         <div class="col" align="right">
-                            <img src={placeholder} /*style={mystyle}*/  alt="placeholder"/>
+                            <img src={placeholder}   alt="placeholder"/>
                         </div>
                     </div>
                 </div>

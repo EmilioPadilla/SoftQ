@@ -6,6 +6,7 @@ import { Row, Table, Col, Button, FormGroup, Input, Label, InputGroup, InputGrou
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
+import { API_BASE_URL, FRONT_BASE_URL } from 'index';
 
 
 var respuesta = "";
@@ -19,10 +20,9 @@ class ViewDonors extends Component {
 
   crearTabla() {
 
-    axios.get("http://localhost:8000/api/donors/table/all")
+    axios.get(API_BASE_URL+"donors/table/all")
       .then(function (resp) {
-        respuesta = respuesta.concat(resp.data);
-        document.getElementById("tablaD").innerHTML = respuesta;
+        document.getElementById("tablaD").innerHTML = resp.data;
       });
 
 
@@ -31,25 +31,58 @@ class ViewDonors extends Component {
   }
   //filtro Activos e Inactivos
   sortByStatus() {
+    var tipo = document.getElementById('tipoSelect').value;
+    var numTipo;
     var status = document.getElementById('statusSelect').value;
     var numStatus;
     if (status === "Activos") {
       numStatus = 1;
     } else if (status === "Inactivos") {
       numStatus = 2;
+    }else if(status === "Selecciona estatus donante..."){
+      numStatus = 1;
+
     }
+
+    if(tipo === "Seleccione una opción..."){
+      numTipo=0;
+    }else if (tipo === "Particular") {
+        numTipo = 1;
+      } else if (tipo === "Patronato") {
+        numTipo = 2;
+      } else if (tipo === "Gobierno") {
+        numTipo = 3;
+      } else if (tipo === "Empresa") {
+        numTipo = 4;
+      } else if (tipo === "Fundación") {
+        numTipo = 5;
+      }
+
     if (numStatus == 1) {
-      axios.get("http://localhost:8000/api/donors/table/all")
+      axios.get(API_BASE_URL+"donors/table/all")
         .then(function (resp) {
           respuesta = resp.data;
           document.getElementById("tablaD").innerHTML = respuesta;
         });
     } else if (numStatus == 2) {
-      axios.get("http://localhost:8000/api/donors/tableI/all")
+      axios.get(API_BASE_URL+"donors/tableI/all")
         .then(function (resp) {
           respuesta = resp.data;
           document.getElementById("tablaD").innerHTML = respuesta;
         });
+    }else if(numTipo!=0 && numStatus==1){
+      axios.get(API_BASE_URL+"donors/tableAT/all/"+numTipo)
+        .then(function (resp) {
+          respuesta = resp.data;
+          document.getElementById("tablaD").innerHTML = respuesta;
+        });
+    }else if(numTipo!=0 && numStatus==2){
+
+    axios.get(API_BASE_URL+"donors/tableIT/all/" + numTipo)
+      .then(function (resp) {
+        respuesta = resp.data;
+        document.getElementById("tablaD").innerHTML = respuesta;
+      });
     }
 
 
@@ -59,7 +92,18 @@ class ViewDonors extends Component {
   sortByTipo() {
     var tipo = document.getElementById('tipoSelect').value;
     var numTipo;
-    if (tipo === "Particular") {
+    var status = document.getElementById('statusSelect').value;
+    var numStatus;
+    if (status === "Activos") {
+      numStatus = 1;
+    } else if (status === "Inactivos") {
+      numStatus = 2;
+    }
+    localStorage.setItem("numS",numStatus);
+
+  if(tipo === "Seleccione una opción..."){
+    numTipo=0;
+  }else if (tipo === "Particular") {
       numTipo = 1;
     } else if (tipo === "Patronato") {
       numTipo = 2;
@@ -70,12 +114,39 @@ class ViewDonors extends Component {
     } else if (tipo === "Fundación") {
       numTipo = 5;
     }
+    localStorage.setItem("tipo",numTipo);
+    if(numTipo==0){
+      axios.get(API_BASE_URL+"donors/table/all")
+        .then(function (resp) {
+          respuesta = resp.data;
+          document.getElementById("tablaD").innerHTML = respuesta;
+        });
+    }else if(numTipo!=0 && numStatus==1){
+      axios.get(API_BASE_URL+"donors/tableAT/all/"+numTipo)
+        .then(function (resp) {
+          respuesta = resp.data;
+          document.getElementById("tablaD").innerHTML = respuesta;
+        });
+    }else if(numTipo!=0 && numStatus==2){
 
-    axios.get("http://localhost:8000/api/donors/table/tipoDonante/" + numTipo)
+    axios.get(API_BASE_URL+"donors/tableIT/all/" + numTipo)
       .then(function (resp) {
         respuesta = resp.data;
         document.getElementById("tablaD").innerHTML = respuesta;
       });
+    }
+    
+    
+    else{
+
+      axios.get(API_BASE_URL+"donors/tableAT/all/"+numTipo)
+      .then(function (resp) {
+        respuesta = resp.data;
+        document.getElementById("tablaD").innerHTML = respuesta;
+      });
+    }
+    
+
   }
   //busqueda por el input
   searchDonor() {
@@ -83,7 +154,7 @@ class ViewDonors extends Component {
     if (palabra == "") {
       palabra = "allOfEm";
     }
-    axios.get("http://localhost:8000/api/donors/table/buscar/" + palabra)
+    axios.get(API_BASE_URL+"donors/table/buscar/" + palabra)
       .then(function (resp) {
         respuesta = resp.data;
         document.getElementById("tablaD").innerHTML = respuesta;
@@ -96,13 +167,13 @@ class ViewDonors extends Component {
     const login = localStorage.getItem("isLoggedIn");
     const idRol = localStorage.getItem("idRol");
     //Redirect in case of wrong role or no login
-    /*if (!login ) {
-        window.location = "http://localhost:3000/login";
-    }else if(idRol==2){
-        window.location = "http://localhost:3000/general/NurseIndex";
-    }else if (idRol==1){
-        window.location = "http://localhost:3000/admin/Nomina/Nomina";
-    }*/
+    if (!login ) {
+      window.location = FRONT_BASE_URL+"login";
+  }else if(idRol==2){
+      window.location = FRONT_BASE_URL+"general/NurseIndex";
+  }else if (idRol==1){
+      window.location = FRONT_BASE_URL+"admin/Nomina/Nomina";
+  }
     this.crearTabla();
 
     return (
@@ -113,8 +184,9 @@ class ViewDonors extends Component {
             <FormGroup>
               <Label for="statusSelect">Filtrar por estatus:</Label>
               <Input type="select" name="select" id="statusSelect" onChange={this.sortByStatus} >
-                <option valaue={1}>Activos</option>
-                <option valaue={2}>Inactivos</option>
+              <option valaue={1}>Selecciona estatus donante...</option>
+                <option valaue={2}>Activos</option>
+                <option valaue={3}>Inactivos</option>
               </Input>
             </FormGroup>
           </Col>
@@ -141,7 +213,7 @@ class ViewDonors extends Component {
             <FormGroup>
               <Label for="tipoSelect" >Filtrar por tipo de donante:</Label>
               <Input type="select" name="select" id="tipoSelect" onChange={this.sortByTipo}>
-                <option disabled selected>Seleccione una opción...</option>
+                <option valaue={0}>Seleccione una opción...</option>
                 <option valaue={1}>Particular</option>
                 <option valaue={2}>Patronato</option>
                 <option valaue={3}>Gobierno</option>
@@ -156,7 +228,7 @@ class ViewDonors extends Component {
             maxHeight: '400px',
             overflowY: 'auto'
           }}>
-          <Table hover id="tablaD">
+          <Table  id="tablaD">
           </Table>
           </div>
         </Col>

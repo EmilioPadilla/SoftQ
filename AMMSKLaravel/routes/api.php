@@ -28,7 +28,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     Route::resource('recurrencia', 'App\Http\Controllers\RecurrenciaController');
     Route::resource('tipodonacion', 'App\Http\Controllers\TipoDonacionController');
     Route::get('donors/table/all', 'App\Http\Controllers\DonantesController@showTable');
+
     Route::get('donors/tableI/all', 'App\Http\Controllers\DonantesController@showTableI');
+    Route::get('donors/tableIT/all/{id}', 'App\Http\Controllers\DonantesController@showTableITipo');
+    Route::get('donors/tableAT/all/{id}', 'App\Http\Controllers\DonantesController@showTipoDonanteA');
 
     Route::get('donations/table/all/{donante}', 'App\Http\Controllers\DonacionController@showTable');
     Route::get('donors/contact/table/all/{donante}', 'App\Http\Controllers\ContactoDonanteController@showTable');
@@ -62,6 +65,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     Route::get('donorContacts/delete/{id}', 'App\Http\Controllers\ContactoDonanteController@deleteC');
     Route::resource('donaciones', 'App\Http\Controllers\DonacionController');
     Route::resource('contactoDonante', 'App\Http\Controllers\ContactoDonanteController');
+    Route::get("send-email/{nombre}/{email}", "App\Http\Controllers\EmailController@sendEmailToUser");
 
 
     Route::get('donaciones/table/date/{fecha}', 'App\Http\Controllers\DonacionController@financesTable');
