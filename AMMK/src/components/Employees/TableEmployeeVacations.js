@@ -8,7 +8,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import axios from 'axios';
-import { API_BASE_URL } from '../../index';
+import { API_BASE_URL } from 'index';
 
 import SimpleTooltip from "../../views/General/SimpleTooltip";
 
@@ -73,7 +73,7 @@ import {
   }
 
     getVacations() {
-      axios.get('http://localhost:8000/api/employeeVacations/'+this.props.idEmployee)
+      axios.get(API_BASE_URL+'employeeVacations/'+this.props.idEmployee)
       .then(res => {
         const vacations = res.data;
         this.setState({ vacations })
@@ -106,10 +106,8 @@ import {
                             <EditVacationModal id={this.props.idEmployee} vacations={this.state.vacations[i]}/>
                           </Col>
                           <Col md="4">
-                              <Link>
                                 <SimpleTooltip placement="top" target="eliminar">Eliminar</SimpleTooltip>
                                 <Button size="sm" id="eliminar" color="danger" onClick={()=>{this.seleccionarVacacion(vacation); this.setState({modalEliminar: true})}}><FontAwesomeIcon icon={['fas', 'trash-alt']}/></Button>
-                              </Link>
                               </Col>
                             </Row>
                         </td>

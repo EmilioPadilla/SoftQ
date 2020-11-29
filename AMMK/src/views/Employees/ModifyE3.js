@@ -6,9 +6,9 @@ import React from "react";
 import axios from 'axios';
 import { Link } from "react-router-dom";
 import Swal from 'sweetalert2';
-import SimpleTooltip from "../../views/General/SimpleTooltip";
 import { API_BASE_URL, FRONT_BASE_URL } from 'index';
 import { Prompt } from 'react-router'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 // reactstrap components
   import {
@@ -116,6 +116,7 @@ fillData (id) {
 
 
    render() {
+    let urlElements = window.location.href.split('/');
     const login = localStorage.getItem("isLoggedIn");
     const idRol = localStorage.getItem("idRol");
     //Redirect in case of wrong role or no login
@@ -239,6 +240,15 @@ fillData (id) {
                     </Input>
                 </div>
         </div>
+        <div class="fixed-bottom" style={{ margin: '15px' }}>
+                    <Link to={{
+                        pathname: '../view-employee/' + urlElements[5],
+                        state: urlElements[5]
+                    }}>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                     <Button color="primary" id="regresar"><FontAwesomeIcon icon={['fas', 'arrow-circle-left']} />&nbsp;Regresar</Button>
+                    </Link>
+                </div>
       </>
     );
   }

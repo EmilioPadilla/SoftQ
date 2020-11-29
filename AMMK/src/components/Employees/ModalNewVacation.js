@@ -8,6 +8,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, FormGroup, C
 import SimpleTooltip from "../../views/General/SimpleTooltip";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faPlus } from '@fortawesome/free-solid-svg-icons';
+import { API_BASE_URL, FRONT_BASE_URL } from 'index';
 
 function newVacation (id) {
   let fechaSalida = document.getElementById("fechaSalida").value;
@@ -22,8 +23,8 @@ function newVacation (id) {
     fechaSalida: fechaSalida,
     fechaRegreso: fechaRegreso
   }
-  const link = "http://localhost:3000/admin/view-employee/"+id
-  axios.post('http://localhost:8000/api/employeeVacations/',registrarVacacion).then(res => {console.log(res)});
+  const link = FRONT_BASE_URL+"admin/view-employee/"+id
+  axios.post(API_BASE_URL+'employeeVacations/',registrarVacacion).then(res => {console.log(res)});
 
   Swal.fire(
     '¡Listo!',
@@ -56,7 +57,7 @@ const ModalNewVacation = (props) => {
 
   return (
     <div>
-      <Button id="registrarVacaciones" className="inline float-right" size="sm" inline onClick={toggle}><FontAwesomeIcon icon={faPlus} /></Button>
+      <Button id="registrarVacaciones" className="inline float-right" size="sm" onClick={toggle}><FontAwesomeIcon icon={faPlus} /></Button>
       <SimpleTooltip placement="top" target="registrarVacaciones">Registrar Vacaciones</SimpleTooltip>
       <Form>
       <Modal isOpen={modal} toggle={toggle} color="primary">

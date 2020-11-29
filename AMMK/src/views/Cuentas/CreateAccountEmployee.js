@@ -113,9 +113,9 @@ class CreateAccEmp extends React.Component{
 
 
     render(){
-        const login = localStorage.getItem("isLoggedIn");
+        const login = localStorage.getItem("isLoggedIn");;
         const idRol = localStorage.getItem("idRol");
-        //Redirect in case of wrong role or no login
+        // Redirect in case of wrong role or no login
         if (!login ) {
             window.location = FRONT_BASE_URL+"login";
         }else if(idRol==2){

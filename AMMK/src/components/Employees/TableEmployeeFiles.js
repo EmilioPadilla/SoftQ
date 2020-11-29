@@ -18,10 +18,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // reactstrap components
 import {
   Table, 
+  Alert,
   Button, 
   Row, 
   ModalBody, 
   ModalFooter, 
+  ModalHeader,
   Modal, 
   Col
   } from "reactstrap";
@@ -34,7 +36,7 @@ import {
         modalDescargar: false,
         form:{
             id: '',
-            categoria: '',
+            categoria_id: '',
             comentario: '',
             beneficiary_id: '',
             created_at:'',
@@ -61,7 +63,7 @@ import {
         form: {
           id: file.id,
           employees_id: file.employees_id,
-          categoria: file.categoria,
+          categoria_id: file.categoria_id,
           comentario: file.comentario,
           path: file.path,
           created_at: file.created_at,
@@ -119,20 +121,20 @@ import {
                       <tr key={file.id}>
                       <td>{file.path}</td>
                       <td>{file.comentario}</td>
-                      <td>{file.categoria}</td>
+                      <td>{file.categoria_id}</td>
                       <td>{file.created_at.split("T")[0]}</td>
                       <td>
                       <Row>
-                                            <Col md="4">
-                                                <Button color="primary" size="sm" id="descargar" onClick={()=>{this.selectFile(file); this.setState({modalDescargar: true})}}><FontAwesomeIcon icon={['fas', 'download']} /></Button>
-                                                <SimpleTooltip placement="top" target="descargar" >Descargar</SimpleTooltip>
-                                            </Col>
-    
-                                            <Col md="4">
-                                                <Button onClick={()=>{this.selectFile(file); this.setState({modalEliminar: true})}} size="sm" id="eliminar" color="danger"><FontAwesomeIcon icon={['fas', 'trash-alt']} /></Button>
-                                                <SimpleTooltip placement="top" target="eliminar" >Eliminar</SimpleTooltip>
-                                            </Col>
-                                        </Row>
+                          <Col md="4">
+                              <Button color="primary" size="sm" id="descargar" onClick={()=>{this.selectFile(file); this.setState({modalDescargar: true})}}><FontAwesomeIcon icon={['fas', 'download']} /></Button>
+                              <SimpleTooltip placement="top" target="descargar" >Descargar</SimpleTooltip>
+                          </Col>
+
+                          <Col md="4">
+                              <Button onClick={()=>{this.selectFile(file); this.setState({modalEliminar: true})}} size="sm" id="eliminar" color="danger"><FontAwesomeIcon icon={['fas', 'trash-alt']} /></Button>
+                              <SimpleTooltip placement="top" target="eliminar" >Eliminar</SimpleTooltip>
+                          </Col>
+                      </Row>
                       </td>
                     </tr>
                     ))}
@@ -140,6 +142,9 @@ import {
               </Table>
 
               <Modal isOpen={this.state.modalEliminar}>
+                <ModalHeader>
+                  <Alert align="center" color="danger">ATENCIÓN: ELIMINAR UN ARCHIVO ES UNA ACCIÓN PERMANENTE</Alert>
+                  </ModalHeader>
                 <ModalBody>
                    ¿Estás segur@ que deseas eliminar el archivo?
                 </ModalBody>

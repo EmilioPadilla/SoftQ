@@ -191,9 +191,6 @@ class RegisterEmployee extends React.Component {
             <Col >
               <h2 className="title">Registrar empleado</h2>
             </Col>
-            <Col >
-              <GoBackButton pathname="buscar empleados" path="/admin/search-employee"/>
-            </Col>
           </Row>
           
           

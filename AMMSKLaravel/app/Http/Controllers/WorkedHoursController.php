@@ -112,7 +112,7 @@ class WorkedHoursController extends Controller
      */
     public function showPayrolls(Request $request) {
 
-        $endOfCurrentMonth = Carbon::now()->endOfMonth()->toDateString();
+        $today = Carbon::now()->toDateString();
 
         $days =  DB::table('calendar_table')->join(
             "employees_shifts",
@@ -153,7 +153,7 @@ class WorkedHoursController extends Controller
             COUNT(MINUTE(TIME(worked_hours.horaIngreso) - TIME(shifts.horaIngreso)) > 10) AS retardos, 
             SUM(employees.salarioxhora * HOUR(TIME(worked_hours.horaSalida) - TIME(worked_hours.horaIngreso))) AS pago"
         )->where([
-            ["calendar_table.d", "<=", $endOfCurrentMonth],
+            ["calendar_table.d", "<=", $today],
             ["calendar_table.d", ">=", DB::Raw("DATE(employees.fechaIngreso)")]
         ])->groupByRaw(
             "employees.id, employees.nombreCompleto,

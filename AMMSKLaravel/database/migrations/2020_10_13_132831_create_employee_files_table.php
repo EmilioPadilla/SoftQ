@@ -16,7 +16,7 @@ class CreateEmployeeFilesTable extends Migration
         Schema::create('employee_files', function (Blueprint $table) {
           $table->id()->from(1);
           $table->foreignId('employees_id')->constrained('employees');
-          $table->string("categoria", 50)->nullable();
+          $table->foreignId('category_id')->constrained('file_category');
           $table->string("path", 200);
           $table->text("comentario")->nullable();
           $table->timestamps();

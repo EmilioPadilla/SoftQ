@@ -13,7 +13,6 @@ export class LoginForm extends React.Component{
       onSignIn (){
           var user = document.getElementById('loginUsername').value;
           var pass = document.getElementById('loginPassword').value;
-        
           const info = {
             username: user,
             password: pass,
@@ -26,6 +25,7 @@ export class LoginForm extends React.Component{
                 'El username no existe en el sistema',
                 'error'
                 )
+                window.location = FRONT_BASE_URL+"general/GeneralIndex";
           }else if(resp.data == 0){
             Swal.fire(
                 '¡Error!',

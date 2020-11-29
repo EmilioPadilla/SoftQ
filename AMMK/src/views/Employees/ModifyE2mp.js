@@ -11,7 +11,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import { API_BASE_URL, FRONT_BASE_URL } from 'index';
 import { Prompt } from 'react-router'
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
 // reactstrap components
@@ -146,6 +146,7 @@ class ModifyEmployee2 extends React.Component {
 
 
   render() {
+    let urlElements = window.location.href.split('/');
     const { id } = this.props.match.params;
     this.fillData (id);
     return (
@@ -306,7 +307,15 @@ class ModifyEmployee2 extends React.Component {
 
                     </Input>
                 </div>
-
+        </div>
+        <div class="fixed-bottom" style={{ margin: '15px' }}>
+            <Link to={{
+                pathname: '../view-employee/' + urlElements[5],
+                state: urlElements[5]
+            }}>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <Button color="primary" id="regresar"><FontAwesomeIcon icon={['fas', 'arrow-circle-left']} />&nbsp;Regresar</Button>
+            </Link>
         </div>
       </>
     );
