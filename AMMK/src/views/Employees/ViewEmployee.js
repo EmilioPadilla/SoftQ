@@ -79,7 +79,6 @@ class ViewEmployee extends React.Component {
               }
               //const path = res.data;
               const path = res.data[0].path;
-              console.log(path);
 
               let pathFinal = IMAGE_URL + "employee_files/" + path;
               document.getElementById("imagenIngreso").src = pathFinal;
