@@ -128,19 +128,21 @@ const validDate = RegExp(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]
     axios.post(API_BASE_URL+'employee/', json).then(res => {
       console.log(res);
       const employeeId = res.data.id;
+      let shifts = [];      
       this.state.markedDays.forEach((element) => {
         const empShift = {
           nombreTurno: element.nombreTurno,
           idEmployees: employeeId,
           diaSemana: element.diaSemana
         }
-        console.log(empShift);
-        // Insert new shifts
-        axios.post(API_BASE_URL+'employeesShifts', empShift)
-        .then((res) => {
-          console.log(res);
-        })
+        shifts.push(empShift);
       });
+      console.log(shifts);
+      // Insert new shifts
+      axios.post(API_BASE_URL+'employeesShifts', { shifts: shifts })
+      .then((res) => {
+        console.log(res);
+      })
     });
 
     Swal.fire(

@@ -120,27 +120,26 @@ class ViewEmployee extends React.Component {
       axios.post(API_BASE_URL+'employeesShifts/delete', delParam)
       .then(res => {
         console.log(res);
+        let shifts = [];    
         this.state.markedDays.forEach((element) => {
           const empShift = {
             nombreTurno: element.nombreTurno,
             idEmployees: this.state.id,
             diaSemana: element.diaSemana
           }
-          console.log(empShift);
-          // Insert new shifts
-          axios.post(API_BASE_URL+'employeesShifts', empShift)
-          .then((res) => {
-            console.log(res);
-            // Show success modal if the last modification was successful
-            if (element.label == this.state.markedDays.slice(-1)[0].label) {
-              Swal.fire(
-                '¡Listo!',
-                'Calendario modificado de manera exitosa',
-                'success'
-              )
-            }
-          })
+          shifts.push(empShift);
         });
+        console.log(shifts);
+        // Insert new shifts
+        axios.post(API_BASE_URL+'employeesShifts', { shifts: shifts })
+        .then((res) => {
+          console.log(res);
+          Swal.fire(
+            '¡Listo!',
+            'Calendario modificado de manera exitosa',
+            'success'
+          )
+        })
       });
     }
 
