@@ -18,6 +18,7 @@
                 <div>{{ $nombre }}</div>
                 <p> Welcome to Programming Fields </p>
                 <p> This is a basic demo for sending email in Laravel 7 using Gmail SMTP </p>
+                <img src="{{URL::asset('/images/correo.jpeg')}}" alt="profile Pic" height="200" width="200">
                 <br/>
                 <br/>
                 <p> Best Regards</p>
