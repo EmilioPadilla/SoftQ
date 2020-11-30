@@ -57,8 +57,14 @@ export default class ViewMedApp extends Component {
 
         <Modal isOpen={this.state.modalReingresar}>
           <ModalHeader>
-            <Button color="danger" size="sm" id="cerrar" onClick={() => { this.setState({ modalReingresar: false }) }}>x</Button>
-            <h3 className="title" align="center">Detalle Consulta</h3>
+            <Row>
+              <Col md="10">
+              <h3 className="title" style={{ fontSize: '30px'}}>Detalle Consulta</h3>              
+              </Col>
+              <Col md="2">
+              <span style={{float: 'right', fontSize: '25px'}} onClick={() => { this.setState({ modalReingresar: false }) }}>x</span>
+              </Col>
+            </Row>
           </ModalHeader>
           <ModalBody>
             {this.state.appointments.map((appointment) => (

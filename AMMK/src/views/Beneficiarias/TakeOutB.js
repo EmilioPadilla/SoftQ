@@ -18,6 +18,14 @@ import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 const validTextInput = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ ]+[\w]+$/);
 const validDate = RegExp(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/);
 
+const validateForm = (errors) => {
+  let valid = true;
+  Object.values(errors).forEach(
+    (val) => val.length > 0 && (valid = false)
+  );
+  return valid;
+}
+
 export default class TakeOutB extends Component {
   constructor(props) {
     super(props);
@@ -94,8 +102,9 @@ export default class TakeOutB extends Component {
 
   onSubmit(e) {
 
-    e.preventDefault()
+    e.preventDefault();
 
+    if(validateForm(this.state.errors)) {
     //Agarrar los valores 
     let id = document.getElementById("id").value;
     let headquarter_id = document.getElementById("headquarter_id").value;
@@ -148,7 +157,13 @@ export default class TakeOutB extends Component {
         'error'
       )
     }
-
+  }else{
+    Swal.fire(
+      '!ERROR!',
+      'Verifica que todos los campos sean correctos.',
+      'error'
+    )
+  }
   }
 
 

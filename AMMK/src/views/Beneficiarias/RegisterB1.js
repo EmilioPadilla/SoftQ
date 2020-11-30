@@ -19,6 +19,14 @@ const validCurp = RegExp(/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]
 const validDate = RegExp(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/);
 const validAlphanumericInput = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ \0-9]+$/); //acepta numeros y letras y saltos de linea
 
+const validateForm = (errors) => {
+    let valid = true;
+    Object.values(errors).forEach(
+      (val) => val.length > 0 && (valid = false)
+    );
+    return valid;
+  }
+
 
 export default class RegisterB1 extends Component {
 
@@ -110,8 +118,9 @@ export default class RegisterB1 extends Component {
     }
 
     onSubmit(e) {
-        e.preventDefault()
+        e.preventDefault();
 
+        if(validateForm(this.state.errors)) {
         //Agarrar los valores 
         let nombre = document.getElementById("nombreCompleto").value;
         let apodo = document.getElementById("apodo").value;
@@ -136,6 +145,13 @@ export default class RegisterB1 extends Component {
                 text: 'Verifica que todos los campos obligatorios estén completos.',
             })
         }
+    }else{
+        Swal.fire(
+          '!ERROR!',
+          'Verifica que todos los campos sean correctos.',
+          'error'
+        )
+      }
     }
 
     render() {
