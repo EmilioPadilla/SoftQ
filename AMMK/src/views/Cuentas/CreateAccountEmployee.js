@@ -113,7 +113,7 @@ class CreateAccEmp extends React.Component{
 
 
     render(){
-        const login = localStorage.getItem("isLoggedIn");;
+        /*const login = localStorage.getItem("isLoggedIn");;
         const idRol = localStorage.getItem("idRol");
         // Redirect in case of wrong role or no login
         if (!login ) {
@@ -122,7 +122,7 @@ class CreateAccEmp extends React.Component{
             window.location = FRONT_BASE_URL+"general/NurseIndex";
         }else if (idRol==1){
             window.location = FRONT_BASE_URL+"admin/Nomina/Nomina";
-        }
+        }*/
         this.crearSelect();
         return(
             <div class="content">

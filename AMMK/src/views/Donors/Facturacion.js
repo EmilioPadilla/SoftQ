@@ -18,19 +18,14 @@ import Swal from 'sweetalert2';
 //API
 import axios from 'axios';
 
-const validateForm = (errors) => {
-  let valid = true;
-  Object.values(errors).forEach(
-    // if we have an error string set valid to false
-    (val) => val.length > 0 && (valid = false)
-  );
-  return valid;
-}
+
 const validEmailRegex = RegExp(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
 const validRFC = RegExp(/^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1]))([A-Z\d]{3})?$/);
 const validTextInput = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ ]{3,}$/); //Solo letras al menos 3 caracteres
 const validAlphanumericInput = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ \0-9]+$/); //acepta numeros y letras y saltos de linea
 const validPostalCode = RegExp(/^([0-9]{5})([\-]{1}[0-9]{4})?$/);
+
+const validateForm = (errors) => {  let valid = true;  Object.values(errors).forEach(    (val) => val.length > 0 && (valid = false)  );  return valid;}
 
 class Facturacion extends Component {
   constructor(props) {
@@ -83,6 +78,7 @@ class Facturacion extends Component {
     var estadoF = document.getElementById("estadoFacturacion").value;
     var paisFact = document.getElementById("paisFacturacion").value;
     var correoFact = document.getElementById("correoFacturacion").value;
+    if(validateForm(this.state.errors)) {
 
     if (rsF === '' || rfcF === '' || calleF === '' || noEF === '' || cpF === '' || colF === '' || ciudadF === '' || muniF === '' || paisFact === '' || estadoF === '' || correoFact === '') {
       Swal.fire({
@@ -126,6 +122,8 @@ class Facturacion extends Component {
         window.location = FRONT_BASE_URL+"admin/ViewDonors";
       });
     }
+  }else{    Swal.fire(      '!ERROR!',      'Verifica que todos los campos sean correctos.',      'error'    )  }
+
   }
 
   handleChange = (event) => {
@@ -137,8 +135,10 @@ class Facturacion extends Component {
       case 'RazonSocial':
         errors.RazonSocial =
           value.length < 8
-            ? ''
-            : '';
+          ? 'Recuerda ingresar la razón social.'
+          : '' ||  validTextInput.test(value)
+          ? ""
+          : "El campo solo acepta letras..";
         break;
       case 'RFC':
         errors.RFC =
@@ -286,12 +286,13 @@ class Facturacion extends Component {
                     <Form.Control type="text" name='noInterior' placeholder="135-A" onChange={this.handleChange} />{errors.noInterior.length > 0 &&
                       <span className='error'>{errors.noInterior}</span>}
                   </Form.Group>
-
+                      &nbsp;
                   <Form.Group controlId="noEFacturacion">
                     <Form.Label>* No. exterior:</Form.Label>
                     <Form.Control type="text" name='noExterior' placeholder="213" onChange={this.handleChange} />{errors.noExterior.length > 0 &&
                       <span className='error'>{errors.noExterior}</span>}
                   </Form.Group>
+                  &nbsp;
 
                   <Form.Group controlId="cpFacturacion">
                     <Form.Label>* C.P.</Form.Label>

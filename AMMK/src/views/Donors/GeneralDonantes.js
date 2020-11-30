@@ -75,24 +75,26 @@ onSubmit(e) {
   //console.log("onSubmit");
   var tipoDonante=document.getElementById("selectTipoDonante").value;
   var recurrencia= document.getElementById("selectRecurrencia").value;
-  if (tipoDonante === '' || recurrencia === '' ){
+  console.log(tipoDonante);
+  if (tipoDonante != "NA" || recurrencia != "NA" ){
+    const tipoDonante2={
+      idTipoDonante: tipoDonante
+      
+    }
+    const tipoRecurrencia={
+      idRecurrencia: recurrencia
+      
+    } 
+  localStorage.setItem("tipoDonante2", JSON.stringify(tipoDonante2));
+  localStorage.setItem("recurrencia", JSON.stringify(tipoRecurrencia));
+    window.location = FRONT_BASE_URL+"admin/RegistroDonante1";
+  } else {
     Swal.fire( {
       icon: 'error',
       title: '¡ERROR!',
       text: 'Verifica que todos los campos obligatorios estén completos.',
     })
-  } else {
-  const tipoDonante2={
-    idTipoDonante: tipoDonante
-    
-  }
-  const tipoRecurrencia={
-    idRecurrencia: recurrencia
-    
-  }
-localStorage.setItem("tipoDonante2", JSON.stringify(tipoDonante2));
-localStorage.setItem("recurrencia", JSON.stringify(tipoRecurrencia));
-  window.location = FRONT_BASE_URL+"admin/RegistroDonante1";
+  
 
 }
 }
