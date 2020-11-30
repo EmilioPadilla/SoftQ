@@ -36,6 +36,8 @@ class EmployeesAttendanceController extends Controller
             "shifts.horaIngreso",
             "shifts.horaSalida",
             "employees_attendance.fecha"
+        )->where(
+            "employees_attendance.fecha", "=", $request->fecha
         );
 
         if ($request->idEmployees != 0) {
