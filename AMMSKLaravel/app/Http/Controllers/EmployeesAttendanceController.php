@@ -57,8 +57,7 @@ class EmployeesAttendanceController extends Controller
      */
     public function showPayrolls(Request $request) {
 
-        // $today = Carbon::now()->toDateString();
-        $today = '2020-12-31';
+        $today = Carbon::now()->toDateString();
 
         $days = EmployeesAttendance::join(
             "employees",
@@ -74,8 +73,14 @@ class EmployeesAttendanceController extends Controller
             "employees.id AS employeeId,
             employees.nombreCompleto AS nombre,
             CAST(SUM(CASE WHEN employees_attendance.horaIngreso IS NULL THEN 0 ELSE 1 END) AS UNSIGNED) AS asistencias,
-            MIN(DATE(employees_attendance.fecha)) as inicio,
-            MAX(DATE(employees_attendance.fecha)) as fin,
+            CASE WHEN DAY(MIN(employees_attendance.fecha)) <= 15 THEN 
+            DATE_FORMAT(MIN(employees_attendance.fecha), '%Y-%m-01') ELSE 
+            DATE_FORMAT(MIN(employees_attendance.fecha), '%Y-%m-16') END 
+            as inicio,
+            CASE WHEN DAY(MAX(employees_attendance.fecha)) <= 15 THEN 
+            DATE_FORMAT(MIN(employees_attendance.fecha), '%Y-%m-1') ELSE 
+            LAST_DAY(MAX(employees_attendance.fecha)) END 
+            as fin,
             CAST(SUM(CASE WHEN employees_attendance.horaIngreso IS NULL THEN 1 ELSE 0 END) AS UNSIGNED) AS faltas,
             COUNT(MINUTE(TIME(employees_attendance.horaIngreso) - TIME(shifts.horaIngreso)) > 10) AS retardos,
             SUM(employees.salarioxhora * HOUR(TIME(employees_attendance.horaSalida) - TIME(employees_attendance.horaIngreso))) AS pago"
@@ -103,6 +108,9 @@ class EmployeesAttendanceController extends Controller
      */
     public function showByEmployee($employees_id)
     {
+
+        $today = Carbon::now()->toDateString();
+
         $worked_hours = EmployeesAttendance::join(
             "employees",
             "employees.id",
@@ -116,6 +124,7 @@ class EmployeesAttendanceController extends Controller
         )->selectRaw(
             "employees_attendance.id, 
             employees_attendance.idEmployees, 
+            employees_attendance.fecha, 
             employees.nombreCompleto, 
             employees_attendance.horaIngreso, 
             employees_attendance.horaSalida, 
@@ -124,6 +133,8 @@ class EmployeesAttendanceController extends Controller
             MINUTE(TIME(employees_attendance.horaIngreso) - TIME(shifts.horaIngreso)) AS minutosTarde, 
             employees.salarioxhora, 
             employees.salarioxhora * HOUR(TIME(employees_attendance.horaSalida) - TIME(employees_attendance.horaIngreso)) AS pago"
+        )->where(
+            "employees_attendance.fecha", "<=", $today
         )->take(30);
 
         if ($employees_id != 0) {
@@ -143,13 +154,33 @@ class EmployeesAttendanceController extends Controller
      */
     public function registerArrival(Request $request)
     {
-        EmployeesAttendance::where([
+        $closestShift = EmployeesAttendance::join(
+            "shifts",
+            "shifts.id",
+            "=",
+            "employees_attendance.idShifts"
+        )->where([
             ['idEmployees', '=', $request->idEmployees],
-            ['idShifts', '=', $request->idShifts],
             ['fecha', '=', $request->fecha],
-        ])->update([
-            'horaIngreso' => $request->horaIngreso
-        ]);
+        ])->selectRaw(
+            "ABS(MINUTE(TIMEDIFF(shifts.horaIngreso, CAST('$request->horaIngreso' AS TIME)))) AS diff, 
+            shifts.id"
+        )->orderByRaw(
+            "ABS(MINUTE(TIMEDIFF(shifts.horaIngreso, CAST('$request->horaIngreso' AS TIME)))) ASC"
+        )->first();
+
+        echo $closestShift;
+
+        if (! empty($closestShift)) {
+
+            EmployeesAttendance::where([
+                ['idEmployees', '=', $request->idEmployees],
+                ['idShifts', '=', $closestShift['id']],
+                ['fecha', '=', $request->fecha],
+            ])->update([
+                'horaIngreso' => $request->horaIngreso
+            ]);
+        }
     }
 
     /**
@@ -160,13 +191,32 @@ class EmployeesAttendanceController extends Controller
      */
     public function registerExit(Request $request)
     {
-        EmployeesAttendance::where([
+
+        $closestShift = EmployeesAttendance::selectRaw(
+            "TIMESTAMPDIFF(MINUTE, employees_attendance.horaIngreso, '$request->horaSalida') AS diff,
+            employees_attendance.id,
+            employees_attendance.horaIngreso"
+        )->where([
             ['idEmployees', '=', $request->idEmployees],
-            ['idShifts', '=', $request->idShifts],
-            ['fecha', '=', $request->fecha],
-        ])->update([
-            'horaSalida' => $request->horaSalida
-        ]);
+            ['fecha', '=', $request->fecha]
+        ])->whereRaw(
+            "employees_attendance.horaIngreso IS NOT NULL AND 
+            TIMESTAMPDIFF(MINUTE, employees_attendance.horaIngreso, '$request->horaSalida') > 0"
+        )->orderByRaw(
+            "TIMESTAMPDIFF(MINUTE, employees_attendance.horaIngreso, '$request->horaSalida') ASC"
+        )->first();
+
+        echo $closestShift;
+
+        if (! empty($closestShift)) {
+            EmployeesAttendance::where([
+                ['idEmployees', '=', $request->idEmployees],
+                ['id', '=', $closestShift['id']],
+                ['fecha', '=', $request->fecha],
+            ])->update([
+                'horaSalida' => $request->horaSalida
+            ]);
+        }
     }
 
     /**
