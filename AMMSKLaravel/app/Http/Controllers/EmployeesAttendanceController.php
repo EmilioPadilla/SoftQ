@@ -24,6 +24,35 @@ class EmployeesAttendanceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public function showByDate(Request $request) {
+        $shifts = EmployeesAttendance::join(
+            "shifts",
+            "shifts.id",
+            "=",
+            "employees_attendance.idShifts"
+        )->select(
+            "shifts.id AS idShifts",
+            "shifts.nombre AS shiftName",
+            "shifts.horaIngreso",
+            "shifts.horaSalida",
+            "employees_attendance.fecha"
+        );
+
+        if ($request->idEmployees != 0) {
+            $shifts->where(
+                "employees_attendance.idEmployees", $request->idEmployees
+            );
+        }
+
+        return $shifts->get();
+    }
+
+    /**
+     * Payrolls by employee.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function showPayrolls(Request $request) {
 
         // $today = Carbon::now()->toDateString();
