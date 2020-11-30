@@ -139,7 +139,7 @@ class AdminNavbar extends React.Component {
               <span className="navbar-toggler-bar navbar-kebab" />
               <span className="navbar-toggler-bar navbar-kebab" />
             </button>
-            <Button color="danger" size="sm" className="nav-item" id="cerrarSesion" onClick={this.logoutFunc}><FontAwesomeIcon icon={['fas', 'sign-out-alt']} /></Button>
+            <Button color="danger" size="sm" className="nav-item" id="cerrarSesion" onClick={this.logoutFunc}>Salir <FontAwesomeIcon icon={['fas', 'sign-out-alt']} /></Button>
             <SimpleTooltip placement="left" target="cerrarSesion">Cerrar sesión</SimpleTooltip>
           </Container>
         </Navbar>
