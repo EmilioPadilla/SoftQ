@@ -6,6 +6,7 @@ import SimpleTooltip from "../../views/General/SimpleTooltip";
 import axios from 'axios';
 import { API_BASE_URL, FRONT_BASE_URL } from 'index';
 import Swal from 'sweetalert2';
+import FileUpload from '../../views/Beneficiarias/FileUpload';
 
 //Importing Icon library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -67,6 +68,12 @@ const ReenterEmp = (props) => {
                             <FontAwesomeIcon icon={["fas", "comment"]} />
                             <Label for="motivo">&nbsp;Motivo de reingreso</Label>
                             <textarea rows="3" cols="64" id="motivoReingreso" defaultValue={employee.motivoReingreso}/>
+                        </FormGroup>
+                        <br></br>
+                        <br/>
+                        <FormGroup>
+                        <Label>Carga de renuncia</Label>
+                        <FileUpload id={employee.id} view="3"/>
                         </FormGroup>
                     </Col>
                 </Row>

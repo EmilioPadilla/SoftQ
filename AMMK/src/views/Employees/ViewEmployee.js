@@ -153,7 +153,7 @@ class ViewEmployee extends React.Component {
     }
 
     render() {
-
+        let scholarship = ["No registrado", 'Sin estudios', 'Primaria', 'Secundaria', 'Preparatoria', 'Carrera técnica', 'Licenciatura', 'Maestría', 'Doctorado'];
         const login = localStorage.getItem("isLoggedIn");
         const idRol = localStorage.getItem("idRol");
         //Redirect in case of wrong role or no login
@@ -167,6 +167,7 @@ class ViewEmployee extends React.Component {
 
 
       let months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+      let estados = ["no registrado", "AGUASCALIENTES", "BAJA CALIFORNIA", "BAJA CALIFORNIA SUR", "CHIHUAHUA", "CHIAPAS", "CAMPECHE", "CIUDAD DE MEXICO", "COAHUILA", "COLIMA", "DURANGO", "GUERRERO", "GUANAJUATO", "HIDALGO", "JALISCO", "MICHOACAN", "ESTADO DE MEXICO", "MORELOS", "NAYARIT", "NUEVO LEON", "OAXACA", "PUEBLA", "QUINTANA ROO", "QUERETARO", "SINALOA", "SAN LUIS POTOSI"];
       let sedes = ["No registrado", "Granja Betania", "Asoc. Maximiliano María Kolbe"];
       let status = ["", "EMPLEADO ACTIVO", "EMPLEADO INACTIVO"];
       let puestos = ["No registrado", "Enfermera(o)", "Director(a)", "Servicios Generales", "Lavandería", "Mayordomo", "Hermana", "Dirección administrativa"];
@@ -265,12 +266,24 @@ class ViewEmployee extends React.Component {
                       <Row>
                         <Col>
                           <Label>
+                            <strong>Numero de Infonavit:</strong>
+                          </Label>
+                        </Col>
+                        <Col>
+                          <Label>
+                          {employee.infonavit}
+                          </Label>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col>
+                          <Label>
                             <strong>Escolaridad:</strong>
                           </Label>
                         </Col>
                         <Col>
                           <Label>
-                          {employee.scholarship_id}
+                          {scholarship[employee.scholarship_id]}
                           </Label>
                         </Col>
                       </Row>
@@ -391,7 +404,7 @@ class ViewEmployee extends React.Component {
                         </Col>
                         <Col>
                           <Label>
-                          {employee.estado}
+                          {estados[employee.estado]}
                           </Label>
                         </Col>
                       </Row>

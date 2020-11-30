@@ -103,6 +103,7 @@ import {
   }
 
     render() {
+      let categories = ['No registrado', 'Ingreso', 'Egreso', 'Religioso', 'Escolar', 'salud', 'Imagen de ingreso', 'Imagen de egreso'];
         return (
           <Row>
             <Col md="12">
@@ -121,7 +122,7 @@ import {
                       <tr key={file.id}>
                       <td>{file.path}</td>
                       <td>{file.comentario}</td>
-                      <td>{file.categoria_id}</td>
+                      <td>{categories[file.category_id]}</td>
                       <td>{file.created_at.split("T")[0]}</td>
                       <td>
                       <Row>
