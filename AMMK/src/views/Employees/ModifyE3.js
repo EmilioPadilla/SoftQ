@@ -89,8 +89,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
       'Empleado modificado de manera exitosa',
       'success'
       ).then(function() {
-        let rouote = FRONT_BASE_URL+"admin/view-employee/"+idD
-        window.location = rouote;
+        this.props.history.push("admin/view-employee/"+idD);
       });
     } else{
       Swal.fire( {
@@ -120,12 +119,12 @@ fillData (id) {
     const login = localStorage.getItem("isLoggedIn");
     const idRol = localStorage.getItem("idRol");
     //Redirect in case of wrong role or no login
-    if (!login ) {
-      window.location = FRONT_BASE_URL+"login";
+        if (!login ) {
+        this.props.history.push('/login');
     }else if(idRol==2){
-        window.location = FRONT_BASE_URL+"general/NurseIndex";
+      this.props.history.push('/general/NurseIndex');
     }else if (idRol==1){
-        window.location = FRONT_BASE_URL+"admin/Nomina/Nomina";
+      this.props.history.push('/admin/Nomina/Nomina');
     }
     const { id } = this.props.match.params;
     this.fillData(id);

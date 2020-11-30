@@ -21,7 +21,7 @@ function exitEmployee (id) {
     motivoEgreso: motivoEgreso
   }
   axios.put(API_BASE_URL+'employee/exit/'+id, egresarEmpleado).then(function() {
-    window.location = FRONT_BASE_URL+"admin/search-employee";
+    this.props.history.push("admin/search-employee");
   });
   } else {
     Swal.fire( {

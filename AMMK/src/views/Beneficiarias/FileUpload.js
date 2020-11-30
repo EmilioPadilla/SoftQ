@@ -126,7 +126,7 @@ export default class FileUpload extends Component {
                 'Documento cargado de manera exitosa.',
                 'success',
               ).then(function () {
-                window.location = (FRONT_BASE_URL + "admin/view-employee/" + id);
+                this.props.history.push("admin/view-employee/" + id);
               });
             });
           } else if (view == 3) {
@@ -149,7 +149,7 @@ export default class FileUpload extends Component {
                 'success',
               ).then(function () {
 
-                window.location = (FRONT_BASE_URL + "admin/Beneficiarias/SpecificView/" + id);
+                this.props.history.push("admin/Beneficiarias/SpecificView/" + id);
               });
             }
             );

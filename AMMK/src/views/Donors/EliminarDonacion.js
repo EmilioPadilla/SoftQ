@@ -131,7 +131,7 @@ function eliminar(){
            'Se ha eliminado la donación!',
            'success'
            ).then(function() {
-               window.location = FRONT_BASE_URL+"admin/ViewSpecificDonor"+localStorage.getItem("idD");
+               this.props.history.push("/admin/ViewSpecificDonor"+localStorage.getItem("idD"));
         });
 }
 

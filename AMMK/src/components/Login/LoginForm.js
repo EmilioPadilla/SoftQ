@@ -25,7 +25,7 @@ export class LoginForm extends React.Component{
                 'El username no existe en el sistema',
                 'error'
                 )
-                window.location = FRONT_BASE_URL+"general/GeneralIndex";
+                this.props.history.push("general/GeneralIndex");
           }else if(resp.data == 0){
             Swal.fire(
                 '¡Error!',
@@ -38,11 +38,11 @@ export class LoginForm extends React.Component{
             localStorage.setItem("isLoggedIn", true);
             var idRol = localStorage.getItem("idRol");
             if(idRol==2){
-                window.location.href = "general/NurseIndex";
+                this.props.history.push('/general/NurseIndex');
             }else if (idRol==1){
-                window.location.href = "admin/Nomina/Nomina";
+                this.props.history.push('/admin/Nomina/Nomina');
             }else{
-                window.location.href = "general/GeneralIndex";
+                this.props.history.push('/general/GeneralIndex');
             }
           }
         } );

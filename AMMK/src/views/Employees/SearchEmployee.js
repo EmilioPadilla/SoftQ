@@ -84,11 +84,11 @@ class SearchEmployee extends React.Component {
     const idRol = localStorage.getItem("idRol");
     //Redirect in case of wrong role or no login
     if (!login ) {
-        window.location = FRONT_BASE_URL+"login";
+        this.props.history.push('/login');
     }else if(idRol==2){
-        window.location = FRONT_BASE_URL+"general/NurseIndex";
+      this.props.history.push('/general/NurseIndex');
     }else if (idRol==1){
-        window.location = FRONT_BASE_URL+"admin/Nomina/Nomina";
+      this.props.history.push('/admin/Nomina/Nomina');
     }
 
     return (
@@ -115,6 +115,7 @@ class SearchEmployee extends React.Component {
             </Link>
             </Col>
         </Row>
+        <br/>
         <Row>
           <Col md="8">
             <FormGroup>

@@ -24,7 +24,6 @@ function editVacation (idEmployee, idVacation) {
     fechaSalida: fechaSalida,
     fechaRegreso: fechaRegreso
   }
-  const link = FRONT_BASE_URL+"admin/view-employee/"+idEmployee
   axios.put(API_BASE_URL+'employeeVacations/'+idVacation,registrarVacacion).then(res => {console.log(res)});
 
   Swal.fire(
@@ -32,7 +31,7 @@ function editVacation (idEmployee, idVacation) {
     'Vacaciones modificadas de manera exitosa',
     'success'
     ).then(function() {
-        window.location = link;
+      this.props.history.push("admin/view-employee/"+idEmployee);
     });
   } else {
     Swal.fire( {
