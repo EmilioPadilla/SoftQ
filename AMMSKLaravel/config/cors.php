@@ -15,11 +15,11 @@ return [
     |
     */
 
-    'paths' => ['api/*'],
+    'paths' => ['api/*', 'https://test-api.ejsanchez.com.mx/api/*', '*'],
 
-    'allowed_methods' => ['*'],
+    'allowed_methods' => ['https://test-api.ejsanchez.com.mx/*', '*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => ['https://test-api.ejsanchez.com.mx/*', '*'],
 
     'allowed_origins_patterns' => [],
 

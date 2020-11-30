@@ -29,6 +29,7 @@ import ModifyEmployee3 from "views/Employees/ModifyE3.js";
 import ViewEmployee from "views/Employees/ViewEmployee.js";
 import SearchEmployee from "views/Employees/SearchEmployee.js";
 import EmployeeCalendar from "views/Employees/EmployeeCalendar.js";
+import Login from 'views/Cuentas/Login.js';
 
 //Cuentas
 import MainAccount from "views/Cuentas/MainAccounts";
@@ -110,6 +111,15 @@ var routes = [
     layout: "/admin",
     showInSidebar: true ,
     rol: 'admin'
+  },
+  {
+    path: "/login",
+    name: "Cuentas",
+    rtlName: "ملف تعريفي للمستخدم",
+    icon: "tim-icons icon-settings",
+    component: Login,
+    layout: "",
+    showInSidebar: false ,
   },
   {
     path: "/Cuentas/CuentaPersonal/",
