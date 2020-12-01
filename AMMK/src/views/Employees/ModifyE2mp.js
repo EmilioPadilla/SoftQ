@@ -43,16 +43,16 @@ class ModifyEmployee2 extends React.Component {
     this.state = {
     employee: [],
     estados: [],
-      ciudad: null, 
-      calle: null,
-      numExt: null, 
-      numInt: null, 
-      cp: null, 
-      colonia: null,
-      municipio: null,
-      correo: null, 
-      telefono: null,
-      celular: null
+    ciudad: null, 
+    calle: null,
+    numExt: null, 
+    numInt: null, 
+    cp: null, 
+    colonia: null,
+    municipio: null,
+    correo: null, 
+    telefono: null,
+    celular: null
     }
   }
 
@@ -94,7 +94,7 @@ class ModifyEmployee2 extends React.Component {
           })
   }
 
-  onSubmit(e, id){
+  onSubmit(e, history){
     //Agarrar los valores 
     let estado = document.getElementById("estadoSelect").value;
     let ciudad = document.getElementById("ciudadSelect").value;
@@ -132,7 +132,7 @@ class ModifyEmployee2 extends React.Component {
         'Empleado modificado de manera exitosa',
         'success'
         ).then(function() {
-          this.props.history.push("admin/view-employee/"+idD);
+          history.push("/admin/view-employee/"+idD);
         });
   } else {
     Swal.fire( {
@@ -302,9 +302,7 @@ class ModifyEmployee2 extends React.Component {
               </Card>
               <Row>
               <Col  md="12" align="center">
-              <Link to='/admin/register-employee'>
-              <Button className="btn btn-primary" onClick={this.onSubmit.bind("this", id)}>Modificar</Button>
-              </Link>
+              <Button className="btn btn-primary" onClick={this.onSubmit.bind("this", this.e, this.props.history)}>Modificar</Button>
               </Col>
              
               </Row>

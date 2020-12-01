@@ -29,8 +29,8 @@ import "assets/demo/demo.css";
 import "assets/css/black-dashboard-react.css";
 import "assets/css/nucleo-icons.css";
 
-
-export const API_BASE_URL = 'http://api.gestionammk.com/api/';
+// export const API_BASE_URL = 'https://api.gestionammk.com/api/';
+export const API_BASE_URL = 'http://localhost:8000/api/';
 export const FRONT_BASE_URL = 0;
 export const IMAGE_URL = 'http://api.gestionammk.com/public/';
 const hist = createBrowserHistory();
