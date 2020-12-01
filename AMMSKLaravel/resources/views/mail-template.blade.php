@@ -15,7 +15,7 @@
                 <br/>
                 <p> Estimad@, {{ $nombre }} </p>
                  <br/>
-                <img src="http://www.starmen.com.mx/compriv/Letra.png">
+                <img src="http://api.gestionammk.com/public/correo.jpeg">
                 <br/>
                 <p> Muchas Gracias</p>
                 <p> Asociación Maximiliano Maria Kolbe </p>
