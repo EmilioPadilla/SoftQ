@@ -27,14 +27,6 @@ const validateForm = (errors) => {
   return valid;
 }
 
-const countErrors = (errors) => {
-  let count = 0;
-  Object.values(errors).forEach(
-    (val) => val.length > 0 && (count = count + 1)
-  );
-  return count;
-}
-
 export default class ReenterB extends Component {
   constructor(props) {
     super(props);
@@ -102,8 +94,9 @@ export default class ReenterB extends Component {
 
   onSubmit(e) {
 
-    e.preventDefault()
-
+    e.preventDefault();
+    
+    if(validateForm(this.state.errors)) {
     //Agarrar los valores 
     let id = document.getElementById("id").value;
     let fechaIngreso = document.getElementById("fechaIngreso").value;
@@ -144,7 +137,7 @@ export default class ReenterB extends Component {
         'Reingreso registrado de manera exitosa',
         'success',
       ).then(function () {
-        window.location = FRONT_BASE_URL + "admin/Beneficiarias/GeneralViewAdmin";
+        this.props.history.push("admin/Beneficiarias/GeneralViewAdmin");
       });
     } else {
       Swal.fire(
@@ -153,7 +146,13 @@ export default class ReenterB extends Component {
         'error'
       )
     }
-
+  }else{
+    Swal.fire(
+      '!ERROR!',
+      'Verifica que todos los campos sean correctos.',
+      'error'
+    )
+  }
   }
 
 
@@ -161,12 +160,12 @@ export default class ReenterB extends Component {
     const login = localStorage.getItem("isLoggedIn");
     const idRol = localStorage.getItem("idRol");
     //Redirect in case of wrong role or no login
-    if (!login) {
-      window.location = FRONT_BASE_URL + "login";
-    } else if (idRol == 2) {
-      window.location = FRONT_BASE_URL + "general/NurseIndex";
-    } else if (idRol == 1) {
-      window.location = FRONT_BASE_URL + "admin/Nomina/Nomina";
+        if (!login ) {
+        this.props.history.push('/login');
+    }else if(idRol==2){
+      this.props.history.push('/general/NurseIndex');
+    }else if (idRol==1){
+      this.props.history.push('/admin/Nomina/Nomina');
     }
     const { errors, formValid } = this.state;
     return (

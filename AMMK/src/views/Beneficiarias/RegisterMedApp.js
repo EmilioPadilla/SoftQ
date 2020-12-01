@@ -25,6 +25,14 @@ const validTextArea = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ _:\0-9@]+$/);
 const validTime = RegExp(/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/);
 const validDate = RegExp(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/);
 
+const validateForm = (errors) => {
+  let valid = true;
+  Object.values(errors).forEach(
+    (val) => val.length > 0 && (valid = false)
+  );
+  return valid;
+}
+
 function parseSpecialties(specialties) {
   return specialties.map((specialty) => {
     return { label: specialty.nombre, value: specialty.id };
@@ -155,8 +163,9 @@ export default class RegisterMedApp extends Component {
   }
 
   onSubmit(e) {
-    e.preventDefault()
+    e.preventDefault();
 
+    if(validateForm(this.state.errors)) {
     //Agarrar los valores 
     let fechaConsulta = document.getElementById("fechaConsulta").value;
     let horaConsulta = document.getElementById("horaConsulta").value;
@@ -192,9 +201,16 @@ export default class RegisterMedApp extends Component {
         'Consulta médica registrada de manera exitosa',
         'success'
       ).then(function () {
-        window.location = FRONT_BASE_URL + "admin/Beneficiarias/MedicalRecordView/" + beneficiary_id;
+        this.props.history.push("admin/Beneficiarias/MedicalRecordView/" + beneficiary_id);
       });
     }
+  }else{
+    Swal.fire(
+      '!ERROR!',
+      'Verifica que todos los campos sean correctos.',
+      'error'
+    )
+  }
   }
 
   componentDidMount() {
@@ -205,12 +221,12 @@ export default class RegisterMedApp extends Component {
     const login = localStorage.getItem("isLoggedIn");
     const idRol = localStorage.getItem("idRol");
     //Redirect in case of wrong role or no login
-    if (!login) {
-      window.location = FRONT_BASE_URL + "login";
-    } else if (idRol == 2) {
-      window.location = FRONT_BASE_URL + "general/NurseIndex";
-    } else if (idRol == 1) {
-      window.location = FRONT_BASE_URL + "admin/Nomina/Nomina";
+        if (!login ) {
+        this.props.history.push('/login');
+    }else if(idRol==2){
+      this.props.history.push('/general/NurseIndex');
+    }else if (idRol==1){
+      this.props.history.push('/admin/Nomina/Nomina');
     }
 
     const { id } = this.props.match.params;
@@ -314,7 +330,7 @@ export default class RegisterMedApp extends Component {
             </Form>
           </CardBody>
         </Card>
-        <div class="fixed-bottom" style={{ margin: '15px' }}>
+        <div class="static-bottom">
           <Link to={{
             pathname: '../MedicalRecordView/' + id,
             state: id

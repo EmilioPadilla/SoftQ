@@ -17,14 +17,7 @@ import Index from "@material-ui/core/styles/zIndex";
 //import Swal from 'sweetalert2';
 library.add(fas)
 
-const validateForm = (errors) => {
-  let valid = true;
-  Object.values(errors).forEach(
-    // if we have an error string set valid to false
-    (val) => val.length > 0 && (valid = false)
-  );
-  return valid;
-}
+
 
 //VALIDATIONS
 const validEmailRegex = RegExp(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
@@ -34,7 +27,7 @@ const validAlphanumericInput = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ \0-9]+$/); //acep
 const validPhoneNumber = RegExp(/^([0-9]{10})?$/); 
 const validDate = RegExp(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/);
 
-
+const validateForm = (errors) => {  let valid = true;  Object.values(errors).forEach(    (val) => val.length > 0 && (valid = false)  );  return valid;}
 class RDonantesPatronato extends Component {
 
   
@@ -75,7 +68,7 @@ class RDonantesPatronato extends Component {
     var c = document.getElementById("emailPatronato").value;
     var t = document.getElementById("telefonoPatronato").value;
     var cel = document.getElementById("celularPatronato").value;
-
+    if(validateForm(this.state.errors)) {
     if (x === '' || z === '' || c === '' || cel === ''){
       Swal.fire( {
         icon: 'error',
@@ -95,8 +88,9 @@ class RDonantesPatronato extends Component {
     };
   
     localStorage.setItem("patronato", JSON.stringify(donantePatronato));
-    window.location = FRONT_BASE_URL+"admin/Facturacion";
+    this.props.history.push("admin/Facturacion");
   }
+  }else{    Swal.fire(      '!ERROR!',      'Verifica que todos los campos sean correctos.',      'error'    )  }
    
 
   }
@@ -110,11 +104,11 @@ class RDonantesPatronato extends Component {
     switch (name) {
       case 'fullname':
         errors.fullname =
-          value.length < 3
+          value.length < 6
             ? 'Recuerda ingresar el nombre completo.'
-            : '' ||  validAlphanumericInput.test(value)
+            : '' ||  validTextInput.test(value)
             ? ""
-            : "El campo solo acepta números y letras.";
+            : "El campo solo acepta letras..";
         break;
         case 'rfc': 
             errors.rfc =
@@ -175,13 +169,13 @@ class RDonantesPatronato extends Component {
     const login = localStorage.getItem("isLoggedIn");
     const idRol = localStorage.getItem("idRol");
     //Redirect in case of wrong role or no login
-    if (!login ) {
-      window.location = FRONT_BASE_URL+"login";
-  }else if(idRol==2){
-      window.location = FRONT_BASE_URL+"general/NurseIndex";
-  }else if (idRol==1){
-      window.location = FRONT_BASE_URL+"admin/Nomina/Nomina";
-  }
+        if (!login ) {
+        this.props.history.push('/login');
+    }else if(idRol==2){
+      this.props.history.push('/general/NurseIndex');
+    }else if (idRol==1){
+      this.props.history.push('/admin/Nomina/Nomina');
+    }
     const {errors} = this.state;
 
     return (

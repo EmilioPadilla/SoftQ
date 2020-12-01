@@ -30,7 +30,15 @@ const validTextArea = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ _:\0-9@]+$/);
 const validTime = RegExp(/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/);
 const validDate = RegExp(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/);
 
-export default class RegisterMedApp extends Component {
+const validateForm = (errors) => {
+  let valid = true;
+  Object.values(errors).forEach(
+    (val) => val.length > 0 && (valid = false)
+  );
+  return valid;
+}
+
+export default class ModifyMedApp extends Component {
 
   getSpecialty() {
     axios.get(API_BASE_URL + 'specialties')
@@ -162,8 +170,9 @@ export default class RegisterMedApp extends Component {
 
   onSubmit(e) {
 
-    e.preventDefault()
+    e.preventDefault();
 
+    if(validateForm(this.state.errors)) {
     //Agarrar los valores 
     let id = document.getElementById("id").value;
     let fechaConsulta = document.getElementById("fechaConsulta").value;
@@ -193,18 +202,25 @@ export default class RegisterMedApp extends Component {
       axios.put(API_BASE_URL + "medical_appointments/" + id, appointment).then(res => { console.log(res) });
       Swal.fire(
         '¡Listo!',
-        'Consulta médica registrada de manera exitosa',
+        'Consulta médica modificada de manera exitosa',
         'success'
       ).then(function () {
-        window.location = FRONT_BASE_URL + "admin/Beneficiarias/MedicalRecordView/" + beneficiary_id;
+        this.props.history.push("admin/Beneficiarias/MedicalRecordView/" + beneficiary_id);
       });
     } else {
       Swal.fire(
         'ERROR!',
-        'Verifica que los campos obligatorios estén llenos',
+        'Verifica que todos los campos obligatorios estén completos.',
         'error'
       )
     }
+  }else{
+    Swal.fire(
+      '!ERROR!',
+      'Verifica que todos los campos sean correctos.',
+      'error'
+    )
+  }
 
   }
 
@@ -217,12 +233,12 @@ export default class RegisterMedApp extends Component {
     const login = localStorage.getItem("isLoggedIn");
     const idRol = localStorage.getItem("idRol");
     //Redirect in case of wrong role or no login
-    if (!login) {
-      window.location = FRONT_BASE_URL + "login";
-    } else if (idRol == 2) {
-      window.location = FRONT_BASE_URL + "general/NurseIndex";
-    } else if (idRol == 1) {
-      window.location = FRONT_BASE_URL + "admin/Nomina/Nomina";
+        if (!login ) {
+        this.props.history.push('/login');
+    }else if(idRol==2){
+      this.props.history.push('/general/NurseIndex');
+    }else if (idRol==1){
+      this.props.history.push('/admin/Nomina/Nomina');
     }
 
     const { errors } = this.state;;
@@ -315,7 +331,7 @@ export default class RegisterMedApp extends Component {
 
               <Row className="text-center">
                 <Col md="12">
-                  <Button type="submit">Registrar</Button>
+                  <Button type="submit">Modificar</Button>
                 </Col>
               </Row>
             </Form>

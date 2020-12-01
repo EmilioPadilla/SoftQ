@@ -42,12 +42,12 @@ export default class ViewMedApp extends Component {
     const login = localStorage.getItem("isLoggedIn");
     const idRol = localStorage.getItem("idRol");
     //Redirect in case of wrong role or no login
-    if (!login) {
-      window.location = FRONT_BASE_URL + "login";
-    } else if (idRol == 2) {
-      window.location = FRONT_BASE_URL + "general/NurseIndex";
-    } else if (idRol == 1) {
-      window.location = FRONT_BASE_URL + "admin/Nomina/Nomina";
+        if (!login ) {
+        this.props.history.push('/login');
+    }else if(idRol==2){
+      this.props.history.push('/general/NurseIndex');
+    }else if (idRol==1){
+      this.props.history.push('/admin/Nomina/Nomina');
     }
 
     return (
@@ -57,8 +57,14 @@ export default class ViewMedApp extends Component {
 
         <Modal isOpen={this.state.modalReingresar}>
           <ModalHeader>
-            <Button color="danger" size="sm" id="cerrar" onClick={() => { this.setState({ modalReingresar: false }) }}>x</Button>
-            <h3 className="title" align="center">Detalle Consulta</h3>
+            <Row>
+              <Col md="10">
+              <h3 className="title" style={{ fontSize: '30px'}}>Detalle Consulta</h3>              
+              </Col>
+              <Col md="2">
+              <span style={{float: 'right', fontSize: '25px'}} onClick={() => { this.setState({ modalReingresar: false }) }}>x</span>
+              </Col>
+            </Row>
           </ModalHeader>
           <ModalBody>
             {this.state.appointments.map((appointment) => (

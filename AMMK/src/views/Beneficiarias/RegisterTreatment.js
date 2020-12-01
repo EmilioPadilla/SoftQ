@@ -23,6 +23,14 @@ const validTextInput = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ ]+$/);
 const validAge = RegExp(/^[0-9]{1,2}$/);
 const validDate = RegExp(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/);
 
+const validateForm = (errors) => {
+  let valid = true;
+  Object.values(errors).forEach(
+    (val) => val.length > 0 && (valid = false)
+  );
+  return valid;
+}
+
 function parseMode(modes) {
   return modes.map((mode) => {
     return { label: mode.nombre, value: mode.id };
@@ -140,7 +148,9 @@ export default class RegisterTreatment extends Component {
 
   onSubmit(e) {
 
-    e.preventDefault()
+    e.preventDefault();
+
+    if(validateForm(this.state.errors)) {
 
     //Agarrar los valores 
     let nombreMed = document.getElementById("nombreMed").value;
@@ -176,9 +186,16 @@ export default class RegisterTreatment extends Component {
         'Tratamiento registrado de manera exitosa.',
         'success',
       ).then(function () {
-        window.location = FRONT_BASE_URL + "admin/Beneficiarias/MedicalRecordView/" + beneficiary_id;
+        this.props.history.push("admin/Beneficiarias/MedicalRecordView/" + beneficiary_id);
       });
     }
+  }else{
+    Swal.fire(
+      '!ERROR!',
+      'Verifica que todos los campos sean correctos.',
+      'error'
+    )
+  }
 
   }
 
@@ -190,14 +207,14 @@ export default class RegisterTreatment extends Component {
     const login = localStorage.getItem("isLoggedIn");
     const idRol = localStorage.getItem("idRol");
     //Redirect in case of wrong role or no login
-    if (!login) {
-      window.location = FRONT_BASE_URL + "login";
-    } else if (idRol == 2) {
-      window.location = FRONT_BASE_URL + "general/NurseIndex";
-    } else if (idRol == 1) {
-      window.location = FRONT_BASE_URL + "admin/Nomina/Nomina";
+        if (!login ) {
+        this.props.history.push('/login');
+    }else if(idRol==2){
+      this.props.history.push('/general/NurseIndex');
+    }else if (idRol==1){
+      this.props.history.push('/admin/Nomina/Nomina');
     }
-    const { errors } = this.state;
+    const {errors} = this.state;
 
     const { id } = this.props.match.params;
     console.log(id);
@@ -281,7 +298,7 @@ export default class RegisterTreatment extends Component {
                 <Row>
                   <Col md="6">
                     <FontAwesomeIcon icon={['fas', 'calendar-alt']} />
-                    <Label>&nbsp;Fecha de inicio:</Label>
+                    <Label>* &nbsp;<FontAwesomeIcon icon={['fas', 'calendar-alt']} />&nbsp;Fecha de inicio:</Label>
 
                     <Input type="date" id="fechaInicio" name="fechaInicio" onChange={this.handleChange}></Input>
                     {errors.fechaInicio.length > 0 && <span className='error'>{errors.fechaInicio}</span>
@@ -289,8 +306,7 @@ export default class RegisterTreatment extends Component {
                       errors.fechaInicio.length == 0 && <span className='error'>{errors.fechaInicio}</span>}
                   </Col>
                   <Col med="6">
-                    <FontAwesomeIcon icon={['fas', 'calendar-alt']} />
-                    <Label>&nbsp;Fecha de termino:</Label>
+                    <Label>*&nbsp;<FontAwesomeIcon icon={['fas', 'calendar-alt']} />&nbsp;Fecha de termino:</Label>
                     <Input type="date" id="fechaTermino" name="fechaTermino" onChange={this.handleChange}></Input>
                     {errors.fechaTermino.length > 0 && <span className='error'>{errors.fechaTermino}</span>
                       ||
@@ -307,7 +323,7 @@ export default class RegisterTreatment extends Component {
             </Form>
           </CardBody>
         </Card>
-        <div class="fixed-bottom" style={{ margin: '15px' }}>
+        <div class="static-bottom">
           <Link to={{
             pathname: '../MedicalRecordView/' + id,
             state: id

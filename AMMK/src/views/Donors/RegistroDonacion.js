@@ -15,18 +15,12 @@ import { Progress, Alert,  Card, CardBody, CardHeader } from "reactstrap";
 
 library.add(fas)
 
-const validateForm = (errors) => {
-  let valid = true;
-  Object.values(errors).forEach(
-    // if we have an error string set valid to false
-    (val) => val.length > 0 && (valid = false)
-  );
-  return valid;
-}
+
 const validTextInput = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ ]{3,}$/); //Solo letras al menos 3 caracteres
 const validAlphanumericInput = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ \0-9]+$/); //acepta numeros y letras y saltos de linea
 const validMoney = RegExp(/^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$/); 
 const validDate = RegExp(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/);
+const validateForm = (errors) => {  let valid = true;  Object.values(errors).forEach(    (val) => val.length > 0 && (valid = false)  );  return valid;}
 
 //form de registerDonation
 class RegistroDonacion extends Component {
@@ -67,10 +61,11 @@ class RegistroDonacion extends Component {
 
         e.preventDefault()
       //agarrrar los valores con el id del forms
-        var fecha = document.getElementById("fechaDonacion").value;
+        var fecha = document.getElementById("fecha").value;
         var  monto= document.getElementById("monto").value;
         var descripcion = document.getElementById("descripcion").value;
         var tipoDonacion = document.getElementById("tipoDonacion").value;
+        if(validateForm(this.state.errors)) {
 
         if (fecha!="" && monto !="" && descripcion !="" && tipoDonacion !=""){
            //nombre + F de facturacion
@@ -103,7 +98,7 @@ class RegistroDonacion extends Component {
         'Datos guardados',
         'success'
         ).then(function() {
-            window.location = FRONT_BASE_URL+"admin/ViewDonors";
+            this.props.history.push("admin/ViewDonors");
         });
         } else {
           Swal.fire( {
@@ -114,6 +109,8 @@ class RegistroDonacion extends Component {
      
         
         }
+      }else{    Swal.fire(      '!ERROR!',      'Verifica que todos los campos sean correctos.',      'error'    )  }
+
       
     }
     handleChange = (event) => {
@@ -185,7 +182,7 @@ class RegistroDonacion extends Component {
               <Form.Row>
                 <Form.Group as={Col} >
                   <Form.Label>*&nbsp;<FontAwesomeIcon icon={['fas', 'calendar-alt']} />&nbsp;FECHA EN QUE SE REALIZÓ</Form.Label>
-                  <Form.Control name="fecha" type="date"  placeholder=" / / " />
+                  <Form.Control name="fecha" id="fecha" type="date"  placeholder=" / / " />
                   {errors.fecha.length > 0 &&
                     <span className='error'>{errors.fecha}</span>}
                 </Form.Group>
@@ -220,11 +217,11 @@ class RegistroDonacion extends Component {
 
               <Form.Row>
                 <Link to='/admin/ViewDonors'>
-              <Form.Group as={Col} controlId="descripcion">
+              <Form.Group as={Col} >
               <Button type="submit" class="danger">Cancelar</Button>
               </Form.Group>
               </Link>
-              <Form.Group as={Col} controlId="descripcion">
+              <Form.Group as={Col} >
               <Button onClick={this.onSubmit} type="submit">Registrar</Button>
               </Form.Group>
               </Form.Row>

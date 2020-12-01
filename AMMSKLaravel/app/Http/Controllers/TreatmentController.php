@@ -101,8 +101,13 @@ class TreatmentController extends Controller
     public function update(Request $request, $id)
     {
         $treatment = Treatment::find($id);
-        $treatment->fechaInicio = $request->fechaInicio;
-        $treatment->fechaTermino = $request->fechaTermino;
+        $treatment->nombreMed= $request->nombreMed;
+        $treatment->funcionMed= $request->funcionMed;
+        $treatment->dosis = $request ->dosis;
+        $treatment->lapso = $request ->lapso;
+        $treatment->fechaInicio = $request ->fechaInicio;
+        $treatment->fechaTermino = $request ->fechaTermino;
+        $treatment->mode_id = $request ->mode_id;
         $treatment->update();
     }
 

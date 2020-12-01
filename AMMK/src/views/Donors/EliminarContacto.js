@@ -22,7 +22,7 @@ const EliminarContacto = props =>{
                             <h2 >Eliminar Contacto Donante</h2>
                             <Card>
           <CardHeader>
-          <h3 align="center" className="title">ATENCIÓN: ESTA ES UNA ACCIÓN PERMANENTE </h3>
+          <Alert color="danger" align="center">ATENCIÓN ESTA ES UNA ACCIÓN PERMANENTE</Alert>
           </CardHeader>
           <CardBody>
                             <Form>
@@ -153,7 +153,7 @@ function eliminar(){
            'Se ha eliminado la donación!',
            'success'
            ).then(function() {
-               window.location = FRONT_BASE_URL+"admin/ViewSpecificDonor"+localStorage.getItem("idD");
+               this.props.history.push("admin/ViewSpecificDonor"+localStorage.getItem("idD"));
         });
 }
 

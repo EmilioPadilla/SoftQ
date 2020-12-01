@@ -140,7 +140,7 @@ class RegisterEmployee extends React.Component {
         infonavit: infonavit
       };
       localStorage.setItem("personal", JSON.stringify(datosPersonales));
-      window.location = FRONT_BASE_URL+"admin/RE2";
+      this.props.history.push("admin/RE2");
     } else {
       Swal.fire( {
         icon: 'error',
@@ -169,12 +169,12 @@ class RegisterEmployee extends React.Component {
     const login = localStorage.getItem("isLoggedIn");
     const idRol = localStorage.getItem("idRol");
     //Redirect in case of wrong role or no login
-    if (!login ) {
-      window.location = FRONT_BASE_URL+"login";
+        if (!login ) {
+        this.props.history.push('/login');
     }else if(idRol==2){
-        window.location = FRONT_BASE_URL+"general/NurseIndex";
+      this.props.history.push('/general/NurseIndex');
     }else if (idRol==1){
-        window.location = FRONT_BASE_URL+"admin/Nomina/Nomina";
+      this.props.history.push('/admin/Nomina/Nomina');
     }
     const { errors } = this.state;
     const pathname = "buscar empleados";

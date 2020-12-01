@@ -102,7 +102,7 @@ class RegisterEmployee2 extends React.Component {
     }
     };
     localStorage.setItem("contacto", JSON.stringify(datosContacto));
-    window.location = FRONT_BASE_URL+"admin/RE3";
+    this.props.history.push("admin/RE3");
   } else{
     Swal.fire( {
       icon: 'error',
@@ -175,12 +175,12 @@ getStates() {
     const login = localStorage.getItem("isLoggedIn");
     const idRol = localStorage.getItem("idRol");
     //Redirect in case of wrong role or no login
-    if (!login ) {
-        window.location = FRONT_BASE_URL+"login";
+        if (!login ) {
+        this.props.history.push('/login');
     }else if(idRol==2){
-        window.location = FRONT_BASE_URL+"general/NurseIndex";
+      this.props.history.push('/general/NurseIndex');
     }else if (idRol==1){
-        window.location = FRONT_BASE_URL+"admin/Nomina/Nomina";
+      this.props.history.push('/admin/Nomina/Nomina');
     }
     const { errors } = this.state;
     return (

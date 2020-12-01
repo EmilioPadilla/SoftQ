@@ -23,19 +23,16 @@ import Login from "views/Cuentas/Login";
 import AdminLayout from "layouts/Admin/Admin.js";
 import General from "layouts/Admin/General.js";
 import "bootstrap/dist/css/bootstrap.min.css";
-// import RTLLayout from "layouts/RTL/RTL.js";
 
 import "assets/scss/black-dashboard-react.scss";
 import "assets/demo/demo.css";
 import "assets/css/black-dashboard-react.css";
 import "assets/css/nucleo-icons.css";
 
-// export const API_BASE_URL = 'https://test-api.ejsanchez.com.mx/public/api/';
-// export const FRONT_BASE_URL = 'http://ammk.hogaresfaustinollamas.org/';
 
-export const API_BASE_URL = 'https://localhost:8000/api/';
-export const FRONT_BASE_URL = 'http://localhost:3000/';
-export const IMAGE_URL = 'https://test-api.ejsanchez.com.mx/public/';
+export const API_BASE_URL = 'http://api.gestionammk.com/api/';
+export const FRONT_BASE_URL = 0;
+export const IMAGE_URL = 'http://api.gestionammk.com/public/';
 const hist = createBrowserHistory();
 
 function activateWhite() {
@@ -45,11 +42,11 @@ function activateWhite() {
 ReactDOM.render(
   <Router history={hist}>
     <Switch>
-
+      <Route path="/login" component={Login} history= {hist}/>
       <Route path="/admin" render={props => <AdminLayout {...props} />} />
       <Route path="/general" render={props => <General {...props} />} />
-      <Route path="/login" component={Login}/>
-      <Redirect from="/" to="/admin/dashboard" />
+      
+      <Redirect from="/" to="/login" />
     </Switch>
   </Router>,
   document.getElementById("root"),

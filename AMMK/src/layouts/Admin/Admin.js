@@ -108,7 +108,7 @@ class Admin extends React.Component {
         return routes[i].name;
       }
     }
-    return "Brand";
+    return "AMMK";
   };
 
   filterRoutes(routes) {
@@ -127,7 +127,6 @@ class Admin extends React.Component {
   }
   
   render() {
-    console.log(this.props.location.pathname);
     return (
       <>
         <div className="wrapper">
@@ -155,7 +154,7 @@ class Admin extends React.Component {
             />
             <Switch>
               {this.getRoutes(routes)}
-              <Redirect from="*" to="/admin/General/GeneralIndex"/>
+              <Redirect from="*" to="/login"/>
             </Switch>
             {// we don't want the Footer to be rendered on map page
             this.props.location.pathname.indexOf("maps") !== -1 ? null : (

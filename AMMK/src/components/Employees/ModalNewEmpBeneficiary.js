@@ -41,7 +41,6 @@ function newEmpBeneficiary (id) {
       rfc : RFC,
       direccion: Direccion
     }
-    const link = FRONT_BASE_URL+"admin/view-employee/"+id
     axios.post(API_BASE_URL+'empBeneficiary',registrarBeneficiario).then(res => {console.log(res)});
 
     Swal.fire(
@@ -49,7 +48,7 @@ function newEmpBeneficiary (id) {
       'Beneficiario registrado de manera exitosa',
       'success'
       ).then(function() {
-          window.location = link;
+        this.props.history.push("admin/view-employee/"+id);
       });
   } else {
     Swal.fire( {
