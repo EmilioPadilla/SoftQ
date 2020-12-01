@@ -32,6 +32,7 @@ export default class Record extends React.Component {
          //Buttons for the incomes
         axios.get(API_BASE_URL + 'donaciones/table/getdates')
         .then(res => {
+            if (res.data[0]){
             var dateNew=res.data[0].fechaDonacion.slice(0,7);
             //Filter to avoid repeated months
             res.data.forEach(element => {
@@ -47,27 +48,32 @@ export default class Record extends React.Component {
             this.setState({
                 id: this.state.id.concat(dateNew)
              });
+            }
+            
         })
 
 
         //Buttons for the expenses
         axios.get(API_BASE_URL + 'expenses/table/getdates')
         .then(res => {
-            var dateNewExp=res.data[0].fecha.slice(0,7);
-            //Filter to avoid repeated months
-            res.data.forEach(element => {
-                var helperExp = element.fecha.slice(0, 7);
-                if(helperExp.localeCompare(dateNewExp)!=0){
-                    this.setState({
-                        idExpenses: this.state.idExpenses.concat(dateNewExp)
-                    });
-                    dateNewExp=helperExp;
-                }
-            });
-
-            this.setState({
-                idExpenses: this.state.idExpenses.concat(dateNewExp)
-            });
+            if(res.data[0]){
+                var dateNewExp=res.data[0].fecha.slice(0,7);
+                //Filter to avoid repeated months
+                res.data.forEach(element => {
+                    var helperExp = element.fecha.slice(0, 7);
+                    if(helperExp.localeCompare(dateNewExp)!=0){
+                        this.setState({
+                            idExpenses: this.state.idExpenses.concat(dateNewExp)
+                        });
+                        dateNewExp=helperExp;
+                    }
+                });
+    
+                this.setState({
+                    idExpenses: this.state.idExpenses.concat(dateNewExp)
+                });
+            }
+            
         })
       
     }

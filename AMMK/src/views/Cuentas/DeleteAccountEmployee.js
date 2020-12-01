@@ -8,7 +8,6 @@ import { API_BASE_URL, FRONT_BASE_URL } from 'index';
 var open = false;
 
 const DeleteAccountEmp = props =>{
-    
     const login = localStorage.getItem("isLoggedIn");
     const idRol = localStorage.getItem("idRol");
     //Redirect in case of wrong role or no login
@@ -87,7 +86,7 @@ const DeleteAccountEmp = props =>{
                                     </Link>
                                     </div>
                                     <div class="col-4" align="center">
-                                            <Button className="btn-fill" color="danger" onClick={eliminar}>
+                                            <Button className="btn-fill" color="danger" onClick={()=>eliminar(props.history)}>
                                                 Eliminar
                                             </Button>
                                     </div>
@@ -97,17 +96,6 @@ const DeleteAccountEmp = props =>{
                                 <Input type="text" id="valorId" style={{display: "none"}}>
 
                                 </Input>
-                            </div>
-                            <div align="center"  >
-                                <Modal id="modalAcc" isOpen={false} >
-                                    <ModalBody>
-                                       ¿Estás segur@ que deseas eliminar la cuenta?
-                                    </ModalBody>
-                                    <ModalFooter>
-                                      <Button color="primary"onClick={()=>hideModal()}>No</Button>
-                                      <Button color="danger" onClick={()=>eliminar()}>Sí</Button>
-                                    </ModalFooter>
-                                </Modal>
                             </div>
                         </div>
                     </div>
@@ -141,7 +129,7 @@ function hideModal(){
     
 }
 
-function eliminar(){
+function eliminar(hist){
     var idCuenta = document.getElementById("valorId").value;
         axios.delete(API_BASE_URL+'account/'+idCuenta)
               .then(function (resp){
@@ -152,7 +140,7 @@ function eliminar(){
            'Se eliminó la cuenta',
            'success'
            ).then(function() {
-               this.props.history.push("admin/Cuentas/PrincipalEmp");
+               hist.push("/admin/Cuentas/PrincipalEmp");
         });
 }
 

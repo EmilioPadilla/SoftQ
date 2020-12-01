@@ -8,8 +8,8 @@ import { API_BASE_URL, FRONT_BASE_URL } from 'index';
 
 
 const ModifyAccountEmp = props =>{
-    
-   const login = localStorage.getItem("isLoggedIn");
+ 
+      const login = localStorage.getItem("isLoggedIn");
     const idRol = localStorage.getItem("idRol");
     //Redirect in case of wrong role or no login
         if (!login ) {
@@ -99,7 +99,7 @@ const ModifyAccountEmp = props =>{
                                         </Link>
                                     </div>
                                     <div class="col-4" align="center">
-                                        <Button className="btn-fill" color="success" onClick={guardar}>
+                                        <Button className="btn-fill" color="success" onClick={()=>guardar(props.history)}>
                                             Guardar cambios
                                         </Button>
                                     </div>
@@ -127,7 +127,7 @@ function ax(idC){
           } );
 }
 
-function guardar(){
+function guardar(hist){
     var user = document.getElementById("usernameModify").value;
     var passwrd = document.getElementById("passwordModify").value;
     var confPass = document.getElementById("confpassModify").value;
@@ -146,7 +146,7 @@ function guardar(){
             'error'
         )
     }else if((passwrd!="" && iguales==0) || user.localeCompare(document.getElementById("ogUsername").value) != 0){
-        if (passwrd.match(/[A-Z]/) == null){
+        if (passwrd != "" && passwrd.match(/[A-Z]/) == null){
                 Swal.fire(
                     'ERROR!',
                     'La contraseña debe tener al menos una letra mayúscula',
@@ -166,7 +166,7 @@ function guardar(){
                    'Cambios guardados',
                    'success'
                    ).then(function() {
-                       this.props.history.push('/admin/Cuentas/PrincipalEmp');
+                       hist.push('/admin/Cuentas/PrincipalEmp');
                 });
             }
         

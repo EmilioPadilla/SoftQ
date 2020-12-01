@@ -1,17 +1,15 @@
-import React from "react";
-import placeholder from "./../../assets/img/placeholder.jpg";
-import {Link} from "react-router-dom"
+import React, {Component} from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from "react-router-dom";
 import { API_BASE_URL, FRONT_BASE_URL } from 'index';
 
 import {
-    Button,
     Card,
     CardBody,
  
   } from "reactstrap";
 
-class MainAccount extends React.Component{
+class MainAccount extends Component{
     render(){
       const login = localStorage.getItem("isLoggedIn");
       const idRol = localStorage.getItem("idRol");
@@ -41,15 +39,14 @@ class MainAccount extends React.Component{
                                  Beneficiarias
                                </CardTitle>
                              </CardHeader> */}
+                             <Link to="/admin/Cuentas/CuentaPersonal">
                              <CardBody>
                                <h1>Cuenta Personal</h1>
-                               <div className="chart-area" style={{'font-size': '170px'}} onClick={(e) => {
-                                          e.preventDefault();
-                                          this.props.history.push("admin/Cuentas/CuentaPersonal");
-                                        }}>
+                               <div className="chart-area" style={{'font-size': '170px'}} >
                                  <FontAwesomeIcon icon={['fas', 'user-circle']} color="#0474ac"/>
                                </div>
                              </CardBody>
+                             </Link>
                          </Card>
                         </div>
                         <div class="col-6" align="center">
@@ -63,7 +60,7 @@ class MainAccount extends React.Component{
                               <h1>Cuentas de Empleados</h1>
                               <div className="chart-area" style={{'font-size': '170px'}} onClick={(e) => {
                                           e.preventDefault();
-                                          this.props.history.push("admin/Cuentas/PrincipalEmp");
+                                          this.props.history.push("/admin/Cuentas/PrincipalEmp");
                                         }}>
                                 <FontAwesomeIcon icon={['fas', 'users']} color="#0474ac"/>
                               </div>
