@@ -154,16 +154,7 @@ class AccountController extends Controller
                     ->orderBy('accounts.id', 'desc')
                     ->get();
         }
-        $respuesta = '<thead> <tr> <th> Nombre </th> <th> Nombre de Usuario </th> <th> Rol </th> <th> Acciones </th> </tr> </thead> <tbody>';
-        foreach ($datos as $res){
-            $respuesta .= '<tr> <td id="jkl">'. $res->nombreCompleto. '</td>';
-            $respuesta .= '<td>'.$res->username.'</td>';
-            $respuesta .= '<td>'.$res->nombreRol.'</td>';
-            $respuesta .= '<td> <div class="row"> <div class="col"> <a href="/admin/Cuentas/ModCuentaEmp/'.$res->id.'"> <button id="verDetalle" type="button" class="btn btn-info btn-sm" > <i class="fa fa-pencil-alt"> </i></button> ';
-            $respuesta .= '</a> </div> <div class="col" > <a href="/admin/Cuentas/DelCuentaEmp/'.$res->id.'"> <button id="eliminar" type="button"  class="btn btn-danger btn-sm"> <i class="fa fa-trash-alt"> </i></button> </a> </div> </div> </td> </tr> ';
-        }
-        $respuesta .= '</tbody>';
-        return $respuesta;
+        return $datos;
     }
 
 
@@ -193,16 +184,7 @@ class AccountController extends Controller
                     ->get();
         }
         
-        $respuesta = '<thead> <tr> <th> Nombre </th> <th> Nombre de Usuario </th> <th> Rol </th> <th> Acciones </th> </tr> </thead> <tbody>';
-        foreach ($datos as $res){
-            $respuesta .= '<tr> <td id="jkl">'. $res->nombreCompleto. '</td>';
-            $respuesta .= '<td>'.$res->username.'</td>';
-            $respuesta .= '<td>'.$res->nombreRol.'</td>';
-            $respuesta .= '<td> <div class="row"> <div class="col"> <a href="/admin/Cuentas/ModCuentaEmp/'.$res->id.'"> <button id="verDetalle" type="button" class="btn btn-info btn-sm" > <i class="fa fa-pencil-alt"> </i></button> ';
-            $respuesta .= '</a> </div> <div class="col" > <a href="/admin/Cuentas/DelCuentaEmp/'.$res->id.'"> <button id="eliminar" type="button"  class="btn btn-danger btn-sm"> <i class="fa fa-trash-alt"> </i></button> </a> </div> </div> </td> </tr> ';
-        }
-        $respuesta .= '</tbody>';
-        return $respuesta;
+        return $datos;
     }
 
 
@@ -215,16 +197,8 @@ class AccountController extends Controller
                     ->select('accounts.id', 'employees.nombreCompleto', 'roles.nombreRol', 'accounts.username')
                     ->orderBy('accounts.id', 'desc')
                     ->get();
-        $respuesta = '<thead> <tr> <th> Nombre </th> <th> Nombre de Usuario </th> <th> Rol </th> <th> Acciones </th> </tr> </thead> <tbody>';
-        foreach ($datos as $res){
-            $respuesta .= '<tr> <td id="jkl">'. $res->nombreCompleto. '</td>';
-            $respuesta .= '<td>'.$res->username.'</td>';
-            $respuesta .= '<td>'.$res->nombreRol.'</td>';
-            $respuesta .= '<td> <div class="row"> <div class="col"> <a href="/admin/Cuentas/ModCuentaEmp/'.$res->id.'"> <button id="verDetalle" type="button" class="btn btn-info btn-sm"  data-toggle="tooltip" title="Editar"> <i class="fa fa-pencil-alt"> </i></button> ';
-            $respuesta .= '</a> </div> <div class="col" > <a href="/admin/Cuentas/DelCuentaEmp/'.$res->id.'"> <button id="eliminar" type="button"  class="btn btn-danger btn-sm" data-toggle="tooltip" title="Eliminar"> <i class="fa fa-trash-alt"> </i></button> </a> </div> </div> </td> </tr> ';
-        }
-        $respuesta .= '</tbody>';
-        return $respuesta;
+        
+        return $datos;
     }
 
     /**
