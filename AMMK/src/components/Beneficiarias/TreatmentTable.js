@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 
 //API CALLS
 import axios from 'axios';
@@ -98,8 +99,14 @@ export default class TreatmentTable extends React.Component {
                   <td>Cada {treatment.lapso} hrs</td>
                   <td>
                     <Row>
-                        <Col md="4">
-                        <ModifyTreatment name={treatment.beneficiary_id}/>
+                    <Col md="4">
+                    <Link to={{
+                            pathname: '/admin/Beneficiarias/ModifyTreatment/' + treatment.id,
+                            state: treatment.id
+                        }}>
+                       <Button size="sm" id="editar" variant="info" onClick={()=>{this.selectTreatment(treatment);}}><FontAwesomeIcon icon={['fas', 'pencil-alt']} /></Button>
+                       <SimpleTooltip placement="top" target="editar" >Editar</SimpleTooltip>
+                    </Link>
                         </Col>
 
                         <Col md="4">

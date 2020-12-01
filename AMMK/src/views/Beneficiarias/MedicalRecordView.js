@@ -115,9 +115,8 @@ export default class MedicalRecordView extends Component {
                         </div>
                     </CardBody>
                 </Card>
-
-                <div class="fixed-bottom" style={{ margin: '15px' }}>
-                    <Link to={{
+                <div class="static-bottom">
+                                        <Link to={{
                         pathname: '../SpecificView/' + id,
                         state: id
                     }}>

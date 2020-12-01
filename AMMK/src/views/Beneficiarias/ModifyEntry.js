@@ -23,6 +23,14 @@ const validAge = RegExp(/^[0-9]{1,2}$/);
 const validTextArea = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ _:\0-9@]+$/);
 const validDate = RegExp(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/);
 
+const validateForm = (errors) => {
+  let valid = true;
+  Object.values(errors).forEach(
+    (val) => val.length > 0 && (valid = false)
+  );
+  return valid;
+}
+
 function parseHeadquarters(headquarters) {
   return headquarters.map((headquarter) => {
     return { label: headquarter.nombre, value: headquarter.id };
@@ -152,8 +160,9 @@ export default class ModifyEntry extends Component {
 
   onSubmit(e) {
 
-    e.preventDefault()
-
+    e.preventDefault();
+    
+    if(validateForm(this.state.errors)) {
     //Agarrar los valores 
     let id = document.getElementById("id").value;
     let sede = document.getElementById("headquarters").value;
@@ -197,12 +206,19 @@ export default class ModifyEntry extends Component {
 
       Swal.fire(
         '¡Listo!',
-        'Egreso registrado de manera exitosa',
+        'Datos de ingreso modificados de manera exitosa',
         'success',
       ).then(function () {
         this.props.history.push("admin/Beneficiarias/SpecificView/" + id);
       });
     }
+  }else{
+    Swal.fire(
+      '!ERROR!',
+      'Verifica que todos los campos sean correctos.',
+      'error'
+    )
+  }
 
   }
 
@@ -303,7 +319,7 @@ export default class ModifyEntry extends Component {
             </CardFooter>
           </Card>
         </Form>
-        <div class="fixed-bottom" style={{ margin: '15px' }}>
+        <div class="static-bottom">
           <Link to={{
             pathname: '../SpecificView/' + urlElements[6],
             state: urlElements[6]

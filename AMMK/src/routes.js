@@ -280,7 +280,7 @@ var routes = [
 
   },
   {
-    path: "/Beneficiarias/ModifyMedApp/:id/:bid",
+    path: "/Beneficiarias/ModifyMedApp/:id",
     name: "Beneficiarias",
     rtlName: "طباعة",
     icon: "tim-icons icon-single-02",

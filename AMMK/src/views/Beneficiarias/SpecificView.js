@@ -249,7 +249,7 @@ export default class SpecificView extends Component {
                     </>
                 ))}
 
-                <div class="static-bottom">
+                <div className="static-bottom">
                     <Link to='../GeneralViewAdmin'>
                         <Button color="primary" id="regresar"><FontAwesomeIcon icon={['fas', 'arrow-circle-left']} />&nbsp;Regresar</Button>
                     </Link>
