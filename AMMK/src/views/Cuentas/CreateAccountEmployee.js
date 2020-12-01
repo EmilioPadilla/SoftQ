@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 import { API_BASE_URL, FRONT_BASE_URL } from 'index';
 
 class CreateAccEmp extends React.Component{
+    hist = this.props.hist;
 
     crearSelect(){
         var sel='<option value="-1" disabled selected>Selecciona una opción</option>';
@@ -38,8 +39,7 @@ class CreateAccEmp extends React.Component{
     
 
 
-    onSubmit(e) {
-        e.preventDefault()
+    onSubmit(hist) {
         var x = document.getElementById("passwd").value;
         var y = document.getElementById("username").value;
         var z = document.getElementById("selectEmpleado").value; 
@@ -83,7 +83,7 @@ class CreateAccEmp extends React.Component{
                                   'Datos guardados',
                                   'success'
                                   ).then(function() {
-                                      this.props.history.push("admin/Cuentas/CrearCuentaEmp");
+                                      hist.push("/admin/Cuentas/PrincipalEmp");
                                   });
                           },(1000));
                       }else{
@@ -137,7 +137,7 @@ class CreateAccEmp extends React.Component{
                             <div class="row justify-content-center">
                                 <Alert color="primary">Todos los datos son obligatorios.</Alert>
                             </div>
-                            <Form onSubmit={this.onSubmit}>
+                            <Form >
                                 <div class="row justify-content-center">
                                     <div class="col-4" >  
                                     <FormGroup> 
@@ -206,7 +206,7 @@ class CreateAccEmp extends React.Component{
                                     </Link>
                                     </div>
                                     <div class="col-4" align="center">
-                                        <Button className="btn-fill" color="success" type="submit">
+                                        <Button className="btn-fill" color="success" onClick={() => this.onSubmit(this.props.history)}>
                                             Registrar
                                         </Button>
                                     </div>

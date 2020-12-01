@@ -146,7 +146,7 @@ function guardar(){
             'error'
         )
     }else if((passwrd!="" && iguales==0) || user.localeCompare(document.getElementById("ogUsername").value) != 0){
-        if (passwrd.match(/[A-Z]/) == null){
+        if (passwrd != "" && passwrd.match(/[A-Z]/) == null){
                 Swal.fire(
                     'ERROR!',
                     'La contraseña debe tener al menos una letra mayúscula',

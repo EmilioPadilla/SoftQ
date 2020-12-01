@@ -15,7 +15,6 @@ export class ModificaPersonal extends React.Component{
         this.state = {
             ogUsername: "",
         }  
-
         // Setting up functions
         this.datos = this.datos.bind(this);
     }
@@ -28,9 +27,12 @@ export class ModificaPersonal extends React.Component{
 
         axios.get(API_BASE_URL+"account/"+id)
           .then(function (resp){
-           document.getElementById("usernamePersonal").value = resp.data[0].username;
-           document.getElementById("ogUsername").value = resp.data[0].username;
-           document.getElementById('spnCirc').style.display = 'none';
+              if(resp.data[0]){
+                    document.getElementById("usernamePersonal").value = resp.data[0].username;
+                    document.getElementById("ogUsername").value = resp.data[0].username;
+                    document.getElementById('spnCirc').style.display = 'none';
+              }
+
            
           } ); 
           
@@ -38,8 +40,8 @@ export class ModificaPersonal extends React.Component{
 
     
 
-    onSubmit(e) {
-        e.preventDefault()
+    onSubmit(hist) {
+
         var id = localStorage.getItem("idCuenta");
         var x = document.getElementById("passwordPersonal").value;
         var y = document.getElementById("usernamePersonal").value;
@@ -60,7 +62,7 @@ export class ModificaPersonal extends React.Component{
                 'error'
             )
         }else if((iguales==0 && x!="") || y.localeCompare(document.getElementById("ogUsername").value) != 0){
-            if (x.match(/[A-Z]/) == null){
+            if ( x!="" && x.match(/[A-Z]/) == null){
                 Swal.fire(
                     'ERROR!',
                     'La contraseña debe tener al menos una letra mayúscula',
@@ -81,7 +83,7 @@ export class ModificaPersonal extends React.Component{
                 'Datos guardados',
                 'success'
                 ).then(function() {
-                    this.props.history.push('/admin/Cuentas/CuentaPersonal');
+                    hist.push('/admin/Cuentas/CuentaPersonal');
                 });
             }
          
@@ -127,7 +129,7 @@ export class ModificaPersonal extends React.Component{
                             <div class="row justify-content-center">
                                 <Alert color="primary">Los campos marcados con un asterisco (*) son obligatorios.</Alert>
                             </div>
-                            <Form onSubmit={this.onSubmit}>
+                            <Form >
                                 <div class="row justify-content-center">
                                     <div class="col-4" >
                                         <FormGroup>
@@ -188,7 +190,7 @@ export class ModificaPersonal extends React.Component{
                                     </Link>
                                     </div>
                                     <div class="col-4" align="center">
-                                        <Button className="btn-fill" color="success" type="submit">
+                                        <Button className="btn-fill" color="success" onClick={() => this.onSubmit(this.props.history)} >
                                             Guardar Cambios
                                         </Button>
                                     </div>

@@ -159,12 +159,12 @@ class EmployeesAccountView extends React.Component {
          </Col>
          <Col className="text-right">
               <br/>
-              <a href="/admin/Cuentas/CrearCuentaEmp">
+              <Link to="/admin/Cuentas/CrearCuentaEmp" hist={this.props.history}>
               <Button className="btn btn-primary ">
                 <AccountPlusIcon/> &nbsp;
                 Registrar nueva cuenta
               </Button>
-              </a>
+              </Link>
          </Col>
         </Row>
         <Row>
