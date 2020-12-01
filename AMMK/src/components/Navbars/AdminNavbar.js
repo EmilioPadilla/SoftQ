@@ -62,7 +62,7 @@ class AdminNavbar extends React.Component {
   //function for the logout
   logoutFunc(){
     localStorage.clear();
-    window.location = FRONT_BASE_URL+"login";
+    this.props.history.push('/login');
   }
   // function that adds color white/transparent to the navbar on resize (this is for the collapse)
   updateColor = () => {

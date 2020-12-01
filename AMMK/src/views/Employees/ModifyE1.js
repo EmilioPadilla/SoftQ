@@ -119,8 +119,7 @@ onSubmit(e, id){
         'Empleado modificado de manera exitosa',
         'success'
         ).then(function() {
-          let rouote = FRONT_BASE_URL+"admin/view-employee/"+idD
-          window.location = rouote;
+          this.props.history.push("admin/view-employee/"+idD);
         });
     } 
     else {
@@ -157,6 +156,16 @@ onSubmit(e, id){
   render() {
     let urlElements = window.location.href.split('/');
     const { id } = this.props.match.params;
+    const login = localStorage.getItem("isLoggedIn");
+    const idRol = localStorage.getItem("idRol");
+    //Redirect in case of wrong role or no login
+        if (!login ) {
+        this.props.history.push('/login');
+    }else if(idRol==2){
+      this.props.history.push('/general/NurseIndex');
+    }else if (idRol==1){
+      this.props.history.push('/admin/Nomina/Nomina');
+    }
     this.fillData(id);
     return (
       <>

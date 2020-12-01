@@ -26,7 +26,7 @@ function reEnterEmployee (id) {
     motivoReingreso: motivoReingreso
   }
   axios.put(API_BASE_URL+'employee/reenter/'+id, reingresarEmpleado).then(function() {
-    window.location = FRONT_BASE_URL+"admin/search-employee";
+    this.props.history.push("admin/search-employee");
   });
   } else {
     Swal.fire( {

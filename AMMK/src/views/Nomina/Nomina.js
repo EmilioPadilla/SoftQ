@@ -11,9 +11,9 @@ export default class Nomina extends Component {
         const idRol = localStorage.getItem("idRol");
         //Redirect in case of wrong role or no login
         if (!login ) {
-            window.location = FRONT_BASE_URL + "login";
+            this.props.history.push('/login');
         }else if (idRol==3){
-            window.location = FRONT_BASE_URL + "general/GeneralIndex";
+            this.props.history.push('/general/GeneralIndex');
         }
 
         return (

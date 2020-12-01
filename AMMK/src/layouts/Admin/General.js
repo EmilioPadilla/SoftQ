@@ -116,7 +116,7 @@ class General extends React.Component {
             />
             <Switch>
               {this.getRoutes(routes)}
-              <Redirect from="*" to="/general/General/GeneralIndex"/>
+              <Redirect from="*" to="/admin/GeneralIndex"/>
             </Switch>
             {/* {// we don't want the Footer to be rendered on map page
             this.props.location.pathname.indexOf("maps") !== -1 ? null : (

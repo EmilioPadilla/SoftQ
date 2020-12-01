@@ -27,16 +27,16 @@ import {
 
 class GeneralIndex extends React.Component {
   render() {
-        const login = localStorage.getItem("isLoggedIn");
-        const idRol = localStorage.getItem("idRol");
-        //Redirect in case of wrong role or no login
+    const login = localStorage.getItem("isLoggedIn");
+    const idRol = localStorage.getItem("idRol");
+    //Redirect in case of wrong role or no login
         if (!login ) {
-            window.location = FRONT_BASE_URL + "login";
-        }else if(idRol==2){
-            window.location = FRONT_BASE_URL + "general/NurseIndex";
-        }else if (idRol==1){
-            window.location = FRONT_BASE_URL + "admin/Nomina/Nomina";
-        }
+        this.props.history.push('/login');
+    }else if(idRol==2){
+      this.props.history.push('/general/NurseIndex');
+    }else if (idRol==1){
+      this.props.history.push('/admin/Nomina/Nomina');
+    }
     return (
       <>
       <br/><br/><br/>
@@ -61,7 +61,7 @@ class GeneralIndex extends React.Component {
               <h1>BENEFICIARIAS</h1>
               <div className="chart-area" style={{'font-size': '170px'}} onClick={(e) => {
                           e.preventDefault();
-                          window.location.href='/admin/Beneficiarias/GeneralViewAdmin';
+                          this.props.history.push("/admin/Beneficiarias/GeneralViewAdmin");
                         }}>
                 <img src={beneficiarias} alt="BENEFICIARIAS" width="260px" style={{'margin-bottom': '45px'}}></img>
               </div>
@@ -79,7 +79,7 @@ class GeneralIndex extends React.Component {
               <h1>EMPLEADOS</h1>
               <div className="chart-area" style={{'font-size': '170px', 'color': '#0474ac important!'}} onClick={(e) => {
                           e.preventDefault();
-                          window.location.href='/admin/search-employee';
+                          this.props.history.push("/admin/search-employee");
                         }}>
                 <img src={employees} alt="EMPLEADOS" height="200px" style={{'margin-bottom': '20px'}}></img>
               </div>
@@ -97,7 +97,7 @@ class GeneralIndex extends React.Component {
               <h1>DONANTES</h1>
               <div className="chart-area" style={{'font-size': '170px'}} onClick={(e) => {
                           e.preventDefault();
-                          window.location.href='/admin/ViewDonors';
+                          this.props.history.push("/admin/ViewDonors");
                         }}>
                 <img src={donantes1} alt="DONANTES" width="220px" style={{'margin-bottom': '40px'}}></img>
               </div>
@@ -117,7 +117,7 @@ class GeneralIndex extends React.Component {
               <h1>FINANZAS</h1>
               <div className="chart-area" style={{'font-size': '170px'}} onClick={(e) => {
                           e.preventDefault();
-                          window.location.href='/admin/Finanzas/MonthlyView';
+                          this.props.history.push("/admin/Finanzas/MonthlyView");
                         }}>
                 <img src={finanzas} alt="FINANZAS" height="220px" style={{'margin-bottom': '55px'}}></img>
               </div>
@@ -150,7 +150,7 @@ class GeneralIndex extends React.Component {
               <h1>CUENTAS</h1>
               <div className="chart-area" style={{'font-size': '170px'}} onClick={(e) => {
                           e.preventDefault();
-                          window.location.href='/admin/Cuentas/principal';
+                          this.props.history.push("/admin/Cuentas/principal");
                         }}>
                 <img src={cuentas} alt="CUENTAS" width="350px" style={{'margin-bottom': '45px'}}></img>
               </div>

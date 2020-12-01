@@ -170,7 +170,7 @@ function modificar() {
       });
 
     Swal.fire("¡Listo!", "Cambios guardados", "success").then(function () {
-      window.location = FRONT_BASE_URL+"admin/ViewSpecificDonor/"+localStorage.getItem("idD");
+      this.props.history.push("/admin/ViewSpecificDonor/"+localStorage.getItem("idD"));
     });
   } else {
     Swal.fire(

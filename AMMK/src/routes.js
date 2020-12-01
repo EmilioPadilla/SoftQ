@@ -112,15 +112,7 @@ var routes = [
     showInSidebar: true ,
     rol: 'admin'
   },
-  {
-    path: "/login",
-    name: "Cuentas",
-    rtlName: "ملف تعريفي للمستخدم",
-    icon: "tim-icons icon-settings",
-    component: Login,
-    layout: "",
-    showInSidebar: false ,
-  },
+
   {
     path: "/Cuentas/CuentaPersonal/",
     name: "Cuenta Personal",
@@ -174,7 +166,7 @@ var routes = [
   //End Cuentas
   {
     path: "/GeneralIndex",
-    name: "panel de administrador",
+    name: "Panel de administrador",
     rtlName: "ملف تعريفي للمستخدم",
     icon: "tim-icons icon-single-02",
     component: GeneralIndex,
