@@ -105,7 +105,7 @@ class AccountController extends Controller
                 $information = DB::table('accounts')
                                 ->join('accounts_roles','accounts.id','=','accounts_roles.idAccount')
                                 ->where('username', $request->username)
-                                ->select('accounts.id','accounts_roles.idRol')
+                                ->select('accounts.id','accounts_roles.idRol', 'accounts.idEmployee')
                                 ->get();
                 return $information;
             }else{

@@ -27,14 +27,6 @@ const validateForm = (errors) => {
   return valid;
 }
 
-const countErrors = (errors) => {
-  let count = 0;
-  Object.values(errors).forEach(
-    (val) => val.length > 0 && (count = count + 1)
-  );
-  return count;
-}
-
 export default class ReenterB extends Component {
   constructor(props) {
     super(props);
@@ -102,8 +94,9 @@ export default class ReenterB extends Component {
 
   onSubmit(e) {
 
-    e.preventDefault()
-
+    e.preventDefault();
+    
+    if(validateForm(this.state.errors)) {
     //Agarrar los valores 
     let id = document.getElementById("id").value;
     let fechaIngreso = document.getElementById("fechaIngreso").value;
@@ -153,7 +146,13 @@ export default class ReenterB extends Component {
         'error'
       )
     }
-
+  }else{
+    Swal.fire(
+      '!ERROR!',
+      'Verifica que todos los campos sean correctos.',
+      'error'
+    )
+  }
   }
 
 

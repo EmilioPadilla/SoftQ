@@ -24,6 +24,14 @@ function parseFileCategory(file_categories) {
 
 const validAlphanumericInput = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ \0-9]+$/); //acepta numeros y letras y saltos de linea
 
+const validateForm = (errors) => {
+  let valid = true;
+  Object.values(errors).forEach(
+    (val) => val.length > 0 && (valid = false)
+  );
+  return valid;
+}
+
 export default class FileUpload extends Component {
 
   //CALL PARA SELECT 
@@ -85,6 +93,8 @@ export default class FileUpload extends Component {
   addFormData(e) {
 
     e.preventDefault();
+
+    if(validateForm(this.state.errors)) {
 
     let id = document.getElementById("id").value;
     let view = document.getElementById("view").value;
@@ -170,6 +180,13 @@ export default class FileUpload extends Component {
         );
       }
     }
+  }else{
+    Swal.fire(
+      '!ERROR!',
+      'Verifica que todos los campos sean correctos.',
+      'error'
+    )
+  }
   }
 
   componentDidMount() {

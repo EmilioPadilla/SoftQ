@@ -159,7 +159,7 @@ class BeneficiaryFileController extends Controller
         $file = $beneficiaryFile->path;
         $route = public_path().'/beneficiary_files/'.$file;
         if($route){
-            $benefFile->delete();
+            $beneficiaryFile->delete();
             unlink($route);
         } else {
             return response()->json([
