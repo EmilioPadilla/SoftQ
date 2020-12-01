@@ -169,8 +169,6 @@ class EmployeesAttendanceController extends Controller
             "ABS(MINUTE(TIMEDIFF(shifts.horaIngreso, CAST('$request->horaIngreso' AS TIME)))) ASC"
         )->first();
 
-        echo $closestShift;
-
         if (! empty($closestShift)) {
 
             EmployeesAttendance::where([
@@ -206,8 +204,6 @@ class EmployeesAttendanceController extends Controller
             "TIMESTAMPDIFF(MINUTE, employees_attendance.horaIngreso, '$request->horaSalida') ASC"
         )->first();
 
-        echo $closestShift;
-
         if (! empty($closestShift)) {
             EmployeesAttendance::where([
                 ['idEmployees', '=', $request->idEmployees],
@@ -217,6 +213,39 @@ class EmployeesAttendanceController extends Controller
                 'horaSalida' => $request->horaSalida
             ]);
         }
+    }
+
+    /**
+     * Get today's open shift.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getClosestShift($employees_id)
+    {
+
+        $today = Carbon::now()->toDateString();
+
+        $closestShift = EmployeesAttendance::join(
+            "shifts",
+            "shifts.id",
+            "=",
+            "employees_attendance.idShifts"
+        )->whereRaw(
+            "idEmployees = $employees_id AND 
+            fecha = '$today' AND 
+            employees_attendance.horaSalida IS NULL"
+        )->select(
+            "employees_attendance.id",
+            "employees_attendance.idEmployees AS employees_id",
+            "employees_attendance.fecha",
+            "employees_attendance.horaIngreso",
+            "employees_attendance.horaSalida"
+        )->orderByRaw(
+            "shifts.horaIngreso ASC, employees_attendance.horaIngreso ASC"
+        )->get();
+
+        return $closestShift;
+
     }
 
     /**

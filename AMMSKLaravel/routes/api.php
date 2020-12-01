@@ -92,6 +92,7 @@ Route::post('payrolls', 'App\Http\Controllers\EmployeesAttendanceController@show
 Route::post('attendanceArrival', 'App\Http\Controllers\EmployeesAttendanceController@registerArrival');
 Route::post('attendanceExit', 'App\Http\Controllers\EmployeesAttendanceController@registerExit');
 Route::post('shiftsAttendance', 'App\Http\Controllers\EmployeesAttendanceController@showByDate');
+Route::get('closestShift/{employees_id}', 'App\Http\Controllers\EmployeesAttendanceController@getClosestShift');
 
 Route::post('employeesShifts/search', 'App\Http\Controllers\EmployeesShiftsController@filterByEmployee');
 Route::post('employeesShifts/delete', 'App\Http\Controllers\EmployeesShiftsController@deleteByEmployee');
