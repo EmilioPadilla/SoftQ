@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Prompt } from 'react-router';
+import { Link } from "react-router-dom";
 
 import { Row, Modal, Form, FormGroup,  Dropdown,Button, Col } from "react-bootstrap";
 import axios from "axios";
@@ -12,18 +13,14 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 import { API_BASE_URL } from "index";
 import { FRONT_BASE_URL } from "index";
 library.add(fas)
-const validateForm = (errors) => {
-  let valid = true;
-  Object.values(errors).forEach(
-    // if we have an error string set valid to false
-    (val) => val.length > 0 && (valid = false)
-  );
-  return valid;
-}
+
 const validDate = RegExp(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/); //Fechas válidas
 const validTextInput = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ ]{3,}$/); //Solo letras al menos 3 caracteres
 const validPhoneNumber = RegExp(/^([0-9]{10})?$/); 
 const validEmailRegex = RegExp(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
+
+const validateForm = (errors) => {  let valid = true;  Object.values(errors).forEach(    (val) => val.length > 0 && (valid = false)  );  return valid;}
+
 
 class RegistroContactoDonante extends Component {
     
@@ -60,6 +57,8 @@ class RegistroContactoDonante extends Component {
         var telefono = document.getElementById("telefono").value;
         var celular = document.getElementById("celular").value;
         
+        if(validateForm(this.state.errors)) {
+
         if (nombre!="" && cargo !="" && correo !=""  && celular!=""){
 
       
@@ -107,6 +106,8 @@ class RegistroContactoDonante extends Component {
           })
      
         }
+      }else{    Swal.fire(      '!ERROR!',      'Verifica que todos los campos sean correctos.',      'error'    )  }
+
       
     }
     handleChange = (event) => {
@@ -236,12 +237,17 @@ class RegistroContactoDonante extends Component {
                     <span className='error'>{errors.celular}</span>}</Form.Group>
               </Form.Row>
               
-              <Col align="left">
-
-              <Button onClick={this.onSubmit} type="submit">Registrar</Button>
-
-
-          </Col>
+              <Form.Row>
+                  <Col md="6" align="left">
+                    <Link to='/admin/ViewDonors'>
+                      <Button><FontAwesomeIcon icon={['fas', 'arrow-circle-left']} />&nbsp;Regresar</Button>
+                    </Link>
+                  </Col>
+                  <Col md="6" align="right">
+                  <Button onClick={this.onSubmit} type="submit">Registrar</Button>
+                  </Col>
+                </Form.Row>
+              
           
           </Form>
          

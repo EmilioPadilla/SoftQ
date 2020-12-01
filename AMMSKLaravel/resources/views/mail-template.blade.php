@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Send Email in Laravel 7 Using Gmail SMTP | Programming Fields</title>
+    <title>Asociación Maximiliano Maria Kolbe</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -11,18 +11,14 @@
     <div class="container">
         <div class="row">
             <div class="col-xl-6 col-lg-6 col-sm-12 m-auto">
-                <h3> Send Email in Laravel 7 Using Gmail </h3>
-                <p> Hey, 
-               
-                </p>
-                <div>{{ $nombre }}</div>
-                <p> Welcome to Programming Fields </p>
-                <p> This is a basic demo for sending email in Laravel 7 using Gmail SMTP </p>
-                <img src="{{URL::asset('/images/correo.jpeg')}}" alt="profile Pic" height="200" width="200">
+                <h3> Asociación Maximiliano Maria Kolbe </h3>
                 <br/>
+                <p> Estimad@, {{ $nombre }} </p>
+                 <br/>
+                <img src="http://www.starmen.com.mx/compriv/Letra.png">
                 <br/>
-                <p> Best Regards</p>
-                <p> Team, Programming Fields </p>
+                <p> Muchas Gracias</p>
+                <p> Asociación Maximiliano Maria Kolbe </p>
             </div>
         </div>
     </div>

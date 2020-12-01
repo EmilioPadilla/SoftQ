@@ -156,7 +156,7 @@ function modificar() {
             var cel= document.getElementById("celular").value ;
             var correo=document.getElementById("correo").value ;
     var idD=document.getElementById("valorId").value;
-  if (nom!= "" &&rfc != ""&&tel != ""&&cel!= ""&&correo!= "") {
+  if (nom!= "" &&rfc != ""&&cel!= ""&&correo!= "") {
     const donante = {
         nombreCompleto1: nom,
         fechaCumpleaños1: fecha,
