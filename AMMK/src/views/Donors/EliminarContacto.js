@@ -22,7 +22,7 @@ const EliminarContacto = props =>{
                             <h2 >Eliminar Contacto Donante</h2>
                             <Card>
           <CardHeader>
-          <h3 align="center" className="title">ATENCIÓN: ESTA ES UNA ACCIÓN PERMANENTE </h3>
+          <Alert color="danger" align="center">ATENCIÓN ESTA ES UNA ACCIÓN PERMANENTE</Alert>
           </CardHeader>
           <CardBody>
                             <Form>

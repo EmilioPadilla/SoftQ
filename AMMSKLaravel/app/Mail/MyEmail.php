@@ -29,6 +29,6 @@ class MyEmail extends Mailable
      */
     public function build()
     {
-        return $this->from('bloqueprueba5@gmail.com')->view('mail-template')->with([ "nombre" => $this->nombre]);
+        return $this->from('amaximilianomariakolbe@gmail.com')->subject('Agradecimiento')->view('mail-template')->with([ "nombre" => $this->nombre]);
     }
 }
