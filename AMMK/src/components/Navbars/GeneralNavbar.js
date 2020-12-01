@@ -39,9 +39,9 @@ class GeneralNavbar extends React.Component {
     window.removeEventListener("resize", this.updateColor);
   }
   //function for the logout
-  logoutFunc(){
+  logoutFunc(hist){
     localStorage.clear();
-    this.props.history.push('/login');
+    hist.push('/login');
   }
   // function that adds color white/transparent to the navbar on resize (this is for the collapse)
   updateColor = () => {
@@ -118,7 +118,7 @@ class GeneralNavbar extends React.Component {
               <span className="navbar-toggler-bar navbar-kebab" />
               <span className="navbar-toggler-bar navbar-kebab" />
             </button>
-            <Button color="danger" size="sm" className="nav-item" id="cerrarSesion" onClick={this.logoutFunc}><FontAwesomeIcon icon={['fas', 'sign-out-alt']} /></Button>
+            <Button color="danger" size="sm" className="nav-item" id="cerrarSesion" onClick={this.logoutFunc.bind(this, this.props.history)}><FontAwesomeIcon icon={['fas', 'sign-out-alt']} /></Button>
             <SimpleTooltip placement="left" target="cerrarSesion">Cerrar sesión</SimpleTooltip>
           </Container>
         </Navbar>

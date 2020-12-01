@@ -4,7 +4,11 @@ import placeholder from "./../../assets/img/placeholder.jpg";
 import {FormGroup, Form, Input, Button} from "react-bootstrap"
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { createBrowserHistory } from "history";
 import { API_BASE_URL, FRONT_BASE_URL } from 'index';
+import { Redirect } from "react-router-dom";
+
+
 
 export class LoginForm extends React.Component{
 
@@ -25,7 +29,8 @@ export class LoginForm extends React.Component{
                 'El username no existe en el sistema',
                 'error'
                 )
-                this.props.history.push("general/GeneralIndex");
+                // return <Redirect to="/general/GeneralIndex"/>
+                // this.props.history.push("/login");
           }else if(resp.data == 0){
             Swal.fire(
                 '¡Error!',
@@ -42,6 +47,7 @@ export class LoginForm extends React.Component{
             }else if (idRol==1){
                 this.props.history.push('/admin/Nomina/Nomina');
             }else{
+                // return <Redirect to="/general/GeneralIndex"/>
                 this.props.history.push('/general/GeneralIndex');
             }
           }
