@@ -649,7 +649,7 @@ class ViewEmployee extends React.Component {
                       </CardTitle>
                     </CardHeader>
                     <CardBody>
-                      <TableEmployeeVacations idEmployee={employee.id}/>
+                      <TableEmployeeVacations idEmployee={employee.id} history={this.props.history}/>
                     </CardBody>
                   </Card>
                 </Col>

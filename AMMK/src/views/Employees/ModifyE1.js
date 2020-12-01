@@ -85,7 +85,7 @@ class RegisterEmployee extends React.Component {
   }
 
 
-onSubmit(e, id){
+onSubmit(e, history){
     // e.preventDefault()
     //Agarrar los valores 
     let nombreCompleto = document.getElementById("nombreCompleto").value;
@@ -119,7 +119,7 @@ onSubmit(e, id){
         'Empleado modificado de manera exitosa',
         'success'
         ).then(function() {
-          this.props.history.push("admin/view-employee/"+idD);
+          history.goBack();
         });
     } 
     else {
@@ -167,6 +167,7 @@ onSubmit(e, id){
       this.props.history.push('/admin/Nomina/Nomina');
     }
     this.fillData(id);
+
     return (
       <>
         <div className="content">
@@ -277,7 +278,7 @@ onSubmit(e, id){
                   </CardBody>
                 </Card>
                 <Col  md="12" align="center">
-                    <Button className="btn btn-primary" onClick={this.onSubmit.bind("this", id)}>Modificar</Button>
+                    <Button className="btn btn-primary" onClick={this.onSubmit.bind("this", this.e, this.props.history)}>Modificar</Button>
                 </Col>
                 </Form>
                 <div>
