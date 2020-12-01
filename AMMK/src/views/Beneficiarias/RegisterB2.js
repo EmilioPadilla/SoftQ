@@ -22,6 +22,14 @@ const validDate = RegExp(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]
 const validTextInput = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ ]{3,}$/); //Solo letras al menos 3 caracteres
 const validAge = RegExp(/^[0-9]{1,2}$/); //edad valida del 0 99
 
+const validateForm = (errors) => {
+  let valid = true;
+  Object.values(errors).forEach(
+    (val) => val.length > 0 && (valid = false)
+  );
+  return valid;
+}
+
 //SELECT FOR HEADQUARTERS
 function parseSede(sedes) {
   return sedes.map((sede) => {
@@ -133,8 +141,9 @@ export default class RegisterB2 extends Component {
   }
 
   onSubmit(e) {
-    e.preventDefault()
+    e.preventDefault();
 
+    if(validateForm(this.state.errors)) {
     //Agarrar los valores 
     let fechaIngreso = document.getElementById("fechaIngreso").value;
     let edadMental = document.getElementById("edadMental").value;
@@ -175,9 +184,16 @@ export default class RegisterB2 extends Component {
         'Beneficiaria registrada de manera exitosa.',
         'success'
       ).then(function () {
-        window.location = FRONT_BASE_URL + "admin/Beneficiarias/GeneralViewAdmin";
+        this.props.history.push("admin/Beneficiarias/GeneralViewAdmin");
       });
     }
+  }else{
+    Swal.fire(
+      '!ERROR!',
+      'Verifica que todos los campos sean correctos.',
+      'error'
+    )
+  }
   }
 
   componentDidMount() {
@@ -190,12 +206,12 @@ export default class RegisterB2 extends Component {
     const login = localStorage.getItem("isLoggedIn");
     const idRol = localStorage.getItem("idRol");
     //Redirect in case of wrong role or no login
-    if (!login) {
-      window.location = FRONT_BASE_URL + "login";
-    } else if (idRol == 2) {
-      window.location = FRONT_BASE_URL + "general/NurseIndex";
-    } else if (idRol == 1) {
-      window.location = FRONT_BASE_URL + "admin/Nomina/Nomina";
+        if (!login ) {
+        this.props.history.push('/login');
+    }else if(idRol==2){
+      this.props.history.push('/general/NurseIndex');
+    }else if (idRol==1){
+      this.props.history.push('/admin/Nomina/Nomina');
     }
     const { errors } = this.state;
 

@@ -12,12 +12,12 @@ const DeleteAccountEmp = props =>{
     const login = localStorage.getItem("isLoggedIn");
     const idRol = localStorage.getItem("idRol");
     //Redirect in case of wrong role or no login
-    if (!login ) {
-        window.location = FRONT_BASE_URL+"login";
+        if (!login ) {
+        this.props.history.push('/login');
     }else if(idRol==2){
-        window.location = FRONT_BASE_URL+"general/NurseIndex";
+      this.props.history.push('/general/NurseIndex');
     }else if (idRol==1){
-        window.location = FRONT_BASE_URL+"admin/Nomina/Nomina";
+      this.props.history.push('/admin/Nomina/Nomina');
     }
     const {id} = props.match.params;
     ax(id);
@@ -152,7 +152,7 @@ function eliminar(){
            'Se eliminó la cuenta',
            'success'
            ).then(function() {
-               window.location = FRONT_BASE_URL+"admin/Cuentas/PrincipalEmp";
+               this.props.history.push("admin/Cuentas/PrincipalEmp");
         });
 }
 

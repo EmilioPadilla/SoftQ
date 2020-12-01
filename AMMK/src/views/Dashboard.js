@@ -48,12 +48,12 @@ import {
 
 // IMPORT DE COMPONENTES PARA CREAR TABLAS
 // core components
-import {
-//   chartExample1,
-  chartExample2,
-  chartExample3,
-  chartExample4
-} from "variables/charts.js";
+// import {
+// //   chartExample1,
+//   chartExample2,
+//   chartExample3,
+//   chartExample4
+// } from "variables/charts.js";
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -228,7 +228,7 @@ class Dashboard extends React.Component {
               </Card>
             </Col>
           </Row> */}
-          <Row>
+          {/* <Row>
             <h1>
               Ejemplos
             </h1>
@@ -238,8 +238,8 @@ class Dashboard extends React.Component {
               Reportes
             </h3>
           </Row>
-          <Row>
-            <Col lg="4">
+          <Row> */}
+            {/* <Col lg="4">
               <Card className="card-chart">
                 <CardHeader>
                   <h5 className="card-category">Total Shipments</h5>
@@ -257,7 +257,8 @@ class Dashboard extends React.Component {
                   </div>
                 </CardBody>
               </Card>
-            </Col>
+            </Col> */}
+            <Row>
             <Col lg="4">
               <Card className="card-chart">
                 <CardHeader>
@@ -269,10 +270,10 @@ class Dashboard extends React.Component {
                 </CardHeader>
                 <CardBody>
                   <div className="chart-area">
-                    <Bar
+                    {/* <Bar
                       data={chartExample3.data}
                       options={chartExample3.options}
-                    />
+                    /> */}
                   </div>
                 </CardBody>
               </Card>
@@ -287,10 +288,10 @@ class Dashboard extends React.Component {
                 </CardHeader>
                 <CardBody>
                   <div className="chart-area">
-                    <Line
+                    {/* <Line
                       data={chartExample4.data}
                       options={chartExample4.options}
-                    />
+                    /> */}
                   </div>
                 </CardBody>
               </Card>

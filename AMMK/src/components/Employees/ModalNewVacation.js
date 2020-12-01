@@ -23,7 +23,6 @@ function newVacation (id) {
     fechaSalida: fechaSalida,
     fechaRegreso: fechaRegreso
   }
-  const link = FRONT_BASE_URL+"admin/view-employee/"+id
   axios.post(API_BASE_URL+'employeeVacations/',registrarVacacion).then(res => {console.log(res)});
 
   Swal.fire(
@@ -31,7 +30,7 @@ function newVacation (id) {
     'Vacaciones registradas de manera exitosa',
     'success'
     ).then(function() {
-        window.location = link;
+      this.props.history.push("admin/view-employee/"+id);
     });
   } else {
     Swal.fire( {

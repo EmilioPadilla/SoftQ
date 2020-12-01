@@ -94,7 +94,7 @@ onSubmit(e) {
       title: '¡ERROR!',
       text: 'Verifica que todos los campos obligatorios estén completos.',
     })
-  
+
 
 }
 }

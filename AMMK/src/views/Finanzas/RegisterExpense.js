@@ -23,11 +23,15 @@ library.add(fas)
 const validAlphanumericInput = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ \0-9]+[\w]+$/);
 const validTextInput = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ ]+[\w]+$/);
 const validAmount = RegExp(/^((0?\.((0[1-9])|[1-9]\d))|([1-9]\d*(\.\d{2})?))$/);
-const validAge = RegExp(/^[0-9]{2}$/);
-const validCurp = RegExp(/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/);
-const validTextArea = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ _:\0-9@]+$/);
-const validTime = RegExp(/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/);
 const validDate = RegExp(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/);
+
+const validateForm = (errors) => {
+  let valid = true;
+  Object.values(errors).forEach(
+    (val) => val.length > 0 && (valid = false)
+  );
+  return valid;
+}
 
 //SELECT FOR HEADQUARTERS
 function parseSede(sedes){
@@ -148,8 +152,9 @@ export default class RegisterExpense extends Component {
     }
 
     onSubmit(e){
-        e.preventDefault()
+        e.preventDefault();
 
+        if(validateForm(this.state.errors)) {
         //Agarrar los valores 
         let fecha = document.getElementById("fecha").value;
         let pagoA = document.getElementById("pagoA").value;
@@ -181,9 +186,16 @@ export default class RegisterExpense extends Component {
             'Egreso registrado de manera exitosa.',
             'success'
             ).then(function() {
-                window.location = FRONT_BASE_URL + "admin/Finanzas/MonthlyView";
+                this.props.history.push("admin/Finanzas/MonthlyView");
             });     
         }
+      }else{
+        Swal.fire(
+          '!ERROR!',
+          'Verifica que todos los campos sean correctos.',
+          'error'
+        )
+      }
     }
 
     onPost(e){
@@ -205,7 +217,7 @@ export default class RegisterExpense extends Component {
             'Categoría registrada de manera exitosa',
             'success'
             ).then(function() {
-                window.location = FRONT_BASE_URL + "admin/Finanzas/RegisterExpense";
+                this.props.history.push("admin/Finanzas/RegisterExpense");
             });
         }else{
                 Swal.fire(
@@ -225,12 +237,12 @@ export default class RegisterExpense extends Component {
       const login = localStorage.getItem("isLoggedIn");
       const idRol = localStorage.getItem("idRol");
       //Redirect in case of wrong role or no login
-      if (!login ) {
-          window.location = FRONT_BASE_URL + "login";
+          if (!login ) {
+          this.props.history.push('/login');
       }else if(idRol==2){
-          window.location = FRONT_BASE_URL + "general/NurseIndex";
+        this.props.history.push('/general/NurseIndex');
       }else if (idRol==1){
-          window.location = FRONT_BASE_URL + "admin/Nomina/Nomina";
+        this.props.history.push('/admin/Nomina/Nomina');
       }
 
         const {errors} = this.state;

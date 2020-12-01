@@ -41,9 +41,8 @@ export default class FilesTable extends React.Component {
   }
   
   getFiles() {
-    const id = {
-      id: this.props.id
-    }
+    let id = this.props.id;
+    console.log(API_BASE_URL + 'beneficiary_files/' + id);
     axios.get(API_BASE_URL + 'beneficiary_files/' + id)
       .then(res => {
         const files = res.data;

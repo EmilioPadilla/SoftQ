@@ -24,6 +24,14 @@ function parseFileCategory(file_categories) {
 
 const validAlphanumericInput = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ \0-9]+$/); //acepta numeros y letras y saltos de linea
 
+const validateForm = (errors) => {
+  let valid = true;
+  Object.values(errors).forEach(
+    (val) => val.length > 0 && (valid = false)
+  );
+  return valid;
+}
+
 export default class FileUpload extends Component {
 
   //CALL PARA SELECT 
@@ -86,6 +94,8 @@ export default class FileUpload extends Component {
 
     e.preventDefault();
 
+    if(validateForm(this.state.errors)) {
+
     let id = document.getElementById("id").value;
     let view = document.getElementById("view").value;
     let comentario = document.getElementById("comentario").value;
@@ -126,7 +136,7 @@ export default class FileUpload extends Component {
                 'Documento cargado de manera exitosa.',
                 'success',
               ).then(function () {
-                window.location = (FRONT_BASE_URL + "admin/view-employee/" + id);
+                this.props.history.push("admin/view-employee/" + id);
               });
             });
           } else if (view == 3) {
@@ -149,7 +159,7 @@ export default class FileUpload extends Component {
                 'success',
               ).then(function () {
 
-                window.location = (FRONT_BASE_URL + "admin/Beneficiarias/SpecificView/" + id);
+                this.props.history.push("admin/Beneficiarias/SpecificView/" + id);
               });
             }
             );
@@ -170,6 +180,13 @@ export default class FileUpload extends Component {
         );
       }
     }
+  }else{
+    Swal.fire(
+      '!ERROR!',
+      'Verifica que todos los campos sean correctos.',
+      'error'
+    )
+  }
   }
 
   componentDidMount() {

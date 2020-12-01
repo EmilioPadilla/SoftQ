@@ -18,6 +18,14 @@ import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 const validTextInput = RegExp(/^[A-Za-zÀ-ÖØ-öø-ÿ ]+[\w]+$/);
 const validDate = RegExp(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/);
 
+const validateForm = (errors) => {
+  let valid = true;
+  Object.values(errors).forEach(
+    (val) => val.length > 0 && (valid = false)
+  );
+  return valid;
+}
+
 export default class ModifyTakeOut extends Component {
 
   fillData() {
@@ -106,8 +114,9 @@ export default class ModifyTakeOut extends Component {
 
   onSubmit(e) {
 
-    e.preventDefault()
-
+    e.preventDefault();
+    
+    if(validateForm(this.state.errors)) {
     //Agarrar los valores 
     let id = document.getElementById("id").value;
     let headquarter_id = document.getElementById("headquarter_id").value;
@@ -125,7 +134,7 @@ export default class ModifyTakeOut extends Component {
     let motivoEgreso = document.getElementById("motivoEgreso").value;
     let destino = document.getElementById("destino").value;
 
-    if (fechaEgreso !== '') {
+    if (fechaEgreso !== '' && motivoEgreso !== '') {
       const beneficiary = {
         id: id,
         status_id: 2,
@@ -151,7 +160,7 @@ export default class ModifyTakeOut extends Component {
         'Egreso registrado de manera exitosa',
         'success',
       ).then(function () {
-        window.location = FRONT_BASE_URL + "admin/Beneficiarias/GeneralViewAdmin";
+        this.props.history.push("admin/Beneficiarias/GeneralViewAdmin");
       });
     } else {
       Swal.fire(
@@ -160,7 +169,13 @@ export default class ModifyTakeOut extends Component {
         'error'
       )
     }
-
+  }else{
+    Swal.fire(
+      '!ERROR!',
+      'Verifica que todos los campos sean correctos.',
+      'error'
+    )
+  }
   }
 
 
@@ -168,12 +183,12 @@ export default class ModifyTakeOut extends Component {
     const login = localStorage.getItem("isLoggedIn");
     const idRol = localStorage.getItem("idRol");
     //Redirect in case of wrong role or no login
-    if (!login) {
-      window.location = FRONT_BASE_URL + "login";
-    } else if (idRol == 2) {
-      window.location = FRONT_BASE_URL + "general/NurseIndex";
-    } else if (idRol == 1) {
-      window.location = FRONT_BASE_URL + "admin/Nomina/Nomina";
+        if (!login ) {
+        this.props.history.push('/login');
+    }else if(idRol==2){
+      this.props.history.push('/general/NurseIndex');
+    }else if (idRol==1){
+      this.props.history.push('/admin/Nomina/Nomina');
     }
     const { errors } = this.state;
     return (
@@ -185,7 +200,7 @@ export default class ModifyTakeOut extends Component {
           <Form onSubmit={this.onSubmit} autocomplete="off">
             <ModalHeader className="text-center">
               <h3 className="title">MODIFICAR EGRESO</h3>
-              <Badge color="primary"><p style={{ 'font-size': '15px' }} >Los campos marcados con un asterisco (*) son obligatorios.</p></Badge>
+              <Badge color="primary"><p style={{ 'font-size': '15px', 'color': 'white' }} >Los campos marcados con un asterisco (*) son obligatorios.</p></Badge>
             </ModalHeader>
             <ModalBody>
               <Row>
@@ -206,32 +221,62 @@ export default class ModifyTakeOut extends Component {
                       <Input type="text" id="canalizador" name="canalizador" value={beneficiary.canalizador} hidden></Input>
                       <Input type="text" id="dxMedico" name="dxMedico" value={beneficiary.dxMedico} hidden></Input>
                       <Input type="text" id="vinculosFam" name="vinculosFam" value={beneficiary.vinculosFam} hidden></Input>
-                      </>
-                  ))}
-                  <FormGroup>
-                    <Label htmlFor="fechaEgreso">*&nbsp;<FontAwesomeIcon icon={['fas', 'calendar-alt']} />&nbsp;Fecha de egreso:</Label>
+                  <Row>
+                    <Col md="6">
+                    <FormGroup>
+                    <Label htmlFor="fechaE">*&nbsp;<FontAwesomeIcon icon={['fas', 'calendar-alt']} />&nbsp;Fecha de egreso:</Label>
+                    <Input type="date" id="fechaE" name="fechaE" value={beneficiary.fechaEgreso} disabled></Input>
+                  </FormGroup>
+                    </Col>
+                    <Col md="6">
+                    <FormGroup>
+                    <Label htmlFor="fechaEgreso">*&nbsp;<FontAwesomeIcon icon={['fas', 'calendar-alt']} />&nbsp;Nueva fecha de egreso:</Label>
                     <Input type="date" id="fechaEgreso" name="fechaEgreso" onChange={this.handleChange}></Input>
                     {errors.fechaEgreso.length > 0 && <span className='error'>{errors.fechaEgreso}</span>
                       ||
                       errors.fechaEgreso.length == 0 && <span className='error'>{errors.fechaEgreso}</span>}
                   </FormGroup>
-
-                  <FormGroup>
+                    </Col>
+                  </Row> 
+                  <Row>
+                    <Col md="6">
+                    <FormGroup>
                     <FontAwesomeIcon icon={['fas', 'map-marker-alt']} />
-                    <Label htmlFor="destino">&nbsp;Destino:</Label>
+                    <Label htmlFor="dest">&nbsp;Destino:</Label>
+                    <Input type="text" id="dest" name="dest" value={beneficiary.destino} disabled></Input>
+                  </FormGroup>
+                    </Col>
+                    <Col md="6">
+                    <FormGroup>
+                    <FontAwesomeIcon icon={['fas', 'map-marker-alt']} />
+                    <Label htmlFor="destino">&nbsp;Nuevo destino:</Label>
                     <Input type="text" id="destino" name="destino" onChange={this.handleChange} ></Input>
                     {errors.destino.length > 0 && <span className='error'>{errors.destino}</span>
                       ||
                       errors.destino.length == 0 && <span className='error'>{errors.destino}</span>}
                   </FormGroup>
-
-                  <FormGroup>
-                    <Label htmlFor="motivoEgreso">*&nbsp;<FontAwesomeIcon icon={['fas', 'comment']} />&nbsp;Motivo:</Label>
+                    </Col>
+                  </Row> 
+                  <Row>
+                    <Col md="6">
+                    <FormGroup>
+                    <Label htmlFor="motivoE">&nbsp;Motivo:</Label>
+                    <Input type="textarea" id="motivoE" name="motivoE" value={beneficiary.motivo} disabled></Input>
+                  </FormGroup>
+                    </Col>
+                    <Col md="6">
+                    <FormGroup>
+                    <Label htmlFor="motivoEgreso">*&nbsp;Nuevo motivo:</Label>
                     <Input type="textarea" id="motivoEgreso" name="motivoEgreso" onChange={this.handleChange}></Input>
                     {errors.motivoEgreso.length > 0 && <span className='error'>{errors.motivoEgreso}</span>
                       ||
                       errors.motivoEgreso.length == 0 && <span className='error'>{errors.motivoEgreso}</span>}
                   </FormGroup>
+                    </Col>
+                  </Row>    
+                  </>
+                  ))}
+
                 </Col>
               </Row>
             </ModalBody>
