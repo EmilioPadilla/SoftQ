@@ -135,9 +135,10 @@ export default class FileUpload extends Component {
                 '¡Listo!',
                 'Documento cargado de manera exitosa.',
                 'success',
-              ).then(function () {
-                this.props.history.push("admin/view-employee/" + id);
-              });
+              );
+                setTimeout(() => { this.setState.modalArchivos= false; }, 2000);
+                setTimeout(() => { window.location.reload(false); }, 3000);
+                
             });
           } else if (view == 3) {
             axios.post(API_BASE_URL + 'employee_files', fd
@@ -157,10 +158,9 @@ export default class FileUpload extends Component {
                 '¡Listo!',
                 'Documento cargado de manera exitosa.',
                 'success',
-              ).then(function () {
-
-                this.props.history.push("admin/Beneficiarias/SpecificView/" + id);
-              });
+              )
+              setTimeout(() => { this.setState.modalArchivos= false; }, 2000);
+              setTimeout(() => { window.location.reload(false); }, 3000);
             }
             );
           }

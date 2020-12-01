@@ -22,45 +22,6 @@ function getKinship() {
   .then(res => kinships =  parseKinship(res.data));
 }
 
-function editBeneficiary (idEmployee, idBeneficiary) {
-  let RFC = document.getElementById("RFC").value;
-  let Direccion = document.getElementById("Direccion").value;
-  let telefono = document.getElementById("telefono").value;
-  let Nombre = document.getElementById("Nombre").value;
-  let Parentesco = document.getElementById("Parentesco").value;
-  let porcentaje = document.getElementById("porcentaje").value;
-
-  if (Nombre !== ''&& porcentaje !== '' && Parentesco !== '') {
-    const registrarBeneficiario = {
-      employees_id : idEmployee,
-      nombreCompleto: Nombre,
-      kinship_id: Parentesco,
-      porcentaje: porcentaje,
-      telefono : telefono,
-      rfc : RFC,
-      direccion: Direccion
-    }
-
-  axios.put(API_BASE_URL+'empBeneficiary/'+idBeneficiary,registrarBeneficiario).then(res => {console.log(res)});
-
-  Swal.fire(
-    '¡Listo!',
-    'Vacaciones modificadas de manera exitosa',
-    'success'
-    ).then(function() {
-        this.props.history.push("admin/view-employee/"+idEmployee);
-    });
-  } else {
-    Swal.fire( {
-      icon: 'error',
-      title: 'Oops...',
-      text: 'No se han llenado todos los campos obligatorios!',
-    })
-  }
-}
-
-
-
 const ModalEditEmpBeneficiary = (props) => {
   const {
     className,
@@ -72,6 +33,43 @@ const ModalEditEmpBeneficiary = (props) => {
     getKinship();
   });
 
+  function editBeneficiary (idEmployee, idBeneficiary) {
+    let RFC = document.getElementById("RFC").value;
+    let Direccion = document.getElementById("Direccion").value;
+    let telefono = document.getElementById("telefono").value;
+    let Nombre = document.getElementById("Nombre").value;
+    let Parentesco = document.getElementById("Parentesco").value;
+    let porcentaje = document.getElementById("porcentaje").value;
+  
+    if (Nombre !== ''&& porcentaje !== '' && Parentesco !== '') {
+      const registrarBeneficiario = {
+        employees_id : idEmployee,
+        nombreCompleto: Nombre,
+        kinship_id: Parentesco,
+        porcentaje: porcentaje,
+        telefono : telefono,
+        rfc : RFC,
+        direccion: Direccion
+      }
+  
+    axios.put(API_BASE_URL+'empBeneficiary/'+idBeneficiary,registrarBeneficiario).then(res => {console.log(res)});
+  
+    Swal.fire(
+      '¡Listo!',
+      'Vacaciones modificadas de manera exitosa',
+      'success'
+      ).then(function() {
+        setModal(!modal);
+        window.location.reload(false);
+      });
+    } else {
+      Swal.fire( {
+        icon: 'error',
+        title: 'Oops...',
+        text: 'No se han llenado todos los campos obligatorios!',
+      })
+    }
+  }
 
 
   const [modal, setModal] = useState(false);

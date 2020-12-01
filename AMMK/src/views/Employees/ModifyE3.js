@@ -59,7 +59,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
     .then(res => this.setState({ jobTitles: parseJobTitles(res.data) }));
   }
 
-   onSubmit(e, id){
+   onSubmit(e, history){
     // e.preventDefault()
     //Agarrar los valores 
     let fechaIngreso = document.getElementById("fechaIngreso").value;
@@ -89,7 +89,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
       'Empleado modificado de manera exitosa',
       'success'
       ).then(function() {
-        this.props.history.push("admin/view-employee/"+idD);
+        // this.props.history.push("/admin/view-employee/"+idD);
+        history.goBack();
       });
     } else{
       Swal.fire( {
@@ -226,7 +227,7 @@ fillData (id) {
               </Card>
               <Row>
                 <Col  md="12" align="center">
-                 <Button className="btn btn-primary" onClick={this.onSubmit.bind("this", id)}>Modificar</Button>
+                 <Button className="btn btn-primary" onClick={this.onSubmit.bind("this", this.e, this.props.history)}>Modificar</Button>
 
                 </Col>
               </Row>
