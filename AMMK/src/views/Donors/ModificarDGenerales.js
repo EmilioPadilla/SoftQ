@@ -10,8 +10,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { Progress, Alert,  Card, CardBody, CardHeader } from "reactstrap";
 
+
 const ModificarDGenerales = (props) => {
   const { id } = props.match.params;
+
   ax(id);
   return (
     <div class="content">

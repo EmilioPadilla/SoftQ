@@ -4,6 +4,7 @@ import {FormGroup, Form, Input, Button} from "reactstrap"
 import axios from 'axios';
 import { Progress, Alert, Col, Card, CardBody, CardHeader } from "reactstrap";
 import { API_BASE_URL, FRONT_BASE_URL } from 'index';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Swal from 'sweetalert2';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -23,14 +24,16 @@ const EliminarDonacion = props =>{
                             <h2>Eliminar Donación</h2>
                             <Card>
           <CardHeader>
-          <h3 align="center" className="title">ATENCIÓN: ESTA ES UNA ACCIÓN PERMANENTE </h3>
+          <h3 align="center" className="title">Datos Donación {localStorage.getItem("donacion")}</h3>
+
+          <Alert color="danger" align="center">ATENCIÓN ESTA ES UNA ACCIÓN PERMANENTE</Alert>
           </CardHeader>
           <CardBody>
                             <Form>
                                 <div class="row justify-content-center">
                                     <div class="col-4" >
                                         <FormGroup>
-                                        <label className="font-weight-bold">FECHA EN QUE SE REALIZÓ: </label>
+                                        <label className="font-weight-bold">*&nbsp;<FontAwesomeIcon icon={['fas', 'calendar-alt']} />&nbsp;FECHA EN QUE SE REALIZÓ: </label>
                                         <Input
                                                 id="fecha"
                                                 
@@ -38,25 +41,14 @@ const EliminarDonacion = props =>{
                                             />    
                                  </FormGroup>
                                     </div>
-                                </div>
-                                <div class="row justify-content-center">
-                                    <div class="col-4">
-                                        <FormGroup>
-                                        <label className="font-weight-bold">TIPO DONACIÓN: </label>
-                                        <Input
-                                                id="tipo"
-                                                
-                                                type="text"
-                                            /> 
-                                        </FormGroup>
-                                       
-                                    </div>
+                                
+                                    
                                 </div>
                                 <div class="row justify-content-center">
                                 
                                     <div class="col-4">
                                         <FormGroup>
-                                        <label className="font-weight-bold">MONTO: </label>
+                                        <label className="font-weight-bold">*&nbsp;<FontAwesomeIcon icon={['fas', 'money-bill']} />&nbsp;MONTO:</label>
                                         <Input
                                                 id="monto"
                                                 
@@ -64,11 +56,10 @@ const EliminarDonacion = props =>{
                                             /> 
                                         </FormGroup>
                                     </div>
-                                </div>
-                                <div class="row justify-content-center">
+                                
                                     <div class="col-4">
                                         <FormGroup>
-                                        <label className="font-weight-bold">DESCRIPCIÓN: </label>
+                                        <label className="font-weight-bold">* DESCRIPCIÓN: </label>
                                         <Input
                                                 id="descripcion"
                                                 
@@ -100,6 +91,11 @@ const EliminarDonacion = props =>{
                             </div>
                             </CardBody>
                             </Card>
+                            <div>
+                                <Input type="text" id="tipo" style={{display: "none"}}>
+
+                                </Input>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -111,7 +107,8 @@ function ax(idC){
     axios.get( API_BASE_URL+"donaciones/"+idC)
           .then(function (resp){
             console.log(resp.data);
-           //document.getElementById("tipo").value = resp.data[0].idTipoDonacion;
+           document.getElementById("tipo").value = resp.data[0].nombre;
+           localStorage.setItem("donacion",resp.data[0].nombre);
            document.getElementById("fecha").value = resp.data[0].fechaDonacion;
            document.getElementById("descripcion").value = resp.data[0].descripcion;
            document.getElementById("monto").value = resp.data[0].monto;

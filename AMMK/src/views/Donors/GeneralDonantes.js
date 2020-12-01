@@ -87,7 +87,8 @@ onSubmit(e) {
     } 
   localStorage.setItem("tipoDonante2", JSON.stringify(tipoDonante2));
   localStorage.setItem("recurrencia", JSON.stringify(tipoRecurrencia));
-    window.location = FRONT_BASE_URL+"admin/RegistroDonante1";
+  this.props.history.push("admin/RegistroDonante1");
+
   } else {
     Swal.fire( {
       icon: 'error',

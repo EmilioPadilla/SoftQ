@@ -23,7 +23,7 @@ const ModifyDonorContact = (props) => {
                 <h2 >Modificar Contacto Donante</h2>
                 <Card>
           <CardHeader>
-          <h3 align="center" className="title">Datos Modificación Donante</h3>
+          <h3 align="center" className="title">Datos Modificación Contacto Donante</h3>
           <Alert color="primary">Los campos marcados con un asterisco (*) son obligatorios.</Alert>
           </CardHeader>
           <CardBody>
@@ -152,7 +152,7 @@ function modificar() {
    var cel= document.getElementById("cel").value ;
 
     var idD= document.getElementById("valorId").value;
-  if (nom!= "" && cargo!= ""&&fecha != ""&&correo != ""&&cel!= "") {
+  if (nom!= "" && cargo!= ""&&correo != ""&&cel!= "") {
     const contacto = {
         nombreCompleto: nom,
         cargo: cargo,

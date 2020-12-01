@@ -13,14 +13,15 @@ const ModifyDonation = (props) => {
   const { id } = props.match.params;
   ax(id);
   return (
+      
     <div class="content">
        <Prompt
             when={true}
             message="Te encuentras en proceso de modificación...¿Estás segur@ de querer salir?"
           />
-    <div class="container">
-        <div class="row">
-            <div class="col-12" >
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12" ></div>
                 <h2>Modificar Donación</h2>
                 <Card>
           <CardHeader>
@@ -31,7 +32,7 @@ const ModifyDonation = (props) => {
           <CardBody>
                 <Form autoComplete="off">
                     <div class="row justify-content-center">
-                        <div class="col-4" >
+                        <div class="col-4 justify-content-center" >
                             <FormGroup>
                             <label className="font-weight-bold">*&nbsp;<FontAwesomeIcon icon={['fas', 'calendar-alt']} />&nbsp;FECHA EN QUE SE REALIZÓ: </label>
                             <Input
@@ -41,7 +42,6 @@ const ModifyDonation = (props) => {
                                 />    
                      </FormGroup>
                         </div>
-                        <div class="col-4" ></div>
 
                        
                     </div>
@@ -71,14 +71,14 @@ const ModifyDonation = (props) => {
                     </div>
                     <br/>
                     <div class="row justify-content-center">
-                        <div class="col-4" align="center">
+                        <div class="col-4 justify-content-center" >
                         <Link to={`/admin/ViewSpecificDonor/${localStorage.getItem("idD")}`}>
                                 <Button className="btn-fill" color="primary" >
                                     Regresar
                                 </Button>
                         </Link>
                         </div>
-                        <div class="col-4" align="center">
+                        <div class="col-4 justify-content-center" >
                                 <Button className="btn-fill" color="danger" onClick={modificar}>
                                     Modificar
                                 </Button>
@@ -100,7 +100,6 @@ const ModifyDonation = (props) => {
             </div>
         </div>
     </div>
-</div>
   );
 };
 
