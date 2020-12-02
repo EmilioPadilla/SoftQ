@@ -116,7 +116,7 @@ const ModificarDGenerales = (props) => {
                         </Link>
                         </div>
                         <div class="col-4" align="center">
-                                <Button className="btn-fill" color="danger" onClick={modificar}>
+                                <Button className="btn-fill" color="danger" onClick={()=>modificar(this.props.hist)}>
                                     Modificar
                                 </Button>
                         </div>
@@ -150,7 +150,7 @@ function ax(idC) {
 }
 
 
-function modificar() {
+function modificar(hist) {
             var nom=document.getElementById("nombre").value ;
             var fecha=  document.getElementById("fecha").value ;
             var rfc=document.getElementById("rfc").value ;
@@ -175,7 +175,9 @@ function modificar() {
       });
 
     Swal.fire("¡Listo!", "Cambios guardados", "success").then(function () {
-      this.props.history.push("/admin/ViewSpecificDonor/"+idD);
+     hist.push("/admin/ViewSpecificDonor/"+idD);
+     //window.location=FRONT_BASE_URL+"admin/ViewSpecificDonor/"+idD;
+
     });
   } else {
     Swal.fire(

@@ -108,7 +108,7 @@ const ModifyDonorContact = (props) => {
                         </Link>
                         </div>
                         <div class="col-4" align="center">
-                                <Button className="btn-fill" color="danger" onClick={modificar}>
+                                <Button className="btn-fill" color="danger" onClick={()=>modificar(this.props.history)}>
                                     Modificar
                                 </Button>
                         </div>
@@ -143,7 +143,7 @@ function ax(idC) {
 }
 
 
-function modificar() {
+function modificar(hist) {
     var nom=document.getElementById("nombre").value ;
     var cargo= document.getElementById("cargo").value ;
     var fecha=document.getElementById("fecha").value ;
@@ -170,7 +170,9 @@ function modificar() {
       });
 
     Swal.fire("¡Listo!", "Cambios guardados", "success").then(function () {
-      this.props.history.push("/admin/ViewSpecificDonor/"+localStorage.getItem("idD"));
+      //window.location=FRONT_BASE_URL+"admin/ViewSpecificDonor/"+localStorage.getItem("idD");
+
+      hist.push("/admin/ViewSpecificDonor/"+localStorage.getItem("idD"));
     });
   } else {
     Swal.fire(

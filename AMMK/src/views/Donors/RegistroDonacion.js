@@ -83,7 +83,7 @@ class RegistroDonacion extends Component {
         var jsonArray1 = JSON.parse(localStorage.getItem("prueba"));
         const jsonArray= {...jsonArray0,...jsonArray1};
         //console.log(jsonArray0);
-        localStorage.clear();
+        localStorage.removeItem("prueba");
 
        // var jsonArray3=  JSON.parse(localStorage.getItem("prueba"));
 
@@ -98,7 +98,9 @@ class RegistroDonacion extends Component {
         'Datos guardados',
         'success'
         ).then(function() {
-            this.props.history.push("admin/ViewDonors");
+          window.location=FRONT_BASE_URL+"admin/ViewDonors";
+
+            //this.props.history.push("admin/ViewDonors");
         });
         } else {
           Swal.fire( {

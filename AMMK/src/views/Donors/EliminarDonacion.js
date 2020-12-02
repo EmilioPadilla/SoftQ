@@ -78,7 +78,7 @@ const EliminarDonacion = props =>{
                                     </Link>
                                     </div>
                                     <div class="col-4" align="center">
-                                            <Button className="btn-fill" color="danger" onClick={eliminar}>
+                                            <Button className="btn-fill" color="danger" onClick={eliminar(this.props.history)}>
                                                 Eliminar
                                             </Button>
                                     </div>
@@ -116,7 +116,7 @@ function ax(idC){
           } );
 }
 
-function eliminar(){
+function eliminar(hist){
     var idD = document.getElementById("valorId").value;
     console.log(idD);
         axios.delete( API_BASE_URL+"donaciones/"+idD)
@@ -128,7 +128,9 @@ function eliminar(){
            'Se ha eliminado la donación!',
            'success'
            ).then(function() {
-               this.props.history.push("/admin/ViewSpecificDonor"+localStorage.getItem("idD"));
+           // window.location=FRONT_BASE_URL+"admin/ViewSpecificDonor/"+localStorage.getItem("idD");
+
+            hist.push("/admin/ViewSpecificDonor"+localStorage.getItem("idD"));
         });
 }
 

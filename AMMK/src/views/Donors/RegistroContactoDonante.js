@@ -95,7 +95,9 @@ class RegistroContactoDonante extends Component {
         'Datos guardados',
         'success'
         ).then(function() {
-            this.props.history.push("admin/ViewDonors");
+           // this.props.history.push("admin/ViewDonors");
+           window.location=FRONT_BASE_URL+"admin/ViewDonors";
+
         });
         
         }else{

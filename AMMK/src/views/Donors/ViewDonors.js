@@ -22,11 +22,8 @@ class ViewDonors extends Component {
 
     axios.get(API_BASE_URL+"donors/table/all/"+localStorage.getItem("numS")+"/"+localStorage.getItem("tipo"))
     .then(function (resp) {
-      respuesta = resp.data;
-      document.getElementById("tablaD").innerHTML = respuesta;
+      document.getElementById("tablaD").innerHTML = resp.data;
     });
-
-
 
 
   }
@@ -72,7 +69,17 @@ class ViewDonors extends Component {
     
   }
 
-
+//busqueda por el input
+searchDonor() {
+  var palabra = document.getElementById('buscar').value;
+  if (palabra == "") {
+    palabra = "allOfEm";
+  }
+  axios.get("http://localhost:8000/api/donors/table/buscar/" + palabra)
+    .then(function (resp) {
+      document.getElementById("tablaD").innerHTML = resp.data;
+    });
+}
 
   render() {
     const login = localStorage.getItem("isLoggedIn");

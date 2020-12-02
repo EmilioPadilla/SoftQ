@@ -97,6 +97,11 @@ const ModifyDonation = (props) => {
 
                                 </Input>
                             </div>
+                            <div>
+                                <Input type="text" id="tipoid" style={{display: "none"}}>
+
+                                </Input>
+                            </div>
             </div>
         </div>
     </div>
@@ -108,6 +113,10 @@ function ax(idC) {
     console.log(resp.data);
            document.getElementById("tipo").value = resp.data[0].nombre;
            localStorage.setItem("donacion",resp.data[0].nombre);
+
+           document.getElementById("tipoid").value = resp.data[0].idTipoDonacion;
+           localStorage.setItem("tipoid",resp.data[0].idTipoDonacion);
+
            document.getElementById("fecha").value = resp.data[0].fechaDonacion;
            document.getElementById("descripcion").value = resp.data[0].descripcion;
            document.getElementById("monto").value = resp.data[0].monto;
@@ -117,7 +126,7 @@ function ax(idC) {
 
 
 function modificar() {
-    //var tipo=document.getElementById("tipo").value;
+    var tipo=document.getElementById("tipoid").value;
     var fecha=document.getElementById("fecha").value ;
     var descripcion=document.getElementById("descripcion").value ;
     var monto=document.getElementById("monto").value ;
@@ -127,7 +136,7 @@ function modificar() {
         fechaDonacion: fecha,
         descripcion: descripcion,
         monto: monto,
-        //idTipoDonacion:tipo,
+        idTipoDonacion:tipo,
 
       };
     axios
@@ -137,7 +146,8 @@ function modificar() {
       });
 
     Swal.fire("¡Listo!", "Cambios guardados", "success").then(function () {
-      this.props.history.push("/admin/ViewSpecificDonor/"+localStorage.getItem("idD"));
+      //this.props.history.push("/admin/ViewSpecificDonor/"+localStorage.getItem("idD"));
+      window.location=FRONT_BASE_URL+"admin/ViewSpecificDonor/"+localStorage.getItem("idD");
     });
   } else {
     Swal.fire(

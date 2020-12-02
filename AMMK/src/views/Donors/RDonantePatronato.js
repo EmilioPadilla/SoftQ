@@ -88,7 +88,9 @@ class RDonantesPatronato extends Component {
     };
   
     localStorage.setItem("patronato", JSON.stringify(donantePatronato));
-    this.props.history.push("admin/Facturacion");
+   // this.props.history.push("admin/Facturacion");
+   window.location=FRONT_BASE_URL+"admin/Facturacion";
+
   }
   }else{    Swal.fire(      '!ERROR!',      'Verifica que todos los campos sean correctos.',      'error'    )  }
    

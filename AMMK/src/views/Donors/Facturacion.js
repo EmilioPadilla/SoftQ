@@ -109,7 +109,11 @@ class Facturacion extends Component {
 
       const jsonArray = { ...jsonArray0, ...jsonArray1, ...jsonArray2, ...jsonArray3 };
       console.log(jsonArray0);
-      localStorage.clear();
+      localStorage.removeItem("recurrencia");
+      localStorage.removeItem("tipoDonante");
+      localStorage.removeItem("patronato");
+      localStorage.removeItem("facturacion");
+
 
       axios.post(API_BASE_URL+"donantes/", jsonArray).then(res => { console.log(res) });
 
@@ -119,7 +123,9 @@ class Facturacion extends Component {
         'Datos guardados',
         'success'
       ).then(function () {
-        this.props.history.push("admin/ViewDonors");
+       // this.props.history.push("admin/ViewDonors");
+       window.location=FRONT_BASE_URL+"admin/ViewDonors";
+
       });
     }
   }else{    Swal.fire(      '!ERROR!',      'Verifica que todos los campos sean correctos.',      'error'    )  }
