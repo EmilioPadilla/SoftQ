@@ -39,6 +39,7 @@ const validateForm = (errors) => {
 }
 
 export default class ModifyMedApp extends Component {
+  hist = this.props.hist;
 
   getSpecialty() {
     axios.get(API_BASE_URL + 'specialties')
@@ -168,9 +169,7 @@ export default class ModifyMedApp extends Component {
     this.setState({ errors, [name]: value });
   }
 
-  onSubmit(e) {
-
-    e.preventDefault();
+  onSubmit(hist) {
 
     if(validateForm(this.state.errors)) {
     //Agarrar los valores 
@@ -205,7 +204,7 @@ export default class ModifyMedApp extends Component {
         'Consulta médica modificada de manera exitosa',
         'success'
       ).then(function () {
-        this.props.history.push("admin/Beneficiarias/MedicalRecordView/" + beneficiary_id);
+        hist.push("../MedicalRecordView/" + beneficiary_id);
       });
     } else {
       Swal.fire(
@@ -331,7 +330,7 @@ export default class ModifyMedApp extends Component {
 
               <Row className="text-center">
                 <Col md="12">
-                  <Button type="submit">Modificar</Button>
+                  <Button onClick={() => this.onSubmit(this.props.history)}>Modificar</Button>
                 </Col>
               </Row>
             </Form>

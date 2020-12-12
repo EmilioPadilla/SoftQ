@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-import { Prompt } from 'react-router';
 
 //COMPONENTS
 import { Button, Card, CardHeader, CardBody, Form, FormGroup, Label, Input, CustomInput, Progress, Col, Alert, Row, Badge } from "reactstrap";
@@ -32,6 +31,8 @@ const validateForm = (errors) => {
   }
 
 export default class ModifyPersonal extends Component {
+
+    hist = this.props.hist;
 
     fillData() {
         let urlElements = window.location.href.split('/');
@@ -138,9 +139,7 @@ export default class ModifyPersonal extends Component {
         this.setState({ errors, [name]: value });
     }
 
-    onSubmit(e) {
-
-        e.preventDefault();
+    onSubmit(hist) {
 
         if(validateForm(this.state.errors)) {
         //Agarrar los valores 
@@ -183,7 +182,7 @@ export default class ModifyPersonal extends Component {
                 'Datos personales modificados de manera exitosa.',
                 'success',
             ).then(function () {
-                this.props.history.push("admin/Beneficiarias/SpecificView/" + id);
+                hist.push("../SpecificView/" + id);
             });
         } else {
             Swal.fire(
@@ -222,10 +221,6 @@ export default class ModifyPersonal extends Component {
         const { errors, formValid } = this.state;
         return (
             <div className="content">
-                <Prompt
-                    when={true}
-                    message="Te encuentras en proceso de registro...                                                ¿Estás segur@ de querer salir?"
-                />
                 <h2 className="title">Modificar Beneficiaria</h2>
                 <Form onSubmit={this.onSubmit} autocomplete="off">
                     <Card>
@@ -286,8 +281,7 @@ export default class ModifyPersonal extends Component {
                         </CardBody>
                     </Card>
                     <Col md="12" align="center">
-                        <Button type="submit">Modificar</Button>
-
+                        <Button onClick={() => this.onSubmit(this.props.history)}>Modificar</Button>
                     </Col>
                 </Form>
                 <div class="static-bottom">

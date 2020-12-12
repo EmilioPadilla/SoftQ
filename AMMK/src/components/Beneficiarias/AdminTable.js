@@ -81,7 +81,7 @@ export default class AdminTable extends React.Component {
                       <Link to={{
                         pathname: 'SpecificView/' + beneficiary.id,
                         state: beneficiary.id
-                      }}>
+                      }} hist={this.props.history}>
 
                         <Button color="info" size="sm" id="verDetalle"><FontAwesomeIcon icon={['fas', 'eye']} /></Button>
                         <SimpleTooltip placement="top" target="verDetalle">Ver detalle</SimpleTooltip>
@@ -90,9 +90,9 @@ export default class AdminTable extends React.Component {
                     <Col md="4">
                       {(() => {
                         switch (beneficiary.status_id) {
-                          case 1: return <TakeOutB id={beneficiary.id} />
-                          case 2: return <ReenterB name={beneficiary.id} />
-                          default: return <TakeOutB id={beneficiary.id} />
+                          case 1: return <TakeOutB id={beneficiary.id} history={this.props.history} />
+                          case 2: return <ReenterB name={beneficiary.id} history={this.props.history}/>
+                          default: return <TakeOutB id={beneficiary.id} history={this.props.history}/>
                         }
                       })()}
                     </Col>

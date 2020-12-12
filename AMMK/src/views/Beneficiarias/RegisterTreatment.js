@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Prompt } from 'react-router';
 import { Link } from "react-router-dom";
 
 //COMPONENTS
@@ -38,6 +37,8 @@ function parseMode(modes) {
 }
 
 export default class RegisterTreatment extends Component {
+
+  hist = this.props.hist;
 
   getModes() {
     axios.get(API_BASE_URL + 'modes')
@@ -146,9 +147,7 @@ export default class RegisterTreatment extends Component {
     this.setState({ errors, [name]: value });
   }
 
-  onSubmit(e) {
-
-    e.preventDefault();
+  onSubmit(hist) {
 
     if(validateForm(this.state.errors)) {
 
@@ -186,7 +185,7 @@ export default class RegisterTreatment extends Component {
         'Tratamiento registrado de manera exitosa.',
         'success',
       ).then(function () {
-        this.props.history.push("admin/Beneficiarias/MedicalRecordView/" + beneficiary_id);
+        hist.push("../MedicalRecordView/" + beneficiary_id);
       });
     }
   }else{
@@ -221,10 +220,6 @@ export default class RegisterTreatment extends Component {
 
     return (
       <div className="content">
-        <Prompt
-          when={true}
-          message="Te encuentras en proceso de registro...                                                ¿Estás segur@ de querer salir?"
-        />
         <h1 className="title">REGISTRAR TRATAMIENTO</h1>
         <Card>
           <CardBody>
@@ -297,7 +292,6 @@ export default class RegisterTreatment extends Component {
               <FormGroup>
                 <Row>
                   <Col md="6">
-                    <FontAwesomeIcon icon={['fas', 'calendar-alt']} />
                     <Label>* &nbsp;<FontAwesomeIcon icon={['fas', 'calendar-alt']} />&nbsp;Fecha de inicio:</Label>
 
                     <Input type="date" id="fechaInicio" name="fechaInicio" onChange={this.handleChange}></Input>
@@ -317,7 +311,7 @@ export default class RegisterTreatment extends Component {
 
               <Row className="text-center">
                 <Col md="12">
-                  <Button type="submit">Registrar</Button>
+                  <Button onClick={() => this.onSubmit(this.props.history)}>Registrar</Button>
                 </Col>
               </Row>
             </Form>

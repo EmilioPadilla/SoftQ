@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-import { Prompt } from 'react-router';
 
 //Components
 import Form from "react-bootstrap/Form";
@@ -41,6 +40,7 @@ function parseSede(sedes){
 }
 
 export default class RegisterExpense extends Component {
+  hist = this.props.hist;
     
   //CALL PARA SELECT 
     getSedes() {
@@ -151,8 +151,7 @@ export default class RegisterExpense extends Component {
         this.setState({errors, [name]: value});
     }
 
-    onSubmit(e){
-        e.preventDefault();
+    onSubmit(hist){
 
         if(validateForm(this.state.errors)) {
         //Agarrar los valores 
@@ -186,7 +185,7 @@ export default class RegisterExpense extends Component {
             'Egreso registrado de manera exitosa.',
             'success'
             ).then(function() {
-                this.props.history.push("admin/Finanzas/MonthlyView");
+              hist.push("./MonthlyView");
             });     
         }
       }else{
@@ -248,10 +247,6 @@ export default class RegisterExpense extends Component {
         const {errors} = this.state;
         return (
             <div className="content">
-              <Prompt
-            when={true}
-            message="Te encuentras en proceso de registro...                                                ¿Estás segur@ de querer salir?"
-          />
                 <h1 className="title">REGISTRAR EGRESO</h1>
                 <Card>
                     <CardBody>
@@ -313,7 +308,7 @@ export default class RegisterExpense extends Component {
 
                                 <Row className="text-center">
                                     <Col md="12">
-                                        <Button type="submit">Registrar</Button>
+                                        <Button onClick={() => this.onSubmit(this.props.history)}>Registrar</Button>
                                     </Col>
                                 </Row>
                             </Form> 

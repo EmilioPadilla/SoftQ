@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-import { Prompt } from 'react-router';
 
 //COMPONENTS
 import Form from "react-bootstrap/Form";
@@ -38,6 +37,9 @@ function parseHeadquarters(headquarters) {
 }
 
 export default class ModifyEntry extends Component {
+
+  hist = this.props.hist;
+
   fillData() {
     let urlElements = window.location.href.split('/');
     console.log(API_BASE_URL + 'beneficiaries/' + urlElements[6]);
@@ -158,9 +160,7 @@ export default class ModifyEntry extends Component {
     this.setState({ errors, [name]: value });
   }
 
-  onSubmit(e) {
-
-    e.preventDefault();
+  onSubmit(hist) {
     
     if(validateForm(this.state.errors)) {
     //Agarrar los valores 
@@ -209,7 +209,7 @@ export default class ModifyEntry extends Component {
         'Datos de ingreso modificados de manera exitosa',
         'success',
       ).then(function () {
-        this.props.history.push("admin/Beneficiarias/SpecificView/" + id);
+        hist.push("../SpecificView/" + id);
       });
     }
   }else{
@@ -243,10 +243,6 @@ export default class ModifyEntry extends Component {
 
     return (
       <div className="content">
-        <Prompt
-          when={true}
-          message="Te encuentras en proceso de registro...                                                ¿Estás segur@ de querer salir?"
-        />
         <Form onSubmit={this.onSubmit} autocomplete="off">
           <h2 className="title">Modificar Beneficiaria</h2>
           <Card>
@@ -313,7 +309,7 @@ export default class ModifyEntry extends Component {
             <CardFooter>
               <Row>
                 <Col md="12" align="center">
-                  <Button type="submit" >Modificar</Button>
+                  <Button  onClick={() => this.onSubmit(this.props.history)}>Modificar</Button>
                 </Col>
               </Row>
             </CardFooter>

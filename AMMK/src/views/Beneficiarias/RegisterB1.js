@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Prompt } from 'react-router';
 
 //COMPONENTS
 import { Button, Card, CardHeader, CardBody, Form, FormGroup, Label, Input, CustomInput, Progress, Col, Alert, Row, Badge } from "reactstrap";
@@ -29,6 +28,7 @@ const validateForm = (errors) => {
 
 
 export default class RegisterB1 extends Component {
+    hist = this.props.hist;
 
     constructor(props) {
         super(props);
@@ -117,9 +117,7 @@ export default class RegisterB1 extends Component {
         this.setState({ errors, [name]: value });
     }
 
-    onSubmit(e) {
-        e.preventDefault();
-
+    onSubmit(hist) {
         if(validateForm(this.state.errors)) {
         //Agarrar los valores 
         let nombre = document.getElementById("nombreCompleto").value;
@@ -137,7 +135,8 @@ export default class RegisterB1 extends Component {
                 vinculosFam: vinculosFam,
             };
             localStorage.setItem("personal", JSON.stringify(datosPersonales));
-            this.props.history.push("admin/Beneficiarias/RegisterB2");
+            hist.push("RegisterB2");
+            //this.props.history.push("admin/Beneficiarias/RegisterB2");
         } else {
             Swal.fire({
                 icon: 'error',
@@ -168,10 +167,6 @@ export default class RegisterB1 extends Component {
         const { errors } = this.state;
         return (
             <div className="content">
-                <Prompt
-                    when={true}
-                    message="Te encuentras en proceso de registro...                                                ¿Estás segur@ de querer salir?"
-                />
 
                 <h2 className="title">Registrar Beneficiaria</h2>
                 <Form autocomplete="off">
@@ -224,7 +219,7 @@ export default class RegisterB1 extends Component {
                         </CardBody>
                     </Card>
                     <Col md="12" align="right">
-                        <Button onClick={this.onSubmit}>Siguiente&nbsp;<FontAwesomeIcon icon={['fas', 'arrow-circle-right']} /></Button>
+                        <Button onClick={() => this.onSubmit(this.props.history)}>Siguiente&nbsp;<FontAwesomeIcon icon={['fas', 'arrow-circle-right']} /></Button>
                     </Col>
                 </Form>
             </div>

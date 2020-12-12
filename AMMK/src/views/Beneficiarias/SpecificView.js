@@ -23,7 +23,7 @@ library.add(fas)
 const calculate_age = birthDate => Math.floor((new Date() - new Date(birthDate).getTime()) / 3.15576e+10);
 
 export default class SpecificView extends Component {
-
+    
     state = {
         beneficiaries: [],
     }
@@ -132,7 +132,7 @@ export default class SpecificView extends Component {
                                         <Link to={{
                                             pathname: '../ModifyPersonal/' + id,
                                             state: id
-                                        }}>
+                                        }} hist={this.props.history}>
 
                                             <Button color="info" size="sm" id="verDetalle" className="float-right"><FontAwesomeIcon icon={['fas', 'pencil-alt']} /></Button>
                                             <SimpleTooltip placement="top" target="verDetalle">Modificar</SimpleTooltip>
@@ -148,7 +148,7 @@ export default class SpecificView extends Component {
                                         <Link to={{
                                             pathname: '../MedicalRecordView/' + id,
                                             state: id
-                                        }}>
+                                        }} hist={this.props.history}>
                                             <Button id="historialMedico" color="warning" className=""><FontAwesomeIcon icon={['fas', 'notes-medical']} />&nbsp;VER HISTORIAL MÉDICO</Button>
                                         </Link>
                                     </Col>
@@ -166,7 +166,7 @@ export default class SpecificView extends Component {
                                         <Link to={{
                                             pathname: '../ModifyEntry/' + id,
                                             state: id
-                                        }}>
+                                        }} hist={this.props.history}>
 
                                             <Button color="info" size="sm" id="verDetalle" className="float-right"><FontAwesomeIcon icon={['fas', 'pencil-alt']} /></Button>
                                             <SimpleTooltip placement="top" target="verDetalle">Modificar</SimpleTooltip>
