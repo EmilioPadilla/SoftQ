@@ -20,7 +20,7 @@ export default class Login extends Component {
           username: user,
           password: pass,
       };
-      axios.post(API_BASE_URL+"account/login/confirmation/",info)
+      axios.post(API_BASE_URL+"account/login/confirmation",info)
       .then(function (resp){
         if(resp.data == -1){
           Swal.fire(
