@@ -18,6 +18,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 library.add(fas)
 
 export default class MedicalRecordView extends Component {
+    hist = this.props.hist;
 
     render() {
         const { id } = this.props.match.params;
@@ -44,7 +45,7 @@ export default class MedicalRecordView extends Component {
                         <Link className="float-right" to={{
                             pathname: '../RegisterTreatment/' + id,
                             state: id
-                        }}>
+                        }} hist={this.props.history}>
                             <Button className="float-left" size="sm" id="registrarTratamiento"><FontAwesomeIcon icon={['fas', 'plus']} /></Button>
                             <SimpleTooltip placement="right" target="registrarTratamiento" >Registrar tratamiento</SimpleTooltip>
                         </Link>
@@ -74,7 +75,7 @@ export default class MedicalRecordView extends Component {
                         <Link className="float-right" to={{
                             pathname: '../RegisterMedApp/' + id,
                             state: id
-                        }}>
+                        }} hist={this.props.history}>
                             <Button size="sm" id="registrarConsulta" className="float-left"><FontAwesomeIcon icon={['fas', 'plus']} /></Button>
                             <SimpleTooltip placement="right" target="registrarConsulta" >&nbsp;&nbsp;&nbsp;&nbsp;Registrar consulta</SimpleTooltip>
                         </Link>

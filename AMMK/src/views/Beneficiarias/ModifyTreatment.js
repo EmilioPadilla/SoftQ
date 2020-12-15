@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-import { Prompt } from 'react-router';
 
 //COMPONENTS
 import Form from "react-bootstrap/Form";
@@ -38,6 +37,7 @@ function parseMode(modes) {
 }
 
 export default class ModifyTreatment extends Component {
+  hist = this.props.hist;
 
   getModes() {
     axios.get(API_BASE_URL + 'modes')
@@ -164,9 +164,7 @@ export default class ModifyTreatment extends Component {
     this.setState({ errors, [name]: value });
   }
 
-  onSubmit(e) {
-
-    e.preventDefault();
+  onSubmit(hist) {
 
     if(validateForm(this.state.errors)) {
     //Agarrar los valores 
@@ -205,7 +203,7 @@ export default class ModifyTreatment extends Component {
         'Tratamiento modificado de manera exitosa.',
         'success',
       ).then(function () {
-        this.props.history.push("admin/Beneficiarias/MedicalRecordView/" + beneficiary_id);
+        hist.push("../MedicalRecordView/" + beneficiary_id);
       });
     }
   }else{
@@ -240,10 +238,6 @@ export default class ModifyTreatment extends Component {
 
     return (
       <div className="content">
-        <Prompt
-          when={true}
-          message="Te encuentras en proceso de registro...                                                ¿Estás segur@ de querer salir?"
-        />
         <h1 className="title">MODIFICAR TRATAMIENTO</h1>
         <Card>
           <CardBody>
@@ -337,7 +331,7 @@ export default class ModifyTreatment extends Component {
 
               <Row className="text-center">
                 <Col md="12">
-                  <Button type="submit">Modificar</Button>
+                  <Button onClick={() => this.onSubmit(this.props.history)}>Modificar</Button>
                 </Col>
               </Row>
             </Form>

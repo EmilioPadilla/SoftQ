@@ -79,7 +79,7 @@ export default class NurseTable extends React.Component {
                                             <Link   to={{
                                                     pathname: 'MedicalRecordView/'+ beneficiary.id,
                                                     state:beneficiary.id
-                                                  }}> 
+                                                  }} hist={this.props.history}> 
                                                 <Button color="warning" size="sm" id="verHistorial"><FontAwesomeIcon icon={['fas', 'notes-medical']} /></Button>
                                                 <SimpleTooltip placement="top" target="verHistorial" >Ver historial médico</SimpleTooltip>
                                                 </Link>
@@ -89,7 +89,7 @@ export default class NurseTable extends React.Component {
                                             <Link   to={{
                                                     pathname: 'SpecificView/'+ beneficiary.id,
                                                     state:beneficiary.id
-                                                  }}> 
+                                                  }} hist={this.props.history}> 
                                                 <Button color="info" size="sm" id="verDetalle"><FontAwesomeIcon icon={['fas', 'eye']} /></Button>
                                                 <SimpleTooltip placement="top" target="verDetalle">Ver detalle</SimpleTooltip>
                                                 </Link>

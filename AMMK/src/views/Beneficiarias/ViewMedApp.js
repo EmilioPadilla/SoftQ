@@ -57,14 +57,7 @@ export default class ViewMedApp extends Component {
 
         <Modal isOpen={this.state.modalReingresar}>
           <ModalHeader>
-            <Row>
-              <Col md="10">
-              <h3 className="title" style={{ fontSize: '30px'}}>Detalle Consulta</h3>              
-              </Col>
-              <Col md="2">
-              <span style={{float: 'right', fontSize: '25px'}} onClick={() => { this.setState({ modalReingresar: false }) }}>x</span>
-              </Col>
-            </Row>
+              <h3 className="title" align="center" style={{ fontSize: '30px'}}>Detalle Consulta</h3>              
           </ModalHeader>
           <ModalBody>
             {this.state.appointments.map((appointment) => (
@@ -106,6 +99,9 @@ export default class ViewMedApp extends Component {
               </>
             ))}
           </ModalBody>
+          <ModalFooter>
+          <Button align="center" color="danger" onClick={() => this.setState({ modalReingresar: false })}>Cerrar</Button>
+          </ModalFooter>
         </Modal>
       </div>
     )

@@ -28,6 +28,8 @@ const validateForm = (errors) => {
 
 export default class ModifyTakeOut extends Component {
 
+  hist = this.props.hist;
+
   fillData() {
     let id = this.props.id;
     console.log(API_BASE_URL + 'beneficiaries/' + id);
@@ -112,9 +114,7 @@ export default class ModifyTakeOut extends Component {
     this.setState({ errors, [name]: value });
   }
 
-  onSubmit(e) {
-
-    e.preventDefault();
+  onSubmit(hist) {
     
     if(validateForm(this.state.errors)) {
     //Agarrar los valores 
@@ -160,7 +160,7 @@ export default class ModifyTakeOut extends Component {
         'Egreso registrado de manera exitosa',
         'success',
       ).then(function () {
-        this.props.history.push("admin/Beneficiarias/GeneralViewAdmin");
+        hist.push("../GeneralViewAdmin/" + id);
       });
     } else {
       Swal.fire(
@@ -282,7 +282,7 @@ export default class ModifyTakeOut extends Component {
             </ModalBody>
             <ModalFooter>
               <Button color="info" onClick={() => this.setState({ modalEgresar: false })}>Cancelar</Button>
-              <Button color="danger" type="submit">Egresar</Button>
+              <Button color="danger" onClick={() => this.onSubmit(this.props.history)}>Egresar</Button>
             </ModalFooter>
           </Form>
         </Modal>

@@ -27,6 +27,7 @@ const validateForm = (errors) => {
 }
 
 export default class TakeOutB extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -51,7 +52,8 @@ export default class TakeOutB extends Component {
 
   componentDidMount() {
     let id = this.props.id;
-    console.log(id);
+    let hist = this.props.hist;
+        console.log(id);
     axios.get(API_BASE_URL + 'beneficiaries/' + id)
       .then(res => {
         const beneficiaries = res.data;
@@ -100,10 +102,8 @@ export default class TakeOutB extends Component {
     this.setState({ errors, [name]: value });
   }
 
-  onSubmit(e) {
-
-    e.preventDefault();
-
+  onSubmit(hist) {
+    console.log(hist);
     if(validateForm(this.state.errors)) {
     //Agarrar los valores 
     let id = document.getElementById("id").value;
@@ -148,7 +148,7 @@ export default class TakeOutB extends Component {
         'Egreso registrado de manera exitosa',
         'success',
       ).then(function () {
-        this.props.history.push("admin/Beneficiarias/GeneralViewAdmin");
+        window.location.reload(false);
       });
     } else {
       Swal.fire(
@@ -168,6 +168,7 @@ export default class TakeOutB extends Component {
 
 
   render() {
+    const { history } = this.props;
     const login = localStorage.getItem("isLoggedIn");
     const idRol = localStorage.getItem("idRol");
     //Redirect in case of wrong role or no login
@@ -181,7 +182,7 @@ export default class TakeOutB extends Component {
     const { errors } = this.state;
     return (
       <div className="content">
-        <Button color="danger" size="sm" id="egresar" onClick={() => { this.setState({ modalEgresar: true }) }}><FontAwesomeIcon icon={faTrashAlt} /></Button>
+        <Button color="danger" size="sm" id="egresar" onClick={() => { this.setState({ modalEgresar: true }, this.props.history) }}><FontAwesomeIcon icon={faTrashAlt} /></Button>
         <SimpleTooltip placement="top" target="egresar" >Egresar</SimpleTooltip>
 
         <Modal isOpen={this.state.modalEgresar}>
@@ -241,11 +242,11 @@ export default class TakeOutB extends Component {
             </ModalBody>
             <ModalFooter>
               <Button color="info" onClick={() => this.setState({ modalEgresar: false })}>Cancelar</Button>
-              <Button color="danger" type="submit">Egresar</Button>
+              <Button color="danger" onClick={() => this.onSubmit(this.props.history)}>Egresar</Button>
             </ModalFooter>
           </Form>
         </Modal>
       </div>
-    );
+    );  
   }
 }

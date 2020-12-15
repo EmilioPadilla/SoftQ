@@ -28,6 +28,8 @@ const validateForm = (errors) => {
 }
 
 export default class ReenterB extends Component {
+  hist = this.props.hist;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -92,9 +94,7 @@ export default class ReenterB extends Component {
     this.setState({ errors, [name]: value });
   }
 
-  onSubmit(e) {
-
-    e.preventDefault();
+  onSubmit(hist) {
     
     if(validateForm(this.state.errors)) {
     //Agarrar los valores 
@@ -137,7 +137,7 @@ export default class ReenterB extends Component {
         'Reingreso registrado de manera exitosa',
         'success',
       ).then(function () {
-        this.props.history.push("admin/Beneficiarias/GeneralViewAdmin");
+        window.location.reload(false);
       });
     } else {
       Swal.fire(
@@ -217,7 +217,7 @@ export default class ReenterB extends Component {
             </ModalBody>
             <ModalFooter>
               <Button color="info" onClick={() => this.setState({ modalReingresar: false })}>Cancelar</Button>
-              <Button color="success" type="submit">Reingresar</Button>
+              <Button color="success" onClick={() => this.onSubmit(this.props.hist)}>Reingresar</Button>
             </ModalFooter>
           </Form>
         </Modal>

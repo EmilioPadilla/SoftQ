@@ -103,7 +103,7 @@ export default class TreatmentTable extends React.Component {
                     <Link to={{
                             pathname: '/admin/Beneficiarias/ModifyTreatment/' + treatment.id,
                             state: treatment.id
-                        }}>
+                        }} hist={this.props.history}>
                        <Button size="sm" id="editar" variant="info" onClick={()=>{this.selectTreatment(treatment);}}><FontAwesomeIcon icon={['fas', 'pencil-alt']} /></Button>
                        <SimpleTooltip placement="top" target="editar" >Editar</SimpleTooltip>
                     </Link>

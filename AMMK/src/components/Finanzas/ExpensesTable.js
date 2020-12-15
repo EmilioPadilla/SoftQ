@@ -96,6 +96,7 @@ class ExpensesTable extends React.Component {
       'El egreso fue eliminado de manera exitosa.',
       'success'
   )
+  this.getExpenses();
   }
   
   modalInsertar=()=>{

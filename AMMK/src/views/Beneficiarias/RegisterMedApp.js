@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-import { Prompt } from 'react-router';
 
 //COMPONENTS
 import Form from "react-bootstrap/Form";
@@ -40,6 +39,7 @@ function parseSpecialties(specialties) {
 }
 
 export default class RegisterMedApp extends Component {
+  hist = this.props.hist;
 
   getSpecialty() {
     axios.get(API_BASE_URL + 'specialties')
@@ -162,8 +162,7 @@ export default class RegisterMedApp extends Component {
     this.setState({ errors, [name]: value });
   }
 
-  onSubmit(e) {
-    e.preventDefault();
+  onSubmit(hist) {
 
     if(validateForm(this.state.errors)) {
     //Agarrar los valores 
@@ -201,7 +200,7 @@ export default class RegisterMedApp extends Component {
         'Consulta médica registrada de manera exitosa',
         'success'
       ).then(function () {
-        this.props.history.push("admin/Beneficiarias/MedicalRecordView/" + beneficiary_id);
+        hist.push("../MedicalRecordView/" + beneficiary_id);
       });
     }
   }else{
@@ -237,10 +236,6 @@ export default class RegisterMedApp extends Component {
 
     return (
       <div className="content">
-        <Prompt
-          when={true}
-          message="Te encuentras en proceso de registro...                                                ¿Estás segur@ de querer salir?"
-        />
         <h1 className="title">REGISTRAR CONSULTA MÉDICA</h1>
         <Card>
           <CardBody>
@@ -324,7 +319,7 @@ export default class RegisterMedApp extends Component {
               </FormGroup>
               <Row className="text-center">
                 <Col md="12">
-                  <Button type="submit">Registrar</Button>
+                  <Button onClick={() => this.onSubmit(this.props.history)}>Registrar</Button>
                 </Col>
               </Row>
             </Form>

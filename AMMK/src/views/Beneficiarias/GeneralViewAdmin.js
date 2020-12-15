@@ -101,7 +101,7 @@ export default class GeneralViewAdmin extends Component {
                     </Col>
 
                     <Col md="6">
-                        <Link to='/admin/Beneficiarias/RegisterB1'>
+                        <Link  to='/admin/Beneficiarias/RegisterB1' hist={this.props.history}>
                             <Button className="btn btn-primary float-right"><FontAwesomeIcon icon={['fas', 'user-plus']} /> Registrar beneficiaria</Button>
                         </Link>
                     </Col>
